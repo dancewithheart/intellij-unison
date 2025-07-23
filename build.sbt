@@ -1,10 +1,10 @@
 import org.jetbrains.sbtidea.Keys.*
 
-ThisBuild / intellijPluginName := "My Awesome Framework"
+ThisBuild / intellijPluginName := "intellij-unison"
 ThisBuild / intellijBuild := "243.22562.218"
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
 
-lazy val myAwesomeFramework =
+lazy val unison =
   project.in(file("."))
     .enablePlugins(SbtIdeaPlugin)
     .settings(
