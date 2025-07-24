@@ -12,7 +12,7 @@
     <change-notes>
      <![CDATA[
        <ul>
-        <li><b>0.0.1</b> Add icon for Unison files.</li>
+        <li><b>0.0.1</b> Basic plumbing for IntelliJ plugin.</li>
        </ul>
       ]]>
     </change-notes>
@@ -21,7 +21,7 @@
         <fileType
                 name="Unison File"
                 implementationClass="intellij.unison.UnisonFileType"
-                language="unison"
+                language="Unison"
                 extensions="u"
         />
         <iconProvider implementation="intellij.unison.UnisonIcon"

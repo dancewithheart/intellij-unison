@@ -12,7 +12,7 @@ case class UnisonFileType() extends LanguageFileType(UnisonLanguage.INSTANCE) {
 
   override def getDescription: String = "Unison language file"
 
-  override def getDefaultExtension: String = "unison"
+  override def getDefaultExtension: String = "Unison"
 
   override def getIcon: Icon = UnisonIcon.INSTANCE.FILE
 }
