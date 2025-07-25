@@ -5,7 +5,6 @@ import com.intellij.openapi.fileTypes.LanguageFileType
 import javax.swing.Icon
 
 case class UnisonFileType() extends LanguageFileType(UnisonLanguage.INSTANCE) {
-  val INSTANCE: UnisonFileType.type = UnisonFileType
 
   override def getName: String = "Unison File"
 
@@ -14,4 +13,8 @@ case class UnisonFileType() extends LanguageFileType(UnisonLanguage.INSTANCE) {
   override def getDefaultExtension: String = "Unison"
 
   override def getIcon: Icon = UnisonIcon.INSTANCE.FILE
+}
+
+object UnisonFileType {
+  val INSTANCE: UnisonFileType = UnisonFileType()
 }

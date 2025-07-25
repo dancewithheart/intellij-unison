@@ -1,11 +1,14 @@
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "https://plugins.jetbrains.com/plugin.dtd">
 <idea-plugin>
     <id>org.jetbrains.plugins.unison</id>
-    <name>unison</name>
+    <name>Unison</name>
 
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <vendor>DanceWithHeart</vendor>
 
     <idea-version since-build="231.0"/>
+    <idea-version since-build="251.0" until-build="260.0"/>
+
     <depends>com.intellij.modules.platform</depends>
 
     <description>Unison plugin for IntelliJ IDEA</description>
@@ -13,6 +16,7 @@
      <![CDATA[
        <ul>
         <li><b>0.0.1</b> Basic plumbing for IntelliJ plugin.</li>
+        <li><b>0.0.2</b> Basic plumbing for parser.</li>
        </ul>
       ]]>
     </change-notes>
@@ -24,8 +28,11 @@
                 language="Unison"
                 extensions="u"
         />
-        <iconProvider implementation="intellij.unison.UnisonIcon"
-        />
+        <lang.parserDefinition
+                language="Unison"
+                implementationClass="intellij.unison.language.UnisonParserDefinition"/>
+        <iconProvider implementation="intellij.unison.UnisonIcon" />
     </extensions>
+
 
 </idea-plugin>

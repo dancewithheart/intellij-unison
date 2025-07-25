@@ -14,6 +14,7 @@ lazy val unison =
       version := "0.0.1",
       Compile / javacOptions ++= Seq("--release", "17"),
       Compile / scalacOptions ++= Seq("--release", "17"),
+      compileOrder := CompileOrder.Mixed,
       intellijPlugins += "com.intellij.properties".toPlugin,
       libraryDependencies ++= Seq(),
       // manually breaking sources in gen does not break `sbt compile`
@@ -25,6 +26,9 @@ lazy val unison =
     )
 
 // https://github.com/dlwh/sbt-jflex uses old version of JFlex
+// manually one can download JFlex modified by IntelliJ and run
+// java -Xmx512m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -jar ./gen/jflex-1.9.2.jar -d ./ge
+//n/intellij/unison ./src/main/scala/intellij/unison/language/Unison.flex
 def lexer: Command = Command.command("lexer") { state: State =>
   val baseDir = state.configuration.baseDirectory()
   val srcDir = s"$baseDir/src/main/scala"
