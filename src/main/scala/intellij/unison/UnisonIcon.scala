@@ -8,16 +8,16 @@ import com.intellij.ui.IconManager
 
 case class UnisonIcon() extends IconProvider {
 
- val FILE: Icon =
-   IconManager.getInstance.getIcon("/icons/unison2.png", getClass.getClassLoader)
+  val FILE: Icon =
+    IconManager.getInstance.getIcon(
+      "/icons/unison2.png",
+      getClass.getClassLoader
+    )
 
-  override def getIcon(element: PsiElement, flags: Int): Icon = UnisonIcon.INSTANCE.FILE
+  override def getIcon(element: PsiElement, flags: Int): Icon =
+    UnisonIcon.INSTANCE.FILE
 }
 
 object UnisonIcon {
   val INSTANCE: UnisonIcon = UnisonIcon()
 }
-
-
-
-
