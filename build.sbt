@@ -15,6 +15,9 @@ lazy val unison =
       Compile / scalacOptions ++= Seq("--release", "17"),
       intellijPlugins += "com.intellij.properties".toPlugin,
       libraryDependencies ++= Seq(),
+      // manually breaking sources in gen does not break `sbt compile`
+      // Compile / managedSourceDirectories += baseDirectory.value / "gen",
+      Compile / javaSource := baseDirectory.value / "gen",
       Compile / unmanagedResourceDirectories += baseDirectory.value / "resources",
       Test / unmanagedResourceDirectories += baseDirectory.value / "testResources",
     )
