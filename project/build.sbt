@@ -1,4 +1,5 @@
 // Allow to run JFlex in project build.sbt
-resolvers +=
+resolvers ++= Seq(
   "IntelliJ Deps Repository" at "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies/"
-libraryDependencies += "org.jetbrains.intellij.deps.jflex" % "jflex" % "1.9.2"
+)
+libraryDependencies ++= Seq("org.jetbrains.intellij.deps.jflex" % "jflex" % "1.9.2")
