@@ -10,7 +10,7 @@ case class UnisonIcon() extends IconProvider {
 
   val FILE: Icon =
     IconManager.getInstance.getIcon(
-      "/icons/unison2.png",
+      "/icons/unison.svg",
       getClass.getClassLoader
     )
 
