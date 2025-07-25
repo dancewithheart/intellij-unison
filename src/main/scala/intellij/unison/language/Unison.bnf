@@ -1,0 +1,20 @@
+{
+  parserClass="intellij.unison.language.parser.UnisonParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Unison"
+  psiImplClassSuffix="Impl"
+  psiPackage="intellij.unison.language.psi"
+  psiImplPackage="intellij.unison.language.psi.impl"
+
+  elementTypeHolderClass="intellij.unison.language.psi.UnisonTypes"
+  elementTypeClass="intellij.unison.language.psi.UnisonElementType"
+  tokenTypeClass="intellij.unison.language.psi.UnisonTokenType"
+}
+
+unisonFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY
