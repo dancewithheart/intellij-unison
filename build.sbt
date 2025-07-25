@@ -1,4 +1,5 @@
 import org.jetbrains.sbtidea.Keys.*
+import jflex.Main.{main => jflexRun}
 
 ThisBuild / scalaVersion := "2.13.16"
 
@@ -20,4 +21,16 @@ lazy val unison =
       Compile / javaSource := baseDirectory.value / "gen",
       Compile / unmanagedResourceDirectories += baseDirectory.value / "resources",
       Test / unmanagedResourceDirectories += baseDirectory.value / "testResources",
+      commands ++= Seq(lexer)
     )
+
+// https://github.com/dlwh/sbt-jflex uses old version of JFlex
+def lexer: Command = Command.command("lexer") { state: State =>
+  val baseDir = state.configuration.baseDirectory()
+  val srcDir = s"$baseDir/src/main/scala"
+  val flexFilePath = s"$srcDir/intellij/unison/language/Unison.flex"
+  val outDir = s"$baseDir/gen/intellij/unison"
+  println(s"Generate lexer from $flexFilePath into $outDir")
+  jflexRun(Array("-d", outDir, flexFilePath))
+  state
+}

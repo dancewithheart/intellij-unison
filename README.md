@@ -18,6 +18,15 @@ sbt clean compile
 
 [Tutorial how to build IntelliJ language plugin](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html).
 
-Grammar definition in [Unison.bnf](./src/main/scala/intellij/unison/language/Unison.bnf)
-Manually re-generate files in [gen](./gen) using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) is IntelliJ Plugin
+* BNF Grammar
+
+Parser is generated from [Unison.bnf](./src/main/scala/intellij/unison/language/Unison.bnf)
+manually, using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin
 ( [tutorial](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md) ).
+
+* Lexer
+
+Lexer is generated from [Unison.flex](./intellij/unison/language/Unison.flex) using modified [JFlex](https://www.jflex.de/) modified [by IntelliJ](https://github.com/JetBrains/intellij-deps-jflex):
+```shell
+sbt lexer
+```
