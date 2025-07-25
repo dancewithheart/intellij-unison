@@ -38,3 +38,6 @@ def lexer: Command = Command.command("lexer") { state: State =>
   jflexRun(Array("-d", outDir, flexFilePath))
   state
 }
+
+addCommandAlias("r", "clean;compile;")
+addCommandAlias("fmt", "scalafmtAll")
