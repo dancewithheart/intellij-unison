@@ -10,6 +10,11 @@ sbt runIDE
 
 ## Development notes
 
+Enable development tools in IntelliJ `Help \ Edit Custom Properties ...`
+```properties
+idea.is.internal=true
+```
+
 * Compile
 
 ```shell
