@@ -11,7 +11,7 @@ sbt r
 
 ## Development notes
 
-Enable development tools in IntelliJ `Help \ Edit Custom Properties ...`
+[Enable internal](https://plugins.jetbrains.com/docs/intellij/explore-api.html#internalMode) tools in IntelliJ `Help \ Edit Custom Properties ...`
 ```properties
 idea.is.internal=true
 ```
