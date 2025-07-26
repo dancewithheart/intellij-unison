@@ -1,4 +1,5 @@
 # IntelliJ IDEA Plugin for [Unison](https://www.unison-lang.org/)
+[![Scala CI](https://github.com/dancewithheart/intellij-unison/actions/workflows/scala.yml/badge.svg?branch=main)](https://github.com/dancewithheart/intellij-unison/actions/workflows/scala.yml?query=branch%3Amain)
 
 ## Running locally
 
