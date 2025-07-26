@@ -4,37 +4,54 @@
     <name>Unison</name>
 
     <version>0.0.2</version>
-    <vendor>DanceWithHeart</vendor>
+    <vendor url="https://github.com/dancewithheart">@dancewithheart</vendor>
 
-    <idea-version since-build="231.0"/>
-    <idea-version since-build="251.0" until-build="260.0"/>
+
+    <idea-version since-build="251.0"/>
+    <!-- idea-version since-build="231.0" until-build="260.0"/ -->
 
     <depends>com.intellij.modules.platform</depends>
 
-    <description>Unison plugin for IntelliJ IDEA</description>
+    <description>
+        <![CDATA[
+        Provides support for <a href="https://www.unison-lang.org/">Unison language<a> with basic syntax highlighting.<br />
+        WIP<br /><br />
+
+        Modifying color scheme: `Settings | Editor | Color Scheme | Unison`<br /><br />
+
+        Repository for contributing and reporting issues: <a href="https://github.com/dancewithheart/intellij-unison">github.com/dancewithheart/intellij-unison</a>
+        ]]>
+    </description>
     <change-notes>
      <![CDATA[
        <ul>
+        <li><b>0.0.2</b> Basic plumbing for lexer, parser and syntax highlighter, color scheme.</li>
         <li><b>0.0.1</b> Basic plumbing for IntelliJ plugin.</li>
-        <li><b>0.0.2</b> Basic plumbing for lexer, parser and syntax highlighter.</li>
        </ul>
       ]]>
     </change-notes>
 
     <extensions defaultExtensionNs="com.intellij">
+        <iconProvider implementation="intellij.unison.UnisonIcon" />
+
+        <!-- file type -->
         <fileType
                 name="Unison File"
                 implementationClass="intellij.unison.UnisonFileType"
                 language="Unison"
-                extensions="u"
-        />
+                extensions="u" />
+
+        <!-- parser -->
         <lang.parserDefinition
                 language="Unison"
-                implementationClass="intellij.unison.language.UnisonParserDefinition"/>
-        <iconProvider implementation="intellij.unison.UnisonIcon" />
+                implementationClass="intellij.unison.language.UnisonParserDefinition" />
+
+        <!-- syntax highlighting -->
         <lang.syntaxHighlighterFactory
                 language="Unison"
                 implementationClass="intellij.unison.language.highlight.UnisonSyntaxHighlighterFactory" />
+        <colorSettingsPage
+                implementation="intellij.unison.language.highlight.UnisonColorSettingsPage" />
     </extensions>
 
 </idea-plugin>
