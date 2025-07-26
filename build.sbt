@@ -7,6 +7,10 @@ ThisBuild / intellijPluginName := "intellij-unison"
 ThisBuild / intellijBuild := "251.27812.12"
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
 
+val junitInterfaceVersion = "0.13.3"
+val opentest4jVersion = "1.3.0"
+val junitVersion = "4.13.2"
+
 lazy val unison =
   project.in(file("."))
     .enablePlugins(SbtIdeaPlugin)
@@ -16,7 +20,11 @@ lazy val unison =
       Compile / scalacOptions ++= Seq("--release", "17"),
       compileOrder := CompileOrder.Mixed,
       intellijPlugins += "com.intellij.properties".toPlugin,
-      libraryDependencies ++= Seq(),
+      libraryDependencies ++= Seq(
+        "com.github.sbt" % "junit-interface" % junitInterfaceVersion % Test,
+        "org.opentest4j" % "opentest4j" % opentest4jVersion % Test,
+        "junit" % "junit" % junitVersion % Test
+      ),
       // manually breaking sources in gen does not break `sbt compile`
       // Compile / managedSourceDirectories += baseDirectory.value / "gen",
       Compile / javaSource := baseDirectory.value / "gen",

@@ -2,7 +2,20 @@
 package intellij.unison.language.psi;
 
 import com.intellij.psi.PsiElement;
+import com.intellij.navigation.ItemPresentation;
 
-public interface UnisonProperty extends PsiElement {
+public interface UnisonProperty extends UnisonNamedElement {
+
+  String getKey();
+
+  String getValue();
+
+  String getName();
+
+  PsiElement setName(String newName);
+
+  PsiElement getNameIdentifier();
+
+  ItemPresentation getPresentation();
 
 }

@@ -1,5 +1,6 @@
 {
   parserClass="intellij.unison.language.parser.UnisonParser"
+  parserUtilClass="intellij.unison.language.parser.UnisonParserUtil"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
@@ -11,10 +12,19 @@
   elementTypeHolderClass="intellij.unison.language.psi.UnisonTypes"
   elementTypeClass="intellij.unison.language.psi.UnisonElementType"
   tokenTypeClass="intellij.unison.language.psi.UnisonTokenType"
+
+  psiImplUtilClass="intellij.unison.language.psi.impl.UnisonPsiImplUtil"
 }
 
 unisonFile ::= item_*
 
 private item_ ::= (property|COMMENT|CRLF)
 
-property ::= (KEY? SEPARATOR VALUE?) | KEY
+property ::= (KEY? SEPARATOR VALUE?) | KEY {
+  pin=3
+  recoverWhile="recover_property"
+  mixin="intellij.unison.language.psi.impl.UnisonNamedElementImpl"
+  implements="intellij.unison.language.psi.impl.UnisonNamedElementImpl"
+  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+}
+private recover_property ::= !(KEY|SEPARATOR|COMMENT)
