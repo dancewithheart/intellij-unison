@@ -39,5 +39,7 @@ def lexer: Command = Command.command("lexer") { state: State =>
   state
 }
 
-addCommandAlias("r", "clean;compile;")
-addCommandAlias("fmt", "scalafmtAll")
+addCommandAlias("c", "clean;compile;")
+addCommandAlias("t", "clean;compile;test")
+addCommandAlias("r", "runIDE")
+addCommandAlias("f", "scalafmtAll")
