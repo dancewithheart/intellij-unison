@@ -9,4 +9,6 @@ abstract class BaseUnisonTest
   override def getTestDataPath: String = "src/test/testData"
 
   override def includeRanges(): Boolean = true
+
+  def runTests(): Unit = doTest(true)
 }

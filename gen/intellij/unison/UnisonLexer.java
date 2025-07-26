@@ -2,6 +2,8 @@
 // source: src/main/scala/intellij/unison/language/Unison.flex
 
 // Copyright 2000-2022 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+/* Unison lexer specification */
+/* ===================== User Code =================== */
 package intellij.unison;
 
 import com.intellij.lexer.FlexLexer;
@@ -68,8 +70,9 @@ class UnisonLexer implements FlexLexer {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\1\3\1\4\1\5\22\0\1\6"+
-    "\1\7\1\0\1\7\26\0\1\10\2\0\1\10\36\0"+
-    "\1\11\50\0\1\3\u01a2\0\2\3\326\0\u0100\12";
+    "\14\0\1\7\14\0\1\10\2\0\1\10\36\0\1\11"+
+    "\36\0\1\12\1\0\1\13\7\0\1\3\u01a2\0\2\3"+
+    "\326\0\u0100\3";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -96,12 +99,13 @@ class UnisonLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\1\1\1\2\1\1\1\3\1\4\1\5\1\6"+
-    "\2\7\1\6\1\7\1\5\1\0\2\3\1\0\1\6"+
-    "\1\2\1\6";
+    "\2\0\1\1\1\2\2\1\1\3\1\4\1\1\1\5"+
+    "\3\6\1\5\1\4\1\0\1\7\1\1\1\0\1\5"+
+    "\1\2\1\5\2\7\1\1\1\0\1\1\1\0\1\1"+
+    "\1\0\1\1\2\7";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[21];
+    int [] result = new int[33];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -126,12 +130,14 @@ class UnisonLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\13\0\26\0\41\0\54\0\67\0\102\0\115"+
-    "\0\130\0\143\0\41\0\156\0\171\0\204\0\115\0\217"+
-    "\0\232\0\204\0\245\0\156\0\260";
+    "\0\0\0\14\0\30\0\44\0\60\0\74\0\110\0\124"+
+    "\0\140\0\154\0\170\0\44\0\204\0\220\0\234\0\124"+
+    "\0\250\0\264\0\234\0\300\0\220\0\314\0\330\0\344"+
+    "\0\360\0\374\0\u0108\0\u0114\0\u0120\0\u012c\0\u0138\0\30"+
+    "\0\110";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[21];
+    int [] result = new int[33];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -154,24 +160,34 @@ class UnisonLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\2\4\1\5\1\4\1\5\1\4\1\6\1\7"+
-    "\1\10\1\3\1\11\1\12\1\13\1\14\1\13\1\14"+
-    "\1\15\2\11\1\16\1\11\1\3\2\0\1\3\1\0"+
-    "\1\3\1\0\1\3\1\0\1\17\1\3\1\0\6\4"+
-    "\4\0\1\3\2\4\1\5\1\4\1\5\1\4\1\3"+
-    "\1\0\1\17\1\3\1\6\1\20\1\0\1\6\1\20"+
-    "\1\3\1\20\1\6\1\20\1\21\1\6\21\0\1\3"+
-    "\4\0\2\11\1\0\1\11\1\0\4\11\1\22\2\11"+
-    "\1\12\1\15\1\23\1\15\1\23\1\12\2\11\1\22"+
-    "\2\11\1\24\1\4\1\24\1\4\2\24\2\11\1\22"+
-    "\1\11\1\0\2\15\1\4\1\15\1\4\1\15\4\0"+
-    "\5\11\1\25\4\11\1\0\2\20\1\0\2\20\1\0"+
-    "\7\20\1\0\2\20\1\0\1\6\4\20\1\11\1\23"+
-    "\1\4\1\23\1\4\2\23\2\11\1\22\5\11\1\0"+
-    "\4\11\1\22\1\11";
+    "\1\3\2\4\1\3\1\4\1\5\1\4\1\6\1\7"+
+    "\1\10\1\11\1\3\1\12\1\13\1\14\1\12\1\15"+
+    "\1\16\1\15\2\12\1\17\2\12\1\3\2\0\1\3"+
+    "\1\0\1\3\1\0\1\3\1\0\1\20\2\3\1\0"+
+    "\2\4\1\0\3\4\5\0\1\3\2\4\1\3\1\4"+
+    "\1\5\1\4\1\3\1\0\1\20\3\3\2\0\1\3"+
+    "\1\0\1\3\1\0\1\21\1\0\1\20\2\3\22\0"+
+    "\1\3\5\0\1\3\2\0\1\3\1\0\1\3\1\0"+
+    "\1\22\1\0\1\20\2\3\2\12\1\0\1\12\1\0"+
+    "\4\12\1\23\3\12\1\13\1\15\1\12\1\15\1\24"+
+    "\1\13\2\12\1\23\2\12\1\0\2\15\1\0\1\15"+
+    "\1\4\1\15\5\0\1\12\1\25\1\4\1\12\1\4"+
+    "\2\25\2\12\1\23\5\12\2\0\1\26\6\12\1\21"+
+    "\1\27\1\0\1\21\1\27\1\3\1\27\1\21\1\27"+
+    "\1\30\2\21\1\31\2\32\1\31\1\32\1\31\1\32"+
+    "\1\33\1\32\1\34\2\31\1\12\1\24\1\4\1\12"+
+    "\1\4\2\24\2\12\1\23\6\12\1\0\4\12\1\23"+
+    "\2\12\2\27\1\0\2\27\1\0\10\27\1\0\2\27"+
+    "\1\0\1\21\5\27\1\31\2\32\1\31\1\32\1\31"+
+    "\1\32\1\35\1\32\1\34\2\31\7\32\1\36\4\32"+
+    "\1\3\2\0\1\3\1\0\1\3\1\0\1\37\1\0"+
+    "\1\20\2\3\6\32\1\31\1\36\4\32\1\31\2\32"+
+    "\1\31\1\32\1\31\1\32\1\35\1\32\1\34\1\31"+
+    "\1\40\7\32\1\36\3\32\1\41\1\3\2\0\1\3"+
+    "\1\0\1\3\1\0\1\37\1\0\1\20\1\3\1\40";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[187];
+    int [] result = new int[324];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -209,10 +225,11 @@ class UnisonLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\4\1\1\11\7\1\1\0\2\1\1\0\3\1";
+    "\2\0\4\1\1\11\10\1\1\0\2\1\1\0\6\1"+
+    "\1\0\1\1\1\0\1\1\1\0\2\1\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[21];
+    int [] result = new int[33];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -544,27 +561,27 @@ class UnisonLexer implements FlexLexer {
           // fall through
           case 9: break;
           case 3:
-            { yybegin(YYINITIAL); return UnisonTypes.COMMENT;
+            { yybegin(WAITING_VALUE); return UnisonTypes.SEPARATOR;
             }
           // fall through
           case 10: break;
           case 4:
-            { yybegin(WAITING_VALUE); return UnisonTypes.SEPARATOR;
+            { return TokenType.BAD_CHARACTER;
             }
           // fall through
           case 11: break;
           case 5:
-            { return TokenType.BAD_CHARACTER;
+            { yybegin(YYINITIAL); return UnisonTypes.VALUE;
             }
           // fall through
           case 12: break;
           case 6:
-            { yybegin(YYINITIAL); return UnisonTypes.VALUE;
+            { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE;
             }
           // fall through
           case 13: break;
           case 7:
-            { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE;
+            { yybegin(YYINITIAL); return UnisonTypes.COMMENT;
             }
           // fall through
           case 14: break;
