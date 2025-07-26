@@ -1,0 +1,6 @@
+FILE(0,21)
+  UnisonPropertyImpl(PROPERTY)(0,9)
+    PsiElement(UnisonTokenType.KEY)('namespace')(0,9)
+  PsiWhiteSpace(' ')(9,10)
+  UnisonPropertyImpl(PROPERTY)(10,21)
+    PsiElement(UnisonTokenType.KEY)('models.User')(10,21)

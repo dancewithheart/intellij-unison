@@ -9,7 +9,8 @@ import intellij.unison.{UnisonLanguage, UnisonLexerAdapter}
 import intellij.unison.language.parser.UnisonParser
 import intellij.unison.language.psi.UnisonTypes
 
-class UnisonParserDefinition extends ParserDefinition {
+class UnisonParserDefinition
+    extends ParserDefinition {
 
   override def createLexer(project: Project): Lexer = new UnisonLexerAdapter()
 

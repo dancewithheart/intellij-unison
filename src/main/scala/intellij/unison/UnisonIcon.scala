@@ -6,7 +6,8 @@ import com.intellij.psi.PsiElement
 import javax.swing.Icon
 import com.intellij.ui.IconManager
 
-case class UnisonIcon() extends IconProvider {
+case class UnisonIcon()
+    extends IconProvider {
 
   val FILE: Icon =
     IconManager.getInstance.getIcon(

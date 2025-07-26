@@ -3,14 +3,16 @@ package intellij.unison.language.highlight
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey
-import com.intellij.openapi.editor.{DefaultLanguageHighlighterColors, HighlighterColors}
+import com.intellij.openapi.editor.{DefaultLanguageHighlighterColors => DLHC}
+import com.intellij.openapi.editor.{HighlighterColors => HC}
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import intellij.unison.UnisonLexerAdapter
 import intellij.unison.language.psi.UnisonTypes
 import UnisonSyntaxHighlighter._
 
-case class UnisonSyntaxHighlighter() extends SyntaxHighlighterBase {
+case class UnisonSyntaxHighlighter()
+    extends SyntaxHighlighterBase {
 
   override def getHighlightingLexer: Lexer = new UnisonLexerAdapter()
 
@@ -28,11 +30,11 @@ case class UnisonSyntaxHighlighter() extends SyntaxHighlighterBase {
 }
 
 object UnisonSyntaxHighlighter {
-  val SEPARATOR: TextAttributesKey = createTextAttributesKey("SIMPLE_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN)
-  val KEY: TextAttributesKey = createTextAttributesKey("SIMPLE_KEY", DefaultLanguageHighlighterColors.KEYWORD)
-  val VALUE: TextAttributesKey = createTextAttributesKey("SIMPLE_VALUE", DefaultLanguageHighlighterColors.STRING)
-  val COMMENT: TextAttributesKey = createTextAttributesKey("SIMPLE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT)
-  val BAD_CHARACTER: TextAttributesKey = createTextAttributesKey("SIMPLE_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER)
+  val SEPARATOR: TextAttributesKey = createTextAttributesKey("SIMPLE_SEPARATOR", DLHC.OPERATION_SIGN)
+  val KEY: TextAttributesKey = createTextAttributesKey("SIMPLE_KEY", DLHC.KEYWORD)
+  val VALUE: TextAttributesKey = createTextAttributesKey("SIMPLE_VALUE", DLHC.STRING)
+  val COMMENT: TextAttributesKey = createTextAttributesKey("SIMPLE_COMMENT", DLHC.LINE_COMMENT)
+  val BAD_CHARACTER: TextAttributesKey = createTextAttributesKey("SIMPLE_BAD_CHARACTER", HC.BAD_CHARACTER)
 
   val BAD_CHAR_KEYS: Array[TextAttributesKey] = Array(BAD_CHARACTER)
   val SEPARATOR_KEYS: Array[TextAttributesKey] = Array(SEPARATOR)

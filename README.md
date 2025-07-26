@@ -3,15 +3,15 @@
 
 ## Running locally
 
-Thanks to [sbt-idea-plugin](https://github.com/JetBrains/sbt-idea-plugin) you can run
+Thanks to [sbt-idea-plugin](https://github.com/JetBrains/sbt-idea-plugin) you can run separate instance of IntelliJ IDEA with this plugin installed:
 
 ```shell
-sbt runIDE
+sbt r
 ```
 
 ## Development notes
 
-Enable development tools in IntelliJ `Help \ Edit Custom Properties ...`
+[Enable internal](https://plugins.jetbrains.com/docs/intellij/explore-api.html#internalMode) tools in IntelliJ `Help \ Edit Custom Properties ...`
 ```properties
 idea.is.internal=true
 ```
@@ -19,21 +19,21 @@ idea.is.internal=true
 * Clean and compile code
 
 ```shell
-sbt r
+sbt c
 ```
 
 * Format code ([.scalafmt.conf](./.scalafmt.conf)) using Scalafmt ([configuration docs](https://scalameta.org/scalafmt/docs/configuration.html))
 
 ```shell
-sbt fmt
+sbt f
 ```
 
-[Tutorial how to build IntelliJ language plugin](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html).
+[Tutorial](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html) how to build IntelliJ language plugin and write [tests](https://plugins.jetbrains.com/docs/intellij/writing-tests-for-plugins.html)  for it.
 
 * [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) BNF Grammar
 
 Parser is generated from [Unison.bnf](./src/main/scala/intellij/unison/language/Unison.bnf)
-manually, using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin ([tutorial](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md)).
+manually (right mouse click on bnf file \ `Generate Parser Code`), using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin ([tutorial](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md)).
 
 * Lexer
 
