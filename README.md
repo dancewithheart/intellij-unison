@@ -15,10 +15,16 @@ Enable development tools in IntelliJ `Help \ Edit Custom Properties ...`
 idea.is.internal=true
 ```
 
-* Compile
+* Clean and compile code
 
 ```shell
-sbt clean compile
+sbt r
+```
+
+* Format code ([.scalafmt.conf](./.scalafmt.conf)) using Scalafmt ([configuration docs](https://scalameta.org/scalafmt/docs/configuration.html))
+
+```shell
+sbt fmt
 ```
 
 [Tutorial how to build IntelliJ language plugin](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html).
@@ -26,8 +32,7 @@ sbt clean compile
 * [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) BNF Grammar
 
 Parser is generated from [Unison.bnf](./src/main/scala/intellij/unison/language/Unison.bnf)
-manually, using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin
-( [tutorial](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md) ).
+manually, using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin ([tutorial](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md)).
 
 * Lexer
 
