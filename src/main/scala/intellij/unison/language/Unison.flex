@@ -1,4 +1,6 @@
 // Copyright 2000-2022 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+/* Unison lexer specification */
+/* ===================== User Code =================== */
 package intellij.unison;
 
 import com.intellij.lexer.FlexLexer;
@@ -8,6 +10,7 @@ import com.intellij.psi.TokenType;
 import intellij.unison.language.psi.UnisonTypes;
 
 %%
+/* ===================== Options and declarations =================== */
 
 %class UnisonLexer
 %implements FlexLexer
@@ -17,19 +20,23 @@ import intellij.unison.language.psi.UnisonTypes;
 %eof{  return;
 %eof}
 
-CRLF=\R
+CRLF=\r|\n|\r\n
 WHITE_SPACE=[\ \n\t\f]
 FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
 VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
-END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
+END_OF_LINE_COMMENT="--"[^\r\n]*
+TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
 SEPARATOR=[:=]
 KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
 
 %state WAITING_VALUE
 
 %%
+/* ===================== Lexical rules =================== */
 
 <YYINITIAL> {END_OF_LINE_COMMENT}                           { yybegin(YYINITIAL); return UnisonTypes.COMMENT; }
+
+<YYINITIAL> {TRADITIONAL_COMMENT}                           { yybegin(YYINITIAL); return UnisonTypes.COMMENT; }
 
 <YYINITIAL> {KEY_CHARACTER}+                                { yybegin(YYINITIAL); return UnisonTypes.KEY; }
 

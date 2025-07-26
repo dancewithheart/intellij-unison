@@ -18,13 +18,14 @@
 
 unisonFile ::= item_*
 
-private item_ ::= (property|COMMENT|CRLF)
+private item_ ::= (declaration|COMMENT|CRLF)
 
-property ::= (KEY? SEPARATOR VALUE?) | KEY {
+declaration ::= (KEY? SEPARATOR VALUE?) | KEY {
   pin=3
-  recoverWhile="recover_property"
-  mixin="intellij.unison.language.psi.impl.UnisonNamedElementImpl"
+  recoverWhile="recover_declaration"
+  mixin="intellij.unison.language.psi.UnisonNamedElement"
   implements="intellij.unison.language.psi.impl.UnisonNamedElementImpl"
   methods=[getKey getValue getName setName getNameIdentifier getPresentation]
 }
-private recover_property ::= !(KEY|SEPARATOR|COMMENT)
+
+private recover_declaration ::= !(KEY|SEPARATOR|COMMENT)

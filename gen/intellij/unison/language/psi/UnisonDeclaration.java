@@ -4,7 +4,7 @@ package intellij.unison.language.psi;
 import com.intellij.psi.PsiElement;
 import com.intellij.navigation.ItemPresentation;
 
-public interface UnisonProperty extends UnisonNamedElement {
+public interface UnisonDeclaration extends UnisonNamedElement {
 
   String getKey();
 

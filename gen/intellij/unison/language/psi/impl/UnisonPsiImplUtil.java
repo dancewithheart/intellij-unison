@@ -5,7 +5,7 @@ import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import intellij.unison.language.psi.UnisonElementFactory;
-import intellij.unison.language.psi.UnisonProperty;
+import intellij.unison.language.psi.UnisonDeclaration;
 import intellij.unison.language.psi.UnisonTypes;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +13,7 @@ import javax.swing.*;
 
 public class UnisonPsiImplUtil {
 
-    public static String getKey(UnisonProperty element) {
+    public static String getKey(UnisonDeclaration element) {
         ASTNode keyNode = element.getNode().findChildByType(UnisonTypes.KEY);
         if (keyNode != null) {
             // IMPORTANT: Convert embedded escaped spaces to simple spaces
@@ -23,7 +23,7 @@ public class UnisonPsiImplUtil {
         }
     }
 
-    public static String getValue(UnisonProperty element) {
+    public static String getValue(UnisonDeclaration element) {
         ASTNode valueNode = element.getNode().findChildByType(UnisonTypes.VALUE);
         if (valueNode != null) {
             return valueNode.getText();
@@ -32,21 +32,21 @@ public class UnisonPsiImplUtil {
         }
     }
 
-    public static String getName(UnisonProperty element) {
+    public static String getName(UnisonDeclaration element) {
         return getKey(element);
     }
 
-    public static PsiElement setName(UnisonProperty element, String newName) {
+    public static PsiElement setName(UnisonDeclaration element, String newName) {
         ASTNode keyNode = element.getNode().findChildByType(UnisonTypes.KEY);
         if (keyNode != null) {
-            UnisonProperty property = UnisonElementFactory.createProperty(element.getProject(), newName);
-            ASTNode newKeyNode = property.getFirstChild().getNode();
+            UnisonDeclaration declaration = UnisonElementFactory.createDeclaration(element.getProject(), newName);
+            ASTNode newKeyNode = declaration.getFirstChild().getNode();
             element.getNode().replaceChild(keyNode, newKeyNode);
         }
         return element;
     }
 
-    public static PsiElement getNameIdentifier(UnisonProperty element) {
+    public static PsiElement getNameIdentifier(UnisonDeclaration element) {
         ASTNode keyNode = element.getNode().findChildByType(UnisonTypes.KEY);
         if (keyNode != null) {
             return keyNode.getPsi();
@@ -55,7 +55,7 @@ public class UnisonPsiImplUtil {
         }
     }
 
-    public static ItemPresentation getPresentation(final UnisonProperty element) {
+    public static ItemPresentation getPresentation(final UnisonDeclaration element) {
         return new ItemPresentation() {
             @Nullable
             @Override

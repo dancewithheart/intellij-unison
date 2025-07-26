@@ -41,3 +41,5 @@ Lexer is generated from [Unison.flex](./intellij/unison/language/Unison.flex) us
 ```shell
 sbt lexer
 ```
+
+[Example lexer](https://jflex.de/manual.html) from jflex docs for part of Java.

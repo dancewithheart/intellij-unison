@@ -1,5 +1,5 @@
 FILE(0,6)
-  UnisonPropertyImpl(PROPERTY)(0,6)
+  UnisonDeclarationImpl(DECLARATION)(0,6)
     PsiElement(UnisonTokenType.KEY)('x')(0,1)
     PsiWhiteSpace(' ')(1,2)
     PsiElement(UnisonTokenType.SEPARATOR)('=')(2,3)
