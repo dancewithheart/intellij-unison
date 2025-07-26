@@ -1,0 +1,9 @@
+-- term declaration (term binding)
+{-
+https://www.unison-lang.org/docs/language-reference/term-declarations/
+
+name : Type
+name p_1 p_2 … p_n = expression
+-}
+timesTwo : Nat -> Nat  -- type signature
+timesTwo x = x * 2     -- term definition
