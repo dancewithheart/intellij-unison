@@ -16,7 +16,7 @@
      <![CDATA[
        <ul>
         <li><b>0.0.1</b> Basic plumbing for IntelliJ plugin.</li>
-        <li><b>0.0.2</b> Basic plumbing for parser.</li>
+        <li><b>0.0.2</b> Basic plumbing for lexer, parser and syntax highlighter.</li>
        </ul>
       ]]>
     </change-notes>
@@ -32,7 +32,9 @@
                 language="Unison"
                 implementationClass="intellij.unison.language.UnisonParserDefinition"/>
         <iconProvider implementation="intellij.unison.UnisonIcon" />
+        <lang.syntaxHighlighterFactory
+                language="Unison"
+                implementationClass="intellij.unison.language.highlight.UnisonSyntaxHighlighterFactory" />
     </extensions>
-
 
 </idea-plugin>
