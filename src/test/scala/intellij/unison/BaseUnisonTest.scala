@@ -3,10 +3,8 @@ package intellij.unison
 import com.intellij.testFramework.ParsingTestCase
 import intellij.unison.language.UnisonParserDefinition
 
-class UnisonSingleLineCommentsParsingTest
+abstract class BaseUnisonTest
     extends ParsingTestCase("", "u", new UnisonParserDefinition()) {
-
-  def testComments(): Unit = doTest(true)
 
   override def getTestDataPath: String = "src/test/testData"
 
