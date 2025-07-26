@@ -9,7 +9,8 @@ import intellij.unison.language.highlight.UnisonColorSettingsPage.DESCRIPTORS
 import java.util
 import javax.swing.Icon
 
-class UnisonColorSettingsPage extends ColorSettingsPage {
+class UnisonColorSettingsPage
+    extends ColorSettingsPage {
 
   override def getIcon: Icon = UnisonIcon.INSTANCE.FILE
 
