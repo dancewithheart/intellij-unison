@@ -8,9 +8,9 @@ import intellij.unison.language.UnisonFile;
 
 public class UnisonElementFactory {
 
-    public static UnisonProperty createProperty(Project project, String name) {
+    public static UnisonDeclaration createDeclaration(Project project, String name) {
         final UnisonFile file = createFile(project, name);
-        return (UnisonProperty) file.getFirstChild();
+        return (UnisonDeclaration) file.getFirstChild();
     }
 
     public static UnisonFile createFile(Project project, String text) {
@@ -18,9 +18,9 @@ public class UnisonElementFactory {
         return (UnisonFile) PsiFileFactory.getInstance(project).createFileFromText(name, UnisonFileType.INSTANCE(), text);
     }
 
-    public static UnisonProperty createProperty(Project project, String name, String value) {
+    public static UnisonDeclaration createDeclaration(Project project, String name, String value) {
         final UnisonFile file = createFile(project, name + " = " + value);
-        return (UnisonProperty) file.getFirstChild();
+        return (UnisonDeclaration) file.getFirstChild();
     }
 
     public static PsiElement createCRLF(Project project) {

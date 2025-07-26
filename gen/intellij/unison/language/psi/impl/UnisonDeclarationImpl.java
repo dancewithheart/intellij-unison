@@ -8,14 +8,14 @@ import com.intellij.psi.PsiElementVisitor;
 import intellij.unison.language.psi.*;
 import com.intellij.navigation.ItemPresentation;
 
-public class UnisonPropertyImpl extends UnisonNamedElementImpl implements UnisonProperty {
+public class UnisonDeclarationImpl extends UnisonNamedElementImpl implements UnisonDeclaration {
 
-  public UnisonPropertyImpl(@NotNull ASTNode node) {
+  public UnisonDeclarationImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitProperty(this);
+    visitor.visitDeclaration(this);
   }
 
   @Override

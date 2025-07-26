@@ -8,7 +8,7 @@ import intellij.unison.language.psi.impl.*;
 
 public interface UnisonTypes {
 
-  IElementType PROPERTY = new UnisonElementType("PROPERTY");
+  IElementType DECLARATION = new UnisonElementType("DECLARATION");
 
   IElementType COMMENT = new UnisonTokenType("COMMENT");
   IElementType CRLF = new UnisonTokenType("CRLF");
@@ -19,8 +19,8 @@ public interface UnisonTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == PROPERTY) {
-        return new UnisonPropertyImpl(node);
+      if (type == DECLARATION) {
+        return new UnisonDeclarationImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }
