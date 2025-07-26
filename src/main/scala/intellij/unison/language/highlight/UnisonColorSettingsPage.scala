@@ -20,9 +20,11 @@ class UnisonColorSettingsPage extends ColorSettingsPage {
   override def getAdditionalHighlightingTagToDescriptorMap: util.Map[String, TextAttributesKey] =
     util.Map.of()
 
-  override def getAttributeDescriptors: Array[AttributesDescriptor] = DESCRIPTORS
+  override def getAttributeDescriptors: Array[AttributesDescriptor] =
+    DESCRIPTORS
 
-  override def getColorDescriptors: Array[ColorDescriptor] = ColorDescriptor.EMPTY_ARRAY
+  override def getColorDescriptors: Array[ColorDescriptor] =
+    ColorDescriptor.EMPTY_ARRAY
 
   override def getDisplayName: String = "Unison"
 }
@@ -31,7 +33,7 @@ object UnisonColorSettingsPage {
   val DESCRIPTORS: Array[AttributesDescriptor] = Array(
     new AttributesDescriptor("Key", UnisonSyntaxHighlighter.KEY),
     new AttributesDescriptor("Separator", UnisonSyntaxHighlighter.SEPARATOR),
-    new AttributesDescriptor("Value", UnisonSyntaxHighlighter.VALUE),
+    new AttributesDescriptor("Value", UnisonSyntaxHighlighter.VALUE)
 
     // TODO
 //    new AttributesDescriptor("Operators//Plus", UnisonSyntaxHighlighter.PLUS),

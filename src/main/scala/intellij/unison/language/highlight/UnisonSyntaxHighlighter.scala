@@ -3,10 +3,7 @@ package intellij.unison.language.highlight
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey
-import com.intellij.openapi.editor.{
-  DefaultLanguageHighlighterColors,
-  HighlighterColors
-}
+import com.intellij.openapi.editor.{DefaultLanguageHighlighterColors, HighlighterColors}
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import intellij.unison.UnisonLexerAdapter
@@ -17,12 +14,14 @@ case class UnisonSyntaxHighlighter() extends SyntaxHighlighterBase {
 
   override def getHighlightingLexer: Lexer = new UnisonLexerAdapter()
 
-  override def getTokenHighlights(tokenType: IElementType): Array[TextAttributesKey] =
+  override def getTokenHighlights(
+      tokenType: IElementType
+  ): Array[TextAttributesKey] =
     tokenType match {
       case UnisonTypes.SEPARATOR => SEPARATOR_KEYS
-      case UnisonTypes.KEY => KEY_KEYS
-      case UnisonTypes.VALUE => VALUE_KEYS
-      case UnisonTypes.COMMENT => COMMENT_KEYS
+      case UnisonTypes.KEY       => KEY_KEYS
+      case UnisonTypes.VALUE     => VALUE_KEYS
+      case UnisonTypes.COMMENT   => COMMENT_KEYS
       // TODO else if (tokenType.equals(UnisonTypes.BAD_CHARACTER)) BAD_CHAR_KEYS
       case _ => EMPTY_KEYS
     }

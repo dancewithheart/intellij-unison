@@ -35,23 +35,20 @@
         <iconProvider implementation="intellij.unison.UnisonIcon" />
 
         <!-- file type -->
-        <fileType
-                name="Unison File"
-                implementationClass="intellij.unison.UnisonFileType"
-                language="Unison"
-                extensions="u" />
+        <fileType language="Unison"
+           name="Unison File"
+           implementationClass="intellij.unison.UnisonFileType"
+           extensions="u" />
 
         <!-- parser -->
-        <lang.parserDefinition
-                language="Unison"
-                implementationClass="intellij.unison.language.UnisonParserDefinition" />
+        <lang.parserDefinition language="Unison"
+           implementationClass="intellij.unison.language.UnisonParserDefinition" />
 
         <!-- syntax highlighting -->
-        <lang.syntaxHighlighterFactory
-                language="Unison"
-                implementationClass="intellij.unison.language.highlight.UnisonSyntaxHighlighterFactory" />
+        <lang.syntaxHighlighterFactory language="Unison"
+           implementationClass="intellij.unison.language.highlight.UnisonSyntaxHighlighterFactory" />
         <colorSettingsPage
-                implementation="intellij.unison.language.highlight.UnisonColorSettingsPage" />
+           implementation="intellij.unison.language.highlight.UnisonColorSettingsPage" />
     </extensions>
 
 </idea-plugin>

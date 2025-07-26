@@ -6,6 +6,9 @@ import com.intellij.openapi.vfs.VirtualFile
 
 class UnisonSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
 
-  override def getSyntaxHighlighter(project: Project, virtualFile: VirtualFile): SyntaxHighlighter =
+  override def getSyntaxHighlighter(
+      project: Project,
+      virtualFile: VirtualFile
+  ): SyntaxHighlighter =
     UnisonSyntaxHighlighter()
 }
