@@ -1,6 +1,5 @@
 FILE(0,21)
-  UnisonDeclarationImpl(DECLARATION)(0,9)
-    PsiElement(UnisonTokenType.KEY)('namespace')(0,9)
+  PsiElement(UnisonTokenType.KEY)('namespace')(0,9)
   PsiWhiteSpace(' ')(9,10)
-  UnisonDeclarationImpl(DECLARATION)(10,21)
+  PsiErrorElement:UnisonTokenType.COMMENT, UnisonTokenType.CRLF or namespace expected, got 'models.User'(10,21)
     PsiElement(UnisonTokenType.KEY)('models.User')(10,21)

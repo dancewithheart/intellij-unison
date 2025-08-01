@@ -11,6 +11,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitNamespaceDeclaration(@NotNull UnisonNamespaceDeclaration o) {
+    visitPsiElement(o);
+  }
+
   public void visitNamedElement(@NotNull UnisonNamedElement o) {
     visitPsiElement(o);
   }

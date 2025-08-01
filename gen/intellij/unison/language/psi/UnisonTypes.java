@@ -9,8 +9,42 @@ import intellij.unison.language.psi.impl.*;
 public interface UnisonTypes {
 
   IElementType DECLARATION = new UnisonElementType("DECLARATION");
+  IElementType NAMESPACE_DECLARATION = new UnisonElementType("NAMESPACE_DECLARATION");
+  IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
+  IElementType ABILITY = new UnisonElementType("ABILITY");
+  IElementType MATCH = new UnisonElementType("MATCH");
+  IElementType WITH = new UnisonElementType("WITH");
 
   IElementType COMMENT = new UnisonTokenType("COMMENT");
+
+  IElementType LPAREN = new UnisonTokenType("LPAREN");
+  IElementType RPAREN = new UnisonTokenType("RPAREN");
+
+  IElementType TYPE = new UnisonTokenType("TYPE");
+  IElementType BOOLEAN = new UnisonTokenType("BOOLEAN");
+  IElementType STRING = new UnisonTokenType("STRING");
+  IElementType NUMBER = new UnisonTokenType("NUMBER");
+
+  IElementType ARROW = new UnisonTokenType("ARROW");
+  IElementType COMMA = new UnisonTokenType("COMMA");
+  IElementType STAR = new UnisonTokenType("STAR");
+  IElementType DOT = new UnisonTokenType("DOT");
+  IElementType UNDERSCORE = new UnisonTokenType("UNDERSCORE");
+  IElementType EQ = new UnisonTokenType("EQ");
+
+  IElementType IF = new UnisonTokenType("IF");
+  IElementType THEN = new UnisonTokenType("THEN");
+  IElementType ELSE = new UnisonTokenType("ELSE");
+  IElementType USE = new UnisonTokenType("USE");
+  IElementType LET = new UnisonTokenType("LET");
+  IElementType BAR = new UnisonTokenType("BAR");
+  IElementType LBRACE = new UnisonTokenType("LBRACE");
+  IElementType RBRACE = new UnisonTokenType("RBRACE");
+
+  IElementType LAMBDA = new UnisonTokenType("LAMBDA");
+
+  IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
+
   IElementType CRLF = new UnisonTokenType("CRLF");
   IElementType KEY = new UnisonTokenType("KEY");
   IElementType SEPARATOR = new UnisonTokenType("SEPARATOR");
@@ -21,6 +55,9 @@ public interface UnisonTypes {
       IElementType type = node.getElementType();
       if (type == DECLARATION) {
         return new UnisonDeclarationImpl(node);
+      }
+      else if (type == NAMESPACE_DECLARATION) {
+        return new UnisonNamespaceDeclarationImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }
