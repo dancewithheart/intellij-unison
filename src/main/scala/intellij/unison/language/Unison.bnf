@@ -16,16 +16,69 @@
   psiImplUtilClass="intellij.unison.language.psi.impl.UnisonPsiImplUtil"
 }
 
-unisonFile ::= item_*
+unisonFile ::= statement*
 
-private item_ ::= (declaration|COMMENT|CRLF)
+statement ::= namespace_decl
+            | use_import
+            | ability_decl
+            | type_decl
+            | definition
+            | expression
+            | comment
 
-declaration ::= (KEY? SEPARATOR VALUE?) | KEY {
-  pin=3
-  recoverWhile="recover_declaration"
-  mixin="intellij.unison.language.psi.UnisonNamedElement"
-  implements="intellij.unison.language.psi.impl.UnisonNamedElementImpl"
-  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
-}
+namespace_decl ::= 'namespace' IDENTIFIER '{' statement* '}'
 
-private recover_declaration ::= !(KEY|SEPARATOR|COMMENT)
+use_import ::= 'use' qualified_name ('.' '*')?
+
+ability_decl ::= 'ability' IDENTIFIER type_params? '=' '{' ability_constructor* '}'
+
+ability_constructor ::= IDENTIFIER ':' type_expr
+
+type_decl ::= 'type' IDENTIFIER type_params? '=' constructor ( '|' constructor )*
+
+constructor ::= IDENTIFIER type_expr*
+
+definition ::= 'let' IDENTIFIER '=' expression
+
+expression ::= literal
+             | IDENTIFIER
+             | qualified_name
+             | function_call
+             | lambda
+             | if_expr
+             | match_expr
+             | '(' expression ')'
+
+if_expr ::= 'if' expression 'then' expression 'else' expression
+
+match_expr ::= 'match' expression 'with' match_case+
+
+match_case ::= '|' pattern '->' expression
+
+function_call ::= IDENTIFIER '(' argument_list? ')'
+
+argument_list ::= expression (',' expression)*
+
+lambda ::= '\' pattern '->' expression
+
+pattern ::= IDENTIFIER
+          | '_'
+          | literal
+          | constructor_pattern
+          | '(' pattern ')'
+
+constructor_pattern ::= IDENTIFIER pattern*
+
+literal ::= NUMBER | STRING | BOOLEAN
+
+qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
+
+type_expr ::= IDENTIFIER | '(' type_expr ')' | type_expr '->' type_expr
+
+type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
+
+IDENTIFIER ::= IDENTIFIER_TOKEN
+NUMBER ::= NUMBER_TOKEN
+STRING ::= STRING_TOKEN
+BOOLEAN ::= 'true' | 'false'
+
