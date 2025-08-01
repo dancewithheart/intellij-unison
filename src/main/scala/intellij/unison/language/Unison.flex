@@ -12,43 +12,56 @@ import intellij.unison.language.psi.UnisonTypes;
 %%
 /* ===================== Options and declarations =================== */
 
+%public
 %class UnisonLexer
 %implements FlexLexer
 %unicode
 %function advance
 %type IElementType
-%eof{  return;
-%eof}
+%ignorecase
 
-CRLF=\r|\n|\r\n
-WHITE_SPACE=[\ \n\t\f]
-FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
-VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
+
+WHITE_SPACE = [\ \t\r\n]+
+COMMENT = "--"[^\n]*
 END_OF_LINE_COMMENT="--"[^\r\n]*
 TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
-SEPARATOR=[:=]
-KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
 
-%state WAITING_VALUE
+IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
+NUMBER = [0-9]+(\.[0-9]+)?
+STRING = \"([^\"\\]|\\.)*\"
+BOOLEAN = "true" | "false"
 
 %%
-/* ===================== Lexical rules =================== */
 
-<YYINITIAL> {END_OF_LINE_COMMENT}                           { yybegin(YYINITIAL); return UnisonTypes.COMMENT; }
+{WHITE_SPACE}            { return com.intellij.psi.TokenType.WHITE_SPACE; }
+{COMMENT}                { return COMMENT; }
 
-<YYINITIAL> {TRADITIONAL_COMMENT}                           { yybegin(YYINITIAL); return UnisonTypes.COMMENT; }
+"namespace"              { return NAMESPACE; }
+"use"                    { return USE; }
+"ability"                { return ABILITY; }
+"type"                   { return TYPE; }
+"let"                    { return LET; }
+"if"                     { return IF; }
+"then"                   { return THEN; }
+"else"                   { return ELSE; }
+"match"                  { return MATCH; }
+"with"                   { return WITH; }
+"->"                     { return ARROW; }
+"="                      { return EQ; }
+","                      { return COMMA; }
+"|"                      { return BAR; }
+"("                      { return LPAREN; }
+")"                      { return RPAREN; }
+"{"                      { return LBRACE; }
+"}"                      { return RBRACE; }
+"."                      { return DOT; }
+"*"                      { return STAR; }
+"\\"                     { return LAMBDA; }
+"_"                      { return UNDERSCORE; }
 
-<YYINITIAL> {KEY_CHARACTER}+                                { yybegin(YYINITIAL); return UnisonTypes.KEY; }
+{BOOLEAN}                { return BOOLEAN; }
+{NUMBER}                 { return NUMBER; }
+{STRING}                 { return STRING; }
+{IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 
-<YYINITIAL> {SEPARATOR}                                     { yybegin(WAITING_VALUE); return UnisonTypes.SEPARATOR; }
-
-<WAITING_VALUE> {CRLF}({CRLF}|{WHITE_SPACE})+               { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-
-<WAITING_VALUE> {WHITE_SPACE}+                              { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE; }
-
-<WAITING_VALUE> {FIRST_VALUE_CHARACTER}{VALUE_CHARACTER}*   { yybegin(YYINITIAL); return UnisonTypes.VALUE; }
-
-({CRLF}|{WHITE_SPACE})+                                     { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-
-[^]                                                         { return TokenType.BAD_CHARACTER; }
-
+.                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }
