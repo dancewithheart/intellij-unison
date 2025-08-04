@@ -12,8 +12,6 @@
   elementTypeHolderClass="intellij.unison.language.psi.UnisonTypes"
   elementTypeClass="intellij.unison.language.psi.UnisonElementType"
   tokenTypeClass="intellij.unison.language.psi.UnisonTokenType"
-
-  psiImplUtilClass="intellij.unison.language.psi.impl.UnisonPsiImplUtil"
 }
 
 unisonFile ::= statement*

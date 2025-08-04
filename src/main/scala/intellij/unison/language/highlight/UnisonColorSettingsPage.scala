@@ -35,9 +35,10 @@ object UnisonColorSettingsPage {
     new AttributesDescriptor("IDENTIFIER", UnisonSyntaxHighlighter.IDENTIFIER),
     new AttributesDescriptor("Separator", UnisonSyntaxHighlighter.SEPARATOR),
     new AttributesDescriptor("NAMESPACE", UnisonSyntaxHighlighter.NAMESPACE),
+    new AttributesDescriptor("LET", UnisonSyntaxHighlighter.LET),
+    new AttributesDescriptor("MATCH", UnisonSyntaxHighlighter.MATCH),
     new AttributesDescriptor("USE", UnisonSyntaxHighlighter.USE),
     new AttributesDescriptor("TYPE", UnisonSyntaxHighlighter.TYPE),
-
     new AttributesDescriptor("String", UnisonSyntaxHighlighter.STRING),
     new AttributesDescriptor("Number", UnisonSyntaxHighlighter.NUMBER),
     new AttributesDescriptor("Boolean", UnisonSyntaxHighlighter.BOOLEAN),
@@ -48,6 +49,6 @@ object UnisonColorSettingsPage {
 //    new AttributesDescriptor("Operators//Advanced//Sigma", UnisonSyntaxHighlighter.SIGMA),
 //    new AttributesDescriptor("Operators//Advanced//Pi", UnisonSyntaxHighlighter.PI),
 
-     new AttributesDescriptor("Bad value", UnisonSyntaxHighlighter.BAD_CHARACTER)
+    new AttributesDescriptor("Bad value", UnisonSyntaxHighlighter.BAD_CHARACTER)
   )
 }
