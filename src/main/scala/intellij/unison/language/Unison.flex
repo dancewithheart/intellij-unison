@@ -27,8 +27,7 @@ END_OF_LINE_COMMENT="--"[^\r\n]*
 TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
 COMMENT = {END_OF_LINE_COMMENT} | {TRADITIONAL_COMMENT}
 
-IDENTIFIER_PART = [a-zA-Z_][a-zA-Z0-9_]*
-IDENTIFIER = {IDENTIFIER_PART} | ({IDENTIFIER_PART} "." {IDENTIFIER_PART})+
+IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
 NUMBER = [0-9]+(\.[0-9]+)?
 STRING = \"([^\"\\]|\\.)*\"
 BOOLEAN = "true" | "false"
@@ -42,7 +41,10 @@ BOOLEAN = "true" | "false"
 "use"                    { return USE; }
 
 "ability"                { return ABILITY; }
+"where"                  { return WHERE; }
 "type"                   { return TYPE; }
+"structural"             { return STRUCTURAL; }
+"unique"                 { return UNIQUE; }
 
 "let"                    { return LET; }
 
@@ -52,8 +54,10 @@ BOOLEAN = "true" | "false"
 
 "match"                  { return MATCH; }
 "with"                   { return WITH; }
+"where"                  { return WHERE; }
 
 "->"                     { return ARROW; }
+":"                      { return COLON; }
 "="                      { return EQ; }
 ","                      { return COMMA; }
 "|"                      { return BAR; }

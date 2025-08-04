@@ -97,36 +97,53 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'ability' IDENTIFIER type_params? '=' '{' ability_constructor* '}'
+  // ( 'unique' | 'structural' )? 'ability' IDENTIFIER type_params? 'where' '{' ability_constructor* '}'
   public static boolean ability_decl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ability_decl")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ABILITY_DECL, "<ability decl>");
-    r = consumeToken(b, "ability");
+    r = ability_decl_0(b, l + 1);
+    r = r && consumeToken(b, "ability");
     r = r && IDENTIFIER(b, l + 1);
-    r = r && ability_decl_2(b, l + 1);
-    r = r && consumeToken(b, "=");
+    r = r && ability_decl_3(b, l + 1);
+    r = r && consumeToken(b, "where");
     r = r && consumeToken(b, "{");
-    r = r && ability_decl_5(b, l + 1);
+    r = r && ability_decl_6(b, l + 1);
     r = r && consumeToken(b, "}");
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // ( 'unique' | 'structural' )?
+  private static boolean ability_decl_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ability_decl_0")) return false;
+    ability_decl_0_0(b, l + 1);
+    return true;
+  }
+
+  // 'unique' | 'structural'
+  private static boolean ability_decl_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ability_decl_0_0")) return false;
+    boolean r;
+    r = consumeToken(b, "unique");
+    if (!r) r = consumeToken(b, "structural");
+    return r;
+  }
+
   // type_params?
-  private static boolean ability_decl_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ability_decl_2")) return false;
+  private static boolean ability_decl_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ability_decl_3")) return false;
     type_params(b, l + 1);
     return true;
   }
 
   // ability_constructor*
-  private static boolean ability_decl_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ability_decl_5")) return false;
+  private static boolean ability_decl_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ability_decl_6")) return false;
     while (true) {
       int c = current_position_(b);
       if (!ability_constructor(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "ability_decl_5", c)) break;
+      if (!empty_element_parsed_guard_(b, "ability_decl_6", c)) break;
     }
     return true;
   }
@@ -214,16 +231,41 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'let' IDENTIFIER '=' expression
+  // 'let' (IDENTIFIER '=' expression)+
   public static boolean definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "definition")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, DEFINITION, "<definition>");
     r = consumeToken(b, "let");
-    r = r && IDENTIFIER(b, l + 1);
+    r = r && definition_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (IDENTIFIER '=' expression)+
+  private static boolean definition_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "definition_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = definition_1_0(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!definition_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "definition_1", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // IDENTIFIER '=' expression
+  private static boolean definition_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "definition_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = IDENTIFIER(b, l + 1);
     r = r && consumeToken(b, "=");
     r = r && expression(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -373,29 +415,15 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'namespace' IDENTIFIER '{' statement* '}'
+  // 'namespace' qualified_name
   public static boolean namespace_decl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "namespace_decl")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NAMESPACE_DECL, "<namespace decl>");
     r = consumeToken(b, "namespace");
-    r = r && IDENTIFIER(b, l + 1);
-    r = r && consumeToken(b, "{");
-    r = r && namespace_decl_3(b, l + 1);
-    r = r && consumeToken(b, "}");
+    r = r && qualified_name(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
-  }
-
-  // statement*
-  private static boolean namespace_decl_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "namespace_decl_3")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!statement(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "namespace_decl_3", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -488,42 +516,59 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'type' IDENTIFIER type_params? '=' constructor ( '|' constructor )*
+  // ( 'unique' | 'structural' )? 'type' IDENTIFIER type_params? '=' constructor ( '|' constructor )*
   public static boolean type_decl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "type_decl")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TYPE_DECL, "<type decl>");
-    r = consumeToken(b, "type");
+    r = type_decl_0(b, l + 1);
+    r = r && consumeToken(b, "type");
     r = r && IDENTIFIER(b, l + 1);
-    r = r && type_decl_2(b, l + 1);
+    r = r && type_decl_3(b, l + 1);
     r = r && consumeToken(b, "=");
     r = r && constructor(b, l + 1);
-    r = r && type_decl_5(b, l + 1);
+    r = r && type_decl_6(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // ( 'unique' | 'structural' )?
+  private static boolean type_decl_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_decl_0")) return false;
+    type_decl_0_0(b, l + 1);
+    return true;
+  }
+
+  // 'unique' | 'structural'
+  private static boolean type_decl_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_decl_0_0")) return false;
+    boolean r;
+    r = consumeToken(b, "unique");
+    if (!r) r = consumeToken(b, "structural");
+    return r;
+  }
+
   // type_params?
-  private static boolean type_decl_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_decl_2")) return false;
+  private static boolean type_decl_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_decl_3")) return false;
     type_params(b, l + 1);
     return true;
   }
 
   // ( '|' constructor )*
-  private static boolean type_decl_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_decl_5")) return false;
+  private static boolean type_decl_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_decl_6")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!type_decl_5_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "type_decl_5", c)) break;
+      if (!type_decl_6_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "type_decl_6", c)) break;
     }
     return true;
   }
 
   // '|' constructor
-  private static boolean type_decl_5_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_decl_5_0")) return false;
+  private static boolean type_decl_6_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_decl_6_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, "|");

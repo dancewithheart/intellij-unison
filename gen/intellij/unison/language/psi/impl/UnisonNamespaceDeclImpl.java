@@ -1,11 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package intellij.unison.language.psi.impl;
 
-import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
@@ -27,14 +25,8 @@ public class UnisonNamespaceDeclImpl extends ASTWrapperPsiElement implements Uni
 
   @Override
   @NotNull
-  public UnisonIdentifier getIdentifier() {
-    return findNotNullChildByClass(UnisonIdentifier.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonStatement> getStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonStatement.class);
+  public UnisonQualifiedName getQualifiedName() {
+    return findNotNullChildByClass(UnisonQualifiedName.class);
   }
 
 }

@@ -8,69 +8,61 @@ import intellij.unison.language.psi.impl.*;
 
 public interface UnisonTypes {
 
-  IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
-  IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
+  IElementType ABILITY = new UnisonTokenType("ABILITY");
   IElementType ABILITY_CONSTRUCTOR = new UnisonElementType("ABILITY_CONSTRUCTOR");
   IElementType ABILITY_DECL = new UnisonElementType("ABILITY_DECL");
-  IElementType ABILITY = new UnisonElementType("ABILITY");
-  IElementType MATCH = new UnisonElementType("MATCH");
-  IElementType WITH = new UnisonElementType("WITH");
-
-  IElementType COMMENT = new UnisonTokenType("COMMENT");
-
   IElementType ARGUMENT_LIST = new UnisonElementType("ARGUMENT_LIST");
-
-
-  IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");
-  IElementType TYPE_EXPR = new UnisonElementType("TYPE_EXPR");
-  IElementType TYPE_PARAMS = new UnisonElementType("TYPE_PARAMS");
-  IElementType TYPE = new UnisonTokenType("TYPE");
-  IElementType BOOLEAN = new UnisonElementType("BOOLEAN");
-  IElementType STRING = new UnisonElementType("STRING");
-  IElementType NUMBER = new UnisonElementType("NUMBER");
-
   IElementType ARROW = new UnisonTokenType("ARROW");
+  IElementType BAR = new UnisonTokenType("BAR");
+  IElementType BOOLEAN = new UnisonElementType("BOOLEAN");
   IElementType COMMA = new UnisonTokenType("COMMA");
-  IElementType STAR = new UnisonTokenType("STAR");
-
-  IElementType IF_EXPR = new UnisonElementType("IF_EXPR");
-
+  IElementType COLON = new UnisonTokenType("COLON");
   IElementType CONSTRUCTOR = new UnisonElementType("CONSTRUCTOR");
   IElementType CONSTRUCTOR_PATTERN = new UnisonElementType("CONSTRUCTOR_PATTERN");
   IElementType DEFINITION = new UnisonElementType("DEFINITION");
+  IElementType DOT = new UnisonTokenType("DOT");
+  IElementType ELSE = new UnisonTokenType("ELSE");
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
+  IElementType EQ = new UnisonTokenType("EQ");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
+  IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
+  IElementType IF = new UnisonTokenType("IF");
+  IElementType IF_EXPR = new UnisonElementType("IF_EXPR");
+  IElementType LAMBDA = new UnisonElementType("LAMBDA");
+  IElementType LBRACE = new UnisonTokenType("LBRACE");
+  IElementType LET = new UnisonTokenType("LET");
   IElementType LITERAL = new UnisonElementType("LITERAL");
+  IElementType LPAREN = new UnisonTokenType("LPAREN");
+  IElementType MATCH = new UnisonElementType("MATCH");
   IElementType MATCH_CASE = new UnisonElementType("MATCH_CASE");
   IElementType MATCH_EXPR = new UnisonElementType("MATCH_EXPR");
-
+  IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
+  IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
+  IElementType NUMBER = new UnisonElementType("NUMBER");
   IElementType PATTERN = new UnisonElementType("PATTERN");
   IElementType QUALIFIED_NAME = new UnisonElementType("QUALIFIED_NAME");
+  IElementType RBRACE = new UnisonTokenType("RBRACE");
+  IElementType RPAREN = new UnisonTokenType("RPAREN");
   IElementType STATEMENT = new UnisonElementType("STATEMENT");
+  IElementType STAR = new UnisonTokenType("STAR");
+  IElementType STRING = new UnisonElementType("STRING");
+  IElementType STRUCTURAL = new UnisonTokenType("STRUCTURAL");
+  IElementType THEN = new UnisonTokenType("THEN");
+  IElementType TYPE = new UnisonTokenType("TYPE");
+  IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");
+  IElementType TYPE_EXPR = new UnisonElementType("TYPE_EXPR");
+  IElementType TYPE_PARAMS = new UnisonElementType("TYPE_PARAMS");
+  IElementType UNDERSCORE = new UnisonTokenType("UNDERSCORE");
+  IElementType WHERE = new UnisonTokenType("WHERE");
+  IElementType USE = new UnisonTokenType("USE");
+  IElementType USE_IMPORT = new UnisonElementType("USE_IMPORT");
+  IElementType UNIQUE = new UnisonTokenType("UNIQUE");
+  IElementType WITH = new UnisonTokenType("WITH");
 
+  IElementType COMMENT = new UnisonTokenType("COMMENT");
+  IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType NUMBER_TOKEN = new UnisonTokenType("NUMBER_TOKEN");
   IElementType STRING_TOKEN = new UnisonTokenType("STRING_TOKEN");
-
-  IElementType USE_IMPORT = new UnisonElementType("USE_IMPORT");
-
-  IElementType LBRACE = new UnisonTokenType("LBRACE");
-  IElementType RBRACE = new UnisonTokenType("RBRACE");
-  IElementType LPAREN = new UnisonTokenType("LPAREN");
-  IElementType RPAREN = new UnisonTokenType("RPAREN");
-  IElementType DOT = new UnisonTokenType("DOT");
-  IElementType UNDERSCORE = new UnisonTokenType("UNDERSCORE");
-  IElementType EQ = new UnisonTokenType("EQ");
-  IElementType BAR = new UnisonTokenType("BAR");
-  IElementType LAMBDA = new UnisonElementType("LAMBDA");
-
-  IElementType IF = new UnisonTokenType("IF");
-  IElementType THEN = new UnisonTokenType("THEN");
-  IElementType ELSE = new UnisonTokenType("ELSE");
-  IElementType USE = new UnisonTokenType("USE");
-  IElementType LET = new UnisonTokenType("LET");
-
-  IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
-  IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {

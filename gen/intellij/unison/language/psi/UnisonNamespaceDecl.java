@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface UnisonNamespaceDecl extends PsiElement {
 
   @NotNull
-  UnisonIdentifier getIdentifier();
-
-  @NotNull
-  List<UnisonStatement> getStatementList();
+  UnisonQualifiedName getQualifiedName();
 
 }

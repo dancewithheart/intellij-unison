@@ -24,19 +24,19 @@ statement ::= namespace_decl
             | expression
             | comment
 
-namespace_decl ::= 'namespace' IDENTIFIER '{' statement* '}'
+namespace_decl ::= 'namespace' qualified_name
 
 use_import ::= 'use' qualified_name ('.' '*')?
 
-ability_decl ::= 'ability' IDENTIFIER type_params? '=' '{' ability_constructor* '}'
+ability_decl ::= ( 'unique' | 'structural' )? 'ability' IDENTIFIER type_params? 'where' '{' ability_constructor* '}'
 
 ability_constructor ::= IDENTIFIER ':' type_expr
 
-type_decl ::= 'type' IDENTIFIER type_params? '=' constructor ( '|' constructor )*
+type_decl ::= ( 'unique' | 'structural' )? 'type' IDENTIFIER type_params? '=' constructor ( '|' constructor )*
 
 constructor ::= IDENTIFIER type_expr*
 
-definition ::= 'let' IDENTIFIER '=' expression
+definition ::= 'let' (IDENTIFIER '=' expression)+
 
 expression ::= literal
              | IDENTIFIER
