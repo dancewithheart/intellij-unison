@@ -1,7 +1,6 @@
 FILE(0,21)
   PsiElement(NAMESPACE)('namespace')(0,9)
   PsiWhiteSpace(' ')(9,10)
-  PsiErrorElement:UnisonTokenType.COMMENT, UnisonTokenType.CRLF or namespace expected, got 'models'(10,16)
-    PsiElement(UnisonTokenType.IDENTIFIER_TOKEN)('models')(10,16)
-  PsiElement(UnisonTokenType.DOT)('.')(16,17)
-  PsiElement(UnisonTokenType.IDENTIFIER_TOKEN)('User')(17,21)
+  PsiElement(UnisonTokenType.IDENTIFIER_TOKEN)('models.User')(10,21)
+  PsiErrorElement:'{' expected(21,21)
+    <empty list>

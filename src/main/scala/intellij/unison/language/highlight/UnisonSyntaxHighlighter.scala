@@ -20,40 +20,41 @@ case class UnisonSyntaxHighlighter()
       tokenType: IElementType
   ): Array[TextAttributesKey] =
     tokenType match {
-      case UnisonTypes.SEPARATOR  => SEPARATOR_KEYS
+//      case UnisonTypes.SEPARATOR  => SEPARATOR_KEYS
       case UnisonTypes.IDENTIFIER => IDENTIFIER_KEYS
-      case UnisonTypes.TYPE       => TYPE_KEYS
-      case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
-      case UnisonTypes.VALUE      => STRING_KEYS
+//      case UnisonTypes.TYPE       => TYPE_KEYS
+//      case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
+//      case UnisonTypes.VALUE      => STRING_KEYS
 
       case UnisonTypes.STRING     => STRING_KEYS
       case UnisonTypes.NUMBER     => NUMBER_KEYS
       case UnisonTypes.BOOLEAN    => BOOLEAN_KEYS
 
-      case UnisonTypes.ARROW    => ARROW_KEYS
-      case UnisonTypes.STAR    => STAR_KEYS
-      case UnisonTypes.COMMA    => COMMA_KEYS
+//      case UnisonTypes.ARROW    => ARROW_KEYS
+//      case UnisonTypes.STAR    => STAR_KEYS
+//      case UnisonTypes.COMMA    => COMMA_KEYS
 
-      case UnisonTypes.LBRACE    => LBRACE_KEYS
-      case UnisonTypes.RBRACE    => RBRACE_KEYS
-      case UnisonTypes.LPAREN    => LPAREN_KEYS
-      case UnisonTypes.RPAREN    => RPAREN_KEYS
-      case UnisonTypes.DOT    => DOT_KEYS
-      case UnisonTypes.UNDERSCORE    => UNDERSCORE_KEYS
-      case UnisonTypes.EQ    => EQ_KEYS
-      case UnisonTypes.BAR    => BAR_KEYS
+//      case UnisonTypes.LBRACE    => LBRACE_KEYS
+//      case UnisonTypes.RBRACE    => RBRACE_KEYS
+//      case UnisonTypes.LPAREN    => LPAREN_KEYS
+//      case UnisonTypes.RPAREN    => RPAREN_KEYS
+//      case UnisonTypes.DOT    => DOT_KEYS
+//      case UnisonTypes.UNDERSCORE    => UNDERSCORE_KEYS
+//      case UnisonTypes.EQ    => EQ_KEYS
+//      case UnisonTypes.BAR    => BAR_KEYS
       case UnisonTypes.LAMBDA    => LAMBDA_KEYS
 
-      case UnisonTypes.ABILITY    => ABILITY_KEYS
-      case UnisonTypes.LET      => LET_KEYS
+      case UnisonTypes.ABILITY_DECL    => ABILITY_KEYS
+      case UnisonTypes.ABILITY_CONSTRUCTOR    => ABILITY_KEYS
+//      case UnisonTypes.LET      => LET_KEYS
 
-      case UnisonTypes.IF      => IF_KEYS
-      case UnisonTypes.THEN      => THEN_KEYS
-      case UnisonTypes.ELSE      => ELSE_KEYS
+      case UnisonTypes.IF_EXPR     => IF_KEYS
+//      case UnisonTypes.THEN      => THEN_KEYS
+//      case UnisonTypes.ELSE      => ELSE_KEYS
 
-      case UnisonTypes.MATCH      => MATCH_KEYS
-      case UnisonTypes.WITH      => WITH_KEYS
-      case UnisonTypes.USE      => USE_KEYS
+      case UnisonTypes.MATCH_CASE     => MATCH_KEYS
+//      case UnisonTypes.WITH      => WITH_KEYS
+      case UnisonTypes.USE_IMPORT      => USE_KEYS
 
       case UnisonTypes.COMMENT    => COMMENT_KEYS
       //else if (tokenType.equals(UnisonTypes.BAD_CHARACTER)) BAD_CHAR_KEYS
