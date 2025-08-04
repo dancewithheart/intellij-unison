@@ -10,9 +10,15 @@ public interface UnisonLiteral extends PsiElement {
   UnisonBoolean getBoolean();
 
   @Nullable
-  UnisonNumber getNumber();
+  UnisonChar getChar();
 
   @Nullable
-  UnisonString getString();
+  UnisonDouble getDouble();
+
+  @Nullable
+  UnisonInt getInt();
+
+  @Nullable
+  UnisonText getString();
 
 }

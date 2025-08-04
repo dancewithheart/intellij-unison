@@ -70,7 +70,7 @@ pattern ::= IDENTIFIER
 
 constructor_pattern ::= IDENTIFIER pattern*
 
-literal ::= NUMBER | STRING | BOOLEAN
+literal ::= INT | DOUBLE | CHAR | TEXT | BOOLEAN
 
 qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
 
@@ -79,7 +79,9 @@ type_expr ::= IDENTIFIER | '(' type_expr ')' | type_expr '->' type_expr
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 
 IDENTIFIER ::= IDENTIFIER_TOKEN
-NUMBER ::= NUMBER_TOKEN
-STRING ::= STRING_TOKEN
+INT ::= INT_TOKEN
+DOUBLE ::= DOUBLE_TOKEN
+CHAR ::= CHAR_TOKEN
+TEXT ::= TEXT_TOKEN
 BOOLEAN ::= 'true' | 'false'
 

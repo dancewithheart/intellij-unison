@@ -25,8 +25,8 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.TYPE       => TYPE_KEYS
       case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
 
-      case UnisonTypes.STRING  => STRING_KEYS
-      case UnisonTypes.NUMBER  => NUMBER_KEYS
+      case UnisonTypes.TEXT  => TEXT_KEYS
+      case UnisonTypes.INT  => INT_KEYS
       case UnisonTypes.BOOLEAN => BOOLEAN_KEYS
 
       case UnisonTypes.ARROW => ARROW_KEYS
@@ -66,10 +66,9 @@ object UnisonSyntaxHighlighter {
   val IDENTIFIER: TextAttributesKey = createTextAttributesKey("UNISON_KEY", DLHC.IDENTIFIER)
   val TYPE: TextAttributesKey = createTextAttributesKey("UNISON_TYPE", DLHC.CLASS_NAME)
 
-  val STRING: TextAttributesKey = createTextAttributesKey("UNISON_STRING", DLHC.STRING)
-  val NUMBER: TextAttributesKey = createTextAttributesKey("UNISON_NUMBER", DLHC.NUMBER)
-  val BOOLEAN: TextAttributesKey =
-    createTextAttributesKey("UNISON_BOOLEAN", DLHC.NUMBER) // TODO PP change to boolish color
+  val TEXT: TextAttributesKey = createTextAttributesKey("UNISON_TEXT", DLHC.STRING)
+  val INT: TextAttributesKey = createTextAttributesKey("UNISON_INT", DLHC.NUMBER)
+  val BOOLEAN: TextAttributesKey = createTextAttributesKey("UNISON_BOOLEAN", DLHC.NUMBER) // TODO PP change to boolish color
 
   val ARROW: TextAttributesKey = createTextAttributesKey("UNISON_ARROW", DLHC.OPERATION_SIGN)
   val STAR: TextAttributesKey = createTextAttributesKey("UNISON_STAR", DLHC.OPERATION_SIGN)
@@ -117,9 +116,9 @@ object UnisonSyntaxHighlighter {
   val EQ_KEYS: Array[TextAttributesKey] = Array(EQ)
   val BAR_KEYS: Array[TextAttributesKey] = Array(BAR)
 
-  val STRING_KEYS: Array[TextAttributesKey] = Array(STRING)
+  val TEXT_KEYS: Array[TextAttributesKey] = Array(TEXT)
   val BOOLEAN_KEYS: Array[TextAttributesKey] = Array(BOOLEAN)
-  val NUMBER_KEYS: Array[TextAttributesKey] = Array(NUMBER)
+  val INT_KEYS: Array[TextAttributesKey] = Array(INT)
 
   val ARROW_KEYS: Array[TextAttributesKey] = Array(ARROW)
   val LET_KEYS: Array[TextAttributesKey] = Array(LET)

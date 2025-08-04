@@ -7,20 +7,32 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonNumberImpl extends ASTWrapperPsiElement implements UnisonNumber {
+public class UnisonTopLevelDefinitionImpl extends ASTWrapperPsiElement implements UnisonTopLevelDefinition {
 
-  public UnisonNumberImpl(@NotNull ASTNode node) {
+  public UnisonTopLevelDefinitionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitNumber(this);
+    visitor.visitTopLevelDefinition(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof UnisonVisitor) accept((UnisonVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public UnisonIdentifier getIdentifier() {
+    return findNotNullChildByClass(UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public UnisonExpression getExpression() {
+    return findNotNullChildByClass(UnisonExpression.class);
   }
 
 }

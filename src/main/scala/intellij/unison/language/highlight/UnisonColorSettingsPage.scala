@@ -39,8 +39,8 @@ object UnisonColorSettingsPage {
     new AttributesDescriptor("MATCH", UnisonSyntaxHighlighter.MATCH),
     new AttributesDescriptor("USE", UnisonSyntaxHighlighter.USE),
     new AttributesDescriptor("TYPE", UnisonSyntaxHighlighter.TYPE),
-    new AttributesDescriptor("String", UnisonSyntaxHighlighter.STRING),
-    new AttributesDescriptor("Number", UnisonSyntaxHighlighter.NUMBER),
+    new AttributesDescriptor("String", UnisonSyntaxHighlighter.TEXT),
+    new AttributesDescriptor("Int", UnisonSyntaxHighlighter.INT),
     new AttributesDescriptor("Boolean", UnisonSyntaxHighlighter.BOOLEAN),
 
     // TODO

@@ -28,8 +28,12 @@ TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
 COMMENT = {END_OF_LINE_COMMENT} | {TRADITIONAL_COMMENT}
 
 IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
-NUMBER = [0-9]+(\.[0-9]+)?
-STRING = \"([^\"\\]|\\.)*\"
+// NAT = [1-9]([0-9]+)?
+INT = [1-9]([0-9]+)?
+// FLOAT = [0-9]+(\.[0-9]+)?
+DOUBLE = [0-9]+(\.[0-9]+)?
+CHAR = \'[^\']\'
+TEXT = \"([^\"\\]|\\.)*\"
 BOOLEAN = "true" | "false"
 
 %%
@@ -47,6 +51,9 @@ BOOLEAN = "true" | "false"
 "unique"                 { return UNIQUE; }
 
 "let"                    { return LET; }
+"do"                     { return DO; }
+"'"                      { return CIAPEK; }
+"!"                      { return BANG; }
 
 "if"                     { return IF; }
 "then"                   { return THEN; }
@@ -54,13 +61,19 @@ BOOLEAN = "true" | "false"
 
 "match"                  { return MATCH; }
 "with"                   { return WITH; }
+"cases"                  { return CASES; }
 "where"                  { return WHERE; }
 
 "->"                     { return ARROW; }
 ":"                      { return COLON; }
 "="                      { return EQ; }
+"+"                      { return PLUS; }
+"-"                      { return MINUS; }
+"mod"                    { return MOD; }
 ","                      { return COMMA; }
 "|"                      { return BAR; }
+"&&"                     { return AND; }
+"||"                     { return OR; }
 "("                      { return LPAREN; }
 ")"                      { return RPAREN; }
 "{"                      { return LBRACE; }
@@ -69,10 +82,17 @@ BOOLEAN = "true" | "false"
 "*"                      { return STAR; }
 "\\"                     { return LAMBDA; }
 "_"                      { return UNDERSCORE; }
+"==="                    { return EQ3; }
+"otherwise"              { return OTHERWISE; }
 
 {BOOLEAN}                { return BOOLEAN; }
-{NUMBER}                 { return NUMBER; }
-{STRING}                 { return STRING; }
+{CHAR}                   { return CHAR; }
+// {BYTES}                  { return BYTES; }
+{INT}                    { return INT; }
+//{NAT}                    { return NAT; }
+//{FLOAT}                  { return FLOAT; }
+{DOUBLE}                 { return DOUBLE; }
+{TEXT}                   { return TEXT; }
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 
 .                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }

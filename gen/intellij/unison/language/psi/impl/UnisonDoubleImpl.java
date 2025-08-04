@@ -7,14 +7,14 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonStringImpl extends ASTWrapperPsiElement implements UnisonString {
+public class UnisonDoubleImpl extends ASTWrapperPsiElement implements UnisonDouble {
 
-  public UnisonStringImpl(@NotNull ASTNode node) {
+  public UnisonDoubleImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitString(this);
+    visitor.visitDouble(this);
   }
 
   @Override

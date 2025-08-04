@@ -1,24 +1,20 @@
 // This is a generated file. Not intended for manual editing.
-package generated.psi.impl;
+package intellij.unison.language.psi.impl;
 
-import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.util.PsiTreeUtil;
-import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import generated.psi.*;
+import intellij.unison.language.psi.*;
 
-public class UnisonStringImpl extends ASTWrapperPsiElement implements UnisonString {
+public class UnisonTextImpl extends ASTWrapperPsiElement implements UnisonText {
 
-  public UnisonStringImpl(@NotNull ASTNode node) {
+  public UnisonTextImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitString(this);
+    visitor.visitText(this);
   }
 
   @Override

@@ -31,14 +31,26 @@ public class UnisonLiteralImpl extends ASTWrapperPsiElement implements UnisonLit
 
   @Override
   @Nullable
-  public UnisonNumber getNumber() {
-    return findChildByClass(UnisonNumber.class);
+  public UnisonChar getChar() {
+    return findChildByClass(UnisonChar.class);
   }
 
   @Override
   @Nullable
-  public UnisonString getString() {
-    return findChildByClass(UnisonString.class);
+  public UnisonDouble getDouble() {
+    return findChildByClass(UnisonDouble.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonInt getInt() {
+    return findChildByClass(UnisonInt.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonText getString() {
+    return findChildByClass(UnisonText.class);
   }
 
 }
