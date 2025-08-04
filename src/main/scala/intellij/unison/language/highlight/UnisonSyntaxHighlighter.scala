@@ -23,10 +23,11 @@ case class UnisonSyntaxHighlighter()
 //      case UnisonTypes.SEPARATOR  => SEPARATOR_KEYS
       case UnisonTypes.IDENTIFIER => IDENTIFIER_KEYS
       case UnisonTypes.TYPE       => TYPE_KEYS
+      case UnisonTypes.STRUCTURAL => STRUCTURAL_KEYS
       case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
 
-      case UnisonTypes.TEXT  => TEXT_KEYS
-      case UnisonTypes.INT  => INT_KEYS
+      case UnisonTypes.TEXT    => TEXT_KEYS
+      case UnisonTypes.INT     => INT_KEYS
       case UnisonTypes.BOOLEAN => BOOLEAN_KEYS
 
       case UnisonTypes.ARROW => ARROW_KEYS
@@ -43,15 +44,15 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.BAR        => BAR_KEYS
       case UnisonTypes.LAMBDA     => LAMBDA_KEYS
 
-      case UnisonTypes.ABILITY_DECL        => ABILITY_KEYS
-      case UnisonTypes.ABILITY_CONSTRUCTOR => ABILITY_KEYS
-      case UnisonTypes.LET                 => LET_KEYS
+      case UnisonTypes.ABILITY => ABILITY_KEYS
+      case UnisonTypes.LET     => LET_KEYS
 
       case UnisonTypes.IF_EXPR => IF_KEYS
       case UnisonTypes.THEN    => THEN_KEYS
       case UnisonTypes.ELSE    => ELSE_KEYS
 
       case UnisonTypes.MATCH => MATCH_KEYS
+      case UnisonTypes.CASES => CASES_KEYS
       case UnisonTypes.WITH  => WITH_KEYS
       case UnisonTypes.USE   => USE_KEYS
 
@@ -64,7 +65,8 @@ case class UnisonSyntaxHighlighter()
 object UnisonSyntaxHighlighter {
   val SEPARATOR: TextAttributesKey = createTextAttributesKey("UNISON_SEPARATOR", DLHC.OPERATION_SIGN)
   val IDENTIFIER: TextAttributesKey = createTextAttributesKey("UNISON_KEY", DLHC.IDENTIFIER)
-  val TYPE: TextAttributesKey = createTextAttributesKey("UNISON_TYPE", DLHC.CLASS_NAME)
+  val TYPE: TextAttributesKey = createTextAttributesKey("UNISON_TYPE", DLHC.KEYWORD)
+  val STRUCTURAL: TextAttributesKey = createTextAttributesKey("UNISON_STRUCTURAL", DLHC.KEYWORD)
 
   val TEXT: TextAttributesKey = createTextAttributesKey("UNISON_TEXT", DLHC.STRING)
   val INT: TextAttributesKey = createTextAttributesKey("UNISON_INT", DLHC.NUMBER)
@@ -91,6 +93,7 @@ object UnisonSyntaxHighlighter {
   val THEN: TextAttributesKey = createTextAttributesKey("UNISON_THEN", DLHC.KEYWORD)
   val ELSE: TextAttributesKey = createTextAttributesKey("UNISON_ELSE", DLHC.KEYWORD)
   val MATCH: TextAttributesKey = createTextAttributesKey("UNISON_MATCH", DLHC.KEYWORD)
+  val CASES: TextAttributesKey = createTextAttributesKey("UNISON_CASES", DLHC.KEYWORD)
   val WITH: TextAttributesKey = createTextAttributesKey("UNISON_WITH", DLHC.KEYWORD)
   val ABILITY: TextAttributesKey = createTextAttributesKey("UNISON_ABILITY", DLHC.KEYWORD)
 
@@ -101,6 +104,7 @@ object UnisonSyntaxHighlighter {
   val SEPARATOR_KEYS: Array[TextAttributesKey] = Array(SEPARATOR)
   val IDENTIFIER_KEYS: Array[TextAttributesKey] = Array(IDENTIFIER)
   val TYPE_KEYS: Array[TextAttributesKey] = Array(TYPE)
+  val STRUCTURAL_KEYS: Array[TextAttributesKey] = Array(STRUCTURAL)
   val NAMESPACE_KEYS: Array[TextAttributesKey] = Array(NAMESPACE)
   val USE_KEYS: Array[TextAttributesKey] = Array(USE)
   val STAR_KEYS: Array[TextAttributesKey] = Array(STAR)
@@ -124,6 +128,7 @@ object UnisonSyntaxHighlighter {
   val LET_KEYS: Array[TextAttributesKey] = Array(LET)
   val ABILITY_KEYS: Array[TextAttributesKey] = Array(ABILITY)
   val MATCH_KEYS: Array[TextAttributesKey] = Array(MATCH)
+  val CASES_KEYS: Array[TextAttributesKey] = Array(CASES)
   val WITH_KEYS: Array[TextAttributesKey] = Array(WITH)
   val IF_KEYS: Array[TextAttributesKey] = Array(IF)
   val THEN_KEYS: Array[TextAttributesKey] = Array(THEN)

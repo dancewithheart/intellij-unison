@@ -33,7 +33,7 @@ ability_decl ::= ( 'unique' | 'structural' )? 'ability' IDENTIFIER type_params? 
 
 ability_constructor ::= IDENTIFIER ':' type_expr
 
-type_decl ::= ( 'unique' | 'structural' )? 'type' IDENTIFIER type_params? '=' constructor ( '|' constructor )*
+type_decl ::= ( 'unique' | 'structural' )? 'type' qualified_name type_params? '=' constructor ( '|' constructor )*
 
 constructor ::= qualified_name type_expr*
 
