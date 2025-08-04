@@ -24,7 +24,6 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.IDENTIFIER => IDENTIFIER_KEYS
       case UnisonTypes.TYPE       => TYPE_KEYS
       case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
-//      case UnisonTypes.VALUE      => STRING_KEYS
 
       case UnisonTypes.STRING  => STRING_KEYS
       case UnisonTypes.NUMBER  => NUMBER_KEYS
@@ -52,9 +51,9 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.THEN    => THEN_KEYS
       case UnisonTypes.ELSE    => ELSE_KEYS
 
-      case UnisonTypes.MATCH_CASE => MATCH_KEYS
-      case UnisonTypes.WITH       => WITH_KEYS
-      case UnisonTypes.USE_IMPORT => USE_KEYS
+      case UnisonTypes.MATCH => MATCH_KEYS
+      case UnisonTypes.WITH  => WITH_KEYS
+      case UnisonTypes.USE   => USE_KEYS
 
       case UnisonTypes.COMMENT => COMMENT_KEYS
       // else if (tokenType.equals(UnisonTypes.BAD_CHARACTER)) BAD_CHAR_KEYS
