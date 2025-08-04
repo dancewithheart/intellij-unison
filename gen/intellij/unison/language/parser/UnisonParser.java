@@ -53,7 +53,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "declaration")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, DECLARATION, "<declaration>");
-    r = consumeTokens(b, 3, KEY, SEPARATOR, VALUE);
+    r = consumeTokens(b, 3, IDENTIFIER, SEPARATOR, VALUE);
     exit_section_(b, l, m, r, false, UnisonParser::recover_declaration);
     return r;
   }
@@ -79,7 +79,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NAMESPACE_DECLARATION, "<namespace declaration>");
     r = consumeToken(b, "namespace");
-    r = r && consumeToken(b, KEY);
+    r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -99,7 +99,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   private static boolean recover_property_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "recover_property_0")) return false;
     boolean r;
-    r = consumeToken(b, KEY);
+    r = consumeToken(b, IDENTIFIER);
     if (!r) r = consumeToken(b, SEPARATOR);
     if (!r) r = consumeToken(b, COMMENT);
     return r;

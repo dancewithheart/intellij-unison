@@ -22,11 +22,13 @@ import intellij.unison.language.psi.UnisonTypes;
 
 
 WHITE_SPACE = [\ \t\r\n]+
-COMMENT = "--"[^\n]*
+
 END_OF_LINE_COMMENT="--"[^\r\n]*
 TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
+COMMENT = {END_OF_LINE_COMMENT} | {TRADITIONAL_COMMENT}
 
-IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
+IDENTIFIER_PART = ([a-zA-Z_][a-zA-Z0-9_]*
+IDENTIFIER = {IDENTIFIER_PART} | (IDENTIFIER_PART {DOT} IDENTIFIER_PART)+
 NUMBER = [0-9]+(\.[0-9]+)?
 STRING = \"([^\"\\]|\\.)*\"
 BOOLEAN = "true" | "false"
@@ -38,14 +40,19 @@ BOOLEAN = "true" | "false"
 
 "namespace"              { return NAMESPACE; }
 "use"                    { return USE; }
+
 "ability"                { return ABILITY; }
 "type"                   { return TYPE; }
+
 "let"                    { return LET; }
+
 "if"                     { return IF; }
 "then"                   { return THEN; }
 "else"                   { return ELSE; }
+
 "match"                  { return MATCH; }
 "with"                   { return WITH; }
+
 "->"                     { return ARROW; }
 "="                      { return EQ; }
 ","                      { return COMMA; }

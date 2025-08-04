@@ -32,9 +32,15 @@ class UnisonColorSettingsPage
 
 object UnisonColorSettingsPage {
   val DESCRIPTORS: Array[AttributesDescriptor] = Array(
-    new AttributesDescriptor("Key", UnisonSyntaxHighlighter.KEY),
+    new AttributesDescriptor("IDENTIFIER", UnisonSyntaxHighlighter.IDENTIFIER),
     new AttributesDescriptor("Separator", UnisonSyntaxHighlighter.SEPARATOR),
-    new AttributesDescriptor("Value", UnisonSyntaxHighlighter.VALUE)
+    new AttributesDescriptor("NAMESPACE", UnisonSyntaxHighlighter.NAMESPACE),
+    new AttributesDescriptor("USE", UnisonSyntaxHighlighter.USE),
+    new AttributesDescriptor("TYPE", UnisonSyntaxHighlighter.TYPE),
+
+    new AttributesDescriptor("String", UnisonSyntaxHighlighter.STRING),
+    new AttributesDescriptor("Number", UnisonSyntaxHighlighter.NUMBER),
+    new AttributesDescriptor("Boolean", UnisonSyntaxHighlighter.BOOLEAN),
 
     // TODO
 //    new AttributesDescriptor("Operators//Plus", UnisonSyntaxHighlighter.PLUS),
@@ -42,6 +48,6 @@ object UnisonColorSettingsPage {
 //    new AttributesDescriptor("Operators//Advanced//Sigma", UnisonSyntaxHighlighter.SIGMA),
 //    new AttributesDescriptor("Operators//Advanced//Pi", UnisonSyntaxHighlighter.PI),
 
-    // TODO new AttributesDescriptor("Bad value", UnisonSyntaxHighlighter.BAD_CHARACTER)
+     new AttributesDescriptor("Bad value", UnisonSyntaxHighlighter.BAD_CHARACTER)
   )
 }

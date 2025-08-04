@@ -630,7 +630,7 @@ class UnisonLexer implements FlexLexer {
           // fall through
           case 38: break;
           case 10:
-          { return UnisonTypes.IDENTIFIER_TOKEN;
+          { return UnisonTypes.IDENTIFIER;
           }
           // fall through
           case 39: break;
