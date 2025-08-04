@@ -495,6 +495,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // namespace_decl
   //             | use_import
+  //             | topLevelDefinition
   //             | ability_decl
   //             | type_decl
   //             | definition
@@ -506,12 +507,27 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
     r = namespace_decl(b, l + 1);
     if (!r) r = use_import(b, l + 1);
+    if (!r) r = topLevelDefinition(b, l + 1);
     if (!r) r = ability_decl(b, l + 1);
     if (!r) r = type_decl(b, l + 1);
     if (!r) r = definition(b, l + 1);
     if (!r) r = expression(b, l + 1);
     if (!r) r = consumeToken(b, COMMENT);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // IDENTIFIER '=' expression
+  public static boolean topLevelDefinition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "topLevelDefinition")) return false;
+    if (!nextTokenIs(b, IDENTIFIER_TOKEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = IDENTIFIER(b, l + 1);
+    r = r && consumeToken(b, "=");
+    r = r && expression(b, l + 1);
+    exit_section_(b, m, TOP_LEVEL_DEFINITION, r);
     return r;
   }
 

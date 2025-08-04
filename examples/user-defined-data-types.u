@@ -1,3 +1,0 @@
-structural type Optional a
-  = lib.base.Optional.Some a
-  | lib.base.Optional.None

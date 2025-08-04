@@ -48,6 +48,7 @@ public interface UnisonTypes {
   IElementType STRING = new UnisonElementType("STRING");
   IElementType STRUCTURAL = new UnisonTokenType("STRUCTURAL");
   IElementType THEN = new UnisonTokenType("THEN");
+  IElementType TOP_LEVEL_DEFINITION = new UnisonElementType("TOP_LEVEL_DEFINITION");
   IElementType TYPE = new UnisonTokenType("TYPE");
   IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");
   IElementType TYPE_EXPR = new UnisonElementType("TYPE_EXPR");
@@ -129,6 +130,9 @@ public interface UnisonTypes {
       }
       else if (type == STRING) {
         return new UnisonStringImpl(node);
+      }
+      else if (type == TOP_LEVEL_DEFINITION) {
+        return new UnisonTopLevelDefinitionImpl(node);
       }
       else if (type == TYPE_DECL) {
         return new UnisonTypeDeclImpl(node);

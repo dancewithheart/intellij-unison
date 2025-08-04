@@ -18,6 +18,7 @@ unisonFile ::= statement*
 
 statement ::= namespace_decl
             | use_import
+            | topLevelDefinition
             | ability_decl
             | type_decl
             | definition
@@ -34,9 +35,11 @@ ability_constructor ::= IDENTIFIER ':' type_expr
 
 type_decl ::= ( 'unique' | 'structural' )? 'type' IDENTIFIER type_params? '=' constructor ( '|' constructor )*
 
-constructor ::= IDENTIFIER type_expr*
+constructor ::= qualified_name type_expr*
 
 definition ::= 'let' (IDENTIFIER '=' expression)+
+
+topLevelDefinition ::= IDENTIFIER '=' expression
 
 expression ::= literal
              | IDENTIFIER

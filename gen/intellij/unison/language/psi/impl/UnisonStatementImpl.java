@@ -49,6 +49,12 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
 
   @Override
   @Nullable
+  public UnisonTopLevelDefinition getTopLevelDefinition() {
+    return findChildByClass(UnisonTopLevelDefinition.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonTypeDecl getTypeDecl() {
     return findChildByClass(UnisonTypeDecl.class);
   }

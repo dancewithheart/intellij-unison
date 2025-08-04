@@ -91,6 +91,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTopLevelDefinition(@NotNull UnisonTopLevelDefinition o) {
+    visitPsiElement(o);
+  }
+
   public void visitTypeDecl(@NotNull UnisonTypeDecl o) {
     visitPsiElement(o);
   }
