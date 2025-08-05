@@ -1,6 +1,9 @@
 package intellij.unison
 
-class UseClauseTest extends BaseUnisonTest {
+class UseClauseTest
+    extends BaseUnisonTest {
 
   def testUseClause(): Unit = runTests()
+
+  def testUseClauseOperator(): Unit = runTests()
 }
