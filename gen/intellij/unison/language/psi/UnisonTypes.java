@@ -47,6 +47,7 @@ public interface UnisonTypes {
   IElementType LET = new UnisonTokenType("LET");
   IElementType LITERAL = new UnisonElementType("LITERAL");
   IElementType LPAREN = new UnisonTokenType("LPAREN");
+  IElementType LPARENSQ = new UnisonTokenType("LPARENSQ");
   IElementType LT = new UnisonTokenType("LT");
   IElementType MATCH = new UnisonElementType("MATCH");
   IElementType MATCH_CASE = new UnisonElementType("MATCH_CASE");
@@ -66,6 +67,7 @@ public interface UnisonTypes {
   IElementType QUALIFIED_NAME = new UnisonElementType("QUALIFIED_NAME");
   IElementType RBRACE = new UnisonTokenType("RBRACE");
   IElementType RPAREN = new UnisonTokenType("RPAREN");
+  IElementType RPARENSQ = new UnisonTokenType("RPARENSQ");
   IElementType STATEMENT = new UnisonElementType("STATEMENT");
   IElementType STRING = new UnisonElementType("STRING");
   IElementType STAR = new UnisonTokenType("STAR");

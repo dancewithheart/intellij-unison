@@ -84,6 +84,8 @@ BOOL_OPERATOR = "&&" | "||"
 ","                      { return COMMA; }
 "("                      { return LPAREN; }
 ")"                      { return RPAREN; }
+"["                      { return LPARENSQ; }
+"]"                      { return RPARENSQ; }
 "{"                      { return LBRACE; }
 "}"                      { return RBRACE; }
 "."                      { return DOT; }

@@ -13,8 +13,8 @@ public interface UnisonBoolExpr extends PsiElement {
   @Nullable
   UnisonBoolOperator getBoolOperator();
 
-  @NotNull
-  List<UnisonBoolExpr> getBoolExprList();
+  @Nullable
+  UnisonBoolExpr getBoolExpr();
 
   @Nullable
   UnisonQualifiedName getQualifiedName();

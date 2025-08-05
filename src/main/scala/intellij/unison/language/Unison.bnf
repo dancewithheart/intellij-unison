@@ -61,6 +61,7 @@ match_expr ::= 'match' expression 'with' match_case+
 
 num_expr ::=
    qualified_name
+   | '(' num_expr ')'
    | numLiteral
    | num_expr NUM_OPERATOR num_expr
    | '-' num_expr
@@ -68,6 +69,7 @@ num_expr ::=
 
 bool_expr ::=
    qualified_name
+   | '(' bool_expr ')'
    | BOOLEAN
    | bool_expr BOOL_OPERATOR bool_expr
    | 'not' bool_expr

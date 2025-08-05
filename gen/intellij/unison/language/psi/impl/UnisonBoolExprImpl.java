@@ -40,9 +40,9 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
   }
 
   @Override
-  @NotNull
-  public List<UnisonBoolExpr> getBoolExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolExpr.class);
+  @Nullable
+  public UnisonBoolExpr getBoolExpr() {
+    return findChildByClass(UnisonBoolExpr.class);
   }
 
   @Override
