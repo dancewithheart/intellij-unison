@@ -1,11 +1,14 @@
 // This is a generated file. Not intended for manual editing.
 package generated.psi.impl;
 
-import org.jetbrains.annotations.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import generated.psi.*;
+import generated.psi.UnisonDefinition;
+import generated.psi.UnisonExpression;
+import generated.psi.UnisonIdentifier;
+import generated.psi.UnisonVisitor;
+import org.jetbrains.annotations.NotNull;
 
 public class UnisonDefinitionImpl extends ASTWrapperPsiElement implements UnisonDefinition {
 

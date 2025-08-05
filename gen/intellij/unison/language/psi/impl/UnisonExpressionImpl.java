@@ -67,6 +67,12 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
+  public UnisonNumExpr getNumExpr() {
+    return findChildByClass(UnisonNumExpr.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonQualifiedName getQualifiedName() {
     return findChildByClass(UnisonQualifiedName.class);
   }

@@ -49,6 +49,9 @@ public interface UnisonTypes {
   IElementType MOD = new UnisonTokenType("MOD");
   IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
+  IElementType NUM_EXPR = new UnisonElementType("NUM_EXPR");
+  IElementType NUM_LITERAL = new UnisonElementType("NUM_LITERAL");
+  IElementType OPERATOR = new UnisonElementType("OPERATOR");
   IElementType OR = new UnisonTokenType("OR");
   IElementType OTHERWISE = new UnisonTokenType("OTHERWISE");
   IElementType PATTERN = new UnisonElementType("PATTERN");
@@ -78,6 +81,7 @@ public interface UnisonTypes {
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
+  IElementType OPERATOR_TOKEN = new UnisonTokenType("OPERATOR_TOKEN");
   IElementType TEXT_TOKEN = new UnisonTokenType("TEXT_TOKEN");
 
   class Factory {
@@ -139,6 +143,15 @@ public interface UnisonTypes {
       }
       else if (type == NAMESPACE_DECL) {
         return new UnisonNamespaceDeclImpl(node);
+      }
+      else if (type == NUM_EXPR) {
+        return new UnisonNumExprImpl(node);
+      }
+      else if (type == NUM_LITERAL) {
+        return new UnisonNumLiteralImpl(node);
+      }
+      else if (type == OPERATOR) {
+        return new UnisonOperatorImpl(node);
       }
       else if (type == PATTERN) {
         return new UnisonPatternImpl(node);

@@ -46,6 +46,7 @@ expression ::= literal
              | qualified_name
              | function_call
              | lambda
+             | num_expr
              | if_expr
              | match_expr
              | '(' expression ')'
@@ -53,6 +54,10 @@ expression ::= literal
 if_expr ::= 'if' expression 'then' expression 'else' expression
 
 match_expr ::= 'match' expression 'with' match_case+
+
+num_expr ::= ( IDENTIFIER | numLiteral ) OPERATOR ( IDENTIFIER | numLiteral )
+   | '-' ( IDENTIFIER | numLiteral )
+   | IDENTIFIER ( IDENTIFIER | numLiteral )*
 
 match_case ::= '|' pattern '->' expression
 
@@ -70,6 +75,8 @@ pattern ::= IDENTIFIER
 
 constructor_pattern ::= IDENTIFIER pattern*
 
+numLiteral ::= INT | DOUBLE
+
 literal ::= INT | DOUBLE | CHAR | TEXT | BOOLEAN
 
 qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
@@ -84,4 +91,5 @@ DOUBLE ::= DOUBLE_TOKEN
 CHAR ::= CHAR_TOKEN
 TEXT ::= TEXT_TOKEN
 BOOLEAN ::= 'true' | 'false'
+OPERATOR ::= OPERATOR_TOKEN
 

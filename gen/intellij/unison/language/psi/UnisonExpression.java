@@ -28,6 +28,9 @@ public interface UnisonExpression extends PsiElement {
   UnisonMatchExpr getMatchExpr();
 
   @Nullable
+  UnisonNumExpr getNumExpr();
+
+  @Nullable
   UnisonQualifiedName getQualifiedName();
 
 }

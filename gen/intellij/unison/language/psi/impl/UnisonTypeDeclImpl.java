@@ -4,8 +4,10 @@ package intellij.unison.language.psi.impl;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
+import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
@@ -27,14 +29,14 @@ public class UnisonTypeDeclImpl extends ASTWrapperPsiElement implements UnisonTy
 
   @Override
   @NotNull
-  public UnisonIdentifier getIdentifier() {
-    return findNotNullChildByClass(UnisonIdentifier.class);
+  public List<UnisonConstructor> getConstructorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonConstructor.class);
   }
 
   @Override
   @NotNull
-  public List<UnisonConstructor> getConstructorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonConstructor.class);
+  public UnisonQualifiedName getQualifiedName() {
+    return findNotNullChildByClass(UnisonQualifiedName.class);
   }
 
   @Override

@@ -1,15 +1,17 @@
 // This is a generated file. Not intended for manual editing.
 package generated.psi.impl;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static intellij.unison.language.psi.UnisonTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import generated.psi.*;
+import generated.psi.UnisonExpression;
+import generated.psi.UnisonMatchCase;
+import generated.psi.UnisonMatchExpr;
+import generated.psi.UnisonVisitor;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class UnisonMatchExprImpl extends ASTWrapperPsiElement implements UnisonMatchExpr {
 

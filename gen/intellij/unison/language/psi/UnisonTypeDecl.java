@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface UnisonTypeDecl extends PsiElement {
 
   @NotNull
-  UnisonIdentifier getIdentifier();
+  List<UnisonConstructor> getConstructorList();
 
   @NotNull
-  List<UnisonConstructor> getConstructorList();
+  UnisonQualifiedName getQualifiedName();
 
   @Nullable
   UnisonTypeParams getTypeParams();

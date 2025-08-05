@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonFunctionCallImpl extends ASTWrapperPsiElement implements UnisonFunctionCall {
+public class UnisonNumLiteralImpl extends ASTWrapperPsiElement implements UnisonNumLiteral {
 
-  public UnisonFunctionCallImpl(@NotNull ASTNode node) {
+  public UnisonNumLiteralImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitFunctionCall(this);
+    visitor.visitNumLiteral(this);
   }
 
   @Override
@@ -28,15 +28,15 @@ public class UnisonFunctionCallImpl extends ASTWrapperPsiElement implements Unis
   }
 
   @Override
-  @NotNull
-  public UnisonIdentifier getIdentifier() {
-    return findNotNullChildByClass(UnisonIdentifier.class);
+  @Nullable
+  public UnisonDouble getDouble() {
+    return findChildByClass(UnisonDouble.class);
   }
 
   @Override
   @Nullable
-  public UnisonArgumentList getArgumentList() {
-    return findChildByClass(UnisonArgumentList.class);
+  public UnisonInt getInt() {
+    return findChildByClass(UnisonInt.class);
   }
 
 }

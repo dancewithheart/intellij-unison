@@ -5,12 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonLambda extends PsiElement {
+public interface UnisonNumExpr extends PsiElement {
 
   @NotNull
-  UnisonExpression getExpression();
+  List<UnisonIdentifier> getIdentifierList();
+
+  @Nullable
+  UnisonOperator getOperator();
 
   @NotNull
-  UnisonPattern getPattern();
+  List<UnisonNumLiteral> getNumLiteralList();
 
 }

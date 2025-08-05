@@ -35,6 +35,7 @@ DOUBLE = [0-9]+(\.[0-9]+)?
 CHAR = \'[^\']\'
 TEXT = \"([^\"\\]|\\.)*\"
 BOOLEAN = "true" | "false"
+OPERATOR = "+" | "-" | "*" | "/"
 
 %%
 

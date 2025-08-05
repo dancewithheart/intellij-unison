@@ -1,11 +1,12 @@
 // This is a generated file. Not intended for manual editing.
 package generated.psi.impl;
 
-import org.jetbrains.annotations.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import generated.psi.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class UnisonLiteralImpl extends ASTWrapperPsiElement implements UnisonLiteral {
 
