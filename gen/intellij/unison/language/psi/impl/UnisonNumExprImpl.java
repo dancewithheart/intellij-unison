@@ -40,9 +40,9 @@ public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNum
   }
 
   @Override
-  @Nullable
-  public UnisonNumExpr getNumExpr() {
-    return findChildByClass(UnisonNumExpr.class);
+  @NotNull
+  public List<UnisonNumExpr> getNumExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumExpr.class);
   }
 
   @Override

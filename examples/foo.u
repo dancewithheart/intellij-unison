@@ -74,6 +74,12 @@ structural ability Throw e where
 
 (^) x y = Nat.pow x y
 
+(MyNamespace.**) x y = Float.pow x y
+
+-- record types
+
+type Song = {title : Text, artist : Text, year : Nat}
+
 -- block expressions
 {-
 statement_1

@@ -34,7 +34,7 @@ DOUBLE = [0-9]+(\.[0-9]+)?
 CHAR = \'[^\']\'
 STRING = \"([^\"\\]|\\.)*\"
 BOOLEAN = "true" | "false"
-NUM_OPERATOR = "+" | "-" | "*" | "/"
+NUM_OPERATOR = "+" | "-" | "*" | "/" | "%"
 BOOL_OPERATOR = "&&" | "||"
 
 %%
@@ -65,25 +65,28 @@ BOOL_OPERATOR = "&&" | "||"
 "cases"                  { return CASES; }
 "where"                  { return WHERE; }
 
+"@"                      { return AT; }
 "->"                     { return ARROW; }
 ":"                      { return COLON; }
 "="                      { return EQ; }
+"<"                      { return GT; }
+">"                      { return LT; }
 "==="                    { return EQ3; }
 "+"                      { return PLUS; }
 "-"                      { return MINUS; }
-"mod"                    { return MOD; }
-","                      { return COMMA; }
-"|"                      { return BAR; }
+"*"                      { return STAR; }
+"/"                      { return DIV; }
+"%"                      { return MOD; }
 "&&"                     { return AND; }
 "||"                     { return OR; }
 "not"                    { return NOT; }
-"/"                      { return DIV; }
+"|"                      { return BAR; }
+","                      { return COMMA; }
 "("                      { return LPAREN; }
 ")"                      { return RPAREN; }
 "{"                      { return LBRACE; }
 "}"                      { return RBRACE; }
 "."                      { return DOT; }
-"*"                      { return STAR; }
 "\\"                     { return LAMBDA; }
 "_"                      { return UNDERSCORE; }
 "otherwise"              { return OTHERWISE; }

@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonTopLevelDefinitionImpl extends ASTWrapperPsiElement implements UnisonTopLevelDefinition {
+public class UnisonTopLevelTypeDefinitionImpl extends ASTWrapperPsiElement implements UnisonTopLevelTypeDefinition {
 
-  public UnisonTopLevelDefinitionImpl(@NotNull ASTNode node) {
+  public UnisonTopLevelTypeDefinitionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitTopLevelDefinition(this);
+    visitor.visitTopLevelTypeDefinition(this);
   }
 
   @Override
@@ -29,14 +29,14 @@ public class UnisonTopLevelDefinitionImpl extends ASTWrapperPsiElement implement
 
   @Override
   @NotNull
-  public UnisonExpression getExpression() {
-    return findNotNullChildByClass(UnisonExpression.class);
+  public UnisonQualifiedName getQualifiedName() {
+    return findNotNullChildByClass(UnisonQualifiedName.class);
   }
 
   @Override
   @NotNull
-  public UnisonQualifiedName getQualifiedName() {
-    return findNotNullChildByClass(UnisonQualifiedName.class);
+  public UnisonTypeExpr getTypeExpr() {
+    return findNotNullChildByClass(UnisonTypeExpr.class);
   }
 
 }

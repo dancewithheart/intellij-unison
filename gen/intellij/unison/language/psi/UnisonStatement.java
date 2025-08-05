@@ -23,6 +23,9 @@ public interface UnisonStatement extends PsiElement {
   UnisonTopLevelDefinition getTopLevelDefinition();
 
   @Nullable
+  UnisonTopLevelTypeDefinition getTopLevelTypeDefinition();
+
+  @Nullable
   UnisonTypeDecl getTypeDecl();
 
   @Nullable

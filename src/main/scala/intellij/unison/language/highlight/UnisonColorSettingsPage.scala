@@ -48,7 +48,9 @@ object UnisonColorSettingsPage {
 
     // TODO
     new AttributesDescriptor("Operators//Plus", UnisonSyntaxHighlighter.PLUS),
-//    new AttributesDescriptor("Operators//Minus", UnisonSyntaxHighlighter.MINUS),
+    new AttributesDescriptor("Operators//Minus", UnisonSyntaxHighlighter.MINUS),
+    new AttributesDescriptor("Operators//Star", UnisonSyntaxHighlighter.STAR),
+    new AttributesDescriptor("Operators//Mod", UnisonSyntaxHighlighter.MOD),
 //    new AttributesDescriptor("Operators//Advanced//Sigma", UnisonSyntaxHighlighter.SIGMA),
 //    new AttributesDescriptor("Operators//Advanced//Pi", UnisonSyntaxHighlighter.PI),
 

@@ -13,8 +13,8 @@ public interface UnisonNumExpr extends PsiElement {
   @Nullable
   UnisonNumLiteral getNumLiteral();
 
-  @Nullable
-  UnisonNumExpr getNumExpr();
+  @NotNull
+  List<UnisonNumExpr> getNumExprList();
 
   @Nullable
   UnisonQualifiedName getQualifiedName();

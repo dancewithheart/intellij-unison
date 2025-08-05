@@ -14,6 +14,7 @@ public interface UnisonTypes {
   IElementType AND = new UnisonTokenType("AND");
   IElementType ARGUMENT_LIST = new UnisonElementType("ARGUMENT_LIST");
   IElementType ARROW = new UnisonTokenType("ARROW");
+  IElementType AT = new UnisonTokenType("AT");
   IElementType BAR = new UnisonTokenType("BAR");
   IElementType BANG = new UnisonTokenType("BANG");
   IElementType BOOL_EXPR = new UnisonElementType("BOOL_EXPR");
@@ -36,6 +37,7 @@ public interface UnisonTypes {
   IElementType EQ3 = new UnisonTokenType("EQ3");
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
+  IElementType GT = new UnisonTokenType("GT");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
   IElementType IF = new UnisonTokenType("IF");
   IElementType IF_EXPR = new UnisonElementType("IF_EXPR");
@@ -45,6 +47,7 @@ public interface UnisonTypes {
   IElementType LET = new UnisonTokenType("LET");
   IElementType LITERAL = new UnisonElementType("LITERAL");
   IElementType LPAREN = new UnisonTokenType("LPAREN");
+  IElementType LT = new UnisonTokenType("LT");
   IElementType MATCH = new UnisonElementType("MATCH");
   IElementType MATCH_CASE = new UnisonElementType("MATCH_CASE");
   IElementType MATCH_EXPR = new UnisonElementType("MATCH_EXPR");
@@ -69,6 +72,7 @@ public interface UnisonTypes {
   IElementType STRUCTURAL = new UnisonTokenType("STRUCTURAL");
   IElementType THEN = new UnisonTokenType("THEN");
   IElementType TOP_LEVEL_DEFINITION = new UnisonElementType("TOP_LEVEL_DEFINITION");
+  IElementType TOP_LEVEL_TYPE_DEFINITION = new UnisonElementType("TOP_LEVEL_TYPE_DEFINITION");
   IElementType TYPE = new UnisonTokenType("TYPE");
   IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");
   IElementType TYPE_EXPR = new UnisonElementType("TYPE_EXPR");
@@ -178,6 +182,9 @@ public interface UnisonTypes {
       }
       else if (type == TOP_LEVEL_DEFINITION) {
         return new UnisonTopLevelDefinitionImpl(node);
+      }
+      else if (type == TOP_LEVEL_TYPE_DEFINITION) {
+        return new UnisonTopLevelTypeDefinitionImpl(node);
       }
       else if (type == TYPE_DECL) {
         return new UnisonTypeDeclImpl(node);
