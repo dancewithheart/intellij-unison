@@ -1,0 +1,5 @@
+-- constructor patterns
+xs = [0, 2, 3, 4, 5]
+match List.at 3 xs with
+  Optional.None -> 0
+  Some x        -> x

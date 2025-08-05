@@ -1,0 +1,4 @@
+-- tuple patterns
+
+(a, _, c) = (1, 2, 3)
+a Nat.+ c

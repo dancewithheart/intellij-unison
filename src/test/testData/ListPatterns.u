@@ -1,0 +1,5 @@
+-- list patterns
+first : [a] -> Optional a
+first = cases
+  h +: _ -> Some h
+  []     -> None
