@@ -1,0 +1,12 @@
+{-
+Top level type declaration
+https://www.unison-lang.org/docs/language-reference/user-defined-data-types/
+
+<unique|structural<[<regular-identifier>]?>?> type TypeConstructor p1 p2 … pn
+  = DataConstructor_1
+  | DataConstructor_2
+  ..
+  | DataConstructor_n
+
+-}
+structural type Optional a = lib.base.Optional.Some a | lib.base.Optional.None
