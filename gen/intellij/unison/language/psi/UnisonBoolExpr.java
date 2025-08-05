@@ -5,16 +5,16 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonNumExpr extends PsiElement {
+public interface UnisonBoolExpr extends PsiElement {
 
   @Nullable
-  UnisonNumOperator getNumOperator();
+  UnisonBoolean getBoolean();
 
   @Nullable
-  UnisonNumLiteral getNumLiteral();
+  UnisonBoolOperator getBoolOperator();
 
-  @Nullable
-  UnisonNumExpr getNumExpr();
+  @NotNull
+  List<UnisonBoolExpr> getBoolExprList();
 
   @Nullable
   UnisonQualifiedName getQualifiedName();

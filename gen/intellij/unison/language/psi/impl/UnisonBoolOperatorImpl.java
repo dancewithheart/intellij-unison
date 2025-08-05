@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonTextImpl extends ASTWrapperPsiElement implements UnisonText {
+public class UnisonBoolOperatorImpl extends ASTWrapperPsiElement implements UnisonBoolOperator {
 
-  public UnisonTextImpl(@NotNull ASTNode node) {
+  public UnisonBoolOperatorImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitText(this);
+    visitor.visitBoolOperator(this);
   }
 
   @Override

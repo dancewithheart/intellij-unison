@@ -28,21 +28,27 @@ public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNum
   }
 
   @Override
-  @NotNull
-  public List<UnisonIdentifier> getIdentifierList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  @Nullable
+  public UnisonNumOperator getNumOperator() {
+    return findChildByClass(UnisonNumOperator.class);
   }
 
   @Override
   @Nullable
-  public UnisonOperator getOperator() {
-    return findChildByClass(UnisonOperator.class);
+  public UnisonNumLiteral getNumLiteral() {
+    return findChildByClass(UnisonNumLiteral.class);
   }
 
   @Override
-  @NotNull
-  public List<UnisonNumLiteral> getNumLiteralList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumLiteral.class);
+  @Nullable
+  public UnisonNumExpr getNumExpr() {
+    return findChildByClass(UnisonNumExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonQualifiedName getQualifiedName() {
+    return findChildByClass(UnisonQualifiedName.class);
   }
 
 }

@@ -29,8 +29,8 @@ public class UnisonTypeExprImpl extends ASTWrapperPsiElement implements UnisonTy
 
   @Override
   @Nullable
-  public UnisonIdentifier getIdentifier() {
-    return findChildByClass(UnisonIdentifier.class);
+  public UnisonQualifiedName getQualifiedName() {
+    return findChildByClass(UnisonQualifiedName.class);
   }
 
   @Override

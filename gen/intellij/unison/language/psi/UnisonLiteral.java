@@ -20,6 +20,6 @@ public interface UnisonLiteral extends PsiElement {
   UnisonInt getInt();
 
   @Nullable
-  UnisonText getString();
+  UnisonString getString();
 
 }

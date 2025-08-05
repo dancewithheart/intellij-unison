@@ -16,6 +16,8 @@ public interface UnisonTypes {
   IElementType ARROW = new UnisonTokenType("ARROW");
   IElementType BAR = new UnisonTokenType("BAR");
   IElementType BANG = new UnisonTokenType("BANG");
+  IElementType BOOL_EXPR = new UnisonElementType("BOOL_EXPR");
+  IElementType BOOL_OPERATOR = new UnisonElementType("BOOL_OPERATOR");
   IElementType BOOLEAN = new UnisonElementType("BOOLEAN");
   IElementType CASES = new UnisonTokenType("CASES");
   IElementType CHAR = new UnisonElementType("CHAR");
@@ -25,6 +27,7 @@ public interface UnisonTypes {
   IElementType CONSTRUCTOR = new UnisonElementType("CONSTRUCTOR");
   IElementType CONSTRUCTOR_PATTERN = new UnisonElementType("CONSTRUCTOR_PATTERN");
   IElementType DEFINITION = new UnisonElementType("DEFINITION");
+  IElementType DIV = new UnisonTokenType("DIV");
   IElementType DO = new UnisonTokenType("DO");
   IElementType DOT = new UnisonTokenType("DOT");
   IElementType DOUBLE = new UnisonElementType("DOUBLE");
@@ -51,7 +54,8 @@ public interface UnisonTypes {
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
   IElementType NUM_EXPR = new UnisonElementType("NUM_EXPR");
   IElementType NUM_LITERAL = new UnisonElementType("NUM_LITERAL");
-  IElementType OPERATOR = new UnisonElementType("OPERATOR");
+  IElementType NUM_OPERATOR = new UnisonElementType("NUM_OPERATOR");
+  IElementType NOT = new UnisonTokenType("NOT");
   IElementType OR = new UnisonTokenType("OR");
   IElementType OTHERWISE = new UnisonTokenType("OTHERWISE");
   IElementType PATTERN = new UnisonElementType("PATTERN");
@@ -60,10 +64,10 @@ public interface UnisonTypes {
   IElementType RBRACE = new UnisonTokenType("RBRACE");
   IElementType RPAREN = new UnisonTokenType("RPAREN");
   IElementType STATEMENT = new UnisonElementType("STATEMENT");
+  IElementType STRING = new UnisonElementType("STRING");
   IElementType STAR = new UnisonTokenType("STAR");
   IElementType STRUCTURAL = new UnisonTokenType("STRUCTURAL");
   IElementType THEN = new UnisonTokenType("THEN");
-  IElementType TEXT = new UnisonElementType("TEXT");
   IElementType TOP_LEVEL_DEFINITION = new UnisonElementType("TOP_LEVEL_DEFINITION");
   IElementType TYPE = new UnisonTokenType("TYPE");
   IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");
@@ -76,13 +80,14 @@ public interface UnisonTypes {
   IElementType UNIQUE = new UnisonTokenType("UNIQUE");
   IElementType WITH = new UnisonTokenType("WITH");
 
+  IElementType BOOL_OPERATOR_TOKEN = new UnisonTokenType("BOOL_OPERATOR_TOKEN");
   IElementType CHAR_TOKEN = new UnisonTokenType("CHAR_TOKEN");
   IElementType COMMENT = new UnisonTokenType("COMMENT");
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
-  IElementType OPERATOR_TOKEN = new UnisonTokenType("OPERATOR_TOKEN");
-  IElementType TEXT_TOKEN = new UnisonTokenType("TEXT_TOKEN");
+  IElementType NUM_OPERATOR_TOKEN = new UnisonTokenType("NUM_OPERATOR_TOKEN");
+  IElementType STRING_TOKEN = new UnisonTokenType("STRING_TOKEN");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -98,6 +103,12 @@ public interface UnisonTypes {
       }
       else if (type == BOOLEAN) {
         return new UnisonBooleanImpl(node);
+      }
+      else if (type == BOOL_EXPR) {
+        return new UnisonBoolExprImpl(node);
+      }
+      else if (type == BOOL_OPERATOR) {
+        return new UnisonBoolOperatorImpl(node);
       }
       else if (type == CHAR) {
         return new UnisonCharImpl(node);
@@ -150,8 +161,8 @@ public interface UnisonTypes {
       else if (type == NUM_LITERAL) {
         return new UnisonNumLiteralImpl(node);
       }
-      else if (type == OPERATOR) {
-        return new UnisonOperatorImpl(node);
+      else if (type == NUM_OPERATOR) {
+        return new UnisonNumOperatorImpl(node);
       }
       else if (type == PATTERN) {
         return new UnisonPatternImpl(node);
@@ -162,8 +173,8 @@ public interface UnisonTypes {
       else if (type == STATEMENT) {
         return new UnisonStatementImpl(node);
       }
-      else if (type == TEXT) {
-        return new UnisonTextImpl(node);
+      else if (type == STRING) {
+        return new UnisonStringImpl(node);
       }
       else if (type == TOP_LEVEL_DEFINITION) {
         return new UnisonTopLevelDefinitionImpl(node);

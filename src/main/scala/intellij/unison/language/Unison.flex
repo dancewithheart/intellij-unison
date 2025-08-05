@@ -5,9 +5,8 @@ package intellij.unison;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.TokenType;
 
-import intellij.unison.language.psi.UnisonTypes;
+import static intellij.unison.language.psi.UnisonTypes.*;
 
 %%
 /* ===================== Options and declarations =================== */
@@ -33,9 +32,10 @@ INT = [1-9]([0-9]+)?
 // FLOAT = [0-9]+(\.[0-9]+)?
 DOUBLE = [0-9]+(\.[0-9]+)?
 CHAR = \'[^\']\'
-TEXT = \"([^\"\\]|\\.)*\"
+STRING = \"([^\"\\]|\\.)*\"
 BOOLEAN = "true" | "false"
-OPERATOR = "+" | "-" | "*" | "/"
+NUM_OPERATOR = "+" | "-" | "*" | "/"
+BOOL_OPERATOR = "&&" | "||"
 
 %%
 
@@ -68,6 +68,7 @@ OPERATOR = "+" | "-" | "*" | "/"
 "->"                     { return ARROW; }
 ":"                      { return COLON; }
 "="                      { return EQ; }
+"==="                    { return EQ3; }
 "+"                      { return PLUS; }
 "-"                      { return MINUS; }
 "mod"                    { return MOD; }
@@ -75,6 +76,8 @@ OPERATOR = "+" | "-" | "*" | "/"
 "|"                      { return BAR; }
 "&&"                     { return AND; }
 "||"                     { return OR; }
+"not"                    { return NOT; }
+"/"                      { return DIV; }
 "("                      { return LPAREN; }
 ")"                      { return RPAREN; }
 "{"                      { return LBRACE; }
@@ -83,7 +86,6 @@ OPERATOR = "+" | "-" | "*" | "/"
 "*"                      { return STAR; }
 "\\"                     { return LAMBDA; }
 "_"                      { return UNDERSCORE; }
-"==="                    { return EQ3; }
 "otherwise"              { return OTHERWISE; }
 
 {BOOLEAN}                { return BOOLEAN; }
@@ -93,7 +95,7 @@ OPERATOR = "+" | "-" | "*" | "/"
 //{NAT}                    { return NAT; }
 //{FLOAT}                  { return FLOAT; }
 {DOUBLE}                 { return DOUBLE; }
-{TEXT}                   { return TEXT; }
+{STRING}                 { return STRING; }
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 
 .                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }

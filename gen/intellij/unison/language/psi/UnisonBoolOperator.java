@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonTypeExpr extends PsiElement {
-
-  @Nullable
-  UnisonQualifiedName getQualifiedName();
-
-  @Nullable
-  UnisonTypeExpr getTypeExpr();
+public interface UnisonBoolOperator extends PsiElement {
 
 }

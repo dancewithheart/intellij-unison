@@ -11,6 +11,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBoolOperator(@NotNull UnisonBoolOperator o) {
+    visitPsiElement(o);
+  }
+
   public void visitChar(@NotNull UnisonChar o) {
     visitPsiElement(o);
   }
@@ -27,11 +31,11 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitOperator(@NotNull UnisonOperator o) {
+  public void visitNumOperator(@NotNull UnisonNumOperator o) {
     visitPsiElement(o);
   }
 
-  public void visitText(@NotNull UnisonText o) {
+  public void visitString(@NotNull UnisonString o) {
     visitPsiElement(o);
   }
 
@@ -44,6 +48,10 @@ public class UnisonVisitor extends PsiElementVisitor {
   }
 
   public void visitArgumentList(@NotNull UnisonArgumentList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBoolExpr(@NotNull UnisonBoolExpr o) {
     visitPsiElement(o);
   }
 

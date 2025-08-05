@@ -1,9 +1,13 @@
 // This is a generated file. Not intended for manual editing.
 package intellij.unison.language.psi.impl;
 
+import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
+import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
@@ -27,6 +31,12 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
   @Nullable
   public UnisonIdentifier getIdentifier() {
     return findChildByClass(UnisonIdentifier.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonBoolExpr getBoolExpr() {
+    return findChildByClass(UnisonBoolExpr.class);
   }
 
   @Override

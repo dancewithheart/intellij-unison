@@ -53,8 +53,8 @@ public class UnisonLiteralImpl extends ASTWrapperPsiElement implements UnisonLit
 
   @Override
   @Nullable
-  public UnisonText getString() {
-    return findChildByClass(UnisonText.class);
+  public UnisonString getString() {
+    return findChildByClass(UnisonString.class);
   }
 
 }

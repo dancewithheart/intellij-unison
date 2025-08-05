@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface UnisonIfExpr extends PsiElement {
 
   @NotNull
+  UnisonBoolExpr getBoolExpr();
+
+  @NotNull
   List<UnisonExpression> getExpressionList();
 
 }

@@ -23,7 +23,7 @@ statement ::= namespace_decl
             | type_decl
             | definition
             | expression
-            | comment
+            | COMMENT
 
 namespace_decl ::= 'namespace' qualified_name
 
@@ -47,17 +47,29 @@ expression ::= literal
              | function_call
              | lambda
              | num_expr
+             | bool_expr
              | if_expr
              | match_expr
              | '(' expression ')'
 
-if_expr ::= 'if' expression 'then' expression 'else' expression
+if_expr ::= 'if' bool_expr 'then' expression 'else' expression
 
 match_expr ::= 'match' expression 'with' match_case+
 
-num_expr ::= ( IDENTIFIER | numLiteral ) OPERATOR ( IDENTIFIER | numLiteral )
-   | '-' ( IDENTIFIER | numLiteral )
-   | IDENTIFIER ( IDENTIFIER | numLiteral )*
+num_expr ::=
+   qualified_name
+   | 'mod' num_expr
+   | numLiteral
+   | num_expr NUM_OPERATOR num_expr
+   | '-' num_expr
+   | qualified_name num_expr*
+
+bool_expr ::=
+   qualified_name
+   | BOOLEAN
+   | bool_expr BOOL_OPERATOR bool_expr
+   | 'not' bool_expr
+   | qualified_name bool_expr*
 
 match_case ::= '|' pattern '->' expression
 
@@ -77,11 +89,11 @@ constructor_pattern ::= IDENTIFIER pattern*
 
 numLiteral ::= INT | DOUBLE
 
-literal ::= INT | DOUBLE | CHAR | TEXT | BOOLEAN
+literal ::= INT | DOUBLE | CHAR | STRING | BOOLEAN
 
 qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
 
-type_expr ::= IDENTIFIER | '(' type_expr ')' | type_expr '->' type_expr
+type_expr ::= qualified_name | '(' type_expr ')' | type_expr '->' type_expr
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 
@@ -89,7 +101,8 @@ IDENTIFIER ::= IDENTIFIER_TOKEN
 INT ::= INT_TOKEN
 DOUBLE ::= DOUBLE_TOKEN
 CHAR ::= CHAR_TOKEN
-TEXT ::= TEXT_TOKEN
+STRING ::= STRING_TOKEN
 BOOLEAN ::= 'true' | 'false'
-OPERATOR ::= OPERATOR_TOKEN
+NUM_OPERATOR ::= NUM_OPERATOR_TOKEN
+BOOL_OPERATOR ::= BOOL_OPERATOR_TOKEN
 

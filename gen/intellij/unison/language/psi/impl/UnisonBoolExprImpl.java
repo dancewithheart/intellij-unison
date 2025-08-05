@@ -11,20 +11,44 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonOperatorImpl extends ASTWrapperPsiElement implements UnisonOperator {
+public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBoolExpr {
 
-  public UnisonOperatorImpl(@NotNull ASTNode node) {
+  public UnisonBoolExprImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitOperator(this);
+    visitor.visitBoolExpr(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof UnisonVisitor) accept((UnisonVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public UnisonBoolean getBoolean() {
+    return findChildByClass(UnisonBoolean.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonBoolOperator getBoolOperator() {
+    return findChildByClass(UnisonBoolOperator.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonBoolExpr> getBoolExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonQualifiedName getQualifiedName() {
+    return findChildByClass(UnisonQualifiedName.class);
   }
 
 }
