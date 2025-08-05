@@ -1,6 +1,7 @@
 package intellij.unison
 
-class PatternMatchingTest extends BaseUnisonTest {
+class PatternMatchingTest
+    extends BaseUnisonTest {
 
   def testLiteralPatterns(): Unit = runTests()
 
