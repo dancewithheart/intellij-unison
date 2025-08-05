@@ -1,0 +1,7 @@
+use Nat %
+myList = Nat.range 0 99
+myListFunction =
+  if List.contains 100 myList then "100 found"
+  else
+    if List.any (elem -> elem % 2 === 0) myList then "Even found"
+    else "Condition not met"
