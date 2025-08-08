@@ -9,6 +9,18 @@ Thanks to [sbt-idea-plugin](https://github.com/JetBrains/sbt-idea-plugin) you ca
 sbt r
 ```
 
+## Playing with samples
+
+Similar to [hello world from Unison](https://www.unison-lang.org/docs/#hello-world) there is []()
+
+```shell
+ucm
+project.create samples
+load Hello.u
+update
+run hello
+```
+
 ## Development notes
 
 [Enable internal](https://plugins.jetbrains.com/docs/intellij/explore-api.html#internalMode) tools in IntelliJ `Help \ Edit Custom Properties ...`

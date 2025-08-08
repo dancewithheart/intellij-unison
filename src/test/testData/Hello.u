@@ -1,0 +1,2 @@
+hello : '{IO, Exception} ()
+hello = do printLine "Hello World in Unison!"
