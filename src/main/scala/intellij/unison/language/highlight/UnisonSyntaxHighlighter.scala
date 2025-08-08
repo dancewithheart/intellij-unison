@@ -26,7 +26,7 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.STRUCTURAL => STRUCTURAL_KEYS
       case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
 
-      case UnisonTypes.STRING    => STRING_KEYS
+      case UnisonTypes.STRING  => STRING_KEYS
       case UnisonTypes.INT     => INT_KEYS
       case UnisonTypes.BOOLEAN => BOOLEAN_KEYS
 
@@ -56,9 +56,9 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.ABILITY => ABILITY_KEYS
       case UnisonTypes.LET     => LET_KEYS
 
-      case UnisonTypes.IF      => IF_KEYS
-      case UnisonTypes.THEN    => THEN_KEYS
-      case UnisonTypes.ELSE    => ELSE_KEYS
+      case UnisonTypes.IF   => IF_KEYS
+      case UnisonTypes.THEN => THEN_KEYS
+      case UnisonTypes.ELSE => ELSE_KEYS
 
       case UnisonTypes.MATCH => MATCH_KEYS
       case UnisonTypes.CASES => CASES_KEYS
