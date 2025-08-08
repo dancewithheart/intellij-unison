@@ -8,7 +8,26 @@ namespace models.User
 use math sqrt
 
 -- top level term declaration
-x = 42
+foo = 42
+bar = true
+baz = "live"
+quux = [1, 2, 3,]
+
+-- if then else
+coinflip : Boolean -> Text
+coinflip bool = if bool then longText else "Hi"
+
+-- delayed computation
+myFunction : '{IO, Exception} Text
+myFunction arg = do "special keyword" ++ arg
+
+longText1 : () -> Text
+longText1 _ = "Imagine infinite monkeys on infinite typewriters …"
+
+longText2 : 'Text
+longText2 = do "Imagine infinite monkeys on infinite typewriters …"
+
+!longText2
 
 {-
 Top level type declaration
@@ -50,6 +69,16 @@ unique|structural ability A p_1 p_2 … p_n where
 structural ability Throw e where
   lib.base.abilities.Throw.throw : e ->{Throw e} a
 
+-- operators
+-- !$%^&*-=+<>~\\/|:
+
+(^) x y = Nat.pow x y
+
+(MyNamespace.**) x y = Float.pow x y
+
+-- record types
+
+type Song = {title : Text, artist : Text, year : Nat}
 
 -- block expressions
 {-

@@ -1,0 +1,6 @@
+-- as patterns
+matchExpression : Nat
+matchExpression = match 1 Nat.+ 1 with
+  x@4 -> x Nat.* 2
+  y@2 -> y Nat.+ 1
+  _   -> 22

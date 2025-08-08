@@ -1,0 +1,1 @@
+structural type Optional a = Some a | None

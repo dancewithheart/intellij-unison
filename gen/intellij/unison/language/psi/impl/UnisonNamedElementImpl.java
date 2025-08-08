@@ -2,7 +2,6 @@ package intellij.unison.language.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-
 import intellij.unison.language.psi.UnisonNamedElement;
 import org.jetbrains.annotations.NotNull;
 

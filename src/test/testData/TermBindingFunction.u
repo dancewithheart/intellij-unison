@@ -1,3 +1,6 @@
+natId : Nat -> Nat
+natId x = x
+
 -- term declaration (term binding)
 timesTwo : Nat -> Nat  -- type signature
 timesTwo x = x * 2     -- term definition

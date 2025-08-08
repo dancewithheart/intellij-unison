@@ -5,50 +5,102 @@ package intellij.unison;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.TokenType;
 
-import intellij.unison.language.psi.UnisonTypes;
+import static intellij.unison.language.psi.UnisonTypes.*;
 
 %%
 /* ===================== Options and declarations =================== */
 
+%public
 %class UnisonLexer
 %implements FlexLexer
 %unicode
 %function advance
 %type IElementType
-%eof{  return;
-%eof}
+%ignorecase
 
-CRLF=\r|\n|\r\n
-WHITE_SPACE=[\ \n\t\f]
-FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
-VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
+
+WHITE_SPACE = [\ \t\r\n]+
+
 END_OF_LINE_COMMENT="--"[^\r\n]*
 TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
-SEPARATOR=[:=]
-KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
+COMMENT = {END_OF_LINE_COMMENT} | {TRADITIONAL_COMMENT}
 
-%state WAITING_VALUE
+IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
+// NAT = [1-9]([0-9]+)?
+INT = "0" | [1-9]([0-9]+)?
+// FLOAT = [0-9]+(\.[0-9]+)?
+DOUBLE = [0-9]+(\.[0-9]+)?
+CHAR = \'[^\']\'
+STRING = \".*\"
+BOOLEAN = "true" | "false"
+NUM_OPERATOR = "+" | "-" | "*" | "/" | "%"
+BOOL_OPERATOR = "&&" | "||"
 
 %%
-/* ===================== Lexical rules =================== */
 
-<YYINITIAL> {END_OF_LINE_COMMENT}                           { yybegin(YYINITIAL); return UnisonTypes.COMMENT; }
+{WHITE_SPACE}            { return com.intellij.psi.TokenType.WHITE_SPACE; }
+{COMMENT}                { return COMMENT; }
 
-<YYINITIAL> {TRADITIONAL_COMMENT}                           { yybegin(YYINITIAL); return UnisonTypes.COMMENT; }
+"namespace"              { return NAMESPACE; }
+"use"                    { return USE; }
 
-<YYINITIAL> {KEY_CHARACTER}+                                { yybegin(YYINITIAL); return UnisonTypes.KEY; }
+"ability"                { return ABILITY; }
+"where"                  { return WHERE; }
+"type"                   { return TYPE; }
+"structural"             { return STRUCTURAL; }
+"unique"                 { return UNIQUE; }
 
-<YYINITIAL> {SEPARATOR}                                     { yybegin(WAITING_VALUE); return UnisonTypes.SEPARATOR; }
+"let"                    { return LET; }
+"do"                     { return DO; }
+"'"                      { return CIAPEK; }
+"!"                      { return BANG; }
 
-<WAITING_VALUE> {CRLF}({CRLF}|{WHITE_SPACE})+               { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+"if"                     { return IF; }
+"then"                   { return THEN; }
+"else"                   { return ELSE; }
 
-<WAITING_VALUE> {WHITE_SPACE}+                              { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE; }
+"match"                  { return MATCH; }
+"with"                   { return WITH; }
+"cases"                  { return CASES; }
+"where"                  { return WHERE; }
 
-<WAITING_VALUE> {FIRST_VALUE_CHARACTER}{VALUE_CHARACTER}*   { yybegin(YYINITIAL); return UnisonTypes.VALUE; }
+"@"                      { return AT; }
+"->"                     { return ARROW; }
+":"                      { return COLON; }
+"="                      { return EQ; }
+"<"                      { return GT; }
+">"                      { return LT; }
+"==="                    { return EQ3; }
+"+"                      { return PLUS; }
+"-"                      { return MINUS; }
+"*"                      { return STAR; }
+"/"                      { return DIV; }
+"%"                      { return MOD; }
+"&&"                     { return AND; }
+"||"                     { return OR; }
+"not"                    { return NOT; }
+"|"                      { return BAR; }
+","                      { return COMMA; }
+"("                      { return LPAREN; }
+")"                      { return RPAREN; }
+"["                      { return LPARENSQ; }
+"]"                      { return RPARENSQ; }
+"{"                      { return LBRACE; }
+"}"                      { return RBRACE; }
+"."                      { return DOT; }
+"\\"                     { return LAMBDA; }
+"_"                      { return UNDERSCORE; }
+"otherwise"              { return OTHERWISE; }
 
-({CRLF}|{WHITE_SPACE})+                                     { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+{BOOLEAN}                { return BOOLEAN; }
+{CHAR}                   { return CHAR; }
+// {BYTES}                  { return BYTES; }
+{INT}                    { return INT; }
+//{NAT}                    { return NAT; }
+//{FLOAT}                  { return FLOAT; }
+{DOUBLE}                 { return DOUBLE; }
+{STRING}                 { return STRING; }
+{IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 
-[^]                                                         { return TokenType.BAD_CHARACTER; }
-
+.                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }

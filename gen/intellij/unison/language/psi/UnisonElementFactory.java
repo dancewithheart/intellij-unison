@@ -14,7 +14,7 @@ public class UnisonElementFactory {
     }
 
     public static UnisonFile createFile(Project project, String text) {
-        String name = "dummy.simple";
+        String name = "dummy.unison";
         return (UnisonFile) PsiFileFactory.getInstance(project).createFileFromText(name, UnisonFileType.INSTANCE(), text);
     }
 

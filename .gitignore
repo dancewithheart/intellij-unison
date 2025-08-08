@@ -1,3 +1,18 @@
+# Scala
 **/target
-.idea
 .bsp
+
+# IntelliJ (normally you keep this in config but this is IntelliJ Plugin)
+.idea
+
+# Plugin
+/jflex-1.9.2.jar
+/idea-flex.skeleton
+**/*.*~
+
+# Unison
+**/*.unisonHistory
+
+# Temporary / arbitrary decisions
+backlog
+**/logging.properties

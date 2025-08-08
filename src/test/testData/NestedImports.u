@@ -1,0 +1,4 @@
+addNums : Nat -> Nat -> Nat
+addNums n1 n2 =
+  use Nat +
+  n1 + n2

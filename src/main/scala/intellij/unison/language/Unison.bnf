@@ -12,20 +12,117 @@
   elementTypeHolderClass="intellij.unison.language.psi.UnisonTypes"
   elementTypeClass="intellij.unison.language.psi.UnisonElementType"
   tokenTypeClass="intellij.unison.language.psi.UnisonTokenType"
-
-  psiImplUtilClass="intellij.unison.language.psi.impl.UnisonPsiImplUtil"
 }
 
-unisonFile ::= item_*
+unisonFile ::= statement*
 
-private item_ ::= (declaration|COMMENT|CRLF)
+statement ::= namespace_decl
+            | use_import
+            | topLevelTypeDefinition
+            | topLevelDefinition
+            | ability_decl
+            | type_decl
+            | definition
+            | expression
+            | COMMENT
 
-declaration ::= (KEY? SEPARATOR VALUE?) | KEY {
-  pin=3
-  recoverWhile="recover_declaration"
-  mixin="intellij.unison.language.psi.UnisonNamedElement"
-  implements="intellij.unison.language.psi.impl.UnisonNamedElementImpl"
-  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
-}
+namespace_decl ::= 'namespace' qualified_name
 
-private recover_declaration ::= !(KEY|SEPARATOR|COMMENT)
+use_import ::= 'use' qualified_name ('.' '*')?
+
+ability_decl ::= ( 'unique' | 'structural' )? 'ability' IDENTIFIER type_params? 'where' '{' ability_constructor* '}'
+
+ability_constructor ::= IDENTIFIER ':' type_expr
+
+type_decl ::= ( 'unique' | 'structural' )? 'type' qualified_name qualified_name? '=' constructor ( '|' constructor )*
+
+constructor ::= qualified_name type_expr*
+
+definition ::= 'let' (IDENTIFIER '=' expression)+
+
+topLevelTypeDefinition ::= qualified_name ':' type_expr
+
+topLevelDefinition ::=
+  qualified_name '=' expression
+  | (IDENTIFIER '=' expression)+
+  | '(' literal (',' literal)* ')' '=' '(' expression (',' expression)* ')'
+
+expression ::= literal
+             | IDENTIFIER
+             | qualified_name
+             | function_call
+             | lambda
+             | num_expr
+             | bool_expr
+             | if_expr
+             | match_expr
+             | '(' expression ')'
+
+if_expr ::= 'if' bool_expr 'then' expression 'else' expression
+
+match_expr ::= 'match' expression 'with' match_case+
+
+num_expr ::=
+   qualified_name
+   | '(' num_expr ')'
+   | numLiteral
+   | num_expr NUM_OPERATOR num_expr
+   | '-' num_expr
+   | qualified_name num_expr*
+
+bool_expr ::=
+   qualified_name
+   | '(' bool_expr ')'
+   | BOOLEAN
+   | bool_expr BOOL_OPERATOR bool_expr
+   | 'not' bool_expr
+   | qualified_name bool_expr*
+
+match_case ::= '|' pattern '->' expression
+
+function_call ::= IDENTIFIER '(' argument_list? ')'
+
+argument_list ::= expression (',' expression)*
+
+lambda ::= '\' pattern '->' expression
+
+pattern ::= IDENTIFIER
+          | '_'
+          | literal
+          | constructor_pattern
+          | '(' pattern ')'
+
+constructor_pattern ::= IDENTIFIER pattern*
+
+numLiteral ::= INT | DOUBLE
+
+literal ::= INT
+  | DOUBLE | CHAR | STRING | BOOLEAN
+  | '[' ']' | '[' literal (',' literal)* ']'
+  | '(' literal (',' literal)* ')'
+
+qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
+
+type_expr ::= 'Nat'
+  | 'Int'
+  | 'Char'
+  | 'Text'
+  | 'Float'
+  | 'Double'
+  | 'Boolean'
+  | qualified_name | '(' type_expr ')' | type_expr '->' type_expr
+  | '[' type_expr ']'
+  | '(' type_expr (',' type_expr)* ')'
+
+
+type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
+
+IDENTIFIER ::= IDENTIFIER_TOKEN
+INT ::= INT_TOKEN
+DOUBLE ::= DOUBLE_TOKEN
+CHAR ::= CHAR_TOKEN
+STRING ::= STRING_TOKEN
+BOOLEAN ::= 'true' | 'false'
+NUM_OPERATOR ::= NUM_OPERATOR_TOKEN
+BOOL_OPERATOR ::= BOOL_OPERATOR_TOKEN
+

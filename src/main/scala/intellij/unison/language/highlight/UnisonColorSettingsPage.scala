@@ -32,16 +32,28 @@ class UnisonColorSettingsPage
 
 object UnisonColorSettingsPage {
   val DESCRIPTORS: Array[AttributesDescriptor] = Array(
-    new AttributesDescriptor("Key", UnisonSyntaxHighlighter.KEY),
+    new AttributesDescriptor("IDENTIFIER", UnisonSyntaxHighlighter.IDENTIFIER),
     new AttributesDescriptor("Separator", UnisonSyntaxHighlighter.SEPARATOR),
-    new AttributesDescriptor("Value", UnisonSyntaxHighlighter.VALUE)
+    new AttributesDescriptor("NAMESPACE", UnisonSyntaxHighlighter.NAMESPACE),
+    new AttributesDescriptor("LET", UnisonSyntaxHighlighter.LET),
+    new AttributesDescriptor("MATCH", UnisonSyntaxHighlighter.MATCH),
+    new AttributesDescriptor("USE", UnisonSyntaxHighlighter.USE),
+    new AttributesDescriptor("TYPE", UnisonSyntaxHighlighter.TYPE),
+    new AttributesDescriptor("ABILITY", UnisonSyntaxHighlighter.ABILITY),
+    new AttributesDescriptor("CASES", UnisonSyntaxHighlighter.CASES),
+    new AttributesDescriptor("STRUCTURAL", UnisonSyntaxHighlighter.STRUCTURAL),
+    new AttributesDescriptor("String", UnisonSyntaxHighlighter.TEXT),
+    new AttributesDescriptor("Int", UnisonSyntaxHighlighter.INT),
+    new AttributesDescriptor("Boolean", UnisonSyntaxHighlighter.BOOLEAN),
 
     // TODO
-//    new AttributesDescriptor("Operators//Plus", UnisonSyntaxHighlighter.PLUS),
-//    new AttributesDescriptor("Operators//Minus", UnisonSyntaxHighlighter.MINUS),
+    new AttributesDescriptor("Operators//Plus", UnisonSyntaxHighlighter.PLUS),
+    new AttributesDescriptor("Operators//Minus", UnisonSyntaxHighlighter.MINUS),
+    new AttributesDescriptor("Operators//Star", UnisonSyntaxHighlighter.STAR),
+    new AttributesDescriptor("Operators//Mod", UnisonSyntaxHighlighter.MOD),
 //    new AttributesDescriptor("Operators//Advanced//Sigma", UnisonSyntaxHighlighter.SIGMA),
 //    new AttributesDescriptor("Operators//Advanced//Pi", UnisonSyntaxHighlighter.PI),
 
-    // TODO new AttributesDescriptor("Bad value", UnisonSyntaxHighlighter.BAD_CHARACTER)
+    new AttributesDescriptor("Bad value", UnisonSyntaxHighlighter.BAD_CHARACTER)
   )
 }

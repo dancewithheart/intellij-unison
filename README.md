@@ -9,6 +9,24 @@ Thanks to [sbt-idea-plugin](https://github.com/JetBrains/sbt-idea-plugin) you ca
 sbt r
 ```
 
+## Supported features
+
+```sbt
+grep -L Error src/test/testData/*.txt
+```
+
+## Playing with Unison samples
+
+Similar to [hello world from Unison](https://www.unison-lang.org/docs/#hello-world) there is []()
+
+```shell
+ucm
+project.create samples
+load Hello.u
+update
+run hello
+```
+
 ## Development notes
 
 [Enable internal](https://plugins.jetbrains.com/docs/intellij/explore-api.html#internalMode) tools in IntelliJ `Help \ Edit Custom Properties ...`
@@ -28,7 +46,18 @@ sbt c
 sbt f
 ```
 
-[Tutorial](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html) how to build IntelliJ language plugin and write [tests](https://plugins.jetbrains.com/docs/intellij/writing-tests-for-plugins.html)  for it.
+* Clean up sample output files from compilations and re-create them
+```shell
+rm src/test/testData/*.txt
+sbt t
+```
+
+* Check errors and unrecognized characters:
+```shell
+./error_counts.sh
+```
+
+* [Tutorial](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html) how to build IntelliJ language plugin and write [tests](https://plugins.jetbrains.com/docs/intellij/writing-tests-for-plugins.html)  for it.
 
 * [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) BNF Grammar
 
