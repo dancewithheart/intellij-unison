@@ -9,7 +9,13 @@ Thanks to [sbt-idea-plugin](https://github.com/JetBrains/sbt-idea-plugin) you ca
 sbt r
 ```
 
-## Playing with samples
+## Supported features
+
+```sbt
+grep -L Error src/test/testData/*.txt
+```
+
+## Playing with Unison samples
 
 Similar to [hello world from Unison](https://www.unison-lang.org/docs/#hello-world) there is []()
 
