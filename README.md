@@ -28,7 +28,18 @@ sbt c
 sbt f
 ```
 
-[Tutorial](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html) how to build IntelliJ language plugin and write [tests](https://plugins.jetbrains.com/docs/intellij/writing-tests-for-plugins.html)  for it.
+* Clean up sample output files from compilations and re-create them
+```shell
+rm src/test/testData/*.txt
+sbt t
+```
+
+* Check errors and unrecognized characters:
+```shell
+./error_counts.sh
+```
+
+* [Tutorial](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html) how to build IntelliJ language plugin and write [tests](https://plugins.jetbrains.com/docs/intellij/writing-tests-for-plugins.html)  for it.
 
 * [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) BNF Grammar
 
