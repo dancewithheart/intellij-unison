@@ -11,9 +11,6 @@ public interface UnisonTypeDecl extends PsiElement {
   List<UnisonConstructor> getConstructorList();
 
   @NotNull
-  UnisonQualifiedName getQualifiedName();
-
-  @Nullable
-  UnisonTypeParams getTypeParams();
+  List<UnisonQualifiedName> getQualifiedNameList();
 
 }

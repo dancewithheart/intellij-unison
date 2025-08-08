@@ -35,14 +35,8 @@ public class UnisonTypeDeclImpl extends ASTWrapperPsiElement implements UnisonTy
 
   @Override
   @NotNull
-  public UnisonQualifiedName getQualifiedName() {
-    return findNotNullChildByClass(UnisonQualifiedName.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonTypeParams getTypeParams() {
-    return findChildByClass(UnisonTypeParams.class);
+  public List<UnisonQualifiedName> getQualifiedNameList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedName.class);
   }
 
 }

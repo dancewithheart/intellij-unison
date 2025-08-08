@@ -1,0 +1,75 @@
+go : Boolean
+go = true
+
+n1 : Nat
+n1 = 1
+
+n2 : Nat
+n2 = 0
+
+maxNat : Nat
+maxNat = 18446744073709551615
+
+octalNat : Nat
+octalNat = 0o5446
+
+binaryNat : Nat
+binaryNat = 0b101010
+
+hexadecimalNat : Nat
+hexadecimalNat = 0xdeadbeef
+
+minInt : Int
+minInt = -9223372036854775808
+maxInt = +9223372036854775807
+
+i0 : Int
+i0 = 0
+
+i1 : Int
+i1 = +0
+
+i2 : Int
+i2 = -0
+
+i3 : Int
+i3 = +9001
+
+i4 : Int
+i4 = -16777216
+
+hexadecimalInt : Int
+hexadecimalInt = +0xdeadbeef
+
+octalInt : Int
+octalInt = -0o5446
+
+binaryInt : Int
+binaryInt = +0b101010
+
+f1 : Float
+f1 = 3.0e-3
+
+f2 : Float
+f2 = -99.0
+
+f3 : Float
+f3 = 1.6777216e7
+
+c1 : Char
+c1 = ?H
+
+c2 : Char
+c2 = ?,
+
+c3 : Char
+c3 = ?\s
+
+pie : Text
+pie = "Apple pie"
+
+hi : Text
+hi = "Hello, \"world\"!"
+
+db : Bytes
+db = 0xsdeadbeef

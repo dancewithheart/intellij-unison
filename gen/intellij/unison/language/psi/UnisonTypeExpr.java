@@ -10,7 +10,7 @@ public interface UnisonTypeExpr extends PsiElement {
   @Nullable
   UnisonQualifiedName getQualifiedName();
 
-  @Nullable
-  UnisonTypeExpr getTypeExpr();
+  @NotNull
+  List<UnisonTypeExpr> getTypeExprList();
 
 }

@@ -22,4 +22,7 @@ public interface UnisonLiteral extends PsiElement {
   @Nullable
   UnisonString getString();
 
+  @NotNull
+  List<UnisonLiteral> getLiteralList();
+
 }

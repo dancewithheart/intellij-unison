@@ -34,7 +34,7 @@ ability_decl ::= ( 'unique' | 'structural' )? 'ability' IDENTIFIER type_params? 
 
 ability_constructor ::= IDENTIFIER ':' type_expr
 
-type_decl ::= ( 'unique' | 'structural' )? 'type' qualified_name type_params? '=' constructor ( '|' constructor )*
+type_decl ::= ( 'unique' | 'structural' )? 'type' qualified_name qualified_name? '=' constructor ( '|' constructor )*
 
 constructor ::= qualified_name type_expr*
 
@@ -42,7 +42,10 @@ definition ::= 'let' (IDENTIFIER '=' expression)+
 
 topLevelTypeDefinition ::= qualified_name ':' type_expr
 
-topLevelDefinition ::= qualified_name '=' expression
+topLevelDefinition ::=
+  qualified_name '=' expression
+  | (IDENTIFIER '=' expression)+
+  | '(' literal (',' literal)* ')' '=' '(' expression (',' expression)* ')'
 
 expression ::= literal
              | IDENTIFIER
@@ -93,11 +96,24 @@ constructor_pattern ::= IDENTIFIER pattern*
 
 numLiteral ::= INT | DOUBLE
 
-literal ::= INT | DOUBLE | CHAR | STRING | BOOLEAN
+literal ::= INT
+  | DOUBLE | CHAR | STRING | BOOLEAN
+  | '[' ']' | '[' literal (',' literal)* ']'
+  | '(' literal (',' literal)* ')'
 
 qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
 
-type_expr ::= qualified_name | '(' type_expr ')' | type_expr '->' type_expr
+type_expr ::= 'Nat'
+  | 'Int'
+  | 'Char'
+  | 'Text'
+  | 'Float'
+  | 'Double'
+  | 'Boolean'
+  | qualified_name | '(' type_expr ')' | type_expr '->' type_expr
+  | '[' type_expr ']'
+  | '(' type_expr (',' type_expr)* ')'
+
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 

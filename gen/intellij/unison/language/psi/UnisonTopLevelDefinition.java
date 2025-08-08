@@ -8,9 +8,15 @@ import com.intellij.psi.PsiElement;
 public interface UnisonTopLevelDefinition extends PsiElement {
 
   @NotNull
-  UnisonExpression getExpression();
+  List<UnisonIdentifier> getIdentifierList();
 
   @NotNull
+  List<UnisonExpression> getExpressionList();
+
+  @NotNull
+  List<UnisonLiteral> getLiteralList();
+
+  @Nullable
   UnisonQualifiedName getQualifiedName();
 
 }

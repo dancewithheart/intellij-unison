@@ -1,0 +1,6 @@
+multi : Text
+multi =
+  """
+    This is a
+    multiline text
+  """

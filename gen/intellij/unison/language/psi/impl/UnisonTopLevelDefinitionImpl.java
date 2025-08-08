@@ -29,14 +29,26 @@ public class UnisonTopLevelDefinitionImpl extends ASTWrapperPsiElement implement
 
   @Override
   @NotNull
-  public UnisonExpression getExpression() {
-    return findNotNullChildByClass(UnisonExpression.class);
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
   @Override
   @NotNull
+  public List<UnisonExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonLiteral> getLiteralList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonLiteral.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonQualifiedName getQualifiedName() {
-    return findNotNullChildByClass(UnisonQualifiedName.class);
+    return findChildByClass(UnisonQualifiedName.class);
   }
 
 }

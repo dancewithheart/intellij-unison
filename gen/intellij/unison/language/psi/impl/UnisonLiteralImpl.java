@@ -57,4 +57,10 @@ public class UnisonLiteralImpl extends ASTWrapperPsiElement implements UnisonLit
     return findChildByClass(UnisonString.class);
   }
 
+  @Override
+  @NotNull
+  public List<UnisonLiteral> getLiteralList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonLiteral.class);
+  }
+
 }

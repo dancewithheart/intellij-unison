@@ -28,11 +28,11 @@ COMMENT = {END_OF_LINE_COMMENT} | {TRADITIONAL_COMMENT}
 
 IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
 // NAT = [1-9]([0-9]+)?
-INT = [1-9]([0-9]+)?
+INT = "0" | [1-9]([0-9]+)?
 // FLOAT = [0-9]+(\.[0-9]+)?
 DOUBLE = [0-9]+(\.[0-9]+)?
 CHAR = \'[^\']\'
-STRING = \"([^\"\\]|\\.)*\"
+STRING = \".*\"
 BOOLEAN = "true" | "false"
 NUM_OPERATOR = "+" | "-" | "*" | "/" | "%"
 BOOL_OPERATOR = "&&" | "||"
