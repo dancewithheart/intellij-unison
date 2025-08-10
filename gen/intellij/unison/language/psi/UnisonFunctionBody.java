@@ -5,6 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonBuiltinType extends PsiElement {
+public interface UnisonFunctionBody extends PsiElement {
+
+  @Nullable
+  UnisonExpression getExpression();
+
+  @NotNull
+  List<UnisonStatement> getStatementList();
 
 }

@@ -11,6 +11,9 @@ public interface UnisonTopLevelTypeDefinition extends PsiElement {
   List<UnisonIdentifier> getIdentifierList();
 
   @NotNull
+  UnisonFunctionBody getFunctionBody();
+
+  @NotNull
   UnisonQualifiedName getQualifiedName();
 
   @NotNull

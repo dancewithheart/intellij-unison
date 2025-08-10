@@ -97,6 +97,15 @@ BOOL_OPERATOR = "&&" | "||"
 "\\"                     { return LAMBDA; }
 "_"                      { return UNDERSCORE; }
 "otherwise"              { return OTHERWISE; }
+"Nat"                    { return NAT; }
+"Int"                    { return INT; }
+"Char"                   { return CHAR; }
+"Text"                   { return TEXT; }
+"Float"                  { return FLOAT; }
+"Double"                 { return DOUBLE; }
+"Boolean"                { return BOOLEAN; }
+"Bytes"                  { return BYTES; }
+"()"                     { return EMPTYBRACES; }
 
 {BOOLEAN}                { return BOOLEAN_TOKEN; }
 {CHAR}                   { return CHAR_TOKEN; }

@@ -26,9 +26,15 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.STRUCTURAL => STRUCTURAL_KEYS
       case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
 
+      case UnisonTypes.CHAR  => CHAR_KEYS
+      case UnisonTypes.BYTES  => BYTES_KEYS
       case UnisonTypes.STRING  => STRING_KEYS
       case UnisonTypes.INT     => INT_KEYS
+      case UnisonTypes.NAT     => NAT_KEYS
+      case UnisonTypes.DOUBLE     => DOUBLE_KEYS
+      case UnisonTypes.FLOAT     => FLOAT_KEYS
       case UnisonTypes.BOOLEAN => BOOLEAN_KEYS
+      case UnisonTypes.TEXT => TEXT_KEYS
 
       case UnisonTypes.ARROW => ARROW_KEYS
       case UnisonTypes.STAR  => STAR_KEYS
@@ -59,6 +65,8 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.IF   => IF_KEYS
       case UnisonTypes.THEN => THEN_KEYS
       case UnisonTypes.ELSE => ELSE_KEYS
+      case UnisonTypes.DO => DO_KEYS
+      case UnisonTypes.UNIQUE => UNIQUE_KEYS
 
       case UnisonTypes.MATCH => MATCH_KEYS
       case UnisonTypes.CASES => CASES_KEYS
@@ -76,9 +84,16 @@ object UnisonSyntaxHighlighter {
   val IDENTIFIER: TextAttributesKey = mkTextAttribKey("UNISON_KEY", DLHC.IDENTIFIER)
   val TYPE: TextAttributesKey = mkTextAttribKey("UNISON_TYPE", DLHC.KEYWORD)
   val STRUCTURAL: TextAttributesKey = mkTextAttribKey("UNISON_STRUCTURAL", DLHC.KEYWORD)
+  val DO: TextAttributesKey = mkTextAttribKey("UNISON_DO", DLHC.KEYWORD)
+  val UNIQUE: TextAttributesKey = mkTextAttribKey("UNISON_UNIQUE", DLHC.KEYWORD)
 
-  val TEXT: TextAttributesKey = mkTextAttribKey("UNISON_TEXT", DLHC.STRING)
+  val TEXT: TextAttributesKey = mkTextAttribKey("UNISON_TEXT", DLHC.NUMBER)
+  val CHAR: TextAttributesKey = mkTextAttribKey("UNISON_CHAR", DLHC.NUMBER)
+  val BYTES: TextAttributesKey = mkTextAttribKey("UNISON_BYTES", DLHC.NUMBER)
   val INT: TextAttributesKey = mkTextAttribKey("UNISON_INT", DLHC.NUMBER)
+  val NAT: TextAttributesKey = mkTextAttribKey("UNISON_NAT", DLHC.NUMBER)
+  val DOUBLE: TextAttributesKey = mkTextAttribKey("UNISON_DOUBLE", DLHC.NUMBER)
+  val FLOAT: TextAttributesKey = mkTextAttribKey("UNISON_FLOAT", DLHC.NUMBER)
   val BOOLEAN: TextAttributesKey = mkTextAttribKey("UNISON_BOOLEAN", DLHC.NUMBER) // TODO PP change to boolish color
 
   val ARROW: TextAttributesKey = mkTextAttribKey("UNISON_ARROW", DLHC.OPERATION_SIGN)
@@ -105,6 +120,7 @@ object UnisonSyntaxHighlighter {
 
   val NAMESPACE: TextAttributesKey = mkTextAttribKey("UNISON_NAMESPACE", DLHC.KEYWORD)
   val USE: TextAttributesKey = mkTextAttribKey("UNISON_USE", DLHC.KEYWORD)
+  val NOT: TextAttributesKey = mkTextAttribKey("UNISON_NOT", DLHC.KEYWORD)
   val LET: TextAttributesKey = mkTextAttribKey("UNISON_LET", DLHC.KEYWORD)
   val IF: TextAttributesKey = mkTextAttribKey("UNISON_IF", DLHC.KEYWORD)
   val THEN: TextAttributesKey = mkTextAttribKey("UNISON_THEN", DLHC.KEYWORD)
@@ -132,7 +148,7 @@ object UnisonSyntaxHighlighter {
   val LPAREN_KEYS: Array[TextAttributesKey] = Array(LPAREN)
   val RPAREN_KEYS: Array[TextAttributesKey] = Array(RPAREN)
   val DOT_KEYS: Array[TextAttributesKey] = Array(DOT)
-  val NOT_KEYS: Array[TextAttributesKey] = Array(DOT)
+  val NOT_KEYS: Array[TextAttributesKey] = Array(NOT)
   val PLUS_KEYS: Array[TextAttributesKey] = Array(PLUS)
   val MINUS_KEYS: Array[TextAttributesKey] = Array(MINUS)
   val MOD_KEYS: Array[TextAttributesKey] = Array(MOD)
@@ -149,6 +165,12 @@ object UnisonSyntaxHighlighter {
   val STRING_KEYS: Array[TextAttributesKey] = Array(TEXT)
   val BOOLEAN_KEYS: Array[TextAttributesKey] = Array(BOOLEAN)
   val INT_KEYS: Array[TextAttributesKey] = Array(INT)
+  val NAT_KEYS: Array[TextAttributesKey] = Array(NAT)
+  val DOUBLE_KEYS: Array[TextAttributesKey] = Array(DOUBLE)
+  val FLOAT_KEYS: Array[TextAttributesKey] = Array(FLOAT)
+  val BYTES_KEYS: Array[TextAttributesKey] = Array(BYTES)
+  val CHAR_KEYS: Array[TextAttributesKey] = Array(CHAR)
+  val TEXT_KEYS: Array[TextAttributesKey] = Array(TEXT)
 
   val ARROW_KEYS: Array[TextAttributesKey] = Array(ARROW)
   val LET_KEYS: Array[TextAttributesKey] = Array(LET)
@@ -159,6 +181,8 @@ object UnisonSyntaxHighlighter {
   val IF_KEYS: Array[TextAttributesKey] = Array(IF)
   val THEN_KEYS: Array[TextAttributesKey] = Array(THEN)
   val ELSE_KEYS: Array[TextAttributesKey] = Array(ELSE)
+  val DO_KEYS: Array[TextAttributesKey] = Array(DO)
+  val UNIQUE_KEYS: Array[TextAttributesKey] = Array(UNIQUE)
 
   val COMMENT_KEYS: Array[TextAttributesKey] = Array(COMMENT)
   val EMPTY_KEYS: Array[TextAttributesKey] = Array()

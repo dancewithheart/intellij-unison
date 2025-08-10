@@ -35,6 +35,12 @@ public class UnisonTopLevelTypeDefinitionImpl extends ASTWrapperPsiElement imple
 
   @Override
   @NotNull
+  public UnisonFunctionBody getFunctionBody() {
+    return findNotNullChildByClass(UnisonFunctionBody.class);
+  }
+
+  @Override
+  @NotNull
   public UnisonQualifiedName getQualifiedName() {
     return findNotNullChildByClass(UnisonQualifiedName.class);
   }

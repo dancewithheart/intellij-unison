@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface UnisonNumExpr extends PsiElement {
 
   @Nullable
+  UnisonIdentifier getIdentifier();
+
+  @Nullable
   UnisonNumOperator getNumOperator();
 
   @Nullable

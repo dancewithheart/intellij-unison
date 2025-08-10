@@ -28,7 +28,11 @@ statement ::= namespace_decl
 
 namespace_decl ::= 'namespace' qualified_name
 
-use_import ::= 'use' qualified_name ('.' '*')?
+functionBody ::= 'do' expression | statement+
+
+use_import ::= 'use' ( qualified_import | qualified_name )
+
+qualified_import ::= builtin_type ('.' IDENTIFIER)*
 
 ability_decl ::= ( 'unique' | 'structural' )? 'ability' IDENTIFIER type_params? 'where' '{' ability_constructor* '}'
 
@@ -40,7 +44,7 @@ constructor ::= qualified_name type_expr*
 
 definition ::= 'let' (binding)+
 
-topLevelTypeDefinition ::= qualified_name ':' ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr
+topLevelTypeDefinition ::= qualified_name ':' ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr functionBody
 
 binding ::= qualified_name IDENTIFIER* '=' expression
   | (IDENTIFIER '=' expression)+
@@ -62,11 +66,13 @@ match_expr ::= 'match' expression 'with' match_case+
 
 num_expr ::= numLiteral
    | numLiteral NUM_OPERATOR num_expr
+   | IDENTIFIER NUM_OPERATOR num_expr
    | '-' num_expr
    | '(' num_expr ')'
 
 bool_expr ::= BOOLEAN
    | BOOLEAN BOOL_OPERATOR bool_expr
+   | IDENTIFIER BOOL_OPERATOR bool_expr
    | 'not' bool_expr
    | 'mod' bool_expr bool_expr
    | '(' bool_expr ')'
@@ -105,11 +111,12 @@ builtin_type ::= 'Nat'
   | 'Boolean'
   | 'Bytes'
   | '()'
-  | '[' builtin_type ']'
 
-type_expr ::= builtin_type
+type_expr ::=
+  '[' type_expr ']'
+  | builtin_type '->' type_expr
+  | builtin_type
   | qualified_name
-  | builtin_type '->' builtin_type
   | '(' type_expr (',' type_expr)* ')'
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
