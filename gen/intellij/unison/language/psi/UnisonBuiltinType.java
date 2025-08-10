@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonNumExpr extends PsiElement {
+public interface UnisonBuiltinType extends PsiElement {
 
   @Nullable
-  UnisonNumOperator getNumOperator();
-
-  @Nullable
-  UnisonNumLiteral getNumLiteral();
-
-  @Nullable
-  UnisonNumExpr getNumExpr();
+  UnisonBuiltinType getBuiltinType();
 
 }

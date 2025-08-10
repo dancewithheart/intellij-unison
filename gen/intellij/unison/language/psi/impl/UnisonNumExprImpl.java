@@ -45,10 +45,4 @@ public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNum
     return findChildByClass(UnisonNumExpr.class);
   }
 
-  @Override
-  @Nullable
-  public UnisonQualifiedName getQualifiedName() {
-    return findChildByClass(UnisonQualifiedName.class);
-  }
-
 }

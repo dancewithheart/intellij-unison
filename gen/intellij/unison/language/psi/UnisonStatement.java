@@ -11,6 +11,9 @@ public interface UnisonStatement extends PsiElement {
   UnisonAbilityDecl getAbilityDecl();
 
   @Nullable
+  UnisonBinding getBinding();
+
+  @Nullable
   UnisonDefinition getDefinition();
 
   @Nullable
@@ -18,9 +21,6 @@ public interface UnisonStatement extends PsiElement {
 
   @Nullable
   UnisonNamespaceDecl getNamespaceDecl();
-
-  @Nullable
-  UnisonTopLevelDefinition getTopLevelDefinition();
 
   @Nullable
   UnisonTopLevelTypeDefinition getTopLevelTypeDefinition();

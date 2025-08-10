@@ -29,12 +29,6 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
-  public UnisonIdentifier getIdentifier() {
-    return findChildByClass(UnisonIdentifier.class);
-  }
-
-  @Override
-  @Nullable
   public UnisonBoolExpr getBoolExpr() {
     return findChildByClass(UnisonBoolExpr.class);
   }

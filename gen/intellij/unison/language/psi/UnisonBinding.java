@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonTopLevelDefinition extends PsiElement {
+public interface UnisonBinding extends PsiElement {
 
   @NotNull
   List<UnisonIdentifier> getIdentifierList();

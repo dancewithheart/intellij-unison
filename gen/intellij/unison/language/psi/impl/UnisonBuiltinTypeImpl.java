@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonFunctionCallImpl extends ASTWrapperPsiElement implements UnisonFunctionCall {
+public class UnisonBuiltinTypeImpl extends ASTWrapperPsiElement implements UnisonBuiltinType {
 
-  public UnisonFunctionCallImpl(@NotNull ASTNode node) {
+  public UnisonBuiltinTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitFunctionCall(this);
+    visitor.visitBuiltinType(this);
   }
 
   @Override
@@ -29,14 +29,8 @@ public class UnisonFunctionCallImpl extends ASTWrapperPsiElement implements Unis
 
   @Override
   @Nullable
-  public UnisonArgumentList getArgumentList() {
-    return findChildByClass(UnisonArgumentList.class);
-  }
-
-  @Override
-  @NotNull
-  public UnisonQualifiedName getQualifiedName() {
-    return findNotNullChildByClass(UnisonQualifiedName.class);
+  public UnisonBuiltinType getBuiltinType() {
+    return findChildByClass(UnisonBuiltinType.class);
   }
 
 }

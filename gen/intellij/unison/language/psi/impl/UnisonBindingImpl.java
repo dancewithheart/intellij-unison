@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonTopLevelDefinitionImpl extends ASTWrapperPsiElement implements UnisonTopLevelDefinition {
+public class UnisonBindingImpl extends ASTWrapperPsiElement implements UnisonBinding {
 
-  public UnisonTopLevelDefinitionImpl(@NotNull ASTNode node) {
+  public UnisonBindingImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitTopLevelDefinition(this);
+    visitor.visitBinding(this);
   }
 
   @Override

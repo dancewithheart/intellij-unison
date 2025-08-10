@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface UnisonTopLevelTypeDefinition extends PsiElement {
 
   @NotNull
+  List<UnisonIdentifier> getIdentifierList();
+
+  @NotNull
   UnisonQualifiedName getQualifiedName();
 
   @NotNull

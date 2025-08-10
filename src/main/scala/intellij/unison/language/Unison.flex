@@ -26,13 +26,15 @@ END_OF_LINE_COMMENT="--"[^\r\n]*
 TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
 COMMENT = {END_OF_LINE_COMMENT} | {TRADITIONAL_COMMENT}
 
-IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
+OPERATOR = [!$%\^&*\-=+<>~\\/|:]*
+IDNAME = [a-zA-Z_][a-zA-Z0-9_]*
+IDENTIFIER = {OPERATOR} | {IDNAME}
 // NAT = [1-9]([0-9]+)?
-INT = "0" | [1-9]([0-9]+)?
+INT = ("+" | "-")?[0-9]+
 // FLOAT = [0-9]+(\.[0-9]+)?
 DOUBLE = [0-9]+(\.[0-9]+)?
-CHAR = \'[^\']\'
-STRING = \".*\"
+CHAR = \?.
+STRING = \".*\" | \"\"\".*\"\"\"
 BOOLEAN = "true" | "false"
 NUM_OPERATOR = "+" | "-" | "*" | "/" | "%"
 BOOL_OPERATOR = "&&" | "||"
@@ -93,14 +95,14 @@ BOOL_OPERATOR = "&&" | "||"
 "_"                      { return UNDERSCORE; }
 "otherwise"              { return OTHERWISE; }
 
-{BOOLEAN}                { return BOOLEAN; }
-{CHAR}                   { return CHAR; }
+{BOOLEAN}                { return BOOLEAN_TOKEN; }
+{CHAR}                   { return CHAR_TOKEN; }
 // {BYTES}                  { return BYTES; }
-{INT}                    { return INT; }
+{INT}                    { return INT_TOKEN; }
 //{NAT}                    { return NAT; }
 //{FLOAT}                  { return FLOAT; }
-{DOUBLE}                 { return DOUBLE; }
-{STRING}                 { return STRING; }
+{DOUBLE}                 { return DOUBLE_TOKEN; }
+{STRING}                 { return STRING_TOKEN; }
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 
 .                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }

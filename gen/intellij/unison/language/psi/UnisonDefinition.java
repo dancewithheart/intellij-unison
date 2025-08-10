@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface UnisonDefinition extends PsiElement {
 
   @NotNull
-  List<UnisonIdentifier> getIdentifierList();
-
-  @NotNull
-  List<UnisonExpression> getExpressionList();
+  List<UnisonBinding> getBindingList();
 
 }
