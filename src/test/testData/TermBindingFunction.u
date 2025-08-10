@@ -12,7 +12,3 @@ asPi b = 3.14
 
 toPi : Float -> Text
 toPi f = "3.14"
-
--- term declaration (term binding)
-timesTwo : Int -> Int  -- type signature
-timesTwo x = x * 2     -- term definition
