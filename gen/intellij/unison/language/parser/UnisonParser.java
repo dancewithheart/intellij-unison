@@ -433,6 +433,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   //   | 'Float'
   //   | 'Double'
   //   | 'Boolean'
+  //   | 'Bytes'
   //   | '()'
   //   | '[' builtin_type ']'
   public static boolean builtin_type(PsiBuilder b, int l) {
@@ -446,15 +447,16 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, "Float");
     if (!r) r = consumeToken(b, "Double");
     if (!r) r = consumeToken(b, "Boolean");
+    if (!r) r = consumeToken(b, "Bytes");
     if (!r) r = consumeToken(b, "()");
-    if (!r) r = builtin_type_8(b, l + 1);
+    if (!r) r = builtin_type_9(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // '[' builtin_type ']'
-  private static boolean builtin_type_8(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "builtin_type_8")) return false;
+  private static boolean builtin_type_9(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "builtin_type_9")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, "[");

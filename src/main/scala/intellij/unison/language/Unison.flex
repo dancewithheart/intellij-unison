@@ -34,7 +34,9 @@ INT = ("+" | "-")?[0-9]+
 // FLOAT = [0-9]+(\.[0-9]+)?
 DOUBLE = [0-9]+(\.[0-9]+)?
 CHAR = \?.
-STRING = \".*\" | \"\"\".*\"\"\"
+STRING_SINGLELINE = \" [^\r\n]* \"
+STRING_MULTILINE = \"\"\" [^\"]+ ~\"\"\"
+STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
 NUM_OPERATOR = "+" | "-" | "*" | "/" | "%"
 BOOL_OPERATOR = "&&" | "||"
@@ -97,10 +99,10 @@ BOOL_OPERATOR = "&&" | "||"
 
 {BOOLEAN}                { return BOOLEAN_TOKEN; }
 {CHAR}                   { return CHAR_TOKEN; }
-// {BYTES}                  { return BYTES; }
+// {BYTES}                  { return BYTES_TOKEN; }
 {INT}                    { return INT_TOKEN; }
-//{NAT}                    { return NAT; }
-//{FLOAT}                  { return FLOAT; }
+//{NAT}                    { return NAT_TOKEN; }
+//{FLOAT}                  { return FLOAT_TOKEN; }
 {DOUBLE}                 { return DOUBLE_TOKEN; }
 {STRING}                 { return STRING_TOKEN; }
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }

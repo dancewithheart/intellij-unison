@@ -13,6 +13,8 @@ class TermBindingTest
 
   def testTermBindingBasicTypesText(): Unit = runTests()
 
+  def testTermBindingMultilineText(): Unit = runTests()
+
   def testTermBindingBasicTypesInt(): Unit = runTests()
 
   def testTermBindingTuples(): Unit = runTests()

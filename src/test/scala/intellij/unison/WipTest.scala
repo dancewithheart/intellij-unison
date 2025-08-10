@@ -25,6 +25,4 @@ class WipTest extends BaseUnisonTest {
   def testNestedFunctions(): Unit = runTests()
 
   def testNestedIfThenElse(): Unit = runTests()
-
-  def testTermBindingMultilineText(): Unit = runTests()
 }
