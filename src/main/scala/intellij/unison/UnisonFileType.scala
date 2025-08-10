@@ -7,7 +7,7 @@ import javax.swing.Icon
 case class UnisonFileType()
     extends LanguageFileType(UnisonLanguage.INSTANCE) {
 
-  override def getName: String = "Unison File"
+  override def getName: String = "Unison"
 
   override def getDescription: String = "Unison language file"
 
