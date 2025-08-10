@@ -14,11 +14,26 @@ run hello
 ```
 
 ## Supported features
-
-src/test/testData/CommentsMultiline.txt
-* [src/test/testData/Comments.u](./src/test/testData/Comments.u)
-```unison
--- comments https://www.unison-lang.org/docs/language-reference/comments/
-```
-
-TODO
+* [CommentsMultiline](./src/test/testData/CommentsMultiline.u)
+* [Comments](./src/test/testData/Comments.u)
+* [LiteralPatterns](./src/test/testData/LiteralPatterns.u)
+* [Literals](./src/test/testData/Literals.u)
+* [MultiplePatterns](./src/test/testData/MultiplePatterns.u)
+* [NamespaceDeclaration](./src/test/testData/NamespaceDeclaration.u)
+* [NumericalExpression3](./src/test/testData/NumericalExpression3.u)
+* [StructuralType1](./src/test/testData/StructuralType1.u)
+* [StructuralType2](./src/test/testData/StructuralType2.u)
+* [StructuralTypePoly1](./src/test/testData/StructuralTypePoly1.u)
+* [StructuralTypePoly2](./src/test/testData/StructuralTypePoly2.u)
+* [TermBindingBasicTypesBoolean](./src/test/testData/TermBindingBasicTypesBoolean.u)
+* [TermBindingBasicTypesBytes](./src/test/testData/TermBindingBasicTypesBytes.u)
+* [TermBindingBasicTypesChar](./src/test/testData/TermBindingBasicTypesChar.u)
+* [TermBindingBasicTypesFloat](./src/test/testData/TermBindingBasicTypesFloat.u)
+* [TermBindingBasicTypesInt](./src/test/testData/TermBindingBasicTypesInt.u)
+* [TermBindingBasicTypesText](./src/test/testData/TermBindingBasicTypesText.u)
+* [TermBindingFunction](./src/test/testData/TermBindingFunction.u)
+* [TermBindingMultilineText](./src/test/testData/TermBindingMultilineText.u)
+* [TermBindingTuples](./src/test/testData/TermBindingTuples.u)
+* [TopLevelTermDeclaration](./src/test/testData/TopLevelTermDeclaration.u)
+* [UseClauseOperator](./src/test/testData/UseClauseOperator.u)
+* [UseClause](./src/test/testData/UseClause.u)
