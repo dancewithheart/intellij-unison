@@ -29,14 +29,20 @@ public class UnisonTypeExprImpl extends ASTWrapperPsiElement implements UnisonTy
 
   @Override
   @Nullable
+  public UnisonBuiltinType getBuiltinType() {
+    return findChildByClass(UnisonBuiltinType.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonQualifiedName getQualifiedName() {
     return findChildByClass(UnisonQualifiedName.class);
   }
 
   @Override
-  @Nullable
-  public UnisonTypeExpr getTypeExpr() {
-    return findChildByClass(UnisonTypeExpr.class);
+  @NotNull
+  public List<UnisonTypeExpr> getTypeExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonTypeExpr.class);
   }
 
 }

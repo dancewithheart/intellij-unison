@@ -8,9 +8,12 @@ import com.intellij.psi.PsiElement;
 public interface UnisonTypeExpr extends PsiElement {
 
   @Nullable
-  UnisonQualifiedName getQualifiedName();
+  UnisonBuiltinType getBuiltinType();
 
   @Nullable
-  UnisonTypeExpr getTypeExpr();
+  UnisonQualifiedName getQualifiedName();
+
+  @NotNull
+  List<UnisonTypeExpr> getTypeExprList();
 
 }

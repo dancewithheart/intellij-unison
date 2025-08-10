@@ -1,0 +1,5 @@
+pie : Text
+pie = "Apple pie"
+
+hi : Text
+hi = "Hello, \"world\"!"

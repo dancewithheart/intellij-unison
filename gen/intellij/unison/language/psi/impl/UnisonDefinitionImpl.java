@@ -29,14 +29,8 @@ public class UnisonDefinitionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @NotNull
-  public List<UnisonIdentifier> getIdentifierList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
+  public List<UnisonBinding> getBindingList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBinding.class);
   }
 
 }

@@ -1,0 +1,24 @@
+minInt : Int
+minInt = -9223372036854775808
+maxInt = +9223372036854775807
+
+i1 : Int
+i1 = +0
+
+i2 : Int
+i2 = -0
+
+i3 : Int
+i3 = +9001
+
+i4 : Int
+i4 = -16777216
+
+hexadecimalInt : Int
+hexadecimalInt = +0xdeadbeef
+
+octalInt : Int
+octalInt = -0o5446
+
+binaryInt : Int
+binaryInt = +0b101010

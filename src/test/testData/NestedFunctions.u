@@ -1,5 +1,0 @@
-addOneCurried : Nat -> Nat
-addOneCurried count =
-  plusOne : Nat -> Nat
-  plusOne = addNums 1
-  plusOne count

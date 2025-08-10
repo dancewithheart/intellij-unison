@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface UnisonExpression extends PsiElement {
 
   @Nullable
-  UnisonIdentifier getIdentifier();
-
-  @Nullable
   UnisonBoolExpr getBoolExpr();
 
   @Nullable

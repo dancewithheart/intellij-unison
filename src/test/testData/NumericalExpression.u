@@ -1,4 +1,0 @@
-isEven num =
-  if mod num 2 === 0 then "even" else "odd"
-
-x = 1 + 2 * 3 / 4 - 9

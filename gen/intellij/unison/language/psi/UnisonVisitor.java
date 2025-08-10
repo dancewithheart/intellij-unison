@@ -51,7 +51,15 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBinding(@NotNull UnisonBinding o) {
+    visitPsiElement(o);
+  }
+
   public void visitBoolExpr(@NotNull UnisonBoolExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBuiltinType(@NotNull UnisonBuiltinType o) {
     visitPsiElement(o);
   }
 
@@ -116,10 +124,6 @@ public class UnisonVisitor extends PsiElementVisitor {
   }
 
   public void visitStatement(@NotNull UnisonStatement o) {
-    visitPsiElement(o);
-  }
-
-  public void visitTopLevelDefinition(@NotNull UnisonTopLevelDefinition o) {
     visitPsiElement(o);
   }
 

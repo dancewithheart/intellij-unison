@@ -1,0 +1,5 @@
+addOneCurried : Nat -> Nat
+addOneCurried count =
+  plusOne : Nat -> Nat
+  plusOne n = n + 1
+  plusOne count

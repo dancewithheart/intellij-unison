@@ -45,10 +45,4 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
     return findChildByClass(UnisonBoolExpr.class);
   }
 
-  @Override
-  @Nullable
-  public UnisonQualifiedName getQualifiedName() {
-    return findChildByClass(UnisonQualifiedName.class);
-  }
-
 }

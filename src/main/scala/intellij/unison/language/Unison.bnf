@@ -19,7 +19,7 @@ unisonFile ::= statement*
 statement ::= namespace_decl
             | use_import
             | topLevelTypeDefinition
-            | topLevelDefinition
+            | binding
             | ability_decl
             | type_decl
             | definition
@@ -38,49 +38,42 @@ type_decl ::= ( 'unique' | 'structural' )? 'type' qualified_name qualified_name?
 
 constructor ::= qualified_name type_expr*
 
-definition ::= 'let' (IDENTIFIER '=' expression)+
+definition ::= 'let' (binding)+
 
-topLevelTypeDefinition ::= qualified_name ':' type_expr
+topLevelTypeDefinition ::= qualified_name ':' ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr
 
-topLevelDefinition ::=
-  qualified_name '=' expression
+binding ::= qualified_name IDENTIFIER* '=' expression
   | (IDENTIFIER '=' expression)+
   | '(' literal (',' literal)* ')' '=' '(' expression (',' expression)* ')'
 
 expression ::= literal
-             | IDENTIFIER
-             | qualified_name
-             | function_call
              | lambda
              | num_expr
              | bool_expr
              | if_expr
              | match_expr
+             | function_call
+             | qualified_name
              | '(' expression ')'
 
 if_expr ::= 'if' bool_expr 'then' expression 'else' expression
 
 match_expr ::= 'match' expression 'with' match_case+
 
-num_expr ::=
-   qualified_name
-   | '(' num_expr ')'
-   | numLiteral
-   | num_expr NUM_OPERATOR num_expr
+num_expr ::= numLiteral
+   | numLiteral NUM_OPERATOR num_expr
    | '-' num_expr
-   | qualified_name num_expr*
+   | '(' num_expr ')'
 
-bool_expr ::=
-   qualified_name
-   | '(' bool_expr ')'
-   | BOOLEAN
-   | bool_expr BOOL_OPERATOR bool_expr
+bool_expr ::= BOOLEAN
+   | BOOLEAN BOOL_OPERATOR bool_expr
    | 'not' bool_expr
-   | qualified_name bool_expr*
+   | 'mod' bool_expr bool_expr
+   | '(' bool_expr ')'
 
 match_case ::= '|' pattern '->' expression
 
-function_call ::= IDENTIFIER '(' argument_list? ')'
+function_call ::= qualified_name '(' argument_list? ')'
 
 argument_list ::= expression (',' expression)*
 
@@ -103,17 +96,21 @@ literal ::= INT
 
 qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
 
-type_expr ::= 'Nat'
+builtin_type ::= 'Nat'
   | 'Int'
   | 'Char'
   | 'Text'
   | 'Float'
   | 'Double'
   | 'Boolean'
-  | qualified_name | '(' type_expr ')' | type_expr '->' type_expr
-  | '[' type_expr ']'
-  | '(' type_expr (',' type_expr)* ')'
+  | 'Bytes'
+  | '()'
+  | '[' builtin_type ']'
 
+type_expr ::= builtin_type
+  | qualified_name
+  | builtin_type '->' builtin_type
+  | '(' type_expr (',' type_expr)* ')'
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 
@@ -125,4 +122,3 @@ STRING ::= STRING_TOKEN
 BOOLEAN ::= 'true' | 'false'
 NUM_OPERATOR ::= NUM_OPERATOR_TOKEN
 BOOL_OPERATOR ::= BOOL_OPERATOR_TOKEN
-

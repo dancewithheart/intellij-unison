@@ -28,15 +28,15 @@ public class UnisonFunctionCallImpl extends ASTWrapperPsiElement implements Unis
   }
 
   @Override
-  @NotNull
-  public UnisonIdentifier getIdentifier() {
-    return findNotNullChildByClass(UnisonIdentifier.class);
-  }
-
-  @Override
   @Nullable
   public UnisonArgumentList getArgumentList() {
     return findChildByClass(UnisonArgumentList.class);
+  }
+
+  @Override
+  @NotNull
+  public UnisonQualifiedName getQualifiedName() {
+    return findNotNullChildByClass(UnisonQualifiedName.class);
   }
 
 }

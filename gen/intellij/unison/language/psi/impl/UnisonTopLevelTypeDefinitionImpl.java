@@ -29,6 +29,12 @@ public class UnisonTopLevelTypeDefinitionImpl extends ASTWrapperPsiElement imple
 
   @Override
   @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
   public UnisonQualifiedName getQualifiedName() {
     return findNotNullChildByClass(UnisonQualifiedName.class);
   }
