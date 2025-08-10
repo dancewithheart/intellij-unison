@@ -22,6 +22,7 @@ public interface UnisonTypes {
   IElementType BOOL_EXPR = new UnisonElementType("BOOL_EXPR");
   IElementType BOOL_OPERATOR = new UnisonElementType("BOOL_OPERATOR");
   IElementType BUILTIN_TYPE = new UnisonElementType("BUILTIN_TYPE");
+  IElementType BYTES = new UnisonElementType("BYTES");
   IElementType CASES = new UnisonTokenType("CASES");
   IElementType CHAR = new UnisonElementType("CHAR");
   IElementType CIAPEK = new UnisonTokenType("CIAPEK");
@@ -35,9 +36,11 @@ public interface UnisonTypes {
   IElementType DOT = new UnisonTokenType("DOT");
   IElementType DOUBLE = new UnisonElementType("DOUBLE");
   IElementType ELSE = new UnisonTokenType("ELSE");
+  IElementType EMPTYBRACES = new UnisonElementType("()");
   IElementType EQ = new UnisonTokenType("EQ");
   IElementType EQ3 = new UnisonTokenType("EQ3");
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
+  IElementType FLOAT = new UnisonElementType("FLOAT");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType GT = new UnisonTokenType("GT");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
@@ -59,6 +62,7 @@ public interface UnisonTypes {
   IElementType MOD = new UnisonTokenType("MOD");
   IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
+  IElementType NAT = new UnisonElementType("NAT");
   IElementType NUM_EXPR = new UnisonElementType("NUM_EXPR");
   IElementType NUM_LITERAL = new UnisonElementType("NUM_LITERAL");
   IElementType NUM_OPERATOR = new UnisonElementType("NUM_OPERATOR");
@@ -77,6 +81,7 @@ public interface UnisonTypes {
   IElementType STRUCTURAL = new UnisonTokenType("STRUCTURAL");
   IElementType THEN = new UnisonTokenType("THEN");
   IElementType TOP_LEVEL_TYPE_DEFINITION = new UnisonElementType("TOP_LEVEL_TYPE_DEFINITION");
+  IElementType TEXT = new UnisonTokenType("TEXT");
   IElementType TYPE = new UnisonTokenType("TYPE");
   IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");
   IElementType TYPE_EXPR = new UnisonElementType("TYPE_EXPR");
