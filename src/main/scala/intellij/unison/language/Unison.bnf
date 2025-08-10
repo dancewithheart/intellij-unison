@@ -103,6 +103,7 @@ builtin_type ::= 'Nat'
   | 'Float'
   | 'Double'
   | 'Boolean'
+  | 'Bytes'
   | '()'
   | '[' builtin_type ']'
 
