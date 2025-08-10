@@ -28,7 +28,7 @@ statement ::= namespace_decl
 
 namespace_decl ::= 'namespace' qualified_name
 
-functionBody ::= 'do' expression | statement+
+functionBody ::= ('do' expression) | statement+
 
 use_import ::= 'use' ( qualified_import | qualified_name )
 
@@ -58,6 +58,7 @@ expression ::= lambda
              | function_call
              | literal
              | qualified_name
+             | qualified_import
              | '(' expression ')'
 
 if_expr ::= 'if' bool_expr 'then' expression 'else' expression
@@ -69,6 +70,7 @@ num_expr ::=
    | numLiteral NUM_OPERATOR num_expr
    | IDENTIFIER NUM_OPERATOR num_expr
    | '-' num_expr
+   | 'mod' num_expr num_expr
    | numLiteral
    | '(' num_expr ')'
 
@@ -77,11 +79,11 @@ bool_expr ::=
    | BOOLEAN BOOL_OPERATOR bool_expr
    | IDENTIFIER BOOL_OPERATOR bool_expr
    | 'not' bool_expr
-   | 'mod' bool_expr bool_expr
+   | num_expr "===" num_expr
    | BOOLEAN
    | '(' bool_expr ')'
 
-match_case ::= pattern* '->' expression
+match_case ::= pattern+ '->' expression
 
 function_call ::= qualified_name '(' argument_list? ')'
 
@@ -93,7 +95,7 @@ pattern ::= IDENTIFIER
           | '_'
           | literal
           | constructor_pattern
-          | '(' pattern ')'
+          | '(' literal (',' literal)* ')'
 
 constructor_pattern ::= IDENTIFIER pattern*
 

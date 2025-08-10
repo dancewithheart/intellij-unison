@@ -1,6 +1,7 @@
 package intellij.unison
 
-class WipTest extends BaseUnisonTest {
+class WipTest
+    extends BaseUnisonTest {
 
   override def getTestDataPath: String = "src/test/testData/wip"
 
@@ -17,8 +18,6 @@ class WipTest extends BaseUnisonTest {
   def testDelayedComputation(): Unit = runTests()
 
   def testListPatterns(): Unit = runTests()
-
-  def testMultiplePatterns(): Unit = runTests()
 
   def testPatternMatchGuards(): Unit = runTests()
 

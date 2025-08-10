@@ -8,4 +8,6 @@ class ExpressionsTest
   def testNumericalExpression1(): Unit = runTests()
 
   def testNumericalExpression2(): Unit = runTests()
+
+  def testNumericalExpression3(): Unit = runTests()
 }

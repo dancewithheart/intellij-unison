@@ -45,10 +45,4 @@ public class UnisonPatternImpl extends ASTWrapperPsiElement implements UnisonPat
     return findChildByClass(UnisonLiteral.class);
   }
 
-  @Override
-  @Nullable
-  public UnisonPattern getPattern() {
-    return findChildByClass(UnisonPattern.class);
-  }
-
 }
