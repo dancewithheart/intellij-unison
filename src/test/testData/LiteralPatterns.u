@@ -1,0 +1,4 @@
+-- literal patterns
+zs = match 2 with
+  4 -> "Matches"
+  _ -> "Doesn't match"

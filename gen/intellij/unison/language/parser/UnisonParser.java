@@ -745,17 +745,27 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '|' pattern '->' expression
+  // pattern* '->' expression
   public static boolean match_case(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "match_case")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, MATCH_CASE, "<match case>");
-    r = consumeToken(b, "|");
-    r = r && pattern(b, l + 1);
+    r = match_case_0(b, l + 1);
     r = r && consumeToken(b, "->");
     r = r && expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // pattern*
+  private static boolean match_case_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "match_case_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!pattern(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "match_case_0", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */

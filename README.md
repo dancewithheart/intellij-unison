@@ -61,7 +61,7 @@ sbt t
 
 * [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) BNF Grammar
 
-Parser is generated from [Unison.bnf](./src/main/scala/intellij/unison/language/Unison.bnf)
+Parser is generated from [Unison.bnf](src/main/jflex/Unison.bnf)
 manually (right mouse click on bnf file \ `Generate Parser Code`), using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin ([tutorial](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md)).
 
 * Lexer
