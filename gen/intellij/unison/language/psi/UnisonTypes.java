@@ -41,6 +41,7 @@ public interface UnisonTypes {
   IElementType EQ3 = new UnisonTokenType("EQ3");
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
   IElementType FLOAT = new UnisonElementType("FLOAT");
+  IElementType FUNCTION_BODY = new UnisonElementType("FUNCTION_BODY");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType GT = new UnisonTokenType("GT");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
@@ -71,6 +72,7 @@ public interface UnisonTypes {
   IElementType OTHERWISE = new UnisonTokenType("OTHERWISE");
   IElementType PATTERN = new UnisonElementType("PATTERN");
   IElementType PLUS = new UnisonTokenType("PLUS");
+  IElementType QUALIFIED_IMPORT = new UnisonElementType("QUALIFIED_IMPORT");
   IElementType QUALIFIED_NAME = new UnisonElementType("QUALIFIED_NAME");
   IElementType RBRACE = new UnisonTokenType("RBRACE");
   IElementType RPAREN = new UnisonTokenType("RPAREN");
@@ -97,6 +99,8 @@ public interface UnisonTypes {
   IElementType BOOL_OPERATOR_TOKEN = new UnisonTokenType("BOOL_OPERATOR_TOKEN");
   IElementType CHAR_TOKEN = new UnisonTokenType("CHAR_TOKEN");
   IElementType COMMENT = new UnisonTokenType("COMMENT");
+  IElementType BYTES_TOKEN = new UnisonTokenType("BYTES_TOKEN");
+  IElementType FLOAT_TOKEN = new UnisonTokenType("FLOAT_TOKEN");
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
@@ -148,6 +152,9 @@ public interface UnisonTypes {
       else if (type == EXPRESSION) {
         return new UnisonExpressionImpl(node);
       }
+      else if (type == FUNCTION_BODY) {
+        return new UnisonFunctionBodyImpl(node);
+      }
       else if (type == FUNCTION_CALL) {
         return new UnisonFunctionCallImpl(node);
       }
@@ -186,6 +193,9 @@ public interface UnisonTypes {
       }
       else if (type == PATTERN) {
         return new UnisonPatternImpl(node);
+      }
+      else if (type == QUALIFIED_IMPORT) {
+        return new UnisonQualifiedImportImpl(node);
       }
       else if (type == QUALIFIED_NAME) {
         return new UnisonQualifiedNameImpl(node);

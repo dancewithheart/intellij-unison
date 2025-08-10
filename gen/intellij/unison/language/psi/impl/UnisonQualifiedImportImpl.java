@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNumExpr {
+public class UnisonQualifiedImportImpl extends ASTWrapperPsiElement implements UnisonQualifiedImport {
 
-  public UnisonNumExprImpl(@NotNull ASTNode node) {
+  public UnisonQualifiedImportImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitNumExpr(this);
+    visitor.visitQualifiedImport(this);
   }
 
   @Override
@@ -28,27 +28,15 @@ public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNum
   }
 
   @Override
-  @Nullable
-  public UnisonIdentifier getIdentifier() {
-    return findChildByClass(UnisonIdentifier.class);
+  @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
   @Override
-  @Nullable
-  public UnisonNumOperator getNumOperator() {
-    return findChildByClass(UnisonNumOperator.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonNumLiteral getNumLiteral() {
-    return findChildByClass(UnisonNumLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonNumExpr getNumExpr() {
-    return findChildByClass(UnisonNumExpr.class);
+  @NotNull
+  public UnisonBuiltinType getBuiltinType() {
+    return findNotNullChildByClass(UnisonBuiltinType.class);
   }
 
 }

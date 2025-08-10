@@ -27,10 +27,4 @@ public class UnisonBuiltinTypeImpl extends ASTWrapperPsiElement implements Uniso
     else super.accept(visitor);
   }
 
-  @Override
-  @Nullable
-  public UnisonBuiltinType getBuiltinType() {
-    return findChildByClass(UnisonBuiltinType.class);
-  }
-
 }

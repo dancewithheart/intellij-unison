@@ -11,11 +11,14 @@ use math sqrt
 foo = 42
 bar = true
 baz = "live"
-quux = [1, 2, 3,]
+quux = [1, 2, 3]
 
 -- if then else
+coinflip1 : Boolean -> Text
+coinflip1 bool = if true then longText else "Hi"
+
 coinflip : Boolean -> Text
-coinflip bool = if bool then longText else "Hi"
+coinflip b = if b then longText else "Hi"
 
 -- delayed computation
 myFunction : '{IO, Exception} Text

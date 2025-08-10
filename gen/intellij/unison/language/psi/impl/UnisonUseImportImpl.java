@@ -28,9 +28,15 @@ public class UnisonUseImportImpl extends ASTWrapperPsiElement implements UnisonU
   }
 
   @Override
-  @NotNull
+  @Nullable
+  public UnisonQualifiedImport getQualifiedImport() {
+    return findChildByClass(UnisonQualifiedImport.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonQualifiedName getQualifiedName() {
-    return findNotNullChildByClass(UnisonQualifiedName.class);
+    return findChildByClass(UnisonQualifiedName.class);
   }
 
 }

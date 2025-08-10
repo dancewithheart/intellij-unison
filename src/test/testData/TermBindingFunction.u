@@ -1,6 +1,18 @@
+boolFun : [Boolean]
+boolFun = [true, false]
+
+boolId : Boolean -> Boolean
+boolId x = x
+
 natId : Nat -> Nat
 natId x = x
 
+asPi : Bytes -> Double
+asPi b = 3.14
+
+toPi : Float -> Text
+toPi f = "3.14"
+
 -- term declaration (term binding)
-timesTwo : Nat -> Nat  -- type signature
+timesTwo : Int -> Int  -- type signature
 timesTwo x = x * 2     -- term definition

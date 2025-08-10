@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface UnisonUseImport extends PsiElement {
 
-  @NotNull
+  @Nullable
+  UnisonQualifiedImport getQualifiedImport();
+
+  @Nullable
   UnisonQualifiedName getQualifiedName();
 
 }

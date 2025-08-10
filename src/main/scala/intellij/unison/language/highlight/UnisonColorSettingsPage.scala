@@ -43,7 +43,10 @@ object UnisonColorSettingsPage {
     new AttributesDescriptor("CASES", UnisonSyntaxHighlighter.CASES),
     new AttributesDescriptor("STRUCTURAL", UnisonSyntaxHighlighter.STRUCTURAL),
     new AttributesDescriptor("String", UnisonSyntaxHighlighter.TEXT),
+    new AttributesDescriptor("TEXT", UnisonSyntaxHighlighter.TEXT),
     new AttributesDescriptor("Int", UnisonSyntaxHighlighter.INT),
+    new AttributesDescriptor("Nat", UnisonSyntaxHighlighter.NAT),
+    new AttributesDescriptor("Double", UnisonSyntaxHighlighter.DOUBLE),
     new AttributesDescriptor("Boolean", UnisonSyntaxHighlighter.BOOLEAN),
 
     // TODO
