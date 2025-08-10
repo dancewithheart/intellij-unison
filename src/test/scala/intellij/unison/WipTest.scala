@@ -18,6 +18,8 @@ class WipTest extends BaseUnisonTest {
 
   def testListPatterns(): Unit = runTests()
 
+  def testLiteralPatterns(): Unit = runTests()
+
   def testPatternMatchGuards(): Unit = runTests()
 
   def testNestedImports(): Unit = runTests()

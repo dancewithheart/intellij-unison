@@ -46,6 +46,7 @@ public interface UnisonTypes {
   IElementType INT = new UnisonElementType("INT");
   IElementType LAMBDA = new UnisonElementType("LAMBDA");
   IElementType LBRACE = new UnisonTokenType("LBRACE");
+  IElementType LBRACECIAPEK = new UnisonTokenType("LBRACECIAPEK");
   IElementType LET = new UnisonTokenType("LET");
   IElementType LITERAL = new UnisonElementType("LITERAL");
   IElementType LPAREN = new UnisonTokenType("LPAREN");
@@ -75,7 +76,6 @@ public interface UnisonTypes {
   IElementType STAR = new UnisonTokenType("STAR");
   IElementType STRUCTURAL = new UnisonTokenType("STRUCTURAL");
   IElementType THEN = new UnisonTokenType("THEN");
-  IElementType TOP_LEVEL_DEFINITION = new UnisonElementType("TOP_LEVEL_DEFINITION");
   IElementType TOP_LEVEL_TYPE_DEFINITION = new UnisonElementType("TOP_LEVEL_TYPE_DEFINITION");
   IElementType TYPE = new UnisonTokenType("TYPE");
   IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");

@@ -58,6 +58,7 @@ BOOL_OPERATOR = "&&" | "||"
 "let"                    { return LET; }
 "do"                     { return DO; }
 "'"                      { return CIAPEK; }
+"'{"                     { return LBRACECIAPEK; }
 "!"                      { return BANG; }
 
 "if"                     { return IF; }
