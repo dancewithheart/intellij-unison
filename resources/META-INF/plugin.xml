@@ -3,7 +3,7 @@
     <id>org.jetbrains.plugins.unison</id>
     <name>Unison</name>
 
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <vendor url="https://github.com/dancewithheart">@dancewithheart</vendor>
 
 
@@ -25,6 +25,7 @@
     <change-notes>
      <![CDATA[
        <ul>
+        <li><b>0.0.3</b> Support for comments, literals, built in types, binding, pattern matching, structural types.</li>
         <li><b>0.0.2</b> Basic plumbing for lexer, parser and syntax highlighter, color scheme.</li>
         <li><b>0.0.1</b> Basic plumbing for IntelliJ plugin.</li>
        </ul>
