@@ -71,7 +71,7 @@ bool_expr ::= BOOLEAN
    | 'mod' bool_expr bool_expr
    | '(' bool_expr ')'
 
-match_case ::= '|' pattern '->' expression
+match_case ::= pattern* '->' expression
 
 function_call ::= qualified_name '(' argument_list? ')'
 
