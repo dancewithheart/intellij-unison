@@ -38,7 +38,7 @@ STRING_SINGLELINE = \" [^\r\n]* \"
 STRING_MULTILINE = \"\"\" [^\"]+ ~\"\"\"
 STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
-NUM_OPERATOR = "+" | "-" | "*" | "/" | "%"
+NUM_OPERATOR = "+" | "-" | "*" | "/" | "%" | "Nat.+" | "Nat.-" | "Nat.*" | "Nat./" | "Nat.%"
 BOOL_OPERATOR = "&&" | "||"
 
 %%

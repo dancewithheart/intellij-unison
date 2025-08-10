@@ -16,7 +16,4 @@ public interface UnisonPattern extends PsiElement {
   @Nullable
   UnisonLiteral getLiteral();
 
-  @Nullable
-  UnisonPattern getPattern();
-
 }

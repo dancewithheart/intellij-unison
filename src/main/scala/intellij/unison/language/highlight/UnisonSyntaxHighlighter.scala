@@ -26,15 +26,15 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.STRUCTURAL => STRUCTURAL_KEYS
       case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
 
-      case UnisonTypes.CHAR  => CHAR_KEYS
-      case UnisonTypes.BYTES  => BYTES_KEYS
+      case UnisonTypes.CHAR    => CHAR_KEYS
+      case UnisonTypes.BYTES   => BYTES_KEYS
       case UnisonTypes.STRING  => STRING_KEYS
       case UnisonTypes.INT     => INT_KEYS
       case UnisonTypes.NAT     => NAT_KEYS
-      case UnisonTypes.DOUBLE     => DOUBLE_KEYS
-      case UnisonTypes.FLOAT     => FLOAT_KEYS
+      case UnisonTypes.DOUBLE  => DOUBLE_KEYS
+      case UnisonTypes.FLOAT   => FLOAT_KEYS
       case UnisonTypes.BOOLEAN => BOOLEAN_KEYS
-      case UnisonTypes.TEXT => TEXT_KEYS
+      case UnisonTypes.TEXT    => TEXT_KEYS
 
       case UnisonTypes.ARROW => ARROW_KEYS
       case UnisonTypes.STAR  => STAR_KEYS
@@ -62,10 +62,10 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.ABILITY => ABILITY_KEYS
       case UnisonTypes.LET     => LET_KEYS
 
-      case UnisonTypes.IF   => IF_KEYS
-      case UnisonTypes.THEN => THEN_KEYS
-      case UnisonTypes.ELSE => ELSE_KEYS
-      case UnisonTypes.DO => DO_KEYS
+      case UnisonTypes.IF     => IF_KEYS
+      case UnisonTypes.THEN   => THEN_KEYS
+      case UnisonTypes.ELSE   => ELSE_KEYS
+      case UnisonTypes.DO     => DO_KEYS
       case UnisonTypes.UNIQUE => UNIQUE_KEYS
 
       case UnisonTypes.MATCH => MATCH_KEYS
