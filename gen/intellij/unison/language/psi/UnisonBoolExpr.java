@@ -7,8 +7,8 @@ import com.intellij.psi.PsiElement;
 
 public interface UnisonBoolExpr extends PsiElement {
 
-  @Nullable
-  UnisonBoolean getBoolean();
+  @NotNull
+  List<UnisonBoolean> getBooleanList();
 
   @Nullable
   UnisonBoolOperator getBoolOperator();

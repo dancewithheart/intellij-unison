@@ -35,8 +35,8 @@ public class UnisonLambdaImpl extends ASTWrapperPsiElement implements UnisonLamb
 
   @Override
   @NotNull
-  public UnisonPattern getPattern() {
-    return findNotNullChildByClass(UnisonPattern.class);
+  public List<UnisonPattern> getPatternList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonPattern.class);
   }
 
 }

@@ -32,7 +32,7 @@ IDENTIFIER = {OPERATOR} | {IDNAME}
 // NAT = [1-9]([0-9]+)?
 INT = ("+" | "-")?[0-9]+
 // FLOAT = [0-9]+(\.[0-9]+)?
-DOUBLE = [0-9]+(\.[0-9]+)?
+DOUBLE = ("+" | "-")?[0-9]+\.[0-9]+
 CHAR = \?.
 STRING_SINGLELINE = \" [^\r\n]* \"
 STRING_MULTILINE = \"\"\" [^\"]+ ~\"\"\"
@@ -116,5 +116,7 @@ BOOL_OPERATOR = "&&" | "||"
 {DOUBLE}                 { return DOUBLE_TOKEN; }
 {STRING}                 { return STRING_TOKEN; }
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }
+{NUM_OPERATOR}           { return NUM_OPERATOR_TOKEN; }
+{BOOL_OPERATOR}          { return BOOL_OPERATOR_TOKEN; }
 
 .                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }

@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface UnisonMatchExpr extends PsiElement {
 
   @NotNull
-  UnisonExpression getExpression();
+  List<UnisonExpression> getExpressionList();
 
   @NotNull
   List<UnisonMatchCase> getMatchCaseList();

@@ -11,6 +11,6 @@ public interface UnisonLambda extends PsiElement {
   UnisonExpression getExpression();
 
   @NotNull
-  UnisonPattern getPattern();
+  List<UnisonPattern> getPatternList();
 
 }

@@ -29,8 +29,8 @@ public class UnisonMatchExprImpl extends ASTWrapperPsiElement implements UnisonM
 
   @Override
   @NotNull
-  public UnisonExpression getExpression() {
-    return findNotNullChildByClass(UnisonExpression.class);
+  public List<UnisonExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
   }
 
   @Override

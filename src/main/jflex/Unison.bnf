@@ -50,31 +50,35 @@ binding ::= qualified_name IDENTIFIER* '=' expression
   | (IDENTIFIER '=' expression)+
   | '(' literal (',' literal)* ')' '=' '(' expression (',' expression)* ')'
 
-expression ::= literal
-             | lambda
+expression ::= lambda
              | num_expr
              | bool_expr
              | if_expr
              | match_expr
              | function_call
+             | literal
              | qualified_name
              | '(' expression ')'
 
 if_expr ::= 'if' bool_expr 'then' expression 'else' expression
 
-match_expr ::= 'match' expression 'with' match_case+
+match_expr ::= 'match' expression+ 'with' match_case+
 
-num_expr ::= numLiteral
+num_expr ::=
+   numLiteral NUM_OPERATOR numLiteral
    | numLiteral NUM_OPERATOR num_expr
    | IDENTIFIER NUM_OPERATOR num_expr
    | '-' num_expr
+   | numLiteral
    | '(' num_expr ')'
 
-bool_expr ::= BOOLEAN
+bool_expr ::=
+   BOOLEAN BOOL_OPERATOR BOOLEAN
    | BOOLEAN BOOL_OPERATOR bool_expr
    | IDENTIFIER BOOL_OPERATOR bool_expr
    | 'not' bool_expr
    | 'mod' bool_expr bool_expr
+   | BOOLEAN
    | '(' bool_expr ')'
 
 match_case ::= pattern* '->' expression
@@ -83,7 +87,7 @@ function_call ::= qualified_name '(' argument_list? ')'
 
 argument_list ::= expression (',' expression)*
 
-lambda ::= '\' pattern '->' expression
+lambda ::= '\' pattern+ '->' expression
 
 pattern ::= IDENTIFIER
           | '_'
