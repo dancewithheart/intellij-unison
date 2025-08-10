@@ -1,0 +1,17 @@
+n1 : Nat
+n1 = 1
+
+n2 : Nat
+n2 = 0
+
+maxNat : Nat
+maxNat = 18446744073709551615
+
+octalNat : Nat
+octalNat = 0o5446
+
+binaryNat : Nat
+binaryNat = 0b101010
+
+hexadecimalNat : Nat
+hexadecimalNat = 0xdeadbeef

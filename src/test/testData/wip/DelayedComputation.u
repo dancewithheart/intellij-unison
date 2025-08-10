@@ -1,0 +1,11 @@
+-- delayed computation
+myFunction : Text -> '{IO, Exception} Text
+myFunction arg = do "special keyword" ++ arg
+
+longText1 : () -> Text
+longText1 _ = "Imagine infinite monkeys on infinite typewriters …"
+
+longText2 : 'Text
+longText2 = do "Imagine infinite monkeys on infinite typewriters …"
+
+lt = !longText2

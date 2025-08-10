@@ -1,4 +1,4 @@
 -- literal patterns
-match 2 Nat.+ 2 with
+zs = match 2 Nat.+ 2 with
   4 -> "Matches"
   _ -> "Doesn't match"

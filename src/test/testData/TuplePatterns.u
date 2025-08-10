@@ -1,4 +1,11 @@
 -- tuple patterns
 
-(a, _, c) = (1, 2, 3)
-a Nat.+ c
+foo1 : Nat
+foo1 =
+  (a, b, c) = (1, 2, 3)
+  a Nat.+ c
+
+foo2 : Nat
+foo2 =
+  (a, _, c) = (1, 2, 3)
+  a Nat.+ c

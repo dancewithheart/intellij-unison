@@ -1,0 +1,1 @@
+bs = List.map (cases (a, b) -> a Nat.+ b) [(1, 2), (3, 4)]

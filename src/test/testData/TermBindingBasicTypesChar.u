@@ -1,0 +1,8 @@
+c1 : Char
+c1 = ?H
+
+c2 : Char
+c2 = ?,
+
+c3 : Char
+c3 = ?\s
