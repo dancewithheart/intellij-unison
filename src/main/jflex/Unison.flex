@@ -34,7 +34,7 @@ INT = ("+" | "-")?[0-9]+
 // FLOAT = [0-9]+(\.[0-9]+)?
 DOUBLE = ("+" | "-")?[0-9]+\.[0-9]+
 CHAR = \?.
-STRING_SINGLELINE = \" [^\r\n]* \"
+STRING_SINGLELINE = \" ([^\"\r\n] | \\\")* \"
 STRING_MULTILINE = \"\"\" [^\"]+ ~\"\"\"
 STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
@@ -81,10 +81,11 @@ BOOL_OPERATOR = "&&" | "||"
 "-"                      { return MINUS; }
 "*"                      { return STAR; }
 "/"                      { return DIV; }
-"%"                      { return MOD; }
+"%"                      { return MODS; }
 "&&"                     { return AND; }
 "||"                     { return OR; }
 "not"                    { return NOT; }
+"mod"                    { return MODW; }
 "|"                      { return BAR; }
 ","                      { return COMMA; }
 "("                      { return LPAREN; }

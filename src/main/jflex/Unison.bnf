@@ -72,6 +72,7 @@ num_expr ::=
    | '-' num_expr
    | 'mod' num_expr num_expr
    | numLiteral
+   | IDENTIFIER
    | '(' num_expr ')'
 
 bool_expr ::=

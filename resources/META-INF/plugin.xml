@@ -37,7 +37,7 @@
 
         <!-- file type -->
         <fileType language="Unison"
-           name="Unison File"
+           name="Unison"
            implementationClass="intellij.unison.UnisonFileType"
            extensions="u" />
 
