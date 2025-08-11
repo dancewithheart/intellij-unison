@@ -8,4 +8,6 @@ class PatternMatchingTest
   def testTuplePatterns(): Unit = runTests()
 
   def testMultiplePatterns(): Unit = runTests()
+
+  def testAsPatterns(): Unit = runTests()
 }

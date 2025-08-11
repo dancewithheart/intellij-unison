@@ -7,8 +7,6 @@ class WipTest
 
   def testAnonymousLambda2Params(): Unit = runTests()
 
-  def testAsPatterns(): Unit = runTests()
-
   def testConstructorPatterns(): Unit = runTests()
 
   def testCasesSyntax(): Unit = runTests()
