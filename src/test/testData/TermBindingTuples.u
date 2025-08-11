@@ -1,4 +1,3 @@
-
 t1 : (Nat, Text)
 t1 = (1, "Two")
 
