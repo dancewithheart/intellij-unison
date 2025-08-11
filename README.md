@@ -127,5 +127,5 @@ t2 = (-4, "Yes", false)
 ## Contributions
 
 Help welcome :)
-* [ood issues to start with](https://github.com/dancewithheart/intellij-unison/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
+* [good first issue](https://github.com/dancewithheart/intellij-unison/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 * [dev notes](./DEV_NOTES.MD)
