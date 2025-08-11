@@ -80,7 +80,7 @@ bool_expr ::=
    | BOOLEAN BOOL_OPERATOR bool_expr
    | IDENTIFIER BOOL_OPERATOR bool_expr
    | 'not' bool_expr
-   | num_expr "===" num_expr
+   | num_expr '===' num_expr
    | BOOLEAN
    | '(' bool_expr ')'
 
@@ -92,7 +92,8 @@ argument_list ::= expression (',' expression)*
 
 lambda ::= '\' pattern+ '->' expression
 
-pattern ::= IDENTIFIER
+pattern ::= IDENTIFIER '@' pattern
+          | IDENTIFIER
           | '_'
           | literal
           | constructor_pattern
