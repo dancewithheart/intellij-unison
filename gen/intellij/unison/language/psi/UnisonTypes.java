@@ -60,7 +60,8 @@ public interface UnisonTypes {
   IElementType MATCH_CASE = new UnisonElementType("MATCH_CASE");
   IElementType MATCH_EXPR = new UnisonElementType("MATCH_EXPR");
   IElementType MINUS = new UnisonTokenType("MINUS");
-  IElementType MOD = new UnisonTokenType("MOD");
+  IElementType MODS = new UnisonTokenType("MODS");
+  IElementType MODW = new UnisonTokenType("MODW");
   IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
   IElementType NAT = new UnisonElementType("NAT");

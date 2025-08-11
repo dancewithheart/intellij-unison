@@ -47,7 +47,8 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.PLUS       => PLUS_KEYS
       case UnisonTypes.MINUS      => MINUS_KEYS
       case UnisonTypes.DIV        => DIV_KEYS
-      case UnisonTypes.MOD        => MOD_KEYS
+      case UnisonTypes.MODS        => MODS_KEYS
+      case UnisonTypes.MODW        => MODW_KEYS
       case UnisonTypes.DOT        => DOT_KEYS
       case UnisonTypes.NOT        => NOT_KEYS
       case UnisonTypes.UNDERSCORE => UNDERSCORE_KEYS
@@ -111,7 +112,8 @@ object UnisonSyntaxHighlighter {
 
   val PLUS: TextAttributesKey = mkTextAttribKey("UNISON_PLUS", DLHC.OPERATION_SIGN)
   val MINUS: TextAttributesKey = mkTextAttribKey("UNISON_MINUS", DLHC.OPERATION_SIGN)
-  val MOD: TextAttributesKey = mkTextAttribKey("UNISON_MOD", DLHC.OPERATION_SIGN)
+  val MODS: TextAttributesKey = mkTextAttribKey("UNISON_MOD", DLHC.OPERATION_SIGN)
+  val MODW: TextAttributesKey = mkTextAttribKey("UNISON_MOD", DLHC.OPERATION_SIGN)
   val DIV: TextAttributesKey = mkTextAttribKey("UNISON_DIV", DLHC.OPERATION_SIGN)
   val LBRACE: TextAttributesKey = mkTextAttribKey("UNISON_LBRACE", DLHC.BRACES)
   val RBRACE: TextAttributesKey = mkTextAttribKey("UNISON_RBRACE", DLHC.BRACES)
@@ -151,7 +153,8 @@ object UnisonSyntaxHighlighter {
   val NOT_KEYS: Array[TextAttributesKey] = Array(NOT)
   val PLUS_KEYS: Array[TextAttributesKey] = Array(PLUS)
   val MINUS_KEYS: Array[TextAttributesKey] = Array(MINUS)
-  val MOD_KEYS: Array[TextAttributesKey] = Array(MOD)
+  val MODS_KEYS: Array[TextAttributesKey] = Array(MODS)
+  val MODW_KEYS: Array[TextAttributesKey] = Array(MODW)
   val DIV_KEYS: Array[TextAttributesKey] = Array(DIV)
   val UNDERSCORE_KEYS: Array[TextAttributesKey] = Array(UNDERSCORE)
   val LAMBDA_KEYS: Array[TextAttributesKey] = Array(LAMBDA)

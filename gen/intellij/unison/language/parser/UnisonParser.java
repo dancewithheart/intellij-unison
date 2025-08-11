@@ -917,6 +917,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   //    | '-' num_expr
   //    | 'mod' num_expr num_expr
   //    | numLiteral
+  //    | IDENTIFIER
   //    | '(' num_expr ')'
   public static boolean num_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "num_expr")) return false;
@@ -928,7 +929,8 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = num_expr_3(b, l + 1);
     if (!r) r = num_expr_4(b, l + 1);
     if (!r) r = numLiteral(b, l + 1);
-    if (!r) r = num_expr_6(b, l + 1);
+    if (!r) r = IDENTIFIER(b, l + 1);
+    if (!r) r = num_expr_7(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -993,8 +995,8 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   // '(' num_expr ')'
-  private static boolean num_expr_6(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "num_expr_6")) return false;
+  private static boolean num_expr_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "num_expr_7")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, "(");
