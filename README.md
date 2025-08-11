@@ -33,8 +33,6 @@ use List +: :+
 
 * [CommentsMultiline](./src/test/testData/CommentsMultiline.u)
 ```unison
--- term declaration (term binding)
-
 {-
 https://www.unison-lang.org/docs/language-reference/term-declarations/
 
@@ -71,39 +69,18 @@ structural type Optional a = Some a | None
 ```unison
 go1 : Boolean
 go1 = true
-
-go2 : Boolean
-go2 = false
-```
-
-* [TermBindingBasicTypesBytes](./src/test/testData/TermBindingBasicTypesBytes.u)
-```unison
-db : Bytes
-db = 0xsdeadbeef
 ```
 
 * [TermBindingBasicTypesChar](./src/test/testData/TermBindingBasicTypesChar.u)
 ```unison
 c1 : Char
 c1 = ?H
-
-c2 : Char
-c2 = ?,
-
-c3 : Char
-c3 = ?\s
 ```
 
 * [TermBindingBasicTypesFloat](./src/test/testData/TermBindingBasicTypesFloat.u)
 ```unison
-f1 : Float
-f1 = 3.0e-3
-
 f2 : Float
 f2 = -99.0
-
-f3 : Float
-f3 = 1.6777216e7
 ```
 
 * [TermBindingBasicTypesInt](./src/test/testData/TermBindingBasicTypesInt.u)
@@ -111,27 +88,6 @@ f3 = 1.6777216e7
 minInt : Int
 minInt = -9223372036854775808
 maxInt = +9223372036854775807
-
-i1 : Int
-i1 = +0
-
-i2 : Int
-i2 = -0
-
-i3 : Int
-i3 = +9001
-
-i4 : Int
-i4 = -16777216
-
-hexadecimalInt : Int
-hexadecimalInt = +0xdeadbeef
-
-octalInt : Int
-octalInt = -0o5446
-
-binaryInt : Int
-binaryInt = +0b101010
 ```
 
 * [TermBindingBasicTypesText](./src/test/testData/TermBindingBasicTypesText.u)
@@ -148,24 +104,12 @@ hi = "Hello, \"world\"!"
 boolFun : [Boolean]
 boolFun = [true, false]
 
-boolId : Boolean -> Boolean
-boolId x = x
-
 natId : Nat -> Nat
 natId x = x
-
-asPi : Bytes -> Double
-asPi b = 3.14
-
-toPi : Float -> Text
-toPi f = "3.14"
 ```
 
 * [TermBindingMultilineText](./src/test/testData/TermBindingMultilineText.u)
 ```unison
-multi1 : Text
-multi1 = """This is a multiline text"""
-
 multi2 : Text
 multi2 =
   """
@@ -176,13 +120,12 @@ multi2 =
 
 * [TermBindingTuples](./src/test/testData/TermBindingTuples.u)
 ```unison
-
-t1 : (Nat, Text)
-t1 = (1, "Two")
-
 t2 : (Int, Text, Boolean)
 t2 = (-4, "Yes", false)
-
-dessertOrder : (Text, Text, Nat)
-dessertOrder = ("Alice", "Blueberry pie", 5)
 ```
+
+## Contributions
+
+Help welcome :)
+* [ood issues to start with](https://github.com/dancewithheart/intellij-unison/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
+* [dev notes](./DEV_NOTES.MD)
