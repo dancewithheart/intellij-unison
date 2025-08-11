@@ -44,6 +44,7 @@ public interface UnisonTypes {
   IElementType FUNCTION_BODY = new UnisonElementType("FUNCTION_BODY");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType GT = new UnisonTokenType("GT");
+  IElementType GUARD = new UnisonElementType("GUARD");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
   IElementType IF = new UnisonTokenType("IF");
   IElementType IF_EXPR = new UnisonElementType("IF_EXPR");
@@ -158,6 +159,9 @@ public interface UnisonTypes {
       }
       else if (type == FUNCTION_CALL) {
         return new UnisonFunctionCallImpl(node);
+      }
+      else if (type == GUARD) {
+        return new UnisonGuardImpl(node);
       }
       else if (type == IDENTIFIER) {
         return new UnisonIdentifierImpl(node);
