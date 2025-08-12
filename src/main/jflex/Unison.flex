@@ -48,6 +48,8 @@ BOOL_OPERATOR = "&&" | "||"
 
 "namespace"              { return NAMESPACE; }
 "use"                    { return USE; }
+"alias"                  { return ALIAS; }
+"handle"                 { return HANDLE; }
 
 "ability"                { return ABILITY; }
 "where"                  { return WHERE; }
@@ -55,6 +57,7 @@ BOOL_OPERATOR = "&&" | "||"
 "structural"             { return STRUCTURAL; }
 "unique"                 { return UNIQUE; }
 
+"forall"                 { return FORALL; }
 "let"                    { return LET; }
 "do"                     { return DO; }
 "'"                      { return CIAPEK; }
@@ -98,6 +101,8 @@ BOOL_OPERATOR = "&&" | "||"
 "\\"                     { return LAMBDA; }
 "_"                      { return UNDERSCORE; }
 "otherwise"              { return OTHERWISE; }
+"typeLink"               { return TYPELINK; }
+"termLink"               { return TERMLINK; }
 "Nat"                    { return NAT; }
 "Int"                    { return INT; }
 "Char"                   { return CHAR; }

@@ -11,6 +11,7 @@ public interface UnisonTypes {
   IElementType ABILITY = new UnisonTokenType("ABILITY");
   IElementType ABILITY_CONSTRUCTOR = new UnisonElementType("ABILITY_CONSTRUCTOR");
   IElementType ABILITY_DECL = new UnisonElementType("ABILITY_DECL");
+  IElementType ALIAS = new UnisonTokenType("ALIAS");
   IElementType AND = new UnisonTokenType("AND");
   IElementType ARGUMENT_LIST = new UnisonElementType("ARGUMENT_LIST");
   IElementType ARROW = new UnisonTokenType("ARROW");
@@ -41,10 +42,12 @@ public interface UnisonTypes {
   IElementType EQ3 = new UnisonTokenType("EQ3");
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
   IElementType FLOAT = new UnisonElementType("FLOAT");
+  IElementType FORALL = new UnisonElementType("FORALL");
   IElementType FUNCTION_BODY = new UnisonElementType("FUNCTION_BODY");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType GT = new UnisonTokenType("GT");
   IElementType GUARD = new UnisonElementType("GUARD");
+  IElementType HANDLE = new UnisonElementType("HANDLE");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
   IElementType IF = new UnisonTokenType("IF");
   IElementType IF_EXPR = new UnisonElementType("IF_EXPR");
@@ -90,6 +93,8 @@ public interface UnisonTypes {
   IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");
   IElementType TYPE_EXPR = new UnisonElementType("TYPE_EXPR");
   IElementType TYPE_PARAMS = new UnisonElementType("TYPE_PARAMS");
+  IElementType TYPELINK = new UnisonElementType("TYPELINK");
+  IElementType TERMLINK = new UnisonElementType("TERMLINK");
   IElementType UNDERSCORE = new UnisonTokenType("UNDERSCORE");
   IElementType WHERE = new UnisonTokenType("WHERE");
   IElementType USE = new UnisonTokenType("USE");
@@ -101,8 +106,6 @@ public interface UnisonTypes {
   IElementType BOOL_OPERATOR_TOKEN = new UnisonTokenType("BOOL_OPERATOR_TOKEN");
   IElementType CHAR_TOKEN = new UnisonTokenType("CHAR_TOKEN");
   IElementType COMMENT = new UnisonTokenType("COMMENT");
-  IElementType BYTES_TOKEN = new UnisonTokenType("BYTES_TOKEN");
-  IElementType FLOAT_TOKEN = new UnisonTokenType("FLOAT_TOKEN");
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
