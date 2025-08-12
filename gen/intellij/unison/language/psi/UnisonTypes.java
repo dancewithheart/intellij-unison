@@ -29,6 +29,7 @@ public interface UnisonTypes {
   IElementType CIAPEK = new UnisonTokenType("CIAPEK");
   IElementType COMMA = new UnisonTokenType("COMMA");
   IElementType COLON = new UnisonTokenType("COLON");
+  IElementType COMPARE_OPERATOR = new UnisonElementType("NUM_OPERATOR");
   IElementType CONSTRUCTOR = new UnisonElementType("CONSTRUCTOR");
   IElementType CONSTRUCTOR_PATTERN = new UnisonElementType("CONSTRUCTOR_PATTERN");
   IElementType DEFINITION = new UnisonElementType("DEFINITION");
@@ -43,6 +44,7 @@ public interface UnisonTypes {
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
   IElementType FLOAT = new UnisonElementType("FLOAT");
   IElementType FORALL = new UnisonElementType("FORALL");
+  IElementType FORALLSYMBOL = new UnisonTokenType("FORALLSYMBOL");
   IElementType FUNCTION_BODY = new UnisonElementType("FUNCTION_BODY");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType GT = new UnisonTokenType("GT");
@@ -106,6 +108,7 @@ public interface UnisonTypes {
   IElementType BOOL_OPERATOR_TOKEN = new UnisonTokenType("BOOL_OPERATOR_TOKEN");
   IElementType CHAR_TOKEN = new UnisonTokenType("CHAR_TOKEN");
   IElementType COMMENT = new UnisonTokenType("COMMENT");
+  IElementType COMPARE_OPERATOR_TOKEN = new UnisonTokenType("COMPARE_OPERATOR_TOKEN");
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
@@ -141,6 +144,9 @@ public interface UnisonTypes {
       }
       else if (type == CHAR) {
         return new UnisonCharImpl(node);
+      }
+      else if (type == COMPARE_OPERATOR) {
+        return new UnisonCompareOperatorImpl(node);
       }
       else if (type == CONSTRUCTOR) {
         return new UnisonConstructorImpl(node);
