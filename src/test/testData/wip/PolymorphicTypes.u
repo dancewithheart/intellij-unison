@@ -1,0 +1,5 @@
+id1 : forall t. t -> t
+id1 x = x
+
+id2 : ∀ x . x -> x
+id2 v = v
