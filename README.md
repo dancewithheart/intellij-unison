@@ -1,6 +1,9 @@
 # IntelliJ IDEA Plugin for [Unison](https://www.unison-lang.org/)
 [![Scala CI](https://github.com/dancewithheart/intellij-unison/actions/workflows/scala.yml/badge.svg?branch=main)](https://github.com/dancewithheart/intellij-unison/actions/workflows/scala.yml?query=branch%3Amain)
 
+WIP This is very early stages of the work. No artifact is published. Some key features are under development: e.g. abilities, non-trivial expressions.
+See #22 for known issues. 
+
 ## Playing with Unison samples
 
 There are Unison snippets in [./src/test/testData](./src/test/testData) you can run play around with them (see [offical docs for hello world in Unison](https://www.unison-lang.org/docs/#hello-world)):
@@ -48,13 +51,6 @@ str = "hello"
 xs = [1, 2, 3]
 ```
 
-* [MultiplePatterns](./src/test/testData/MultiplePatterns.u)
-```unison
-zs = match 2 Nat.+ 2 with
-  4 -> "Matches"
-  _ -> "Doesn't match"
-```
-
 * [NumericalExpression3](./src/test/testData/NumericalExpression3.u)
 ```unison
 z = 2 Nat.+ 2
@@ -69,6 +65,12 @@ structural type Optional a = Some a | None
 ```unison
 go1 : Boolean
 go1 = true
+```
+
+* [TermBindingBasicTypesBytes](./src/test/testData/TermBindingBasicTypesBytes.u)
+```unison
+db : Bytes
+db = 0xsdeadbeef
 ```
 
 * [TermBindingBasicTypesChar](./src/test/testData/TermBindingBasicTypesChar.u)
@@ -122,6 +124,33 @@ multi2 =
 ```unison
 t2 : (Int, Text, Boolean)
 t2 = (-4, "Yes", false)
+```
+
+* [MultiplePatterns](./src/test/testData/MultiplePatterns.u)
+```unison
+zs = match 2 Nat.+ 2 with
+  4 -> "Matches"
+  _ -> "Doesn't match"
+```
+
+* [PatternMatchGuards](./src/test/testData/PatternMatchGuards1.u)
+```unison
+matchNum1 : Nat -> Text
+matchNum1 num = match num with
+  one | one === 1 -> "one"
+  three | three === 3 -> "three"
+  _ -> "no match"
+```
+
+* [StructuralTypePoly](./src/test/testData/StructuralTypePoly1.u)
+```unison
+structural type Optional a = Some a | None
+```
+
+* [PolymorphicTypes](./src/test/testData/PolymorphicTypes.u)
+```unison
+id1 : forall t. t -> t
+id1 x = x
 ```
 
 ## Contributions
