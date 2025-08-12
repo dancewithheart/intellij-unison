@@ -29,7 +29,7 @@ public interface UnisonTypes {
   IElementType CIAPEK = new UnisonTokenType("CIAPEK");
   IElementType COMMA = new UnisonTokenType("COMMA");
   IElementType COLON = new UnisonTokenType("COLON");
-  IElementType COMPARE_OPERATOR = new UnisonElementType("NUM_OPERATOR");
+  IElementType COMPARE_OPERATOR = new UnisonElementType("COMPARE_OPERATOR");
   IElementType CONSTRUCTOR = new UnisonElementType("CONSTRUCTOR");
   IElementType CONSTRUCTOR_PATTERN = new UnisonElementType("CONSTRUCTOR_PATTERN");
   IElementType DEFINITION = new UnisonElementType("DEFINITION");
@@ -106,6 +106,7 @@ public interface UnisonTypes {
 
   IElementType BOOLEAN_TOKEN = new UnisonTokenType("BOOLEAN_TOKEN");
   IElementType BOOL_OPERATOR_TOKEN = new UnisonTokenType("BOOL_OPERATOR_TOKEN");
+  IElementType BYTES_TOKEN = new UnisonTokenType("BYTES_TOKEN");
   IElementType CHAR_TOKEN = new UnisonTokenType("CHAR_TOKEN");
   IElementType COMMENT = new UnisonTokenType("COMMENT");
   IElementType COMPARE_OPERATOR_TOKEN = new UnisonTokenType("COMPARE_OPERATOR_TOKEN");
@@ -141,6 +142,9 @@ public interface UnisonTypes {
       }
       else if (type == BUILTIN_TYPE) {
         return new UnisonBuiltinTypeImpl(node);
+      }
+      else if (type == BYTES) {
+        return new UnisonBytesImpl(node);
       }
       else if (type == CHAR) {
         return new UnisonCharImpl(node);

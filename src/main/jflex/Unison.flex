@@ -1,4 +1,3 @@
-// Copyright 2000-2022 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 /* Unison lexer specification */
 /* ===================== User Code =================== */
 package intellij.unison;
@@ -29,10 +28,11 @@ COMMENT = {END_OF_LINE_COMMENT} | {TRADITIONAL_COMMENT}
 OPERATOR = [!$%\^&*\-=+<>~\\/|:]*
 IDNAME = [a-zA-Z_][a-zA-Z0-9_]*
 IDENTIFIER = {OPERATOR} | {IDNAME}
-// NAT = [1-9]([0-9]+)?
+HEXDIGIT = [a-z0-9]
 INT = ("+" | "-")?[0-9]+
 // FLOAT = [0-9]+(\.[0-9]+)?
 DOUBLE = ("+" | "-")?[0-9]+\.[0-9]+
+BYTES = "0xs" {HEXDIGIT}+
 CHAR = \?.
 STRING_SINGLELINE = \" ([^\"\r\n] | \\\")* \"
 STRING_MULTILINE = \"\"\" [^\"]+ ~\"\"\"
@@ -117,7 +117,7 @@ COMPARE_OPERATOR = "<" | ">" | "!=" | "==="
 
 {BOOLEAN}                { return BOOLEAN_TOKEN; }
 {CHAR}                   { return CHAR_TOKEN; }
-// {BYTES}                  { return BYTES_TOKEN; }
+{BYTES}                  { return BYTES_TOKEN; }
 {INT}                    { return INT_TOKEN; }
 //{NAT}                    { return NAT_TOKEN; }
 //{FLOAT}                  { return FLOAT_TOKEN; }

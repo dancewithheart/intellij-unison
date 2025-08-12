@@ -107,7 +107,7 @@ constructor_pattern ::= IDENTIFIER pattern*
 numLiteral ::= INT | DOUBLE
 
 literal ::= INT
-  | DOUBLE | CHAR | STRING | BOOLEAN
+  | DOUBLE | CHAR | STRING | BOOLEAN | BYTES
   | '[' ']' | '[' literal (',' literal)* ']'
   | '(' literal (',' literal)* ')'
 
@@ -138,6 +138,7 @@ INT ::= INT_TOKEN
 DOUBLE ::= DOUBLE_TOKEN
 CHAR ::= CHAR_TOKEN
 STRING ::= STRING_TOKEN
+BYTES ::= BYTES_TOKEN
 BOOLEAN ::= 'true' | 'false'
 NUM_OPERATOR ::= NUM_OPERATOR_TOKEN
 BOOL_OPERATOR ::= BOOL_OPERATOR_TOKEN

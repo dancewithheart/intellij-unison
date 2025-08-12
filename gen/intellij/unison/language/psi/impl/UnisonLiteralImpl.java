@@ -35,6 +35,12 @@ public class UnisonLiteralImpl extends ASTWrapperPsiElement implements UnisonLit
 
   @Override
   @Nullable
+  public UnisonBytes getBytes() {
+    return findChildByClass(UnisonBytes.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonChar getChar() {
     return findChildByClass(UnisonChar.class);
   }
