@@ -1,8 +1,14 @@
 # IntelliJ IDEA Plugin for [Unison](https://www.unison-lang.org/)
 [![Scala CI](https://github.com/dancewithheart/intellij-unison/actions/workflows/scala.yml/badge.svg?branch=main)](https://github.com/dancewithheart/intellij-unison/actions/workflows/scala.yml?query=branch%3Amain)
 
-WIP This is very early stages of the work. No artifact is published. Some key features are under development: e.g. abilities, non-trivial expressions.
-See #22 for known issues. 
+## WIP
+This is very early stages of the work.
+
+No artifact is published.
+
+Some key features are under development: e.g. abilities, non-trivial expressions.
+
+See [issue #22](https://github.com/dancewithheart/intellij-unison/issues/22) for unsupported features & problems. 
 
 ## Playing with Unison samples
 
