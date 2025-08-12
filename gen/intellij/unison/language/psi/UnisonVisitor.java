@@ -15,6 +15,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBytes(@NotNull UnisonBytes o) {
+    visitPsiElement(o);
+  }
+
   public void visitChar(@NotNull UnisonChar o) {
     visitPsiElement(o);
   }
