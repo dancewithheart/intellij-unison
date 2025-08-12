@@ -1,0 +1,27 @@
+errorHandling.divBy : Nat -> Nat ->{Abort} Nat
+errorHandling.divBy a b = match b with
+  0 -> Abort.abort
+  n -> a Nat./ b
+
+x1 = toOptional! do errorHandling.divBy 4 2
+
+divByThrow : Nat -> Nat ->{Throw Text} Nat
+divByThrow a b = match b with
+  0 -> throw "Cannot divide by zero"
+  n -> a Nat./ b
+
+x2 = toEither do divByThrow 1 0
+
+divByException : Nat -> Nat ->{Exception} Nat
+divByException a b = match b with
+  0 -> Exception.raise (Generic.failure "Cannot divide by zero" b)
+  n -> a Nat./ b
+
+x3 = catch do divByException 1 0
+
+getRandomElem : [a] ->{Abort, Random} a
+getRandomElem list =
+  index = Random.natIn 0 (List.size list)
+  List.at! index list
+
+x = toOptional! do splitmix 42 do getRandomElem [1, 2, 3, 4, 5]
