@@ -7,6 +7,8 @@ class ExpressionsTest
 
   def testBoolExpression1(): Unit = runTests()
 
+  def testBoolExpression3(): Unit = runTests()
+
   def testBoolExpression2(): Unit = runTests()
 
   def testNumericalExpression1(): Unit = runTests()
