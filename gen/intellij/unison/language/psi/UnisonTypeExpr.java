@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface UnisonTypeExpr extends PsiElement {
 
+  @NotNull
+  List<UnisonIdentifier> getIdentifierList();
+
   @Nullable
   UnisonBuiltinType getBuiltinType();
 

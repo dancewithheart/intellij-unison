@@ -28,15 +28,21 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
   }
 
   @Override
-  @NotNull
-  public List<UnisonBoolean> getBooleanList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolean.class);
+  @Nullable
+  public UnisonBoolean getBoolean() {
+    return findChildByClass(UnisonBoolean.class);
   }
 
   @Override
   @Nullable
   public UnisonBoolOperator getBoolOperator() {
     return findChildByClass(UnisonBoolOperator.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonCompareOperator getCompareOperator() {
+    return findChildByClass(UnisonCompareOperator.class);
   }
 
   @Override

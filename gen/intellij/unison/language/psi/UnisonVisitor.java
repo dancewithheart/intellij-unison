@@ -19,6 +19,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCompareOperator(@NotNull UnisonCompareOperator o) {
+    visitPsiElement(o);
+  }
+
   public void visitDouble(@NotNull UnisonDouble o) {
     visitPsiElement(o);
   }
@@ -84,6 +88,10 @@ public class UnisonVisitor extends PsiElementVisitor {
   }
 
   public void visitFunctionCall(@NotNull UnisonFunctionCall o) {
+    visitPsiElement(o);
+  }
+
+  public void visitGuard(@NotNull UnisonGuard o) {
     visitPsiElement(o);
   }
 

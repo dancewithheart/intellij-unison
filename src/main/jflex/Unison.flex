@@ -40,6 +40,7 @@ STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
 NUM_OPERATOR = "+" | "-" | "*" | "/" | "%" | "Nat.+" | "Nat.-" | "Nat.*" | "Nat./" | "Nat.%"
 BOOL_OPERATOR = "&&" | "||"
+COMPARE_OPERATOR = "<" | ">" | "!=" | "==="
 
 %%
 
@@ -112,6 +113,7 @@ BOOL_OPERATOR = "&&" | "||"
 "Boolean"                { return BOOLEAN; }
 "Bytes"                  { return BYTES; }
 "()"                     { return EMPTYBRACES; }
+"∀"                      { return FORALLSYMBOL; }
 
 {BOOLEAN}                { return BOOLEAN_TOKEN; }
 {CHAR}                   { return CHAR_TOKEN; }
@@ -124,5 +126,6 @@ BOOL_OPERATOR = "&&" | "||"
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 {NUM_OPERATOR}           { return NUM_OPERATOR_TOKEN; }
 {BOOL_OPERATOR}          { return BOOL_OPERATOR_TOKEN; }
+{COMPARE_OPERATOR}       { return COMPARE_OPERATOR_TOKEN; }
 
 .                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }

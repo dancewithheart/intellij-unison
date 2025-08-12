@@ -76,15 +76,18 @@ num_expr ::=
    | '(' num_expr ')'
 
 bool_expr ::=
-   BOOLEAN BOOL_OPERATOR BOOLEAN
-   | BOOLEAN BOOL_OPERATOR bool_expr
-   | IDENTIFIER BOOL_OPERATOR bool_expr
+   BOOLEAN BOOL_OPERATOR bool_expr
+   | num_expr COMPARE_OPERATOR num_expr
    | 'not' bool_expr
    | num_expr '===' num_expr
+   | bool_expr (BOOL_OPERATOR bool_expr)+
+   | '(' bool_expr ')' (BOOL_OPERATOR bool_expr)+
    | BOOLEAN
-   | '(' bool_expr ')'
+   | IDENTIFIER
 
-match_case ::= pattern+ '->' expression
+match_case ::= (pattern guard?)+ '->' expression
+
+guard ::= '|' bool_expr
 
 function_call ::= qualified_name '(' argument_list? ')'
 
@@ -122,10 +125,11 @@ builtin_type ::= 'Nat'
 
 type_expr ::=
   '[' type_expr ']'
+  | '[' IDENTIFIER ']' '->' type_expr IDENTIFIER?
   | builtin_type '->' type_expr
   | builtin_type
-  | qualified_name
   | '(' type_expr (',' type_expr)* ')'
+  | qualified_name
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 
@@ -137,3 +141,4 @@ STRING ::= STRING_TOKEN
 BOOLEAN ::= 'true' | 'false'
 NUM_OPERATOR ::= NUM_OPERATOR_TOKEN
 BOOL_OPERATOR ::= BOOL_OPERATOR_TOKEN
+COMPARE_OPERATOR ::= COMPARE_OPERATOR_TOKEN
