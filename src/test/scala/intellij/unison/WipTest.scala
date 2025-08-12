@@ -19,11 +19,13 @@ class WipTest
 
   def testRecordTypes(): Unit = runTests()
 
-  def testPolymorphicTypes(): Unit = runTests()
-
   def testExceptionsHandling(): Unit = runTests()
 
-  def testPatternMatchGuards(): Unit = runTests()
+  def testPatternMatchGuards1(): Unit = runTests()
+
+  def testPatternMatchGuards2(): Unit = runTests()
+
+  def testPatternMatchGuards3(): Unit = runTests()
 
   def testNestedImports(): Unit = runTests()
 

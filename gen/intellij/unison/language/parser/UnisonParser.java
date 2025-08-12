@@ -1280,7 +1280,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // qualified_name ':' ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr functionBody
+  // qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr functionBody
   public static boolean topLevelTypeDefinition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "topLevelTypeDefinition")) return false;
     if (!nextTokenIs(b, IDENTIFIER_TOKEN)) return false;
@@ -1289,47 +1289,91 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     r = qualified_name(b, l + 1);
     r = r && consumeToken(b, ":");
     r = r && topLevelTypeDefinition_2(b, l + 1);
+    r = r && topLevelTypeDefinition_3(b, l + 1);
     r = r && type_expr(b, l + 1);
     r = r && functionBody(b, l + 1);
     exit_section_(b, m, TOP_LEVEL_TYPE_DEFINITION, r);
     return r;
   }
 
-  // ('''{' IDENTIFIER (',' IDENTIFIER )* '}')?
+  // (('forall' | '∀') IDENTIFIER+ '.')?
   private static boolean topLevelTypeDefinition_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "topLevelTypeDefinition_2")) return false;
     topLevelTypeDefinition_2_0(b, l + 1);
     return true;
   }
 
-  // '''{' IDENTIFIER (',' IDENTIFIER )* '}'
+  // ('forall' | '∀') IDENTIFIER+ '.'
   private static boolean topLevelTypeDefinition_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "topLevelTypeDefinition_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = topLevelTypeDefinition_2_0_0(b, l + 1);
+    r = r && topLevelTypeDefinition_2_0_1(b, l + 1);
+    r = r && consumeToken(b, ".");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // 'forall' | '∀'
+  private static boolean topLevelTypeDefinition_2_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "topLevelTypeDefinition_2_0_0")) return false;
+    boolean r;
+    r = consumeToken(b, "forall");
+    if (!r) r = consumeToken(b, "∀");
+    return r;
+  }
+
+  // IDENTIFIER+
+  private static boolean topLevelTypeDefinition_2_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "topLevelTypeDefinition_2_0_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = IDENTIFIER(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!IDENTIFIER(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "topLevelTypeDefinition_2_0_1", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ('''{' IDENTIFIER (',' IDENTIFIER )* '}')?
+  private static boolean topLevelTypeDefinition_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "topLevelTypeDefinition_3")) return false;
+    topLevelTypeDefinition_3_0(b, l + 1);
+    return true;
+  }
+
+  // '''{' IDENTIFIER (',' IDENTIFIER )* '}'
+  private static boolean topLevelTypeDefinition_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "topLevelTypeDefinition_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, "");
     r = r && consumeToken(b, "{");
     r = r && IDENTIFIER(b, l + 1);
-    r = r && topLevelTypeDefinition_2_0_3(b, l + 1);
+    r = r && topLevelTypeDefinition_3_0_3(b, l + 1);
     r = r && consumeToken(b, "}");
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (',' IDENTIFIER )*
-  private static boolean topLevelTypeDefinition_2_0_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "topLevelTypeDefinition_2_0_3")) return false;
+  private static boolean topLevelTypeDefinition_3_0_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "topLevelTypeDefinition_3_0_3")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!topLevelTypeDefinition_2_0_3_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "topLevelTypeDefinition_2_0_3", c)) break;
+      if (!topLevelTypeDefinition_3_0_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "topLevelTypeDefinition_3_0_3", c)) break;
     }
     return true;
   }
 
   // ',' IDENTIFIER
-  private static boolean topLevelTypeDefinition_2_0_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "topLevelTypeDefinition_2_0_3_0")) return false;
+  private static boolean topLevelTypeDefinition_3_0_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "topLevelTypeDefinition_3_0_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ",");
@@ -1401,11 +1445,12 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '[' type_expr ']'
+  // '[' type_expr IDENTIFIER? ']'
+  //   | builtin_type '->' type_expr IDENTIFIER?
+  //   | IDENTIFIER '->' type_expr IDENTIFIER?
   //   | '[' IDENTIFIER ']' '->' type_expr IDENTIFIER?
-  //   | builtin_type '->' type_expr
   //   | builtin_type
-  //   | '(' type_expr (',' type_expr)* ')'
+  //   | '(' type_expr IDENTIFIER? (',' type_expr IDENTIFIER?)* ')'
   //   | qualified_name
   public static boolean type_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "type_expr")) return false;
@@ -1414,28 +1459,77 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     r = type_expr_0(b, l + 1);
     if (!r) r = type_expr_1(b, l + 1);
     if (!r) r = type_expr_2(b, l + 1);
+    if (!r) r = type_expr_3(b, l + 1);
     if (!r) r = builtin_type(b, l + 1);
-    if (!r) r = type_expr_4(b, l + 1);
+    if (!r) r = type_expr_5(b, l + 1);
     if (!r) r = qualified_name(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // '[' type_expr ']'
+  // '[' type_expr IDENTIFIER? ']'
   private static boolean type_expr_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "type_expr_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, "[");
     r = r && type_expr(b, l + 1);
+    r = r && type_expr_0_2(b, l + 1);
     r = r && consumeToken(b, "]");
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // '[' IDENTIFIER ']' '->' type_expr IDENTIFIER?
+  // IDENTIFIER?
+  private static boolean type_expr_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_0_2")) return false;
+    IDENTIFIER(b, l + 1);
+    return true;
+  }
+
+  // builtin_type '->' type_expr IDENTIFIER?
   private static boolean type_expr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "type_expr_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = builtin_type(b, l + 1);
+    r = r && consumeToken(b, "->");
+    r = r && type_expr(b, l + 1);
+    r = r && type_expr_1_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // IDENTIFIER?
+  private static boolean type_expr_1_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_1_3")) return false;
+    IDENTIFIER(b, l + 1);
+    return true;
+  }
+
+  // IDENTIFIER '->' type_expr IDENTIFIER?
+  private static boolean type_expr_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = IDENTIFIER(b, l + 1);
+    r = r && consumeToken(b, "->");
+    r = r && type_expr(b, l + 1);
+    r = r && type_expr_2_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // IDENTIFIER?
+  private static boolean type_expr_2_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_2_3")) return false;
+    IDENTIFIER(b, l + 1);
+    return true;
+  }
+
+  // '[' IDENTIFIER ']' '->' type_expr IDENTIFIER?
+  private static boolean type_expr_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, "[");
@@ -1443,63 +1537,67 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     r = r && consumeToken(b, "]");
     r = r && consumeToken(b, "->");
     r = r && type_expr(b, l + 1);
-    r = r && type_expr_1_5(b, l + 1);
+    r = r && type_expr_3_5(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // IDENTIFIER?
-  private static boolean type_expr_1_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_expr_1_5")) return false;
+  private static boolean type_expr_3_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_3_5")) return false;
     IDENTIFIER(b, l + 1);
     return true;
   }
 
-  // builtin_type '->' type_expr
-  private static boolean type_expr_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_expr_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = builtin_type(b, l + 1);
-    r = r && consumeToken(b, "->");
-    r = r && type_expr(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // '(' type_expr (',' type_expr)* ')'
-  private static boolean type_expr_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_expr_4")) return false;
+  // '(' type_expr IDENTIFIER? (',' type_expr IDENTIFIER?)* ')'
+  private static boolean type_expr_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_5")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, "(");
     r = r && type_expr(b, l + 1);
-    r = r && type_expr_4_2(b, l + 1);
+    r = r && type_expr_5_2(b, l + 1);
+    r = r && type_expr_5_3(b, l + 1);
     r = r && consumeToken(b, ")");
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // (',' type_expr)*
-  private static boolean type_expr_4_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_expr_4_2")) return false;
+  // IDENTIFIER?
+  private static boolean type_expr_5_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_5_2")) return false;
+    IDENTIFIER(b, l + 1);
+    return true;
+  }
+
+  // (',' type_expr IDENTIFIER?)*
+  private static boolean type_expr_5_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_5_3")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!type_expr_4_2_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "type_expr_4_2", c)) break;
+      if (!type_expr_5_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "type_expr_5_3", c)) break;
     }
     return true;
   }
 
-  // ',' type_expr
-  private static boolean type_expr_4_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_expr_4_2_0")) return false;
+  // ',' type_expr IDENTIFIER?
+  private static boolean type_expr_5_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_5_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ",");
     r = r && type_expr(b, l + 1);
+    r = r && type_expr_5_3_0_2(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // IDENTIFIER?
+  private static boolean type_expr_5_3_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_expr_5_3_0_2")) return false;
+    IDENTIFIER(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */

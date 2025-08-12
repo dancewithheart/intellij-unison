@@ -28,9 +28,9 @@ public class UnisonTypeExprImpl extends ASTWrapperPsiElement implements UnisonTy
   }
 
   @Override
-  @NotNull
-  public List<UnisonIdentifier> getIdentifierList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  @Nullable
+  public UnisonIdentifier getIdentifier() {
+    return findChildByClass(UnisonIdentifier.class);
   }
 
   @Override

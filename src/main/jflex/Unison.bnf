@@ -44,7 +44,7 @@ constructor ::= qualified_name type_expr*
 
 definition ::= 'let' (binding)+
 
-topLevelTypeDefinition ::= qualified_name ':' ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr functionBody
+topLevelTypeDefinition ::= qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr functionBody
 
 binding ::= qualified_name IDENTIFIER* '=' expression
   | (IDENTIFIER '=' expression)+
@@ -124,11 +124,12 @@ builtin_type ::= 'Nat'
   | '()'
 
 type_expr ::=
-  '[' type_expr ']'
+  '[' type_expr IDENTIFIER? ']'
+  | builtin_type '->' type_expr IDENTIFIER?
+  | IDENTIFIER '->' type_expr IDENTIFIER?
   | '[' IDENTIFIER ']' '->' type_expr IDENTIFIER?
-  | builtin_type '->' type_expr
   | builtin_type
-  | '(' type_expr (',' type_expr)* ')'
+  | '(' type_expr IDENTIFIER? (',' type_expr IDENTIFIER?)* ')'
   | qualified_name
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
