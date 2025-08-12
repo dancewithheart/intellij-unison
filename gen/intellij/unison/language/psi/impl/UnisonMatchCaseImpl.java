@@ -35,6 +35,12 @@ public class UnisonMatchCaseImpl extends ASTWrapperPsiElement implements UnisonM
 
   @Override
   @NotNull
+  public List<UnisonGuard> getGuardList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonGuard.class);
+  }
+
+  @Override
+  @NotNull
   public List<UnisonPattern> getPatternList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonPattern.class);
   }

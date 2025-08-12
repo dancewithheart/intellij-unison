@@ -40,6 +40,7 @@ STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
 NUM_OPERATOR = "+" | "-" | "*" | "/" | "%" | "Nat.+" | "Nat.-" | "Nat.*" | "Nat./" | "Nat.%"
 BOOL_OPERATOR = "&&" | "||"
+COMPARE_OPERATOR = "<" | ">" | "!=" | "==="
 
 %%
 
@@ -48,6 +49,8 @@ BOOL_OPERATOR = "&&" | "||"
 
 "namespace"              { return NAMESPACE; }
 "use"                    { return USE; }
+"alias"                  { return ALIAS; }
+"handle"                 { return HANDLE; }
 
 "ability"                { return ABILITY; }
 "where"                  { return WHERE; }
@@ -55,6 +58,7 @@ BOOL_OPERATOR = "&&" | "||"
 "structural"             { return STRUCTURAL; }
 "unique"                 { return UNIQUE; }
 
+"forall"                 { return FORALL; }
 "let"                    { return LET; }
 "do"                     { return DO; }
 "'"                      { return CIAPEK; }
@@ -98,6 +102,8 @@ BOOL_OPERATOR = "&&" | "||"
 "\\"                     { return LAMBDA; }
 "_"                      { return UNDERSCORE; }
 "otherwise"              { return OTHERWISE; }
+"typeLink"               { return TYPELINK; }
+"termLink"               { return TERMLINK; }
 "Nat"                    { return NAT; }
 "Int"                    { return INT; }
 "Char"                   { return CHAR; }
@@ -107,6 +113,7 @@ BOOL_OPERATOR = "&&" | "||"
 "Boolean"                { return BOOLEAN; }
 "Bytes"                  { return BYTES; }
 "()"                     { return EMPTYBRACES; }
+"∀"                      { return FORALLSYMBOL; }
 
 {BOOLEAN}                { return BOOLEAN_TOKEN; }
 {CHAR}                   { return CHAR_TOKEN; }
@@ -119,5 +126,6 @@ BOOL_OPERATOR = "&&" | "||"
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 {NUM_OPERATOR}           { return NUM_OPERATOR_TOKEN; }
 {BOOL_OPERATOR}          { return BOOL_OPERATOR_TOKEN; }
+{COMPARE_OPERATOR}       { return COMPARE_OPERATOR_TOKEN; }
 
 .                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }

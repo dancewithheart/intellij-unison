@@ -1,0 +1,15 @@
+type Pet = {
+   age : Nat,
+   species : Text,
+   foodPreferences : [Text]
+}
+
+type Song = {title : Text, artist : Text, year : Nat}
+
+track13 = Song "Yesterday" "The Beatles" 1965
+
+decomposeSong =
+  song = Song "Help!" "The Beatles" 1965
+  (Song help beatles year) = song
+  (help, beatles)
+decomposeSong

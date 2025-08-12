@@ -7,8 +7,6 @@ class WipTest
 
   def testAnonymousLambda2Params(): Unit = runTests()
 
-  def testAsPatterns(): Unit = runTests()
-
   def testConstructorPatterns(): Unit = runTests()
 
   def testCasesSyntax(): Unit = runTests()
@@ -19,6 +17,12 @@ class WipTest
 
   def testListPatterns(): Unit = runTests()
 
+  def testRecordTypes(): Unit = runTests()
+
+  def testPolymorphicTypes(): Unit = runTests()
+
+  def testExceptionsHandling(): Unit = runTests()
+
   def testPatternMatchGuards(): Unit = runTests()
 
   def testNestedImports(): Unit = runTests()
@@ -26,4 +30,8 @@ class WipTest
   def testNestedFunctions(): Unit = runTests()
 
   def testNestedIfThenElse(): Unit = runTests()
+
+  def testListExpressions(): Unit = runTests()
+
+  def testUseAbilities(): Unit = runTests()
 }

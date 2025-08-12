@@ -1,5 +1,11 @@
-matchNum : Nat -> Text
-matchNum num = match num with
+matchNum1 : Nat -> Text
+matchNum1 num = match num with
+  one | one === 1 -> "one"
+  three | three === 3 -> "three"
+  _ -> "no match"
+
+matchNum2: Nat -> Text
+matchNum2 num = match num with
   oneTwo | (oneTwo === 1) || (oneTwo === 2) -> "one or two"
   threeFour | (threeFour === 3) || (threeFour === 4) -> "three or four"
   fiveSix | (fiveSix === 5) || (fiveSix === 6) -> "five or six"
