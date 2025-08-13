@@ -53,8 +53,11 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.NOT        => NOT_KEYS
       case UnisonTypes.UNDERSCORE => UNDERSCORE_KEYS
       case UnisonTypes.AT         => AT_KEYS
+      case UnisonTypes.NE         => NE_KEYS
       case UnisonTypes.LT         => LT_KEYS
+      case UnisonTypes.LE         => LE_KEYS
       case UnisonTypes.GT         => GT_KEYS
+      case UnisonTypes.GE         => GE_KEYS
       case UnisonTypes.EQ         => EQ_KEYS
       case UnisonTypes.EQ3        => EQ3_KEYS
       case UnisonTypes.BAR        => BAR_KEYS
@@ -102,10 +105,13 @@ object UnisonSyntaxHighlighter {
   val ARROW: TextAttributesKey = mkTextAttribKey("UNISON_ARROW", DLHC.OPERATION_SIGN)
   val STAR: TextAttributesKey = mkTextAttribKey("UNISON_STAR", DLHC.OPERATION_SIGN)
   val AT: TextAttributesKey = mkTextAttribKey("UNISON_AT", DLHC.OPERATION_SIGN)
+  val NE: TextAttributesKey = mkTextAttribKey("UNISON_NE", DLHC.OPERATION_SIGN)
+  val LE: TextAttributesKey = mkTextAttribKey("UNISON_LE", DLHC.OPERATION_SIGN)
   val LT: TextAttributesKey = mkTextAttribKey("UNISON_LT", DLHC.OPERATION_SIGN)
   val GT: TextAttributesKey = mkTextAttribKey("UNISON_GT", DLHC.OPERATION_SIGN)
+  val GE: TextAttributesKey = mkTextAttribKey("UNISON_GE", DLHC.OPERATION_SIGN)
   val EQ: TextAttributesKey = mkTextAttribKey("UNISON_EQ", DLHC.OPERATION_SIGN)
-  val EQ3: TextAttributesKey = mkTextAttribKey("UNISON_EQ", DLHC.OPERATION_SIGN)
+  val EQ3: TextAttributesKey = mkTextAttribKey("UNISON_EQ3", DLHC.OPERATION_SIGN)
   val BAR: TextAttributesKey = mkTextAttribKey("UNISON_BAR", DLHC.OPERATION_SIGN)
   val COMMA: TextAttributesKey = mkTextAttribKey("UNISON_COMMA", DLHC.OPERATION_SIGN)
   val UNDERSCORE: TextAttributesKey = mkTextAttribKey("UNISON_UNDERSCORE", DLHC.OPERATION_SIGN)
@@ -163,6 +169,9 @@ object UnisonSyntaxHighlighter {
   val UNDERSCORE_KEYS: Array[TextAttributesKey] = Array(UNDERSCORE)
   val LAMBDA_KEYS: Array[TextAttributesKey] = Array(LAMBDA)
   val LT_KEYS: Array[TextAttributesKey] = Array(LT)
+  val LE_KEYS: Array[TextAttributesKey] = Array(LE)
+  val NE_KEYS: Array[TextAttributesKey] = Array(NE)
+  val GE_KEYS: Array[TextAttributesKey] = Array(GE)
   val GT_KEYS: Array[TextAttributesKey] = Array(GT)
   val AT_KEYS: Array[TextAttributesKey] = Array(AT)
   val EQ_KEYS: Array[TextAttributesKey] = Array(EQ)

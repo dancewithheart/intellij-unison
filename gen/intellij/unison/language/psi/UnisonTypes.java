@@ -47,6 +47,7 @@ public interface UnisonTypes {
   IElementType FORALLSYMBOL = new UnisonTokenType("FORALLSYMBOL");
   IElementType FUNCTION_BODY = new UnisonElementType("FUNCTION_BODY");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
+  IElementType GE = new UnisonTokenType("GE");
   IElementType GT = new UnisonTokenType("GT");
   IElementType GUARD = new UnisonElementType("GUARD");
   IElementType HANDLE = new UnisonElementType("HANDLE");
@@ -61,6 +62,7 @@ public interface UnisonTypes {
   IElementType LITERAL = new UnisonElementType("LITERAL");
   IElementType LPAREN = new UnisonTokenType("LPAREN");
   IElementType LPARENSQ = new UnisonTokenType("LPARENSQ");
+  IElementType LE = new UnisonTokenType("LE");
   IElementType LT = new UnisonTokenType("LT");
   IElementType MATCH = new UnisonElementType("MATCH");
   IElementType MATCH_CASE = new UnisonElementType("MATCH_CASE");
@@ -71,6 +73,7 @@ public interface UnisonTypes {
   IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
   IElementType NAT = new UnisonElementType("NAT");
+  IElementType NE = new UnisonTokenType("NE");
   IElementType NUM_EXPR = new UnisonElementType("NUM_EXPR");
   IElementType NUM_LITERAL = new UnisonElementType("NUM_LITERAL");
   IElementType NUM_OPERATOR = new UnisonElementType("NUM_OPERATOR");
