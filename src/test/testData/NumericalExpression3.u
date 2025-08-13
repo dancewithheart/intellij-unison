@@ -1,1 +1,61 @@
-z = 2 Nat.+ 2
+use Nat % + - * / < > <= >= !=
+
+x1 : Nat
+x1 = 1
+x2 : Nat
+x2 = 2
+
+y1 = x1 Nat.!= x2
+y2 = x1 Nat.<= x2
+y3 = x1 Nat.>= x2
+y4 = x1 Nat.<= x2
+y5 = x1 Nat.>= x2
+y6 = x1 Nat./ x2
+y7 = x1 Nat.* x2
+y8 = x1 Nat.+ x2
+y9 = x1 Nat.- x2
+y0 = x1 Nat.% x2
+
+z11 = 3 Nat.!= x1
+z12 = 3 Nat.<= x1
+z13 = 3 Nat.>= x1
+z14 = 3 Nat.<= x1
+z15 = 3 Nat.>= x1
+z16 = 3 Nat./ x1
+z17 = 3 Nat.* x1
+z18 = 3 Nat.+ x1
+z19 = 3 Nat.- x1
+z10 = 3 Nat.% x1
+
+z21 = x1 Nat.!= 3
+z22 = x1 Nat.<= 3
+z23 = x1 Nat.>= 3
+z24 = x1 Nat.<= 3
+z25 = x1 Nat.>= 3
+z26 = x1 Nat./ 3
+z27 = x1 Nat.* 3
+z28 = x1 Nat.+ 3
+z29 = x1 Nat.- 3
+z20 = x1 Nat.% 3
+
+z31 = 1 Nat.!= 3
+z32 = 1 Nat.<= 3
+z33 = 1 Nat.>= 3
+z34 = 1 Nat.<= 3
+z35 = 1 Nat.>= 3
+z36 = 1 Nat./ 3
+z37 = 1 Nat.* 3
+z38 = 1 Nat.+ 3
+z39 = 1 Nat.- 3
+z30 = 1 Nat.% 3
+
+z41 = (1 + x1) Nat.!= (x2 + x1)
+z42 = (1 + x1) Nat.<= (x2 + x1)
+z43 = (1 + x1) Nat.>= (x2 + x1)
+z44 = (1 + x1) Nat.<= (x2 + x1)
+z45 = (1 + x1) Nat.>= (x2 + x1)
+z46 = (1 + x1) Nat./ (x2 + x1)
+z47 = (1 + x1) Nat.* (x2 + x1)
+z48 = (1 + x1) Nat.+ (x2 + x1)
+z49 = (1 + x1) Nat.- (x2 + x1)
+z40 = (1 + x1) Nat.% (x2 + x1)
