@@ -19,7 +19,8 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 %ignorecase
 
 
-WHITE_SPACE = [\ \t\r\n]+
+NEWLINE = (\n | \r\n)+
+WHITE_SPACE = [\ \t]+
 
 END_OF_LINE_COMMENT="--"[^\r\n]*
 TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
@@ -45,6 +46,7 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" |
 %%
 
 {WHITE_SPACE}            { return com.intellij.psi.TokenType.WHITE_SPACE; }
+{NEWLINE}                { return NEWLINE; }
 {COMMENT}                { return COMMENT; }
 
 "namespace"              { return NAMESPACE; }
@@ -118,6 +120,7 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" |
 "()"                     { return EMPTYBRACES; }
 "∀"                      { return FORALLSYMBOL; }
 
+{NEWLINE}                { return NEWLINE_TOKEN; }
 {BOOLEAN}                { return BOOLEAN_TOKEN; }
 {CHAR}                   { return CHAR_TOKEN; }
 {BYTES}                  { return BYTES_TOKEN; }
