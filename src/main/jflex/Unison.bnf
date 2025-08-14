@@ -16,15 +16,15 @@
 
 unisonFile ::= statement*
 
-statement ::= namespace_decl
-            | use_import
-            | topLevelTypeDefinition
-            | binding
-            | ability_decl
-            | type_decl
-            | definition
-            | expression
-            | COMMENT
+statement ::= namespace_decl NEWLINE+
+            | use_import NEWLINE+
+            | topLevelTypeDefinition NEWLINE+
+            | binding NEWLINE+
+            | ability_decl NEWLINE+
+            | type_decl NEWLINE+
+            | definition NEWLINE+
+            | expression NEWLINE+
+            | COMMENT NEWLINE+
 
 namespace_decl ::= 'namespace' qualified_name
 
@@ -44,7 +44,7 @@ constructor ::= qualified_name type_expr*
 
 definition ::= 'let' (binding)+
 
-topLevelTypeDefinition ::= qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr functionBody
+topLevelTypeDefinition ::= qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr NEWLINE functionBody
 
 binding ::= qualified_name IDENTIFIER* '=' expression
   | (IDENTIFIER '=' expression)+
@@ -134,6 +134,8 @@ type_expr ::=
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 
+COMMENT ::= COMMENT_TOKEN
+NEWLINE ::= NEWLINE_TOKEN
 IDENTIFIER ::= IDENTIFIER_TOKEN
 INT ::= INT_TOKEN
 DOUBLE ::= DOUBLE_TOKEN
