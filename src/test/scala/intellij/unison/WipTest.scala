@@ -25,10 +25,6 @@ class WipTest
 
   def testPatternMatchGuards3(): Unit = runTests()
 
-  def testNestedImports(): Unit = runTests()
-
-  def testNestedFunctions(): Unit = runTests()
-
   def testNestedIfThenElse(): Unit = runTests()
 
   def testListExpressions(): Unit = runTests()

@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonGuard extends PsiElement {
+public interface UnisonCasesExpr extends PsiElement {
 
-  @Nullable
-  UnisonBoolExpr getBoolExpr();
+  @NotNull
+  List<UnisonExpression> getExpressionList();
+
+  @NotNull
+  List<UnisonGuard> getGuardList();
 
 }

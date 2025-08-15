@@ -1,0 +1,7 @@
+n1 : Int
+n1 = 0
+
+n2 = cases
+  n
+    | n < 10    -> "single digit"
+    | otherwise -> "other"

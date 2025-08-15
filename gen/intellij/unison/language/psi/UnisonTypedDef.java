@@ -17,6 +17,6 @@ public interface UnisonTypedDef extends PsiElement {
   UnisonQualifiedName getQualifiedName();
 
   @NotNull
-  UnisonTypeExpr getTypeExpr();
+  List<UnisonTypeExpr> getTypeExprList();
 
 }

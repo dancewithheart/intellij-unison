@@ -40,7 +40,11 @@ constructor ::= qualified_name type_expr*
 
 let_expr ::= 'let' (binding)+
 
-typed_def ::= qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr fun_body
+typed_def ::=
+  qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')?
+    ('''{' IDENTIFIER (',' IDENTIFIER )* '}')?
+    type_expr ( '->' '{' IDENTIFIER (',' IDENTIFIER )* '}' type_expr )*
+    fun_body
 
 binding ::= qualified_name IDENTIFIER* '=' expression
   | (IDENTIFIER '=' expression)+
@@ -54,6 +58,7 @@ expression ::= use_import
              | bool_expr
              | if_expr
              | match_expr
+             | cases_expr
              | function_call
              | literal
              | qualified_name
@@ -64,6 +69,19 @@ expression ::= use_import
 if_expr ::= 'if' bool_expr 'then' expression 'else' expression
 
 match_expr ::= 'match' expression+ 'with' match_case+
+
+cases_expr ::= 'cases' expression+ (guard '->' expression)+
+
+match_case ::= (pattern guard*)+ '->' expression
+
+guard ::= '|' ('otherwise' | bool_expr)
+
+pattern ::= IDENTIFIER '@' pattern
+          | IDENTIFIER
+          | '_'
+          | literal
+          | constructor_pattern
+          | '(' literal (',' literal)* ')'
 
 num_expr ::=
    numLiteral NUM_OPERATOR numLiteral
@@ -91,22 +109,11 @@ bool_expr ::=
    | BOOLEAN
    | IDENTIFIER
 
-match_case ::= (pattern guard*)+ '->' expression
-
-guard ::= '|' bool_expr
-
 function_call ::= qualified_name '(' argument_list? ')'
 
 argument_list ::= expression (',' expression)*
 
 lambda ::= '\' pattern+ '->' expression
-
-pattern ::= IDENTIFIER '@' pattern
-          | IDENTIFIER
-          | '_'
-          | literal
-          | constructor_pattern
-          | '(' literal (',' literal)* ')'
 
 constructor_pattern ::= IDENTIFIER pattern*
 

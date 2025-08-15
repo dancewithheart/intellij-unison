@@ -51,6 +51,7 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" |
 "use"                    { return USE; }
 "alias"                  { return ALIAS; }
 "handle"                 { return HANDLE; }
+"catch"                  { return CATCH; }
 
 "ability"                { return ABILITY; }
 "where"                  { return WHERE; }
@@ -78,19 +79,6 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" |
 "->"                     { return ARROW; }
 ":"                      { return COLON; }
 "="                      { return EQ; }
-//"<"                      { return LT; }
-//">"                      { return GT; }
-//">="                     { return GE; }
-//"<="                     { return LE; }
-//"!="                     { return NE; }
-//"==="                    { return EQ3; }
-//"+"                      { return PLUS; }
-//"-"                      { return MINUS; }
-//"*"                      { return STAR; }
-//"/"                      { return DIV; }
-//"%"                      { return MODS; }
-//"&&"                     { return AND; }
-//"||"                     { return OR; }
 "not"                    { return NOT; }
 "mod"                    { return MODW; }
 "|"                      { return BAR; }
@@ -122,8 +110,6 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" |
 {CHAR}                   { return CHAR_TOKEN; }
 {BYTES}                  { return BYTES_TOKEN; }
 {INT}                    { return INT_TOKEN; }
-//{NAT}                    { return NAT_TOKEN; }
-//{FLOAT}                  { return FLOAT_TOKEN; }
 {DOUBLE}                 { return DOUBLE_TOKEN; }
 {STRING}                 { return STRING_TOKEN; }
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }
