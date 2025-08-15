@@ -1376,7 +1376,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   //             | topLevelTypeDefinition
   //             | ability_decl
   //             | type_decl
-  //             | definition
   //             | expression
   public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
@@ -1387,7 +1386,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = topLevelTypeDefinition(b, l + 1);
     if (!r) r = ability_decl(b, l + 1);
     if (!r) r = type_decl(b, l + 1);
-    if (!r) r = definition(b, l + 1);
     if (!r) r = expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;

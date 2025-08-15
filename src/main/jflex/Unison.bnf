@@ -21,7 +21,6 @@ statement ::= COMMENT
             | topLevelTypeDefinition
             | ability_decl
             | type_decl
-            | definition
             | expression
 
 namespace_decl ::= 'namespace' qualified_name
