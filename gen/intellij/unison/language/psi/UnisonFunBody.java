@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonFunctionBody extends PsiElement {
+public interface UnisonFunBody extends PsiElement {
 
   @Nullable
   UnisonExpression getExpression();

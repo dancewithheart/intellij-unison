@@ -21,6 +21,7 @@ grep -L Error src/test/testData/wip/*.txt
 
 echo
 echo "====================== Summary:"
+echo OK $(grep -L Error src/test/testData/*.txt | wc -l)
 echo WIP BAD_CHARACTER $(grep BAD_CHARACTER src/test/testData/wip/*.txt | wc -l)
 echo WIP Errors $(grep Error src/test/testData/wip/*.txt | wc -l)
 echo BAD_CHARACTER $(grep BAD_CHARACTER src/test/testData/*.txt | wc -l)

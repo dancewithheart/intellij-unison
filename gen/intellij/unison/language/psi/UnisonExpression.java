@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface UnisonExpression extends PsiElement {
 
   @Nullable
+  UnisonBinding getBinding();
+
+  @Nullable
   UnisonBoolExpr getBoolExpr();
 
   @Nullable
@@ -23,6 +26,9 @@ public interface UnisonExpression extends PsiElement {
   UnisonLambda getLambda();
 
   @Nullable
+  UnisonLetExpr getLetExpr();
+
+  @Nullable
   UnisonLiteral getLiteral();
 
   @Nullable
@@ -36,5 +42,11 @@ public interface UnisonExpression extends PsiElement {
 
   @Nullable
   UnisonQualifiedName getQualifiedName();
+
+  @Nullable
+  UnisonTypedDef getTypedDef();
+
+  @Nullable
+  UnisonUseImport getUseImport();
 
 }

@@ -40,7 +40,7 @@ STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
 NUM_OPERATOR = "+" | "-" | "*" | "/" | "%" | "Nat.+" | "Nat.-" | "Nat.*" | "Nat./" | "Nat.%"
 BOOL_OPERATOR = "&&" | "||"
-COMPARE_OPERATOR = "<" | ">" | "!=" | "==="
+COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" | "Nat.>" | "Nat.<=" | "Nat.>="
 
 %%
 
@@ -78,16 +78,19 @@ COMPARE_OPERATOR = "<" | ">" | "!=" | "==="
 "->"                     { return ARROW; }
 ":"                      { return COLON; }
 "="                      { return EQ; }
-"<"                      { return GT; }
-">"                      { return LT; }
-"==="                    { return EQ3; }
-"+"                      { return PLUS; }
-"-"                      { return MINUS; }
-"*"                      { return STAR; }
-"/"                      { return DIV; }
-"%"                      { return MODS; }
-"&&"                     { return AND; }
-"||"                     { return OR; }
+//"<"                      { return LT; }
+//">"                      { return GT; }
+//">="                     { return GE; }
+//"<="                     { return LE; }
+//"!="                     { return NE; }
+//"==="                    { return EQ3; }
+//"+"                      { return PLUS; }
+//"-"                      { return MINUS; }
+//"*"                      { return STAR; }
+//"/"                      { return DIV; }
+//"%"                      { return MODS; }
+//"&&"                     { return AND; }
+//"||"                     { return OR; }
 "not"                    { return NOT; }
 "mod"                    { return MODW; }
 "|"                      { return BAR; }

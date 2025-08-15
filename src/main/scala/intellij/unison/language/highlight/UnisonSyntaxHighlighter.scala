@@ -37,26 +37,29 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.TEXT    => TEXT_KEYS
 
       case UnisonTypes.ARROW => ARROW_KEYS
-      case UnisonTypes.STAR  => STAR_KEYS
+//      case UnisonTypes.STAR  => STAR_KEYS
       case UnisonTypes.COMMA => COMMA_KEYS
 
       case UnisonTypes.LBRACE     => LBRACE_KEYS
       case UnisonTypes.RBRACE     => RBRACE_KEYS
       case UnisonTypes.LPAREN     => LPAREN_KEYS
       case UnisonTypes.RPAREN     => RPAREN_KEYS
-      case UnisonTypes.PLUS       => PLUS_KEYS
-      case UnisonTypes.MINUS      => MINUS_KEYS
-      case UnisonTypes.DIV        => DIV_KEYS
+//      case UnisonTypes.PLUS       => PLUS_KEYS
+//      case UnisonTypes.MINUS      => MINUS_KEYS
+//      case UnisonTypes.DIV        => DIV_KEYS
       case UnisonTypes.MODS        => MODS_KEYS
       case UnisonTypes.MODW        => MODW_KEYS
       case UnisonTypes.DOT        => DOT_KEYS
       case UnisonTypes.NOT        => NOT_KEYS
       case UnisonTypes.UNDERSCORE => UNDERSCORE_KEYS
       case UnisonTypes.AT         => AT_KEYS
-      case UnisonTypes.LT         => LT_KEYS
-      case UnisonTypes.GT         => GT_KEYS
-      case UnisonTypes.EQ         => EQ_KEYS
-      case UnisonTypes.EQ3        => EQ3_KEYS
+//      case UnisonTypes.NE         => NE_KEYS
+//      case UnisonTypes.LT         => LT_KEYS
+//      case UnisonTypes.LE         => LE_KEYS
+//      case UnisonTypes.GT         => GT_KEYS
+//      case UnisonTypes.GE         => GE_KEYS
+//      case UnisonTypes.EQ         => EQ_KEYS
+//      case UnisonTypes.EQ3        => EQ3_KEYS
       case UnisonTypes.BAR        => BAR_KEYS
       case UnisonTypes.LAMBDA     => LAMBDA_KEYS
 
@@ -100,23 +103,26 @@ object UnisonSyntaxHighlighter {
   val BOOLEAN: TextAttributesKey = mkTextAttribKey("UNISON_BOOLEAN", DLHC.NUMBER) // TODO PP change to boolish color
 
   val ARROW: TextAttributesKey = mkTextAttribKey("UNISON_ARROW", DLHC.OPERATION_SIGN)
-  val STAR: TextAttributesKey = mkTextAttribKey("UNISON_STAR", DLHC.OPERATION_SIGN)
+//  val STAR: TextAttributesKey = mkTextAttribKey("UNISON_STAR", DLHC.OPERATION_SIGN)
   val AT: TextAttributesKey = mkTextAttribKey("UNISON_AT", DLHC.OPERATION_SIGN)
-  val LT: TextAttributesKey = mkTextAttribKey("UNISON_LT", DLHC.OPERATION_SIGN)
-  val GT: TextAttributesKey = mkTextAttribKey("UNISON_GT", DLHC.OPERATION_SIGN)
-  val EQ: TextAttributesKey = mkTextAttribKey("UNISON_EQ", DLHC.OPERATION_SIGN)
-  val EQ3: TextAttributesKey = mkTextAttribKey("UNISON_EQ", DLHC.OPERATION_SIGN)
+//  val NE: TextAttributesKey = mkTextAttribKey("UNISON_NE", DLHC.OPERATION_SIGN)
+//  val LE: TextAttributesKey = mkTextAttribKey("UNISON_LE", DLHC.OPERATION_SIGN)
+//  val LT: TextAttributesKey = mkTextAttribKey("UNISON_LT", DLHC.OPERATION_SIGN)
+//  val GT: TextAttributesKey = mkTextAttribKey("UNISON_GT", DLHC.OPERATION_SIGN)
+//  val GE: TextAttributesKey = mkTextAttribKey("UNISON_GE", DLHC.OPERATION_SIGN)
+//  val EQ: TextAttributesKey = mkTextAttribKey("UNISON_EQ", DLHC.OPERATION_SIGN)
+//  val EQ3: TextAttributesKey = mkTextAttribKey("UNISON_EQ3", DLHC.OPERATION_SIGN)
   val BAR: TextAttributesKey = mkTextAttribKey("UNISON_BAR", DLHC.OPERATION_SIGN)
   val COMMA: TextAttributesKey = mkTextAttribKey("UNISON_COMMA", DLHC.OPERATION_SIGN)
   val UNDERSCORE: TextAttributesKey = mkTextAttribKey("UNISON_UNDERSCORE", DLHC.OPERATION_SIGN)
   val LAMBDA: TextAttributesKey = mkTextAttribKey("UNISON_LAMBDA", DLHC.OPERATION_SIGN)
   val DOT: TextAttributesKey = mkTextAttribKey("UNISON_DOT", DLHC.DOT)
 
-  val PLUS: TextAttributesKey = mkTextAttribKey("UNISON_PLUS", DLHC.OPERATION_SIGN)
-  val MINUS: TextAttributesKey = mkTextAttribKey("UNISON_MINUS", DLHC.OPERATION_SIGN)
+//  val PLUS: TextAttributesKey = mkTextAttribKey("UNISON_PLUS", DLHC.OPERATION_SIGN)
+//  val MINUS: TextAttributesKey = mkTextAttribKey("UNISON_MINUS", DLHC.OPERATION_SIGN)
   val MODS: TextAttributesKey = mkTextAttribKey("UNISON_MOD", DLHC.OPERATION_SIGN)
   val MODW: TextAttributesKey = mkTextAttribKey("UNISON_MOD", DLHC.OPERATION_SIGN)
-  val DIV: TextAttributesKey = mkTextAttribKey("UNISON_DIV", DLHC.OPERATION_SIGN)
+//  val DIV: TextAttributesKey = mkTextAttribKey("UNISON_DIV", DLHC.OPERATION_SIGN)
   val LBRACE: TextAttributesKey = mkTextAttribKey("UNISON_LBRACE", DLHC.BRACES)
   val RBRACE: TextAttributesKey = mkTextAttribKey("UNISON_RBRACE", DLHC.BRACES)
   val LPAREN: TextAttributesKey = mkTextAttribKey("UNISON_LPAREN", DLHC.PARENTHESES)
@@ -146,7 +152,7 @@ object UnisonSyntaxHighlighter {
   val FORALL_KEYS: Array[TextAttributesKey] = Array(FORALL)
   val NAMESPACE_KEYS: Array[TextAttributesKey] = Array(NAMESPACE)
   val USE_KEYS: Array[TextAttributesKey] = Array(USE)
-  val STAR_KEYS: Array[TextAttributesKey] = Array(STAR)
+//  val STAR_KEYS: Array[TextAttributesKey] = Array(STAR)
   val COMMA_KEYS: Array[TextAttributesKey] = Array(COMMA)
 
   val LBRACE_KEYS: Array[TextAttributesKey] = Array(LBRACE)
@@ -155,18 +161,21 @@ object UnisonSyntaxHighlighter {
   val RPAREN_KEYS: Array[TextAttributesKey] = Array(RPAREN)
   val DOT_KEYS: Array[TextAttributesKey] = Array(DOT)
   val NOT_KEYS: Array[TextAttributesKey] = Array(NOT)
-  val PLUS_KEYS: Array[TextAttributesKey] = Array(PLUS)
-  val MINUS_KEYS: Array[TextAttributesKey] = Array(MINUS)
+//  val PLUS_KEYS: Array[TextAttributesKey] = Array(PLUS)
+//  val MINUS_KEYS: Array[TextAttributesKey] = Array(MINUS)
   val MODS_KEYS: Array[TextAttributesKey] = Array(MODS)
   val MODW_KEYS: Array[TextAttributesKey] = Array(MODW)
-  val DIV_KEYS: Array[TextAttributesKey] = Array(DIV)
+//  val DIV_KEYS: Array[TextAttributesKey] = Array(DIV)
   val UNDERSCORE_KEYS: Array[TextAttributesKey] = Array(UNDERSCORE)
   val LAMBDA_KEYS: Array[TextAttributesKey] = Array(LAMBDA)
-  val LT_KEYS: Array[TextAttributesKey] = Array(LT)
-  val GT_KEYS: Array[TextAttributesKey] = Array(GT)
+//  val LT_KEYS: Array[TextAttributesKey] = Array(LT)
+//  val LE_KEYS: Array[TextAttributesKey] = Array(LE)
+//  val NE_KEYS: Array[TextAttributesKey] = Array(NE)
+//  val GE_KEYS: Array[TextAttributesKey] = Array(GE)
+//  val GT_KEYS: Array[TextAttributesKey] = Array(GT)
   val AT_KEYS: Array[TextAttributesKey] = Array(AT)
-  val EQ_KEYS: Array[TextAttributesKey] = Array(EQ)
-  val EQ3_KEYS: Array[TextAttributesKey] = Array(EQ3)
+//  val EQ_KEYS: Array[TextAttributesKey] = Array(EQ)
+//  val EQ3_KEYS: Array[TextAttributesKey] = Array(EQ3)
   val BAR_KEYS: Array[TextAttributesKey] = Array(BAR)
 
   val STRING_KEYS: Array[TextAttributesKey] = Array(TEXT)

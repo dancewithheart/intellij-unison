@@ -1,2 +1,2 @@
 FILE(0,73)
-  PsiComment(UnisonTokenType.COMMENT)('-- comments https://www.unison-lang.org/docs/language-reference/comments/')(0,73)
+  PsiComment(COMMENT)('-- comments https://www.unison-lang.org/docs/language-reference/comments/')(0,73)

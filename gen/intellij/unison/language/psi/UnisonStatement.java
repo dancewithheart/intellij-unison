@@ -8,13 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface UnisonStatement extends PsiElement {
 
   @Nullable
+  UnisonComment getComment();
+
+  @Nullable
   UnisonAbilityDecl getAbilityDecl();
-
-  @Nullable
-  UnisonBinding getBinding();
-
-  @Nullable
-  UnisonDefinition getDefinition();
 
   @Nullable
   UnisonExpression getExpression();
@@ -23,12 +20,6 @@ public interface UnisonStatement extends PsiElement {
   UnisonNamespaceDecl getNamespaceDecl();
 
   @Nullable
-  UnisonTopLevelTypeDefinition getTopLevelTypeDefinition();
-
-  @Nullable
   UnisonTypeDecl getTypeDecl();
-
-  @Nullable
-  UnisonUseImport getUseImport();
 
 }

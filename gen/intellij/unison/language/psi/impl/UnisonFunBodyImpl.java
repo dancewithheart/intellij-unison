@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonTopLevelTypeDefinitionImpl extends ASTWrapperPsiElement implements UnisonTopLevelTypeDefinition {
+public class UnisonFunBodyImpl extends ASTWrapperPsiElement implements UnisonFunBody {
 
-  public UnisonTopLevelTypeDefinitionImpl(@NotNull ASTNode node) {
+  public UnisonFunBodyImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitTopLevelTypeDefinition(this);
+    visitor.visitFunBody(this);
   }
 
   @Override
@@ -28,27 +28,15 @@ public class UnisonTopLevelTypeDefinitionImpl extends ASTWrapperPsiElement imple
   }
 
   @Override
-  @NotNull
-  public List<UnisonIdentifier> getIdentifierList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  @Nullable
+  public UnisonExpression getExpression() {
+    return findChildByClass(UnisonExpression.class);
   }
 
   @Override
   @NotNull
-  public UnisonFunctionBody getFunctionBody() {
-    return findNotNullChildByClass(UnisonFunctionBody.class);
-  }
-
-  @Override
-  @NotNull
-  public UnisonQualifiedName getQualifiedName() {
-    return findNotNullChildByClass(UnisonQualifiedName.class);
-  }
-
-  @Override
-  @NotNull
-  public UnisonTypeExpr getTypeExpr() {
-    return findNotNullChildByClass(UnisonTypeExpr.class);
+  public List<UnisonStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonStatement.class);
   }
 
 }

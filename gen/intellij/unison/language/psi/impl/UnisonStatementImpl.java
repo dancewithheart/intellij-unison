@@ -29,20 +29,14 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
 
   @Override
   @Nullable
+  public UnisonComment getComment() {
+    return findChildByClass(UnisonComment.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonAbilityDecl getAbilityDecl() {
     return findChildByClass(UnisonAbilityDecl.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonBinding getBinding() {
-    return findChildByClass(UnisonBinding.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonDefinition getDefinition() {
-    return findChildByClass(UnisonDefinition.class);
   }
 
   @Override
@@ -59,20 +53,8 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
 
   @Override
   @Nullable
-  public UnisonTopLevelTypeDefinition getTopLevelTypeDefinition() {
-    return findChildByClass(UnisonTopLevelTypeDefinition.class);
-  }
-
-  @Override
-  @Nullable
   public UnisonTypeDecl getTypeDecl() {
     return findChildByClass(UnisonTypeDecl.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonUseImport getUseImport() {
-    return findChildByClass(UnisonUseImport.class);
   }
 
 }

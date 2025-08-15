@@ -1,7 +1,7 @@
 FILE(0,178)
   UnisonStatementImpl(STATEMENT)(0,7)
     UnisonExpressionImpl(EXPRESSION)(0,7)
-      UnisonNumExprImpl(NUM_EXPR)(0,7)
+      UnisonBoolExprImpl(BOOL_EXPR)(0,7)
         UnisonIdentifierImpl(IDENTIFIER)(0,7)
           PsiElement(UnisonTokenType.IDENTIFIER_TOKEN)('nonZero')(0,7)
   PsiWhiteSpace(' ')(7,8)

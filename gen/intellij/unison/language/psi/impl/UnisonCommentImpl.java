@@ -11,26 +11,20 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonDefinitionImpl extends ASTWrapperPsiElement implements UnisonDefinition {
+public class UnisonCommentImpl extends ASTWrapperPsiElement implements UnisonComment {
 
-  public UnisonDefinitionImpl(@NotNull ASTNode node) {
+  public UnisonCommentImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitDefinition(this);
+    visitor.visitComment(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof UnisonVisitor) accept((UnisonVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonBinding> getBindingList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBinding.class);
   }
 
 }
