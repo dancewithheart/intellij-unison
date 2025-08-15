@@ -2,11 +2,7 @@
 [![Scala CI](https://github.com/dancewithheart/intellij-unison/actions/workflows/scala.yml/badge.svg?branch=main)](https://github.com/dancewithheart/intellij-unison/actions/workflows/scala.yml?query=branch%3Amain)
 
 ## WIP
-This is very early stages of the work.
-
-No artifact is published.
-
-Some key features are under development: e.g. abilities, non-trivial expressions.
+This is very early stages of the work. No artifact is published. Some key features are under development: e.g. [abilities](https://github.com/dancewithheart/intellij-unison/issues/41), [significant whitespaces](https://github.com/dancewithheart/intellij-unison/issues/46).
 
 See [issue #22](https://github.com/dancewithheart/intellij-unison/issues/22) for unsupported features & problems. 
 
