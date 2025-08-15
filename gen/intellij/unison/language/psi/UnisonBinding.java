@@ -13,9 +13,6 @@ public interface UnisonBinding extends PsiElement {
   @NotNull
   List<UnisonExpression> getExpressionList();
 
-  @NotNull
-  List<UnisonLiteral> getLiteralList();
-
   @Nullable
   UnisonQualifiedName getQualifiedName();
 

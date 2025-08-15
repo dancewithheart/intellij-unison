@@ -1,0 +1,4 @@
+foo2 : Nat
+foo2 =
+  (a, _, c) = (1, 2, 3)
+  a Nat.+ c

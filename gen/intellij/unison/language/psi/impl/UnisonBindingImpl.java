@@ -40,12 +40,6 @@ public class UnisonBindingImpl extends ASTWrapperPsiElement implements UnisonBin
   }
 
   @Override
-  @NotNull
-  public List<UnisonLiteral> getLiteralList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonLiteral.class);
-  }
-
-  @Override
   @Nullable
   public UnisonQualifiedName getQualifiedName() {
     return findChildByClass(UnisonQualifiedName.class);
