@@ -101,6 +101,12 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
+  public UnisonTopLevelTypeDefinition getTopLevelTypeDefinition() {
+    return findChildByClass(UnisonTopLevelTypeDefinition.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonUseImport getUseImport() {
     return findChildByClass(UnisonUseImport.class);
   }

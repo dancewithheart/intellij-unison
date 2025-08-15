@@ -44,6 +44,9 @@ public interface UnisonExpression extends PsiElement {
   UnisonQualifiedName getQualifiedName();
 
   @Nullable
+  UnisonTopLevelTypeDefinition getTopLevelTypeDefinition();
+
+  @Nullable
   UnisonUseImport getUseImport();
 
 }

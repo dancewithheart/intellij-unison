@@ -713,6 +713,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // use_import
+  //              | topLevelTypeDefinition
   //              | binding
   //              | lambda
   //              | num_expr
@@ -730,6 +731,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
     r = use_import(b, l + 1);
+    if (!r) r = topLevelTypeDefinition(b, l + 1);
     if (!r) r = binding(b, l + 1);
     if (!r) r = lambda(b, l + 1);
     if (!r) r = num_expr(b, l + 1);
@@ -741,14 +743,14 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = qualified_name(b, l + 1);
     if (!r) r = qualified_import(b, l + 1);
     if (!r) r = definition(b, l + 1);
-    if (!r) r = expression_12(b, l + 1);
+    if (!r) r = expression_13(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // '(' expression ')'
-  private static boolean expression_12(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_12")) return false;
+  private static boolean expression_13(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expression_13")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, "(");
@@ -1373,7 +1375,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // COMMENT
   //             | namespace_decl
-  //             | topLevelTypeDefinition
   //             | ability_decl
   //             | type_decl
   //             | expression
@@ -1383,7 +1384,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
     r = COMMENT(b, l + 1);
     if (!r) r = namespace_decl(b, l + 1);
-    if (!r) r = topLevelTypeDefinition(b, l + 1);
     if (!r) r = ability_decl(b, l + 1);
     if (!r) r = type_decl(b, l + 1);
     if (!r) r = expression(b, l + 1);
