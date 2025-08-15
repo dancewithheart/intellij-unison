@@ -1,0 +1,10 @@
+mkErr : Exception
+mkErr = failure "Zero was found"
+
+nonZero : Nat ->  { Exception } Nat
+nonZero = cases
+  n
+    | n Nat.== 0  -> mkErr
+    | otherwise   -> n
+
+x = catch do nonZero 0

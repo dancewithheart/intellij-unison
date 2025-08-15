@@ -24,6 +24,9 @@ public interface UnisonTypes {
   IElementType BUILTIN_TYPE = new UnisonElementType("BUILTIN_TYPE");
   IElementType BYTES = new UnisonElementType("BYTES");
   IElementType CASES = new UnisonTokenType("CASES");
+  IElementType CATCH = new UnisonTokenType("CATCH");
+  IElementType CASES_EXPR = new UnisonElementType("CASES_EXPR");
+  IElementType CATCH_EXPR = new UnisonElementType("CATCH_EXPR");
   IElementType CHAR = new UnisonElementType("CHAR");
   IElementType CIAPEK = new UnisonTokenType("CIAPEK");
   IElementType COMMA = new UnisonTokenType("COMMA");
@@ -42,7 +45,6 @@ public interface UnisonTypes {
   IElementType FLOAT = new UnisonElementType("FLOAT");
   IElementType FORALL = new UnisonElementType("FORALL");
   IElementType FORALLSYMBOL = new UnisonTokenType("FORALLSYMBOL");
-  IElementType FUNCTION_BODY = new UnisonElementType("FUNCTION_BODY");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType FUN_BODY = new UnisonElementType("FUN_BODY");
   IElementType GUARD = new UnisonElementType("GUARD");
@@ -80,7 +82,6 @@ public interface UnisonTypes {
   IElementType RPARENSQ = new UnisonTokenType("RPARENSQ");
   IElementType STATEMENT = new UnisonElementType("STATEMENT");
   IElementType STRING = new UnisonElementType("STRING");
-  IElementType STAR = new UnisonTokenType("STAR");
   IElementType STRUCTURAL = new UnisonTokenType("STRUCTURAL");
   IElementType THEN = new UnisonTokenType("THEN");
   IElementType TYPED_DEF = new UnisonElementType("TYPED_DEF");
@@ -139,6 +140,12 @@ public interface UnisonTypes {
       }
       else if (type == BYTES) {
         return new UnisonBytesImpl(node);
+      }
+      else if (type == CASES_EXPR) {
+        return new UnisonCasesExprImpl(node);
+      }
+      else if (type == CATCH_EXPR) {
+        return new UnisonCatchExprImpl(node);
       }
       else if (type == CHAR) {
         return new UnisonCharImpl(node);

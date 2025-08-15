@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface UnisonGuard extends PsiElement {
 
-  @NotNull
+  @Nullable
   UnisonBoolExpr getBoolExpr();
 
 }

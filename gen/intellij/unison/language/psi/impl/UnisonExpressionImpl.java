@@ -41,6 +41,18 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
+  public UnisonCasesExpr getCasesExpr() {
+    return findChildByClass(UnisonCasesExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonCatchExpr getCatchExpr() {
+    return findChildByClass(UnisonCatchExpr.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonExpression getExpression() {
     return findChildByClass(UnisonExpression.class);
   }

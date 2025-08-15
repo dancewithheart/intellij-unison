@@ -1,0 +1,7 @@
+nonZero : Nat ->  { Exception } Nat
+nonZero = cases
+  n
+    | n Nat.== 0  -> Exception.raise (Generic.failure "Zero was found" n)
+    | otherwise   -> n
+
+x = catch do nonZero 0

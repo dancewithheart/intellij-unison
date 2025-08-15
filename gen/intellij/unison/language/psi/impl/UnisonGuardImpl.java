@@ -28,9 +28,9 @@ public class UnisonGuardImpl extends ASTWrapperPsiElement implements UnisonGuard
   }
 
   @Override
-  @NotNull
+  @Nullable
   public UnisonBoolExpr getBoolExpr() {
-    return findNotNullChildByClass(UnisonBoolExpr.class);
+    return findChildByClass(UnisonBoolExpr.class);
   }
 
 }
