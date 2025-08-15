@@ -31,7 +31,4 @@ public interface UnisonStatement extends PsiElement {
   @Nullable
   UnisonTypeDecl getTypeDecl();
 
-  @Nullable
-  UnisonUseImport getUseImport();
-
 }

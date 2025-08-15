@@ -712,7 +712,8 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // lambda
+  // use_import
+  //              | lambda
   //              | num_expr
   //              | bool_expr
   //              | if_expr
@@ -721,7 +722,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   //              | literal
   //              | qualified_name
   //              | qualified_import
-  //              | use_import
   //              | binding
   //              | definition
   //              | '(' expression ')'
@@ -729,7 +729,8 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
-    r = lambda(b, l + 1);
+    r = use_import(b, l + 1);
+    if (!r) r = lambda(b, l + 1);
     if (!r) r = num_expr(b, l + 1);
     if (!r) r = bool_expr(b, l + 1);
     if (!r) r = if_expr(b, l + 1);
@@ -738,7 +739,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = literal(b, l + 1);
     if (!r) r = qualified_name(b, l + 1);
     if (!r) r = qualified_import(b, l + 1);
-    if (!r) r = use_import(b, l + 1);
     if (!r) r = binding(b, l + 1);
     if (!r) r = definition(b, l + 1);
     if (!r) r = expression_12(b, l + 1);
@@ -1372,7 +1372,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // namespace_decl
-  //             | use_import
   //             | topLevelTypeDefinition
   //             | binding
   //             | ability_decl
@@ -1385,7 +1384,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
     r = namespace_decl(b, l + 1);
-    if (!r) r = use_import(b, l + 1);
     if (!r) r = topLevelTypeDefinition(b, l + 1);
     if (!r) r = binding(b, l + 1);
     if (!r) r = ability_decl(b, l + 1);

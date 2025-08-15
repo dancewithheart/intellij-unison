@@ -75,10 +75,4 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
     return findChildByClass(UnisonTypeDecl.class);
   }
 
-  @Override
-  @Nullable
-  public UnisonUseImport getUseImport() {
-    return findChildByClass(UnisonUseImport.class);
-  }
-
 }
