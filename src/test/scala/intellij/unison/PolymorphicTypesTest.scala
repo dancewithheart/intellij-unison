@@ -1,6 +1,7 @@
 package intellij.unison
 
-class PolymorphicTypesTest extends BaseUnisonTest {
+class PolymorphicTypesTest
+    extends BaseUnisonTest {
 
   def testPolymorphicTypes(): Unit = runTests()
 
