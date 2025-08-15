@@ -1,6 +1,6 @@
 package intellij.unison
 
-class SingleLineCommentsParsingTest
+class SingleLineCommentsTest
     extends BaseUnisonTest {
 
   def testComments(): Unit = runTests()

@@ -118,7 +118,7 @@ function_call ::= qualified_name '(' argument_list? ')'
 
 argument_list ::= expression (',' expression)*
 
-lambda ::= '\' pattern+ '->' expression
+lambda ::= pattern+ '->' expression
 
 constructor_pattern ::= IDENTIFIER pattern*
 
