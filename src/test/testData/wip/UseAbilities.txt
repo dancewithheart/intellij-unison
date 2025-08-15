@@ -1,7 +1,7 @@
 FILE(0,717)
   UnisonStatementImpl(STATEMENT)(0,13)
     UnisonExpressionImpl(EXPRESSION)(0,13)
-      UnisonNumExprImpl(NUM_EXPR)(0,13)
+      UnisonBoolExprImpl(BOOL_EXPR)(0,13)
         UnisonIdentifierImpl(IDENTIFIER)(0,13)
           PsiElement(UnisonTokenType.IDENTIFIER_TOKEN)('errorHandling')(0,13)
   PsiElement(UnisonTokenType.DOT)('.')(13,14)

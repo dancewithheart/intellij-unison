@@ -22,7 +22,10 @@ public interface UnisonBoolExpr extends PsiElement {
   @Nullable
   UnisonBoolExpr getBoolExpr();
 
-  @NotNull
-  List<UnisonNumExpr> getNumExprList();
+  @Nullable
+  UnisonNumLiteral getNumLiteral();
+
+  @Nullable
+  UnisonNumExpr getNumExpr();
 
 }

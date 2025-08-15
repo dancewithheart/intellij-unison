@@ -16,21 +16,21 @@
 
 unisonFile ::= statement*
 
-statement ::= namespace_decl NEWLINE+
-            | use_import NEWLINE+
-            | topLevelTypeDefinition NEWLINE+
-            | binding NEWLINE+
-            | ability_decl NEWLINE+
-            | type_decl NEWLINE+
-            | definition NEWLINE+
-            | expression NEWLINE+
-            | COMMENT NEWLINE+
+statement ::= namespace_decl
+            | use_import
+            | topLevelTypeDefinition
+            | binding
+            | ability_decl
+            | type_decl
+            | definition
+            | expression
+            | COMMENT
 
 namespace_decl ::= 'namespace' qualified_name
 
 functionBody ::= ('do' expression) | statement+
 
-use_import ::= 'use' ( qualified_import | qualified_name )
+use_import ::= 'use' ( qualified_import | qualified_name | NUM_OPERATOR | BOOL_OPERATOR | COMPARE_OPERATOR )+
 
 qualified_import ::= builtin_type ('.' IDENTIFIER)*
 
@@ -44,7 +44,7 @@ constructor ::= qualified_name type_expr*
 
 definition ::= 'let' (binding)+
 
-topLevelTypeDefinition ::= qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr NEWLINE functionBody
+topLevelTypeDefinition ::= qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr functionBody
 
 binding ::= qualified_name IDENTIFIER* '=' expression
   | (IDENTIFIER '=' expression)+
@@ -59,6 +59,9 @@ expression ::= lambda
              | literal
              | qualified_name
              | qualified_import
+             | use_import
+             | binding
+             | definition
              | '(' expression ')'
 
 if_expr ::= 'if' bool_expr 'then' expression 'else' expression
@@ -69,14 +72,20 @@ num_expr ::=
    numLiteral NUM_OPERATOR numLiteral
    | numLiteral NUM_OPERATOR num_expr
    | IDENTIFIER NUM_OPERATOR num_expr
+   | numLiteral NUM_OPERATOR IDENTIFIER
    | '-' num_expr
    | 'mod' num_expr num_expr
+   | 'mod' num_expr IDENTIFIER
+   | 'mod' IDENTIFIER num_expr
    | numLiteral
-   | IDENTIFIER
    | '(' num_expr ')'
 
 bool_expr ::=
-   BOOLEAN BOOL_OPERATOR bool_expr
+   IDENTIFIER '>' numLiteral
+   | IDENTIFIER '<' numLiteral
+   | numLiteral '===' IDENTIFIER
+   | IDENTIFIER '===' num_expr
+   | BOOLEAN BOOL_OPERATOR bool_expr
    | num_expr COMPARE_OPERATOR num_expr
    | 'not' bool_expr
    | num_expr '===' num_expr
@@ -85,7 +94,7 @@ bool_expr ::=
    | BOOLEAN
    | IDENTIFIER
 
-match_case ::= (pattern guard?)+ '->' expression
+match_case ::= (pattern guard*)+ '->' expression
 
 guard ::= '|' bool_expr
 
@@ -135,7 +144,6 @@ type_expr ::=
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 
 COMMENT ::= COMMENT_TOKEN
-NEWLINE ::= NEWLINE_TOKEN
 IDENTIFIER ::= IDENTIFIER_TOKEN
 INT ::= INT_TOKEN
 DOUBLE ::= DOUBLE_TOKEN

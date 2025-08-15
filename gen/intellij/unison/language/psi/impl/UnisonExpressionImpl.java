@@ -29,8 +29,20 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
+  public UnisonBinding getBinding() {
+    return findChildByClass(UnisonBinding.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonBoolExpr getBoolExpr() {
     return findChildByClass(UnisonBoolExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonDefinition getDefinition() {
+    return findChildByClass(UnisonDefinition.class);
   }
 
   @Override
@@ -85,6 +97,12 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
   @Nullable
   public UnisonQualifiedName getQualifiedName() {
     return findChildByClass(UnisonQualifiedName.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonUseImport getUseImport() {
+    return findChildByClass(UnisonUseImport.class);
   }
 
 }

@@ -23,6 +23,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitComment(@NotNull UnisonComment o) {
+    visitPsiElement(o);
+  }
+
   public void visitCompareOperator(@NotNull UnisonCompareOperator o) {
     visitPsiElement(o);
   }

@@ -28,15 +28,33 @@ public class UnisonUseImportImpl extends ASTWrapperPsiElement implements UnisonU
   }
 
   @Override
-  @Nullable
-  public UnisonQualifiedImport getQualifiedImport() {
-    return findChildByClass(UnisonQualifiedImport.class);
+  @NotNull
+  public List<UnisonBoolOperator> getBoolOperatorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolOperator.class);
   }
 
   @Override
-  @Nullable
-  public UnisonQualifiedName getQualifiedName() {
-    return findChildByClass(UnisonQualifiedName.class);
+  @NotNull
+  public List<UnisonCompareOperator> getCompareOperatorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonCompareOperator.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonNumOperator> getNumOperatorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumOperator.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonQualifiedImport> getQualifiedImportList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedImport.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonQualifiedName> getQualifiedNameList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedName.class);
   }
 
 }

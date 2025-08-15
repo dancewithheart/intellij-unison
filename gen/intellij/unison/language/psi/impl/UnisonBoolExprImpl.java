@@ -58,9 +58,15 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
   }
 
   @Override
-  @NotNull
-  public List<UnisonNumExpr> getNumExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumExpr.class);
+  @Nullable
+  public UnisonNumLiteral getNumLiteral() {
+    return findChildByClass(UnisonNumLiteral.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonNumExpr getNumExpr() {
+    return findChildByClass(UnisonNumExpr.class);
   }
 
 }

@@ -19,8 +19,7 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 %ignorecase
 
 
-NEWLINE = (\n | \r\n)+
-WHITE_SPACE = [\ \t]+
+WHITE_SPACE = [\ \t\r\n]+
 
 END_OF_LINE_COMMENT="--"[^\r\n]*
 TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
@@ -46,7 +45,6 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" |
 %%
 
 {WHITE_SPACE}            { return com.intellij.psi.TokenType.WHITE_SPACE; }
-{NEWLINE}                { return NEWLINE; }
 {COMMENT}                { return COMMENT; }
 
 "namespace"              { return NAMESPACE; }
@@ -80,19 +78,19 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" |
 "->"                     { return ARROW; }
 ":"                      { return COLON; }
 "="                      { return EQ; }
-"<"                      { return LT; }
-">"                      { return GT; }
-">="                     { return GE; }
-"<="                     { return LE; }
-"!="                     { return NE; }
-"==="                    { return EQ3; }
-"+"                      { return PLUS; }
-"-"                      { return MINUS; }
-"*"                      { return STAR; }
-"/"                      { return DIV; }
-"%"                      { return MODS; }
-"&&"                     { return AND; }
-"||"                     { return OR; }
+//"<"                      { return LT; }
+//">"                      { return GT; }
+//">="                     { return GE; }
+//"<="                     { return LE; }
+//"!="                     { return NE; }
+//"==="                    { return EQ3; }
+//"+"                      { return PLUS; }
+//"-"                      { return MINUS; }
+//"*"                      { return STAR; }
+//"/"                      { return DIV; }
+//"%"                      { return MODS; }
+//"&&"                     { return AND; }
+//"||"                     { return OR; }
 "not"                    { return NOT; }
 "mod"                    { return MODW; }
 "|"                      { return BAR; }
@@ -120,7 +118,6 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" |
 "()"                     { return EMPTYBRACES; }
 "∀"                      { return FORALLSYMBOL; }
 
-{NEWLINE}                { return NEWLINE_TOKEN; }
 {BOOLEAN}                { return BOOLEAN_TOKEN; }
 {CHAR}                   { return CHAR_TOKEN; }
 {BYTES}                  { return BYTES_TOKEN; }
