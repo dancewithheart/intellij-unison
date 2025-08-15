@@ -20,7 +20,7 @@ case class UnisonSyntaxHighlighter()
       tokenType: IElementType
   ): Array[TextAttributesKey] =
     tokenType match {
-      case UnisonTypes.FORALL  => FORALL_KEYS
+      case UnisonTypes.FORALL     => FORALL_KEYS
       case UnisonTypes.IDENTIFIER => IDENTIFIER_KEYS
       case UnisonTypes.TYPE       => TYPE_KEYS
       case UnisonTypes.STRUCTURAL => STRUCTURAL_KEYS
@@ -43,8 +43,8 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.RBRACE     => RBRACE_KEYS
       case UnisonTypes.LPAREN     => LPAREN_KEYS
       case UnisonTypes.RPAREN     => RPAREN_KEYS
-      case UnisonTypes.MODS        => MODS_KEYS
-      case UnisonTypes.MODW        => MODW_KEYS
+      case UnisonTypes.MODS       => MODS_KEYS
+      case UnisonTypes.MODW       => MODW_KEYS
       case UnisonTypes.DOT        => DOT_KEYS
       case UnisonTypes.NOT        => NOT_KEYS
       case UnisonTypes.UNDERSCORE => UNDERSCORE_KEYS
@@ -62,11 +62,11 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.UNIQUE => UNIQUE_KEYS
 
       case UnisonTypes.OTHERWISE => OTHERWISE_KEYS
-      case UnisonTypes.MATCH => MATCH_KEYS
-      case UnisonTypes.CASES => CASES_KEYS
-      case UnisonTypes.CATCH => CATCH_KEYS
-      case UnisonTypes.WITH  => WITH_KEYS
-      case UnisonTypes.USE   => USE_KEYS
+      case UnisonTypes.MATCH     => MATCH_KEYS
+      case UnisonTypes.CASES     => CASES_KEYS
+      case UnisonTypes.CATCH     => CATCH_KEYS
+      case UnisonTypes.WITH      => WITH_KEYS
+      case UnisonTypes.USE       => USE_KEYS
 
       case UnisonTypes.COMMENT => COMMENT_KEYS
       // else if (tokenType.equals(UnisonTypes.BAD_CHARACTER)) BAD_CHAR_KEYS
