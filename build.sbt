@@ -4,7 +4,7 @@ import jflex.Main.{main => jflexRun}
 ThisBuild / scalaVersion := "2.13.16"
 
 ThisBuild / intellijPluginName := "intellij-unison"
-ThisBuild / intellijBuild := "251.27812.12"
+ThisBuild / intellijBuild := "251.26927.53"
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
 
 val junitInterfaceVersion = "0.13.3"

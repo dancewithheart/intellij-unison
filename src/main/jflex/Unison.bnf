@@ -16,14 +16,13 @@
 
 unisonFile ::= statement*
 
-statement ::= namespace_decl
+statement ::= COMMENT
+            | namespace_decl
             | topLevelTypeDefinition
-            | binding
             | ability_decl
             | type_decl
             | definition
             | expression
-            | COMMENT
 
 namespace_decl ::= 'namespace' qualified_name
 
@@ -50,6 +49,7 @@ binding ::= qualified_name IDENTIFIER* '=' expression
   | '(' literal (',' literal)* ')' '=' '(' expression (',' expression)* ')'
 
 expression ::= use_import
+             | binding
              | lambda
              | num_expr
              | bool_expr
@@ -59,7 +59,6 @@ expression ::= use_import
              | literal
              | qualified_name
              | qualified_import
-             | binding
              | definition
              | '(' expression ')'
 

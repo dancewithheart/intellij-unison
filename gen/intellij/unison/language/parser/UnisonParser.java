@@ -713,6 +713,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // use_import
+  //              | binding
   //              | lambda
   //              | num_expr
   //              | bool_expr
@@ -722,7 +723,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   //              | literal
   //              | qualified_name
   //              | qualified_import
-  //              | binding
   //              | definition
   //              | '(' expression ')'
   public static boolean expression(PsiBuilder b, int l) {
@@ -730,6 +730,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
     r = use_import(b, l + 1);
+    if (!r) r = binding(b, l + 1);
     if (!r) r = lambda(b, l + 1);
     if (!r) r = num_expr(b, l + 1);
     if (!r) r = bool_expr(b, l + 1);
@@ -739,7 +740,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = literal(b, l + 1);
     if (!r) r = qualified_name(b, l + 1);
     if (!r) r = qualified_import(b, l + 1);
-    if (!r) r = binding(b, l + 1);
     if (!r) r = definition(b, l + 1);
     if (!r) r = expression_12(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -1371,26 +1371,24 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // namespace_decl
+  // COMMENT
+  //             | namespace_decl
   //             | topLevelTypeDefinition
-  //             | binding
   //             | ability_decl
   //             | type_decl
   //             | definition
   //             | expression
-  //             | COMMENT
   public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
-    r = namespace_decl(b, l + 1);
+    r = COMMENT(b, l + 1);
+    if (!r) r = namespace_decl(b, l + 1);
     if (!r) r = topLevelTypeDefinition(b, l + 1);
-    if (!r) r = binding(b, l + 1);
     if (!r) r = ability_decl(b, l + 1);
     if (!r) r = type_decl(b, l + 1);
     if (!r) r = definition(b, l + 1);
     if (!r) r = expression(b, l + 1);
-    if (!r) r = COMMENT(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

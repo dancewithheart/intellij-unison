@@ -14,9 +14,6 @@ public interface UnisonStatement extends PsiElement {
   UnisonAbilityDecl getAbilityDecl();
 
   @Nullable
-  UnisonBinding getBinding();
-
-  @Nullable
   UnisonDefinition getDefinition();
 
   @Nullable
