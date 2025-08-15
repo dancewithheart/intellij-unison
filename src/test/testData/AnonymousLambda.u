@@ -1,0 +1,1 @@
+xs1 = List.foldLeft (acc a -> acc) 0 [1, 2, 3, 4]

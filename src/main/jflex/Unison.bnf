@@ -47,8 +47,8 @@ typed_def ::=
     fun_body
 
 binding ::= qualified_name IDENTIFIER* '=' expression
-  | (IDENTIFIER '=' expression)+
-  | '(' literal (',' literal)* ')' '=' '(' expression (',' expression)* ')'
+  | ((IDENTIFIER | '_') '=' expression)+
+  | '(' (IDENTIFIER | '_') (',' (IDENTIFIER | '_'))* ')' '=' '(' expression (',' expression)* ')'
 
 expression ::= use_import
              | typed_def
@@ -118,7 +118,7 @@ function_call ::= qualified_name '(' argument_list? ')'
 
 argument_list ::= expression (',' expression)*
 
-lambda ::= '\' pattern+ '->' expression
+lambda ::= pattern+ '->' expression
 
 constructor_pattern ::= IDENTIFIER pattern*
 

@@ -18,4 +18,6 @@ class ExpressionsTest
   def testIfThenElseExpression2(): Unit = runTests()
 
   def testNumericalExpression3(): Unit = runTests()
+
+  def testAnonymousLambda(): Unit = runTests()
 }

@@ -5,7 +5,9 @@ class PatternMatchingTest
 
   def testLiteralPatterns(): Unit = runTests()
 
-  def testTuplePatterns(): Unit = runTests()
+  def testTuplePatterns1(): Unit = runTests()
+
+  def testTuplePatterns2(): Unit = runTests()
 
   def testMultiplePatterns(): Unit = runTests()
 
