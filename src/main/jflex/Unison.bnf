@@ -54,16 +54,17 @@ expression ::= use_import
              | typed_def
              | binding
              | lambda
+             | function_call
              | num_expr
              | bool_expr
              | if_expr
              | match_expr
              | cases_expr
-             | function_call
              | literal
              | qualified_name
              | qualified_import
              | let_expr
+             | catch_expr
              | '(' expression ')'
 
 if_expr ::= 'if' bool_expr 'then' expression 'else' expression
@@ -72,7 +73,10 @@ match_expr ::= 'match' expression+ 'with' match_case+
 
 cases_expr ::= 'cases' expression+ (guard '->' expression)+
 
-match_case ::= (pattern guard*)+ '->' expression
+match_case ::= (pattern (guard '->' expression)+ | pattern '->' expression)+
+
+catch_expr ::= 'catch' 'do' expression
+  | 'catch' expression
 
 guard ::= '|' ('otherwise' | bool_expr)
 
@@ -101,6 +105,7 @@ bool_expr ::=
    | numLiteral '===' IDENTIFIER
    | IDENTIFIER '===' num_expr
    | BOOLEAN BOOL_OPERATOR bool_expr
+   | IDENTIFIER COMPARE_OPERATOR num_expr
    | num_expr COMPARE_OPERATOR num_expr
    | 'not' bool_expr
    | num_expr '===' num_expr

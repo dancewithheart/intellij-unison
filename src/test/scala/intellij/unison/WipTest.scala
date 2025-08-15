@@ -19,11 +19,9 @@ class WipTest
 
   def testRecordTypes(): Unit = runTests()
 
-  def testExceptionsHandling(): Unit = runTests()
+  def testExceptionsHandling2(): Unit = runTests()
 
   def testPatternMatchGuards2(): Unit = runTests()
-
-  def testPatternMatchGuards3(): Unit = runTests()
 
   def testNestedIfThenElse(): Unit = runTests()
 

@@ -26,6 +26,7 @@ public interface UnisonTypes {
   IElementType CASES = new UnisonTokenType("CASES");
   IElementType CATCH = new UnisonTokenType("CATCH");
   IElementType CASES_EXPR = new UnisonElementType("CASES_EXPR");
+  IElementType CATCH_EXPR = new UnisonElementType("CATCH_EXPR");
   IElementType CHAR = new UnisonElementType("CHAR");
   IElementType CIAPEK = new UnisonTokenType("CIAPEK");
   IElementType COMMA = new UnisonTokenType("COMMA");
@@ -142,6 +143,9 @@ public interface UnisonTypes {
       }
       else if (type == CASES_EXPR) {
         return new UnisonCasesExprImpl(node);
+      }
+      else if (type == CATCH_EXPR) {
+        return new UnisonCatchExprImpl(node);
       }
       else if (type == CHAR) {
         return new UnisonCharImpl(node);

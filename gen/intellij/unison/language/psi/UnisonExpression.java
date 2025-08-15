@@ -17,6 +17,9 @@ public interface UnisonExpression extends PsiElement {
   UnisonCasesExpr getCasesExpr();
 
   @Nullable
+  UnisonCatchExpr getCatchExpr();
+
+  @Nullable
   UnisonExpression getExpression();
 
   @Nullable

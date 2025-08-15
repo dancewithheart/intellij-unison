@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonMatchCase extends PsiElement {
+public interface UnisonCatchExpr extends PsiElement {
 
   @NotNull
-  List<UnisonExpression> getExpressionList();
-
-  @NotNull
-  List<UnisonGuard> getGuardList();
-
-  @NotNull
-  List<UnisonPattern> getPatternList();
+  UnisonExpression getExpression();
 
 }

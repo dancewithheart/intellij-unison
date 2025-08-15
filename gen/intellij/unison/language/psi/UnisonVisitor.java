@@ -79,6 +79,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCatchExpr(@NotNull UnisonCatchExpr o) {
+    visitPsiElement(o);
+  }
+
   public void visitConstructor(@NotNull UnisonConstructor o) {
     visitPsiElement(o);
   }

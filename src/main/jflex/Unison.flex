@@ -40,7 +40,7 @@ STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
 NUM_OPERATOR = "+" | "-" | "*" | "/" | "%" | "Nat.+" | "Nat.-" | "Nat.*" | "Nat./" | "Nat.%"
 BOOL_OPERATOR = "&&" | "||"
-COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.!=" | "Nat.<" | "Nat.>" | "Nat.<=" | "Nat.>="
+COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | Nat.== | "Nat.!=" | "Nat.<" | "Nat.>" | "Nat.<=" | "Nat.>="
 
 %%
 

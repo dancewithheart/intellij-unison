@@ -13,5 +13,7 @@ class PatternMatchingTest
 
   def testPatternMatchGuards1(): Unit = runTests()
 
+  def testPatternMatchGuards3(): Unit = runTests()
+
   def testCasesExpr(): Unit = runTests()
 }
