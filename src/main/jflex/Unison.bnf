@@ -24,7 +24,7 @@ statement ::= COMMENT
 
 namespace_decl ::= 'namespace' qualified_name
 
-functionBody ::= ('do' expression) | statement+
+fun_body ::= ('do' expression) | statement+
 
 use_import ::= 'use' ( qualified_import | qualified_name | NUM_OPERATOR | BOOL_OPERATOR | COMPARE_OPERATOR )+
 
@@ -38,16 +38,16 @@ type_decl ::= ( 'unique' | 'structural' )? 'type' qualified_name qualified_name?
 
 constructor ::= qualified_name type_expr*
 
-definition ::= 'let' (binding)+
+let_expr ::= 'let' (binding)+
 
-topLevelTypeDefinition ::= qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr functionBody
+typed_def ::= qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')? ('''{' IDENTIFIER (',' IDENTIFIER )* '}')? type_expr fun_body
 
 binding ::= qualified_name IDENTIFIER* '=' expression
   | (IDENTIFIER '=' expression)+
   | '(' literal (',' literal)* ')' '=' '(' expression (',' expression)* ')'
 
 expression ::= use_import
-             | topLevelTypeDefinition
+             | typed_def
              | binding
              | lambda
              | num_expr
@@ -58,7 +58,7 @@ expression ::= use_import
              | literal
              | qualified_name
              | qualified_import
-             | definition
+             | let_expr
              | '(' expression ')'
 
 if_expr ::= 'if' bool_expr 'then' expression 'else' expression

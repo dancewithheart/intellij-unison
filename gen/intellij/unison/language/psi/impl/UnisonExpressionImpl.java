@@ -41,12 +41,6 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
-  public UnisonDefinition getDefinition() {
-    return findChildByClass(UnisonDefinition.class);
-  }
-
-  @Override
-  @Nullable
   public UnisonExpression getExpression() {
     return findChildByClass(UnisonExpression.class);
   }
@@ -67,6 +61,12 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
   @Nullable
   public UnisonLambda getLambda() {
     return findChildByClass(UnisonLambda.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonLetExpr getLetExpr() {
+    return findChildByClass(UnisonLetExpr.class);
   }
 
   @Override
@@ -101,8 +101,8 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
-  public UnisonTopLevelTypeDefinition getTopLevelTypeDefinition() {
-    return findChildByClass(UnisonTopLevelTypeDefinition.class);
+  public UnisonTypedDef getTypedDef() {
+    return findChildByClass(UnisonTypedDef.class);
   }
 
   @Override

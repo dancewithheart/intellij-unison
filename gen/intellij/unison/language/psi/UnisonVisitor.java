@@ -83,15 +83,11 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitDefinition(@NotNull UnisonDefinition o) {
-    visitPsiElement(o);
-  }
-
   public void visitExpression(@NotNull UnisonExpression o) {
     visitPsiElement(o);
   }
 
-  public void visitFunctionBody(@NotNull UnisonFunctionBody o) {
+  public void visitFunBody(@NotNull UnisonFunBody o) {
     visitPsiElement(o);
   }
 
@@ -108,6 +104,10 @@ public class UnisonVisitor extends PsiElementVisitor {
   }
 
   public void visitLambda(@NotNull UnisonLambda o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLetExpr(@NotNull UnisonLetExpr o) {
     visitPsiElement(o);
   }
 
@@ -151,10 +151,6 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitTopLevelTypeDefinition(@NotNull UnisonTopLevelTypeDefinition o) {
-    visitPsiElement(o);
-  }
-
   public void visitTypeDecl(@NotNull UnisonTypeDecl o) {
     visitPsiElement(o);
   }
@@ -164,6 +160,10 @@ public class UnisonVisitor extends PsiElementVisitor {
   }
 
   public void visitTypeParams(@NotNull UnisonTypeParams o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypedDef(@NotNull UnisonTypedDef o) {
     visitPsiElement(o);
   }
 

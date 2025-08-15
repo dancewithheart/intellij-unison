@@ -14,9 +14,6 @@ public interface UnisonExpression extends PsiElement {
   UnisonBoolExpr getBoolExpr();
 
   @Nullable
-  UnisonDefinition getDefinition();
-
-  @Nullable
   UnisonExpression getExpression();
 
   @Nullable
@@ -27,6 +24,9 @@ public interface UnisonExpression extends PsiElement {
 
   @Nullable
   UnisonLambda getLambda();
+
+  @Nullable
+  UnisonLetExpr getLetExpr();
 
   @Nullable
   UnisonLiteral getLiteral();
@@ -44,7 +44,7 @@ public interface UnisonExpression extends PsiElement {
   UnisonQualifiedName getQualifiedName();
 
   @Nullable
-  UnisonTopLevelTypeDefinition getTopLevelTypeDefinition();
+  UnisonTypedDef getTypedDef();
 
   @Nullable
   UnisonUseImport getUseImport();
