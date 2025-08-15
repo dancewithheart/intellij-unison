@@ -75,7 +75,6 @@ public interface UnisonTypes {
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
   IElementType NAT = new UnisonElementType("NAT");
   IElementType NE = new UnisonTokenType("NE");
-  IElementType NEWLINE = new UnisonElementType("NEWLINE");
   IElementType NUM_EXPR = new UnisonElementType("NUM_EXPR");
   IElementType NUM_LITERAL = new UnisonElementType("NUM_LITERAL");
   IElementType NUM_OPERATOR = new UnisonElementType("NUM_OPERATOR");
@@ -118,7 +117,6 @@ public interface UnisonTypes {
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
-  IElementType NEWLINE_TOKEN = new UnisonTokenType("NEWLINE_TOKEN");
   IElementType NUM_OPERATOR_TOKEN = new UnisonTokenType("NUM_OPERATOR_TOKEN");
   IElementType STRING_TOKEN = new UnisonTokenType("STRING_TOKEN");
 
@@ -208,9 +206,6 @@ public interface UnisonTypes {
       }
       else if (type == NAMESPACE_DECL) {
         return new UnisonNamespaceDeclImpl(node);
-      }
-      else if (type == NEWLINE) {
-        return new UnisonNewlineImpl(node);
       }
       else if (type == NUM_EXPR) {
         return new UnisonNumExprImpl(node);
