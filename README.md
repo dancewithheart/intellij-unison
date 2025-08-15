@@ -132,6 +132,12 @@ t2 : (Int, Text, Boolean)
 t2 = (-4, "Yes", false)
 ```
 
+* [IfThenElseExpression](./src/test/testData/IfThenElseExpression2.u)
+```unison
+isEven num =
+if mod num 2 === 0 then "even" else "odd"
+```
+
 * [MultiplePatterns](./src/test/testData/MultiplePatterns.u)
 ```unison
 zs = match 2 Nat.+ 2 with
@@ -146,6 +152,23 @@ matchNum1 num = match num with
   one | one === 1 -> "one"
   three | three === 3 -> "three"
   _ -> "no match"
+```
+
+* [AsPatterns](./src/test/testData/AsPatterns.u)
+```unison
+matchExpression : Nat
+matchExpression = match 1 Nat.+ 1 with
+x@4 -> x Nat.* 2
+y@2 -> y Nat.+ 1
+_   -> 22
+```
+
+* [CasesExpr](./src/test/testData/CasesExpr.u)
+```unison
+n2 = cases
+n
+| n < 10    -> "single digit"
+| otherwise -> "other"
 ```
 
 * [StructuralTypePoly](./src/test/testData/StructuralTypePoly1.u)
