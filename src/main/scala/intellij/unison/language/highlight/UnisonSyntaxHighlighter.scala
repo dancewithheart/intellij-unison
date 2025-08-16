@@ -77,7 +77,8 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.WITH      => WITH_KEYS
       case UnisonTypes.USE       => USE_KEYS
 
-      case UnisonTypes.COMMENT => COMMENT_KEYS
+      case UnisonTypes.LINE_COMMENT => LINE_COMMENT_KEYS
+      case UnisonTypes.MULTILINE_COMMENT => MULTILINE_COMMENT_KEYS
       // else if (tokenType.equals(UnisonTypes.BAD_CHARACTER)) BAD_CHAR_KEYS
       case _ => EMPTY_KEYS
     }
@@ -140,7 +141,8 @@ object UnisonSyntaxHighlighter {
   val OTHERWISE: TextAttributesKey = mkTextAttribKey("UNISON_OTHERWISE", DLHC.KEYWORD)
   val ABILITY: TextAttributesKey = mkTextAttribKey("UNISON_ABILITY", DLHC.KEYWORD)
 
-  val COMMENT: TextAttributesKey = mkTextAttribKey("UNISON_COMMENT", DLHC.LINE_COMMENT)
+  val LINE_COMMENT: TextAttributesKey = mkTextAttribKey("UNISON_LINE_COMMENT", DLHC.LINE_COMMENT)
+  val MULTILINE_COMMENT: TextAttributesKey = mkTextAttribKey("UNISON_MULTILINE_COMMENT", DLHC.BLOCK_COMMENT)
   val BAD_CHARACTER: TextAttributesKey = mkTextAttribKey("UNISON_BAD_CHARACTER", HC.BAD_CHARACTER)
 
   val BAD_CHAR_KEYS: Array[TextAttributesKey] = Array(BAD_CHARACTER)
@@ -199,6 +201,7 @@ object UnisonSyntaxHighlighter {
   val DO_KEYS: Array[TextAttributesKey] = Array(DO)
   val UNIQUE_KEYS: Array[TextAttributesKey] = Array(UNIQUE)
 
-  val COMMENT_KEYS: Array[TextAttributesKey] = Array(COMMENT)
+  val LINE_COMMENT_KEYS: Array[TextAttributesKey] = Array(LINE_COMMENT)
+  val MULTILINE_COMMENT_KEYS: Array[TextAttributesKey] = Array(MULTILINE_COMMENT)
   val EMPTY_KEYS: Array[TextAttributesKey] = Array()
 }
