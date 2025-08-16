@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonCommentImpl extends ASTWrapperPsiElement implements UnisonComment {
+public class UnisonMultilineCommentImpl extends ASTWrapperPsiElement implements UnisonMultilineComment {
 
-  public UnisonCommentImpl(@NotNull ASTNode node) {
+  public UnisonMultilineCommentImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitComment(this);
+    visitor.visitMultilineComment(this);
   }
 
   @Override

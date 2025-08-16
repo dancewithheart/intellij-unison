@@ -65,7 +65,6 @@ public interface UnisonTypes {
   IElementType MATCH_CASE = new UnisonElementType("MATCH_CASE");
   IElementType MATCH_EXPR = new UnisonElementType("MATCH_EXPR");
   IElementType MULTILINE_COMMENT = new UnisonElementType("MULTILINE_COMMENT");
-  IElementType MODS = new UnisonTokenType("MODS");
   IElementType MODW = new UnisonTokenType("MODW");
   IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");

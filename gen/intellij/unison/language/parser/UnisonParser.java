@@ -84,18 +84,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT_TOKEN
-  public static boolean COMMENT(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "COMMENT")) return false;
-    if (!nextTokenIs(b, COMMENT_TOKEN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, COMMENT_TOKEN);
-    exit_section_(b, m, COMMENT, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // COMPARE_OPERATOR_TOKEN
   public static boolean COMPARE_OPERATOR(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "COMPARE_OPERATOR")) return false;
@@ -140,6 +128,30 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, INT_TOKEN);
     exit_section_(b, m, INT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // LINE_COMMENT_TOKEN
+  public static boolean LINE_COMMENT(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "LINE_COMMENT")) return false;
+    if (!nextTokenIs(b, LINE_COMMENT_TOKEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_COMMENT_TOKEN);
+    exit_section_(b, m, LINE_COMMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // MULTILINE_COMMENT_TOKEN
+  public static boolean MULTILINE_COMMENT(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MULTILINE_COMMENT")) return false;
+    if (!nextTokenIs(b, MULTILINE_COMMENT_TOKEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, MULTILINE_COMMENT_TOKEN);
+    exit_section_(b, m, MULTILINE_COMMENT, r);
     return r;
   }
 
@@ -1544,7 +1556,8 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT
+  // MULTILINE_COMMENT
+  //             | LINE_COMMENT
   //             | namespace_decl
   //             | ability_decl
   //             | type_decl
@@ -1553,7 +1566,8 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
-    r = COMMENT(b, l + 1);
+    r = MULTILINE_COMMENT(b, l + 1);
+    if (!r) r = LINE_COMMENT(b, l + 1);
     if (!r) r = namespace_decl(b, l + 1);
     if (!r) r = ability_decl(b, l + 1);
     if (!r) r = type_decl(b, l + 1);

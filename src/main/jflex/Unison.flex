@@ -112,6 +112,7 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | Nat.== | "Nat.!=" | 
 {BYTES}                  { return BYTES_TOKEN; }
 {INT}                    { return INT_TOKEN; }
 {DOUBLE}                 { return DOUBLE_TOKEN; }
+{STRING}                 { return STRING_TOKEN; }
 {LINE_COMMENT}           { return LINE_COMMENT_TOKEN; }
 {MULTILINE_COMMENT}      { return MULTILINE_COMMENT_TOKEN; }
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }

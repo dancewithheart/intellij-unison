@@ -5,5 +5,5 @@ import intellij.unison.language.psi.UnisonTypes
 
 object UnisonTokenSets {
   val IDENTIFIERS: TokenSet = TokenSet.create(UnisonTypes.IDENTIFIER)
-  val COMMENTS: TokenSet = TokenSet.create(UnisonTypes.COMMENT)
+  val COMMENTS: TokenSet = TokenSet.create(UnisonTypes.LINE_COMMENT, UnisonTypes.MULTILINE_COMMENT)
 }

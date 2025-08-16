@@ -29,8 +29,14 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
 
   @Override
   @Nullable
-  public UnisonComment getComment() {
-    return findChildByClass(UnisonComment.class);
+  public UnisonLineComment getLineComment() {
+    return findChildByClass(UnisonLineComment.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonMultilineComment getMultilineComment() {
+    return findChildByClass(UnisonMultilineComment.class);
   }
 
   @Override
