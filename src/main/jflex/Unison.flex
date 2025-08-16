@@ -21,9 +21,9 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 
 WHITE_SPACE = [\ \t\r\n]+
 
-END_OF_LINE_COMMENT="--"[^\r\n]*
-TRADITIONAL_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
-COMMENT = {END_OF_LINE_COMMENT} | {TRADITIONAL_COMMENT}
+LINE_COMMENT="--"[^\r\n]*
+MULTILINE_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
+COMMENT = {LINE_COMMENT} | {MULTILINE_COMMENT}
 
 OPERATOR = [!$%\^&*\-=+<>~\\/|:]*
 IDNAME = [a-zA-Z_][a-zA-Z0-9_]*
@@ -45,7 +45,8 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | Nat.== | "Nat.!=" | 
 %%
 
 {WHITE_SPACE}            { return com.intellij.psi.TokenType.WHITE_SPACE; }
-{COMMENT}                { return COMMENT; }
+{LINE_COMMENT}           { return LINE_COMMENT; }
+{MULTILINE_COMMENT}      { return MULTILINE_COMMENT; }
 
 "namespace"              { return NAMESPACE; }
 "use"                    { return USE; }
@@ -112,6 +113,8 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | Nat.== | "Nat.!=" | 
 {INT}                    { return INT_TOKEN; }
 {DOUBLE}                 { return DOUBLE_TOKEN; }
 {STRING}                 { return STRING_TOKEN; }
+{LINE_COMMENT}           { return LINE_COMMENT_TOKEN; }
+{MULTILINE_COMMENT}      { return MULTILINE_COMMENT_TOKEN; }
 {IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 {NUM_OPERATOR}           { return NUM_OPERATOR_TOKEN; }
 {BOOL_OPERATOR}          { return BOOL_OPERATOR_TOKEN; }

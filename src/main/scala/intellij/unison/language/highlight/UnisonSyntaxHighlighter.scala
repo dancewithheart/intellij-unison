@@ -52,7 +52,6 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.RBRACE     => RBRACE_KEYS
       case UnisonTypes.LPAREN     => LPAREN_KEYS
       case UnisonTypes.RPAREN     => RPAREN_KEYS
-      case UnisonTypes.MODS       => MODS_KEYS
       case UnisonTypes.MODW       => MODW_KEYS
       case UnisonTypes.DOT        => DOT_KEYS
       case UnisonTypes.NOT        => NOT_KEYS
@@ -77,7 +76,8 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.WITH      => WITH_KEYS
       case UnisonTypes.USE       => USE_KEYS
 
-      case UnisonTypes.COMMENT => COMMENT_KEYS
+      case UnisonTypes.LINE_COMMENT => LINE_COMMENT_KEYS
+      case UnisonTypes.MULTILINE_COMMENT => MULTILINE_COMMENT_KEYS
       // else if (tokenType.equals(UnisonTypes.BAD_CHARACTER)) BAD_CHAR_KEYS
       case _ => EMPTY_KEYS
     }
@@ -119,8 +119,7 @@ object UnisonSyntaxHighlighter {
   val LAMBDA: TextAttributesKey = mkTextAttribKey("UNISON_LAMBDA", DLHC.OPERATION_SIGN)
   val DOT: TextAttributesKey = mkTextAttribKey("UNISON_DOT", DLHC.DOT)
 
-  val MODS: TextAttributesKey = mkTextAttribKey("UNISON_MOD", DLHC.OPERATION_SIGN)
-  val MODW: TextAttributesKey = mkTextAttribKey("UNISON_MOD", DLHC.OPERATION_SIGN)
+  val MODW: TextAttributesKey = mkTextAttribKey("UNISON_MODW", DLHC.OPERATION_SIGN)
   val LBRACE: TextAttributesKey = mkTextAttribKey("UNISON_LBRACE", DLHC.BRACES)
   val RBRACE: TextAttributesKey = mkTextAttribKey("UNISON_RBRACE", DLHC.BRACES)
   val LPAREN: TextAttributesKey = mkTextAttribKey("UNISON_LPAREN", DLHC.PARENTHESES)
@@ -140,7 +139,8 @@ object UnisonSyntaxHighlighter {
   val OTHERWISE: TextAttributesKey = mkTextAttribKey("UNISON_OTHERWISE", DLHC.KEYWORD)
   val ABILITY: TextAttributesKey = mkTextAttribKey("UNISON_ABILITY", DLHC.KEYWORD)
 
-  val COMMENT: TextAttributesKey = mkTextAttribKey("UNISON_COMMENT", DLHC.LINE_COMMENT)
+  val LINE_COMMENT: TextAttributesKey = mkTextAttribKey("UNISON_LINE_COMMENT", DLHC.LINE_COMMENT)
+  val MULTILINE_COMMENT: TextAttributesKey = mkTextAttribKey("UNISON_MULTILINE_COMMENT", DLHC.DOC_COMMENT)
   val BAD_CHARACTER: TextAttributesKey = mkTextAttribKey("UNISON_BAD_CHARACTER", HC.BAD_CHARACTER)
 
   val BAD_CHAR_KEYS: Array[TextAttributesKey] = Array(BAD_CHARACTER)
@@ -158,7 +158,6 @@ object UnisonSyntaxHighlighter {
   val RPAREN_KEYS: Array[TextAttributesKey] = Array(RPAREN)
   val DOT_KEYS: Array[TextAttributesKey] = Array(DOT)
   val NOT_KEYS: Array[TextAttributesKey] = Array(NOT)
-  val MODS_KEYS: Array[TextAttributesKey] = Array(MODS)
   val MODW_KEYS: Array[TextAttributesKey] = Array(MODW)
   val UNDERSCORE_KEYS: Array[TextAttributesKey] = Array(UNDERSCORE)
   val LAMBDA_KEYS: Array[TextAttributesKey] = Array(LAMBDA)
@@ -199,6 +198,7 @@ object UnisonSyntaxHighlighter {
   val DO_KEYS: Array[TextAttributesKey] = Array(DO)
   val UNIQUE_KEYS: Array[TextAttributesKey] = Array(UNIQUE)
 
-  val COMMENT_KEYS: Array[TextAttributesKey] = Array(COMMENT)
+  val LINE_COMMENT_KEYS: Array[TextAttributesKey] = Array(LINE_COMMENT)
+  val MULTILINE_COMMENT_KEYS: Array[TextAttributesKey] = Array(MULTILINE_COMMENT)
   val EMPTY_KEYS: Array[TextAttributesKey] = Array()
 }

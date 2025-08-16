@@ -16,7 +16,8 @@
 
 unisonFile ::= statement*
 
-statement ::= COMMENT
+statement ::= MULTILINE_COMMENT
+            | LINE_COMMENT
             | namespace_decl
             | ability_decl
             | type_decl
@@ -152,7 +153,8 @@ type_expr ::=
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 
-COMMENT ::= COMMENT_TOKEN
+MULTILINE_COMMENT ::= MULTILINE_COMMENT_TOKEN
+LINE_COMMENT ::= LINE_COMMENT_TOKEN
 IDENTIFIER ::= IDENTIFIER_TOKEN
 INT ::= INT_TOKEN
 DOUBLE ::= DOUBLE_TOKEN
