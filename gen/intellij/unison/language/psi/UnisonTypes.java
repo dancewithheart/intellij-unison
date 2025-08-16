@@ -106,8 +106,10 @@ public interface UnisonTypes {
   IElementType COMMENT_TOKEN = new UnisonTokenType("COMMENT_TOKEN");
   IElementType COMPARE_OPERATOR_TOKEN = new UnisonTokenType("COMPARE_OPERATOR_TOKEN");
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
+  IElementType FLOAT_TOKEN = new UnisonTokenType("FLOAT_TOKEN");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
+  IElementType NAT_TOKEN = new UnisonTokenType("NAT_TOKEN");
   IElementType NUM_OPERATOR_TOKEN = new UnisonTokenType("NUM_OPERATOR_TOKEN");
   IElementType STRING_TOKEN = new UnisonTokenType("STRING_TOKEN");
 
