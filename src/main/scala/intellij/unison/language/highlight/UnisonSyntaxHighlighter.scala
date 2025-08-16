@@ -36,6 +36,15 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.BOOLEAN => BOOLEAN_KEYS
       case UnisonTypes.TEXT    => TEXT_KEYS
 
+      case UnisonTypes.BOOLEAN_TOKEN => BOOLEAN_TOKEN_KEYS
+      case UnisonTypes.BYTES_TOKEN => BYTES_TOKEN_KEYS
+      case UnisonTypes.CHAR_TOKEN => CHAR_TOKEN_KEYS
+      case UnisonTypes.DOUBLE_TOKEN => DOUBLE_TOKEN_KEYS
+      case UnisonTypes.FLOAT_TOKEN => FLOAT_TOKEN_KEYS
+      case UnisonTypes.INT_TOKEN => INT_TOKEN_KEYS
+      case UnisonTypes.NAT_TOKEN => NAT_TOKEN_KEYS
+      case UnisonTypes.STRING_TOKEN => STRING_TOKEN_KEYS
+
       case UnisonTypes.ARROW => ARROW_KEYS
       case UnisonTypes.COMMA => COMMA_KEYS
 
@@ -83,14 +92,24 @@ object UnisonSyntaxHighlighter {
   val DO: TextAttributesKey = mkTextAttribKey("UNISON_DO", DLHC.KEYWORD)
   val UNIQUE: TextAttributesKey = mkTextAttribKey("UNISON_UNIQUE", DLHC.KEYWORD)
 
-  val TEXT: TextAttributesKey = mkTextAttribKey("UNISON_TEXT", DLHC.NUMBER)
-  val CHAR: TextAttributesKey = mkTextAttribKey("UNISON_CHAR", DLHC.NUMBER)
-  val BYTES: TextAttributesKey = mkTextAttribKey("UNISON_BYTES", DLHC.NUMBER)
-  val INT: TextAttributesKey = mkTextAttribKey("UNISON_INT", DLHC.NUMBER)
-  val NAT: TextAttributesKey = mkTextAttribKey("UNISON_NAT", DLHC.NUMBER)
-  val DOUBLE: TextAttributesKey = mkTextAttribKey("UNISON_DOUBLE", DLHC.NUMBER)
-  val FLOAT: TextAttributesKey = mkTextAttribKey("UNISON_FLOAT", DLHC.NUMBER)
-  val BOOLEAN: TextAttributesKey = mkTextAttribKey("UNISON_BOOLEAN", DLHC.NUMBER) // TODO PP change to boolish color
+  val BUILTIN_COLOR: TextAttributesKey = DLHC.KEYWORD
+  val TEXT: TextAttributesKey = mkTextAttribKey("UNISON_TEXT", BUILTIN_COLOR)
+  val CHAR: TextAttributesKey = mkTextAttribKey("UNISON_CHAR", BUILTIN_COLOR)
+  val BYTES: TextAttributesKey = mkTextAttribKey("UNISON_BYTES", BUILTIN_COLOR)
+  val INT: TextAttributesKey = mkTextAttribKey("UNISON_INT", BUILTIN_COLOR)
+  val NAT: TextAttributesKey = mkTextAttribKey("UNISON_NAT", BUILTIN_COLOR)
+  val DOUBLE: TextAttributesKey = mkTextAttribKey("UNISON_DOUBLE", BUILTIN_COLOR)
+  val FLOAT: TextAttributesKey = mkTextAttribKey("UNISON_FLOAT", BUILTIN_COLOR)
+  val BOOLEAN: TextAttributesKey = mkTextAttribKey("UNISON_BOOLEAN", BUILTIN_COLOR)
+
+  val BOOLEAN_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_BOOLEAN_TOKEN", DLHC.NUMBER)
+  val BYTES_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_BYTES_TOKEN", DLHC.NUMBER)
+  val CHAR_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_CHAR_TOKEN", DLHC.NUMBER)
+  val DOUBLE_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_DOUBLE_TOKEN", DLHC.NUMBER)
+  val FLOAT_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_FLOAT_TOKEN", DLHC.NUMBER)
+  val INT_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_INT_TOKEN", DLHC.NUMBER)
+  val NAT_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_NAT_TOKEN", DLHC.NUMBER)
+  val STRING_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_STRING_TOKEN", DLHC.STRING)
 
   val ARROW: TextAttributesKey = mkTextAttribKey("UNISON_ARROW", DLHC.OPERATION_SIGN)
   val AT: TextAttributesKey = mkTextAttribKey("UNISON_AT", DLHC.OPERATION_SIGN)
@@ -148,6 +167,16 @@ object UnisonSyntaxHighlighter {
 
   val STRING_KEYS: Array[TextAttributesKey] = Array(TEXT)
   val BOOLEAN_KEYS: Array[TextAttributesKey] = Array(BOOLEAN)
+
+  val BOOLEAN_TOKEN_KEYS: Array[TextAttributesKey] = Array(BOOLEAN_TOKEN)
+  val BYTES_TOKEN_KEYS: Array[TextAttributesKey] = Array(BYTES_TOKEN)
+  val CHAR_TOKEN_KEYS: Array[TextAttributesKey] = Array(CHAR_TOKEN)
+  val DOUBLE_TOKEN_KEYS: Array[TextAttributesKey] = Array(DOUBLE_TOKEN)
+  val FLOAT_TOKEN_KEYS: Array[TextAttributesKey] = Array(FLOAT_TOKEN)
+  val INT_TOKEN_KEYS: Array[TextAttributesKey] = Array(INT_TOKEN)
+  val NAT_TOKEN_KEYS: Array[TextAttributesKey] = Array(NAT_TOKEN)
+  val STRING_TOKEN_KEYS: Array[TextAttributesKey] = Array(STRING_TOKEN)
+
   val INT_KEYS: Array[TextAttributesKey] = Array(INT)
   val NAT_KEYS: Array[TextAttributesKey] = Array(NAT)
   val DOUBLE_KEYS: Array[TextAttributesKey] = Array(DOUBLE)
