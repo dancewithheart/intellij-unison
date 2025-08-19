@@ -25,9 +25,10 @@ LINE_COMMENT="--"[^\r\n]*
 MULTILINE_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
 COMMENT = {LINE_COMMENT} | {MULTILINE_COMMENT}
 
+// https://www.unison-lang.org/docs/language-reference/identifiers/
 OPERATOR = [!$%\^&*\-=+<>~\\/|:]*
-IDNAME = [a-zA-Z_][a-zA-Z0-9_]*
-IDENTIFIER = {OPERATOR} | {IDNAME}
+REGULAR_IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
+IDENTIFIER = {OPERATOR} | {REGULAR_IDENTIFIER}
 HEXDIGIT = [a-z0-9]
 INT = ("+" | "-")?[0-9]+
 // FLOAT = [0-9]+(\.[0-9]+)?
@@ -47,6 +48,8 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | Nat.== | "Nat.!=" | 
 {WHITE_SPACE}            { return com.intellij.psi.TokenType.WHITE_SPACE; }
 {LINE_COMMENT}           { return LINE_COMMENT; }
 {MULTILINE_COMMENT}      { return MULTILINE_COMMENT; }
+
+// Unison reserved words: https://www.unison-lang.org/docs/language-reference/identifiers/#reserved-words
 
 "namespace"              { return NAMESPACE; }
 "use"                    { return USE; }

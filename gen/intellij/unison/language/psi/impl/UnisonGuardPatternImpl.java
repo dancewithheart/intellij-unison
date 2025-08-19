@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonTypeDeclImpl extends ASTWrapperPsiElement implements UnisonTypeDecl {
+public class UnisonGuardPatternImpl extends ASTWrapperPsiElement implements UnisonGuardPattern {
 
-  public UnisonTypeDeclImpl(@NotNull ASTNode node) {
+  public UnisonGuardPatternImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitTypeDecl(this);
+    visitor.visitGuardPattern(this);
   }
 
   @Override
@@ -28,15 +28,9 @@ public class UnisonTypeDeclImpl extends ASTWrapperPsiElement implements UnisonTy
   }
 
   @Override
-  @NotNull
-  public List<UnisonConstructor> getConstructorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonConstructor.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonQualifiedName> getQualifiedNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedName.class);
+  @Nullable
+  public UnisonBoolExpr getBoolExpr() {
+    return findChildByClass(UnisonBoolExpr.class);
   }
 
 }

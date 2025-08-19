@@ -16,50 +16,67 @@
 
 unisonFile ::= statement*
 
+// https://www.unison-lang.org/docs/language-reference/top-level-declaration/
 statement ::= MULTILINE_COMMENT
             | LINE_COMMENT
             | namespace_decl
             | ability_decl
-            | type_decl
+            | dataType
             | expression
 
+// https://www.unison-lang.org/docs/language-reference/namespace-declaration/
 namespace_decl ::= 'namespace' qualified_name
 
 fun_body ::= ('do' expression) | statement+
 
-use_import ::= 'use' ( qualified_import | qualified_name | NUM_OPERATOR | BOOL_OPERATOR | COMPARE_OPERATOR )+
+// https://www.unison-lang.org/docs/language-reference/use-clauses/
+useClause ::= 'use' ( qualified_import | qualified_name | NUM_OPERATOR | BOOL_OPERATOR | COMPARE_OPERATOR )+
 
 qualified_import ::= builtin_type ('.' IDENTIFIER)*
 
+// https://www.unison-lang.org/docs/language-reference/abilities-and-ability-handlers/#user-defined-abilities
 ability_decl ::= ( 'unique' | 'structural' )? 'ability' IDENTIFIER type_params? 'where' '{' ability_constructor* '}'
 
 ability_constructor ::= IDENTIFIER ':' type_expr
 
-type_decl ::= ( 'unique' | 'structural' )? 'type' qualified_name qualified_name? '=' constructor ( '|' constructor )*
+// https://www.unison-lang.org/docs/language-reference/user-defined-data-types/
+dataType ::= ( 'unique' | 'structural' )? 'type' qualified_name qualified_name? '=' dataConstructor ( '|' dataConstructor )*
 
-constructor ::= qualified_name type_expr*
+dataConstructor ::= qualified_name type_expr*
 
 let_expr ::= 'let' (binding)+
 
+// TODO typed_def requires work to use type annotation and (polymorphic)? term definition
+// TODO current fun body is very arbitrary
+// https://www.unison-lang.org/docs/language-reference/type-annotations/
+// https://www.unison-lang.org/docs/language-reference/term-definition/
 typed_def ::=
-  qualified_name ':' (('forall' | '∀') IDENTIFIER+ '.')?
-    ('''{' IDENTIFIER (',' IDENTIFIER )* '}')?
-    type_expr ( '->' '{' IDENTIFIER (',' IDENTIFIER )* '}' type_expr )*
-    fun_body
+  qualified_name ':' polymorphicType? delayedType?
+  type_expr ( '->' abilityRequirements type_expr )*
+  fun_body
+
+// https://www.unison-lang.org/docs/language-reference/delayed-computations/
+delayedType ::= '''{' IDENTIFIER (',' IDENTIFIER )* '}'
+
+// https://www.unison-lang.org/docs/language-reference/polymorphic-types/
+polymorphicType ::= ('forall' | '∀') IDENTIFIER+ '.'
+
+abilityRequirements ::= '{' IDENTIFIER (',' IDENTIFIER )* '}'
 
 binding ::= qualified_name IDENTIFIER* '=' expression
   | ((IDENTIFIER | '_') '=' expression)+
   | '(' (IDENTIFIER | '_') (',' (IDENTIFIER | '_'))* ')' '=' '(' expression (',' expression)* ')'
 
-expression ::= use_import
+// https://www.unison-lang.org/docs/language-reference/basic-lexical-forms/
+expression ::= useClause
              | typed_def
              | binding
              | lambda
              | function_call
-             | num_expr
-             | bool_expr
-             | if_expr
-             | match_expr
+             | numExpr
+             | boolExpr
+             | ifThenElseExpr
+             | matchExpr
              | cases_expr
              | literal
              | qualified_name
@@ -68,18 +85,21 @@ expression ::= use_import
              | catch_expr
              | '(' expression ')'
 
-if_expr ::= 'if' bool_expr 'then' expression 'else' expression
+// https://www.unison-lang.org/docs/fundamentals/control-flow/if-then-and-else/#if-then-else
+ifThenElseExpr ::= 'if' boolExpr 'then' expression 'else' expression
 
-match_expr ::= 'match' expression+ 'with' match_case+
+// https://www.unison-lang.org/docs/language-reference/match-expressions-and-pattern-matching/
+matchExpr ::= 'match' expression+ 'with' match_case+
 
-cases_expr ::= 'cases' expression+ (guard '->' expression)+
+cases_expr ::= 'cases' expression+ (guardPattern '->' expression)+
 
-match_case ::= (pattern (guard '->' expression)+ | pattern '->' expression)+
+match_case ::= (pattern (guardPattern '->' expression)+ | pattern '->' expression)+
 
 catch_expr ::= 'catch' 'do' expression
   | 'catch' expression
 
-guard ::= '|' ('otherwise' | bool_expr)
+// https://www.unison-lang.org/docs/language-reference/guard-patterns/
+guardPattern ::= '|' ('otherwise' | boolExpr)
 
 pattern ::= IDENTIFIER '@' pattern
           | IDENTIFIER
@@ -88,30 +108,31 @@ pattern ::= IDENTIFIER '@' pattern
           | constructor_pattern
           | '(' literal (',' literal)* ')'
 
-num_expr ::=
+numExpr ::=
    numLiteral NUM_OPERATOR numLiteral
-   | numLiteral NUM_OPERATOR num_expr
-   | IDENTIFIER NUM_OPERATOR num_expr
+   | numLiteral NUM_OPERATOR numExpr
+   | IDENTIFIER NUM_OPERATOR numExpr
    | numLiteral NUM_OPERATOR IDENTIFIER
-   | '-' num_expr
-   | 'mod' num_expr num_expr
-   | 'mod' num_expr IDENTIFIER
-   | 'mod' IDENTIFIER num_expr
+   | '-' numExpr
+   | 'mod' numExpr numExpr
+   | 'mod' numExpr IDENTIFIER
+   | 'mod' IDENTIFIER numExpr
    | numLiteral
-   | '(' num_expr ')'
+   | '(' numExpr ')'
 
-bool_expr ::=
+// https://www.unison-lang.org/docs/language-reference/boolean-expressions/
+boolExpr ::=
    IDENTIFIER '>' numLiteral
    | IDENTIFIER '<' numLiteral
    | numLiteral '===' IDENTIFIER
-   | IDENTIFIER '===' num_expr
-   | BOOLEAN BOOL_OPERATOR bool_expr
-   | IDENTIFIER COMPARE_OPERATOR num_expr
-   | num_expr COMPARE_OPERATOR num_expr
-   | 'not' bool_expr
-   | num_expr '===' num_expr
-   | bool_expr (BOOL_OPERATOR bool_expr)+
-   | '(' bool_expr ')' (BOOL_OPERATOR bool_expr)+
+   | IDENTIFIER '===' numExpr
+   | BOOLEAN BOOL_OPERATOR boolExpr
+   | IDENTIFIER COMPARE_OPERATOR numExpr
+   | numExpr COMPARE_OPERATOR numExpr
+   | 'not' boolExpr
+   | numExpr '===' numExpr
+   | boolExpr (BOOL_OPERATOR boolExpr)+
+   | '(' boolExpr ')' (BOOL_OPERATOR boolExpr)+
    | BOOLEAN
    | IDENTIFIER
 
@@ -125,13 +146,17 @@ constructor_pattern ::= IDENTIFIER pattern*
 
 numLiteral ::= INT | DOUBLE
 
+// https://www.unison-lang.org/docs/language-reference/literals/
 literal ::= INT
   | DOUBLE | CHAR | STRING | BOOLEAN | BYTES
   | '[' ']' | '[' literal (',' literal)* ']'
   | '(' literal (',' literal)* ')'
 
+// https://www.unison-lang.org/docs/language-reference/identifiers/#namespace-qualified-identifiers
 qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
 
+// TODO Any Doc Either IPattern Ordering Optional Pattern Pretty Uuid Void
+// https://share.unison-lang.org/@unison/website/code/main/latest/namespaces/lib/base/;/types/Uuid
 builtin_type ::= 'Nat'
   | 'Int'
   | 'Char'

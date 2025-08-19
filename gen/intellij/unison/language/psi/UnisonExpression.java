@@ -26,7 +26,7 @@ public interface UnisonExpression extends PsiElement {
   UnisonFunctionCall getFunctionCall();
 
   @Nullable
-  UnisonIfExpr getIfExpr();
+  UnisonIfThenElseExpr getIfThenElseExpr();
 
   @Nullable
   UnisonLambda getLambda();
@@ -53,6 +53,6 @@ public interface UnisonExpression extends PsiElement {
   UnisonTypedDef getTypedDef();
 
   @Nullable
-  UnisonUseImport getUseImport();
+  UnisonUseClause getUseClause();
 
 }

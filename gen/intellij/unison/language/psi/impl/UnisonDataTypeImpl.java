@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonUseImportImpl extends ASTWrapperPsiElement implements UnisonUseImport {
+public class UnisonDataTypeImpl extends ASTWrapperPsiElement implements UnisonDataType {
 
-  public UnisonUseImportImpl(@NotNull ASTNode node) {
+  public UnisonDataTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitUseImport(this);
+    visitor.visitDataType(this);
   }
 
   @Override
@@ -29,26 +29,8 @@ public class UnisonUseImportImpl extends ASTWrapperPsiElement implements UnisonU
 
   @Override
   @NotNull
-  public List<UnisonBoolOperator> getBoolOperatorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolOperator.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonCompareOperator> getCompareOperatorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonCompareOperator.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonNumOperator> getNumOperatorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumOperator.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonQualifiedImport> getQualifiedImportList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedImport.class);
+  public List<UnisonDataConstructor> getDataConstructorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonDataConstructor.class);
   }
 
   @Override

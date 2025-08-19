@@ -55,6 +55,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitAbilityRequirements(@NotNull UnisonAbilityRequirements o) {
+    visitPsiElement(o);
+  }
+
   public void visitAbilityConstructor(@NotNull UnisonAbilityConstructor o) {
     visitPsiElement(o);
   }
@@ -87,11 +91,19 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitConstructor(@NotNull UnisonConstructor o) {
+  public void visitConstructorPattern(@NotNull UnisonConstructorPattern o) {
     visitPsiElement(o);
   }
 
-  public void visitConstructorPattern(@NotNull UnisonConstructorPattern o) {
+  public void visitDataConstructor(@NotNull UnisonDataConstructor o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDataType(@NotNull UnisonDataType o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDelayedType(@NotNull UnisonDelayedType o) {
     visitPsiElement(o);
   }
 
@@ -107,11 +119,11 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitGuard(@NotNull UnisonGuard o) {
+  public void visitGuardPattern(@NotNull UnisonGuardPattern o) {
     visitPsiElement(o);
   }
 
-  public void visitIfExpr(@NotNull UnisonIfExpr o) {
+  public void visitIfThenElseExpr(@NotNull UnisonIfThenElseExpr o) {
     visitPsiElement(o);
   }
 
@@ -127,11 +139,11 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMatchCase(@NotNull UnisonMatchCase o) {
+  public void visitMatchExpr(@NotNull UnisonMatchExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitMatchExpr(@NotNull UnisonMatchExpr o) {
+  public void visitMatchCase(@NotNull UnisonMatchCase o) {
     visitPsiElement(o);
   }
 
@@ -139,15 +151,19 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitNumLiteral(@NotNull UnisonNumLiteral o) {
-    visitPsiElement(o);
-  }
-
   public void visitNumExpr(@NotNull UnisonNumExpr o) {
     visitPsiElement(o);
   }
 
+  public void visitNumLiteral(@NotNull UnisonNumLiteral o) {
+    visitPsiElement(o);
+  }
+
   public void visitPattern(@NotNull UnisonPattern o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPolymorphicType(@NotNull UnisonPolymorphicType o) {
     visitPsiElement(o);
   }
 
@@ -163,10 +179,6 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitTypeDecl(@NotNull UnisonTypeDecl o) {
-    visitPsiElement(o);
-  }
-
   public void visitTypeExpr(@NotNull UnisonTypeExpr o) {
     visitPsiElement(o);
   }
@@ -179,7 +191,7 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitUseImport(@NotNull UnisonUseImport o) {
+  public void visitUseClause(@NotNull UnisonUseClause o) {
     visitPsiElement(o);
   }
 

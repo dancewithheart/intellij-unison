@@ -11,7 +11,7 @@ public interface UnisonMatchCase extends PsiElement {
   List<UnisonExpression> getExpressionList();
 
   @NotNull
-  List<UnisonGuard> getGuardList();
+  List<UnisonGuardPattern> getGuardPatternList();
 
   @NotNull
   List<UnisonPattern> getPatternList();

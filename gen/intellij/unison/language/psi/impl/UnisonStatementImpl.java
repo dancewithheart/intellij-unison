@@ -47,6 +47,12 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
 
   @Override
   @Nullable
+  public UnisonDataType getDataType() {
+    return findChildByClass(UnisonDataType.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonExpression getExpression() {
     return findChildByClass(UnisonExpression.class);
   }
@@ -55,12 +61,6 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
   @Nullable
   public UnisonNamespaceDecl getNamespaceDecl() {
     return findChildByClass(UnisonNamespaceDecl.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonTypeDecl getTypeDecl() {
-    return findChildByClass(UnisonTypeDecl.class);
   }
 
 }

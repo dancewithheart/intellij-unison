@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonConstructor extends PsiElement {
+public interface UnisonDataConstructor extends PsiElement {
 
   @NotNull
   UnisonQualifiedName getQualifiedName();

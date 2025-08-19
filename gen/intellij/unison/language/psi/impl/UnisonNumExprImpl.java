@@ -40,15 +40,15 @@ public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNum
   }
 
   @Override
-  @NotNull
-  public List<UnisonNumLiteral> getNumLiteralList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumLiteral.class);
-  }
-
-  @Override
   @Nullable
   public UnisonNumExpr getNumExpr() {
     return findChildByClass(UnisonNumExpr.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonNumLiteral> getNumLiteralList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumLiteral.class);
   }
 
 }
