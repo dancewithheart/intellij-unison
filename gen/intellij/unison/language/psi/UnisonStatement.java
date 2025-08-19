@@ -17,12 +17,12 @@ public interface UnisonStatement extends PsiElement {
   UnisonAbilityDecl getAbilityDecl();
 
   @Nullable
+  UnisonDataType getDataType();
+
+  @Nullable
   UnisonExpression getExpression();
 
   @Nullable
   UnisonNamespaceDecl getNamespaceDecl();
-
-  @Nullable
-  UnisonTypeDecl getTypeDecl();
 
 }

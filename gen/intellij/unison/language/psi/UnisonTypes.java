@@ -11,6 +11,7 @@ public interface UnisonTypes {
   IElementType ABILITY = new UnisonTokenType("ABILITY");
   IElementType ABILITY_CONSTRUCTOR = new UnisonElementType("ABILITY_CONSTRUCTOR");
   IElementType ABILITY_DECL = new UnisonElementType("ABILITY_DECL");
+  IElementType ABILITY_REQUIREMENTS = new UnisonElementType("ABILITY_REQUIREMENTS");
   IElementType ALIAS = new UnisonTokenType("ALIAS");
   IElementType ARGUMENT_LIST = new UnisonElementType("ARGUMENT_LIST");
   IElementType ARROW = new UnisonTokenType("ARROW");
@@ -32,8 +33,10 @@ public interface UnisonTypes {
   IElementType COMMA = new UnisonTokenType("COMMA");
   IElementType COLON = new UnisonTokenType("COLON");
   IElementType COMPARE_OPERATOR = new UnisonElementType("COMPARE_OPERATOR");
-  IElementType CONSTRUCTOR = new UnisonElementType("CONSTRUCTOR");
   IElementType CONSTRUCTOR_PATTERN = new UnisonElementType("CONSTRUCTOR_PATTERN");
+  IElementType DATA_CONSTRUCTOR = new UnisonElementType("DATA_CONSTRUCTOR");
+  IElementType DATA_TYPE = new UnisonElementType("DATA_TYPE");
+  IElementType DELAYED_TYPE = new UnisonElementType("DELAYED_TYPE");
   IElementType DO = new UnisonTokenType("DO");
   IElementType DOT = new UnisonTokenType("DOT");
   IElementType DOUBLE = new UnisonElementType("DOUBLE");
@@ -46,11 +49,11 @@ public interface UnisonTypes {
   IElementType FORALLSYMBOL = new UnisonTokenType("FORALLSYMBOL");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType FUN_BODY = new UnisonElementType("FUN_BODY");
-  IElementType GUARD = new UnisonElementType("GUARD");
+  IElementType GUARD_PATTERN = new UnisonElementType("GUARD_PATTERN");
   IElementType HANDLE = new UnisonElementType("HANDLE");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
   IElementType IF = new UnisonTokenType("IF");
-  IElementType IF_EXPR = new UnisonElementType("IF_EXPR");
+  IElementType IF_THEN_ELSE_EXPR = new UnisonElementType("IF_THEN_ELSE_EXPR");
   IElementType INT = new UnisonElementType("INT");
   IElementType LAMBDA = new UnisonElementType("LAMBDA");
   IElementType LBRACE = new UnisonTokenType("LBRACE");
@@ -75,6 +78,7 @@ public interface UnisonTypes {
   IElementType NOT = new UnisonTokenType("NOT");
   IElementType OTHERWISE = new UnisonTokenType("OTHERWISE");
   IElementType PATTERN = new UnisonElementType("PATTERN");
+  IElementType POLYMORPHIC_TYPE = new UnisonElementType("POLYMORPHIC_TYPE");
   IElementType QUALIFIED_IMPORT = new UnisonElementType("QUALIFIED_IMPORT");
   IElementType QUALIFIED_NAME = new UnisonElementType("QUALIFIED_NAME");
   IElementType RBRACE = new UnisonTokenType("RBRACE");
@@ -87,7 +91,6 @@ public interface UnisonTypes {
   IElementType TYPED_DEF = new UnisonElementType("TYPED_DEF");
   IElementType TEXT = new UnisonTokenType("TEXT");
   IElementType TYPE = new UnisonTokenType("TYPE");
-  IElementType TYPE_DECL = new UnisonElementType("TYPE_DECL");
   IElementType TYPE_EXPR = new UnisonElementType("TYPE_EXPR");
   IElementType TYPE_PARAMS = new UnisonElementType("TYPE_PARAMS");
   IElementType TYPELINK = new UnisonElementType("TYPELINK");
@@ -95,7 +98,7 @@ public interface UnisonTypes {
   IElementType UNDERSCORE = new UnisonTokenType("UNDERSCORE");
   IElementType WHERE = new UnisonTokenType("WHERE");
   IElementType USE = new UnisonTokenType("USE");
-  IElementType USE_IMPORT = new UnisonElementType("USE_IMPORT");
+  IElementType USE_CLAUSE = new UnisonElementType("USE_CLAUSE");
   IElementType UNIQUE = new UnisonTokenType("UNIQUE");
   IElementType WITH = new UnisonTokenType("WITH");
 
@@ -122,6 +125,9 @@ public interface UnisonTypes {
       }
       else if (type == ABILITY_DECL) {
         return new UnisonAbilityDeclImpl(node);
+      }
+      else if (type == ABILITY_REQUIREMENTS) {
+        return new UnisonAbilityRequirementsImpl(node);
       }
       else if (type == ARGUMENT_LIST) {
         return new UnisonArgumentListImpl(node);
@@ -156,11 +162,17 @@ public interface UnisonTypes {
       else if (type == COMPARE_OPERATOR) {
         return new UnisonCompareOperatorImpl(node);
       }
-      else if (type == CONSTRUCTOR) {
-        return new UnisonConstructorImpl(node);
-      }
       else if (type == CONSTRUCTOR_PATTERN) {
         return new UnisonConstructorPatternImpl(node);
+      }
+      else if (type == DATA_CONSTRUCTOR) {
+        return new UnisonDataConstructorImpl(node);
+      }
+      else if (type == DATA_TYPE) {
+        return new UnisonDataTypeImpl(node);
+      }
+      else if (type == DELAYED_TYPE) {
+        return new UnisonDelayedTypeImpl(node);
       }
       else if (type == DOUBLE) {
         return new UnisonDoubleImpl(node);
@@ -174,14 +186,14 @@ public interface UnisonTypes {
       else if (type == FUN_BODY) {
         return new UnisonFunBodyImpl(node);
       }
-      else if (type == GUARD) {
-        return new UnisonGuardImpl(node);
+      else if (type == GUARD_PATTERN) {
+        return new UnisonGuardPatternImpl(node);
       }
       else if (type == IDENTIFIER) {
         return new UnisonIdentifierImpl(node);
       }
-      else if (type == IF_EXPR) {
-        return new UnisonIfExprImpl(node);
+      else if (type == IF_THEN_ELSE_EXPR) {
+        return new UnisonIfThenElseExprImpl(node);
       }
       else if (type == INT) {
         return new UnisonIntImpl(node);
@@ -222,6 +234,9 @@ public interface UnisonTypes {
       else if (type == PATTERN) {
         return new UnisonPatternImpl(node);
       }
+      else if (type == POLYMORPHIC_TYPE) {
+        return new UnisonPolymorphicTypeImpl(node);
+      }
       else if (type == QUALIFIED_IMPORT) {
         return new UnisonQualifiedImportImpl(node);
       }
@@ -237,17 +252,14 @@ public interface UnisonTypes {
       else if (type == TYPED_DEF) {
         return new UnisonTypedDefImpl(node);
       }
-      else if (type == TYPE_DECL) {
-        return new UnisonTypeDeclImpl(node);
-      }
       else if (type == TYPE_EXPR) {
         return new UnisonTypeExprImpl(node);
       }
       else if (type == TYPE_PARAMS) {
         return new UnisonTypeParamsImpl(node);
       }
-      else if (type == USE_IMPORT) {
-        return new UnisonUseImportImpl(node);
+      else if (type == USE_CLAUSE) {
+        return new UnisonUseClauseImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

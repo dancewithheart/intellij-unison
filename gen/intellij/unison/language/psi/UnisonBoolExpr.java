@@ -23,9 +23,9 @@ public interface UnisonBoolExpr extends PsiElement {
   UnisonBoolExpr getBoolExpr();
 
   @Nullable
-  UnisonNumLiteral getNumLiteral();
+  UnisonNumExpr getNumExpr();
 
   @Nullable
-  UnisonNumExpr getNumExpr();
+  UnisonNumLiteral getNumLiteral();
 
 }

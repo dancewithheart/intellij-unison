@@ -1,7 +1,7 @@
 FILE(0,1097)
   UnisonStatementImpl(STATEMENT)(0,34)
     UnisonExpressionImpl(EXPRESSION)(0,34)
-      UnisonUseImportImpl(USE_IMPORT)(0,34)
+      UnisonUseClauseImpl(USE_CLAUSE)(0,34)
         PsiElement(UnisonTokenType.USE)('use')(0,3)
         PsiWhiteSpace(' ')(3,4)
         UnisonQualifiedImportImpl(QUALIFIED_IMPORT)(4,7)

@@ -8,10 +8,16 @@ import com.intellij.psi.PsiElement;
 public interface UnisonTypedDef extends PsiElement {
 
   @NotNull
-  List<UnisonIdentifier> getIdentifierList();
+  List<UnisonAbilityRequirements> getAbilityRequirementsList();
+
+  @Nullable
+  UnisonDelayedType getDelayedType();
 
   @NotNull
   UnisonFunBody getFunBody();
+
+  @Nullable
+  UnisonPolymorphicType getPolymorphicType();
 
   @NotNull
   UnisonQualifiedName getQualifiedName();

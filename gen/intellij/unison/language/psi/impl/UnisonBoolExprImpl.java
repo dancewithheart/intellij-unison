@@ -59,14 +59,14 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
 
   @Override
   @Nullable
-  public UnisonNumLiteral getNumLiteral() {
-    return findChildByClass(UnisonNumLiteral.class);
+  public UnisonNumExpr getNumExpr() {
+    return findChildByClass(UnisonNumExpr.class);
   }
 
   @Override
   @Nullable
-  public UnisonNumExpr getNumExpr() {
-    return findChildByClass(UnisonNumExpr.class);
+  public UnisonNumLiteral getNumLiteral() {
+    return findChildByClass(UnisonNumLiteral.class);
   }
 
 }

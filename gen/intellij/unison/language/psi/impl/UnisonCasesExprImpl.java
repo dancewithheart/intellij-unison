@@ -35,8 +35,8 @@ public class UnisonCasesExprImpl extends ASTWrapperPsiElement implements UnisonC
 
   @Override
   @NotNull
-  public List<UnisonGuard> getGuardList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonGuard.class);
+  public List<UnisonGuardPattern> getGuardPatternList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonGuardPattern.class);
   }
 
 }

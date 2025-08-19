@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonTypeDecl extends PsiElement {
+public interface UnisonDelayedType extends PsiElement {
 
   @NotNull
-  List<UnisonConstructor> getConstructorList();
-
-  @NotNull
-  List<UnisonQualifiedName> getQualifiedNameList();
+  List<UnisonIdentifier> getIdentifierList();
 
 }

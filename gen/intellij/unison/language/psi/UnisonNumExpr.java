@@ -13,10 +13,10 @@ public interface UnisonNumExpr extends PsiElement {
   @Nullable
   UnisonNumOperator getNumOperator();
 
-  @NotNull
-  List<UnisonNumLiteral> getNumLiteralList();
-
   @Nullable
   UnisonNumExpr getNumExpr();
+
+  @NotNull
+  List<UnisonNumLiteral> getNumLiteralList();
 
 }

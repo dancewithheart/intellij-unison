@@ -11,14 +11,14 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import intellij.unison.language.psi.*;
 
-public class UnisonMatchCaseImpl extends ASTWrapperPsiElement implements UnisonMatchCase {
+public class UnisonIfThenElseExprImpl extends ASTWrapperPsiElement implements UnisonIfThenElseExpr {
 
-  public UnisonMatchCaseImpl(@NotNull ASTNode node) {
+  public UnisonIfThenElseExprImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitMatchCase(this);
+    visitor.visitIfThenElseExpr(this);
   }
 
   @Override
@@ -29,20 +29,14 @@ public class UnisonMatchCaseImpl extends ASTWrapperPsiElement implements UnisonM
 
   @Override
   @NotNull
+  public UnisonBoolExpr getBoolExpr() {
+    return findNotNullChildByClass(UnisonBoolExpr.class);
+  }
+
+  @Override
+  @NotNull
   public List<UnisonExpression> getExpressionList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonGuardPattern> getGuardPatternList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonGuardPattern.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonPattern> getPatternList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonPattern.class);
   }
 
 }

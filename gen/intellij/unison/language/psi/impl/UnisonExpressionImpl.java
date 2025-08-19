@@ -65,8 +65,8 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
-  public UnisonIfExpr getIfExpr() {
-    return findChildByClass(UnisonIfExpr.class);
+  public UnisonIfThenElseExpr getIfThenElseExpr() {
+    return findChildByClass(UnisonIfThenElseExpr.class);
   }
 
   @Override
@@ -119,8 +119,8 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
-  public UnisonUseImport getUseImport() {
-    return findChildByClass(UnisonUseImport.class);
+  public UnisonUseClause getUseClause() {
+    return findChildByClass(UnisonUseClause.class);
   }
 
 }
