@@ -1,5 +1,5 @@
 FILE(0,130)
-  PsiComment(LINE_COMMENT)('-- constructor patterns')(0,23)
+  PsiComment(UnisonTokenType.LINE_COMMENT_TOKEN)('-- constructor patterns')(0,23)
   PsiWhiteSpace('\n')(23,24)
   UnisonStatementImpl(STATEMENT)(24,45)
     UnisonExpressionImpl(EXPRESSION)(24,45)

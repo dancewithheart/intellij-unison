@@ -1,5 +1,5 @@
 FILE(0,305)
-  PsiComment(LINE_COMMENT)('-- delayed computation')(0,22)
+  PsiComment(UnisonTokenType.LINE_COMMENT_TOKEN)('-- delayed computation')(0,22)
   PsiWhiteSpace('\n')(22,23)
   UnisonStatementImpl(STATEMENT)(23,33)
     UnisonExpressionImpl(EXPRESSION)(23,33)

@@ -1,5 +1,5 @@
 FILE(0,125)
-  PsiComment(LINE_COMMENT)('-- as patterns')(0,14)
+  PsiComment(UnisonTokenType.LINE_COMMENT_TOKEN)('-- as patterns')(0,14)
   PsiWhiteSpace('\n')(14,15)
   UnisonStatementImpl(STATEMENT)(15,125)
     UnisonExpressionImpl(EXPRESSION)(15,125)
