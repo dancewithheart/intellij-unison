@@ -797,7 +797,7 @@ public class UnisonLexer implements FlexLexer {
           // fall through
           case 82: break;
           case 17:
-            { return LAMBDA;
+            { return BACKSLASH;
             }
           // fall through
           case 83: break;
@@ -847,7 +847,7 @@ public class UnisonLexer implements FlexLexer {
           // fall through
           case 92: break;
           case 27:
-            { return EMPTYBRACES;
+            { return KW_UNIT;
             }
           // fall through
           case 93: break;
@@ -882,12 +882,12 @@ public class UnisonLexer implements FlexLexer {
           // fall through
           case 99: break;
           case 34:
-            { return INT;
+            { return KW_INT;
             }
           // fall through
           case 100: break;
           case 35:
-            { return NAT;
+            { return KW_NAT;
             }
           // fall through
           case 101: break;
@@ -917,12 +917,12 @@ public class UnisonLexer implements FlexLexer {
           // fall through
           case 106: break;
           case 41:
-            { return CHAR;
+            { return KW_CHAR;
             }
           // fall through
           case 107: break;
           case 42:
-            { return TEXT;
+            { return KW_TEXT;
             }
           // fall through
           case 108: break;
@@ -952,12 +952,12 @@ public class UnisonLexer implements FlexLexer {
           // fall through
           case 113: break;
           case 48:
-            { return BYTES;
+            { return KW_BYTES;
             }
           // fall through
           case 114: break;
           case 49:
-            { return FLOAT;
+            { return KW_FLOAT;
             }
           // fall through
           case 115: break;
@@ -992,7 +992,7 @@ public class UnisonLexer implements FlexLexer {
           // fall through
           case 121: break;
           case 56:
-            { return DOUBLE;
+            { return KW_DOUBLE;
             }
           // fall through
           case 122: break;
@@ -1012,7 +1012,7 @@ public class UnisonLexer implements FlexLexer {
           // fall through
           case 125: break;
           case 60:
-            { return BOOLEAN;
+            { return KW_BOOLEAN;
             }
           // fall through
           case 126: break;

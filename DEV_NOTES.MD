@@ -1,5 +1,11 @@
 # Development notes
 
+## Run fast tests
+
+```shell
+sbt 'testOnly intellij.unison.LexerTokenTest'
+```
+
 ## Running locally
 
 Thanks to [sbt-idea-plugin](https://github.com/JetBrains/sbt-idea-plugin) you can run separate instance of IntelliJ IDEA with this plugin installed:

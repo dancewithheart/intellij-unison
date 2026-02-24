@@ -39,14 +39,6 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitLineComment(@NotNull UnisonLineComment o) {
-    visitPsiElement(o);
-  }
-
-  public void visitMultilineComment(@NotNull UnisonMultilineComment o) {
-    visitPsiElement(o);
-  }
-
   public void visitNumOperator(@NotNull UnisonNumOperator o) {
     visitPsiElement(o);
   }
