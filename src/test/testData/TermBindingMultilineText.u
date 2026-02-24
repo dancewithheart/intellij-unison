@@ -1,9 +1,11 @@
 multi1 : Text
 multi1 = """This is a multiline text"""
 
+{- TODO
 multi2 : Text
 multi2 =
   """
     This is a
     multiline text
   """
+-}

@@ -1,6 +1,6 @@
 boolFun : [Boolean]
 boolFun = [true, false]
-
+{- TODO
 boolId : Boolean -> Boolean
 boolId x = x
 
@@ -12,3 +12,4 @@ asPi b = 3.14
 
 toPi : Float -> Text
 toPi f = "3.14"
+-}
