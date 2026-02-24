@@ -115,9 +115,9 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.==" | "Nat.!=" 
 {STRING}                 { return STRING_TOKEN; }
 {LINE_COMMENT}           { return LINE_COMMENT_TOKEN; }
 {MULTILINE_COMMENT}      { return MULTILINE_COMMENT_TOKEN; }
-{IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 {NUM_OPERATOR}           { return NUM_OPERATOR_TOKEN; }
 {BOOL_OPERATOR}          { return BOOL_OPERATOR_TOKEN; }
 {COMPARE_OPERATOR}       { return COMPARE_OPERATOR_TOKEN; }
+{IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 
 .                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }
