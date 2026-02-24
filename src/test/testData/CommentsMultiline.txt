@@ -1,4 +1,4 @@
 FILE(0,157)
-  PsiComment(LINE_COMMENT)('-- term declaration (term binding)')(0,34)
+  PsiComment(UnisonTokenType.LINE_COMMENT_TOKEN)('-- term declaration (term binding)')(0,34)
   PsiWhiteSpace('\n\n')(34,36)
-  PsiComment(MULTILINE_COMMENT)('{-\nhttps://www.unison-lang.org/docs/language-reference/term-declarations/\n\nname : Type\nname p_1 p_2 … p_n = expression\n-}')(36,157)
+  PsiComment(UnisonTokenType.MULTILINE_COMMENT_TOKEN)('{-\nhttps://www.unison-lang.org/docs/language-reference/term-declarations/\n\nname : Type\nname p_1 p_2 … p_n = expression\n-}')(36,157)

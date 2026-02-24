@@ -8,114 +8,116 @@ import intellij.unison.language.psi.impl.*;
 
 public interface UnisonTypes {
 
-  IElementType ABILITY = new UnisonTokenType("ABILITY");
   IElementType ABILITY_CONSTRUCTOR = new UnisonElementType("ABILITY_CONSTRUCTOR");
   IElementType ABILITY_DECL = new UnisonElementType("ABILITY_DECL");
   IElementType ABILITY_REQUIREMENTS = new UnisonElementType("ABILITY_REQUIREMENTS");
-  IElementType ALIAS = new UnisonTokenType("ALIAS");
   IElementType ARGUMENT_LIST = new UnisonElementType("ARGUMENT_LIST");
-  IElementType ARROW = new UnisonTokenType("ARROW");
-  IElementType AT = new UnisonTokenType("AT");
-  IElementType BAR = new UnisonTokenType("BAR");
-  IElementType BANG = new UnisonTokenType("BANG");
   IElementType BINDING = new UnisonElementType("BINDING");
   IElementType BOOLEAN = new UnisonElementType("BOOLEAN");
   IElementType BOOL_EXPR = new UnisonElementType("BOOL_EXPR");
   IElementType BOOL_OPERATOR = new UnisonElementType("BOOL_OPERATOR");
   IElementType BUILTIN_TYPE = new UnisonElementType("BUILTIN_TYPE");
   IElementType BYTES = new UnisonElementType("BYTES");
-  IElementType CASES = new UnisonTokenType("CASES");
-  IElementType CATCH = new UnisonTokenType("CATCH");
   IElementType CASES_EXPR = new UnisonElementType("CASES_EXPR");
   IElementType CATCH_EXPR = new UnisonElementType("CATCH_EXPR");
   IElementType CHAR = new UnisonElementType("CHAR");
-  IElementType CIAPEK = new UnisonTokenType("CIAPEK");
-  IElementType COMMA = new UnisonTokenType("COMMA");
-  IElementType COLON = new UnisonTokenType("COLON");
   IElementType COMPARE_OPERATOR = new UnisonElementType("COMPARE_OPERATOR");
   IElementType CONSTRUCTOR_PATTERN = new UnisonElementType("CONSTRUCTOR_PATTERN");
   IElementType DATA_CONSTRUCTOR = new UnisonElementType("DATA_CONSTRUCTOR");
   IElementType DATA_TYPE = new UnisonElementType("DATA_TYPE");
   IElementType DELAYED_TYPE = new UnisonElementType("DELAYED_TYPE");
-  IElementType DO = new UnisonTokenType("DO");
-  IElementType DOT = new UnisonTokenType("DOT");
   IElementType DOUBLE = new UnisonElementType("DOUBLE");
-  IElementType ELSE = new UnisonTokenType("ELSE");
-  IElementType EMPTYBRACES = new UnisonElementType("()");
-  IElementType EQ = new UnisonTokenType("EQ");
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
-  IElementType FLOAT = new UnisonElementType("FLOAT");
-  IElementType FORALL = new UnisonElementType("FORALL");
-  IElementType FORALLSYMBOL = new UnisonTokenType("FORALLSYMBOL");
   IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType FUN_BODY = new UnisonElementType("FUN_BODY");
   IElementType GUARD_PATTERN = new UnisonElementType("GUARD_PATTERN");
-  IElementType HANDLE = new UnisonElementType("HANDLE");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
-  IElementType IF = new UnisonTokenType("IF");
   IElementType IF_THEN_ELSE_EXPR = new UnisonElementType("IF_THEN_ELSE_EXPR");
   IElementType INT = new UnisonElementType("INT");
   IElementType LAMBDA = new UnisonElementType("LAMBDA");
-  IElementType LBRACE = new UnisonTokenType("LBRACE");
-  IElementType LBRACECIAPEK = new UnisonTokenType("LBRACECIAPEK");
-  IElementType LET = new UnisonTokenType("LET");
   IElementType LET_EXPR = new UnisonElementType("LET_EXPR");
-  IElementType LINE_COMMENT = new UnisonElementType("LINE_COMMENT");
   IElementType LITERAL = new UnisonElementType("LITERAL");
-  IElementType LPAREN = new UnisonTokenType("LPAREN");
-  IElementType LPARENSQ = new UnisonTokenType("LPARENSQ");
-  IElementType MATCH = new UnisonElementType("MATCH");
   IElementType MATCH_CASE = new UnisonElementType("MATCH_CASE");
   IElementType MATCH_EXPR = new UnisonElementType("MATCH_EXPR");
-  IElementType MULTILINE_COMMENT = new UnisonElementType("MULTILINE_COMMENT");
-  IElementType MODW = new UnisonTokenType("MODW");
-  IElementType NAMESPACE = new UnisonElementType("NAMESPACE");
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
-  IElementType NAT = new UnisonElementType("NAT");
   IElementType NUM_EXPR = new UnisonElementType("NUM_EXPR");
   IElementType NUM_LITERAL = new UnisonElementType("NUM_LITERAL");
   IElementType NUM_OPERATOR = new UnisonElementType("NUM_OPERATOR");
-  IElementType NOT = new UnisonTokenType("NOT");
-  IElementType OTHERWISE = new UnisonTokenType("OTHERWISE");
   IElementType PATTERN = new UnisonElementType("PATTERN");
   IElementType POLYMORPHIC_TYPE = new UnisonElementType("POLYMORPHIC_TYPE");
   IElementType QUALIFIED_IMPORT = new UnisonElementType("QUALIFIED_IMPORT");
   IElementType QUALIFIED_NAME = new UnisonElementType("QUALIFIED_NAME");
-  IElementType RBRACE = new UnisonTokenType("RBRACE");
-  IElementType RPAREN = new UnisonTokenType("RPAREN");
-  IElementType RPARENSQ = new UnisonTokenType("RPARENSQ");
   IElementType STATEMENT = new UnisonElementType("STATEMENT");
   IElementType STRING = new UnisonElementType("STRING");
-  IElementType STRUCTURAL = new UnisonTokenType("STRUCTURAL");
-  IElementType THEN = new UnisonTokenType("THEN");
   IElementType TYPED_DEF = new UnisonElementType("TYPED_DEF");
-  IElementType TEXT = new UnisonTokenType("TEXT");
-  IElementType TYPE = new UnisonTokenType("TYPE");
   IElementType TYPE_EXPR = new UnisonElementType("TYPE_EXPR");
   IElementType TYPE_PARAMS = new UnisonElementType("TYPE_PARAMS");
-  IElementType TYPELINK = new UnisonElementType("TYPELINK");
-  IElementType TERMLINK = new UnisonElementType("TERMLINK");
-  IElementType UNDERSCORE = new UnisonTokenType("UNDERSCORE");
-  IElementType WHERE = new UnisonTokenType("WHERE");
-  IElementType USE = new UnisonTokenType("USE");
   IElementType USE_CLAUSE = new UnisonElementType("USE_CLAUSE");
-  IElementType UNIQUE = new UnisonTokenType("UNIQUE");
-  IElementType WITH = new UnisonTokenType("WITH");
 
+  IElementType ABILITY = new UnisonTokenType("ability");
+  IElementType ALIAS = new UnisonTokenType("alias");
+  IElementType ARROW = new UnisonTokenType("->");
+  IElementType AT = new UnisonTokenType("@");
+  IElementType BACKSLASH = new UnisonTokenType("\\\\");
+  IElementType BANG = new UnisonTokenType("!");
+  IElementType BAR = new UnisonTokenType("|");
   IElementType BOOLEAN_TOKEN = new UnisonTokenType("BOOLEAN_TOKEN");
   IElementType BOOL_OPERATOR_TOKEN = new UnisonTokenType("BOOL_OPERATOR_TOKEN");
   IElementType BYTES_TOKEN = new UnisonTokenType("BYTES_TOKEN");
+  IElementType CASES = new UnisonTokenType("cases");
+  IElementType CATCH = new UnisonTokenType("catch");
   IElementType CHAR_TOKEN = new UnisonTokenType("CHAR_TOKEN");
+  IElementType CIAPEK = new UnisonTokenType("'");
+  IElementType COLON = new UnisonTokenType(":");
+  IElementType COMMA = new UnisonTokenType(",");
   IElementType COMPARE_OPERATOR_TOKEN = new UnisonTokenType("COMPARE_OPERATOR_TOKEN");
+  IElementType DO = new UnisonTokenType("do");
+  IElementType DOT = new UnisonTokenType(".");
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
-  IElementType FLOAT_TOKEN = new UnisonTokenType("FLOAT_TOKEN");
+  IElementType ELSE = new UnisonTokenType("else");
+  IElementType EQ = new UnisonTokenType("=");
+  IElementType FORALL = new UnisonTokenType("forall");
+  IElementType FORALLSYMBOL = new UnisonTokenType("∀");
+  IElementType HANDLE = new UnisonTokenType("handle");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
+  IElementType IF = new UnisonTokenType("if");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
+  IElementType KW_BOOLEAN = new UnisonTokenType("Boolean");
+  IElementType KW_BYTES = new UnisonTokenType("Bytes");
+  IElementType KW_CHAR = new UnisonTokenType("Char");
+  IElementType KW_DOUBLE = new UnisonTokenType("Double");
+  IElementType KW_FLOAT = new UnisonTokenType("Float");
+  IElementType KW_INT = new UnisonTokenType("Int");
+  IElementType KW_NAT = new UnisonTokenType("Nat");
+  IElementType KW_TEXT = new UnisonTokenType("Text");
+  IElementType KW_UNIT = new UnisonTokenType("()");
+  IElementType LBRACE = new UnisonTokenType("{");
+  IElementType LBRACECIAPEK = new UnisonTokenType("'{");
+  IElementType LET = new UnisonTokenType("let");
   IElementType LINE_COMMENT_TOKEN = new UnisonTokenType("LINE_COMMENT_TOKEN");
+  IElementType LPAREN = new UnisonTokenType("(");
+  IElementType LPARENSQ = new UnisonTokenType("[");
+  IElementType MATCH = new UnisonTokenType("match");
+  IElementType MODW = new UnisonTokenType("mod");
   IElementType MULTILINE_COMMENT_TOKEN = new UnisonTokenType("MULTILINE_COMMENT_TOKEN");
-  IElementType NAT_TOKEN = new UnisonTokenType("NAT_TOKEN");
+  IElementType NAMESPACE = new UnisonTokenType("namespace");
+  IElementType NOT = new UnisonTokenType("not");
   IElementType NUM_OPERATOR_TOKEN = new UnisonTokenType("NUM_OPERATOR_TOKEN");
+  IElementType OTHERWISE = new UnisonTokenType("otherwise");
+  IElementType RBRACE = new UnisonTokenType("}");
+  IElementType RPAREN = new UnisonTokenType(")");
+  IElementType RPARENSQ = new UnisonTokenType("]");
   IElementType STRING_TOKEN = new UnisonTokenType("STRING_TOKEN");
+  IElementType STRUCTURAL = new UnisonTokenType("structural");
+  IElementType TERMLINK = new UnisonTokenType("termLink");
+  IElementType THEN = new UnisonTokenType("then");
+  IElementType TYPE = new UnisonTokenType("type");
+  IElementType TYPELINK = new UnisonTokenType("typeLink");
+  IElementType UNDERSCORE = new UnisonTokenType("_");
+  IElementType UNIQUE = new UnisonTokenType("unique");
+  IElementType USE = new UnisonTokenType("use");
+  IElementType WHERE = new UnisonTokenType("where");
+  IElementType WITH = new UnisonTokenType("with");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -204,9 +206,6 @@ public interface UnisonTypes {
       else if (type == LET_EXPR) {
         return new UnisonLetExprImpl(node);
       }
-      else if (type == LINE_COMMENT) {
-        return new UnisonLineCommentImpl(node);
-      }
       else if (type == LITERAL) {
         return new UnisonLiteralImpl(node);
       }
@@ -215,9 +214,6 @@ public interface UnisonTypes {
       }
       else if (type == MATCH_EXPR) {
         return new UnisonMatchExprImpl(node);
-      }
-      else if (type == MULTILINE_COMMENT) {
-        return new UnisonMultilineCommentImpl(node);
       }
       else if (type == NAMESPACE_DECL) {
         return new UnisonNamespaceDeclImpl(node);

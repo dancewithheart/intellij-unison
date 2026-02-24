@@ -16,7 +16,6 @@ import static intellij.unison.language.psi.UnisonTypes.*;
 %unicode
 %function advance
 %type IElementType
-%ignorecase
 
 
 WHITE_SPACE = [\ \t\r\n]+
@@ -26,7 +25,7 @@ MULTILINE_COMMENT = "{-" [^-]+ ~"-}" | "{-" "-"+ "-}"
 COMMENT = {LINE_COMMENT} | {MULTILINE_COMMENT}
 
 // https://www.unison-lang.org/docs/language-reference/identifiers/
-OPERATOR = [!$%\^&*\-=+<>~\\/|:]*
+OPERATOR = [!$%\^&*\-=+<>~\\/|:]+
 REGULAR_IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
 IDENTIFIER = {OPERATOR} | {REGULAR_IDENTIFIER}
 HEXDIGIT = [a-z0-9]
@@ -41,13 +40,11 @@ STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
 NUM_OPERATOR = "+" | "-" | "*" | "/" | "%" | "Nat.+" | "Nat.-" | "Nat.*" | "Nat./" | "Nat.%"
 BOOL_OPERATOR = "&&" | "||"
-COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | Nat.== | "Nat.!=" | "Nat.<" | "Nat.>" | "Nat.<=" | "Nat.>="
+COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.==" | "Nat.!=" | "Nat.<" | "Nat.>" | "Nat.<=" | "Nat.>="
 
 %%
 
 {WHITE_SPACE}            { return com.intellij.psi.TokenType.WHITE_SPACE; }
-{LINE_COMMENT}           { return LINE_COMMENT; }
-{MULTILINE_COMMENT}      { return MULTILINE_COMMENT; }
 
 // Unison reserved words: https://www.unison-lang.org/docs/language-reference/identifiers/#reserved-words
 
@@ -94,20 +91,20 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | Nat.== | "Nat.!=" | 
 "{"                      { return LBRACE; }
 "}"                      { return RBRACE; }
 "."                      { return DOT; }
-"\\"                     { return LAMBDA; }
-"_"                      { return UNDERSCORE; }
+"\\"                     { return BACKSLASH; }
 "otherwise"              { return OTHERWISE; }
 "typeLink"               { return TYPELINK; }
 "termLink"               { return TERMLINK; }
-"Nat"                    { return NAT; }
-"Int"                    { return INT; }
-"Char"                   { return CHAR; }
-"Text"                   { return TEXT; }
-"Float"                  { return FLOAT; }
-"Double"                 { return DOUBLE; }
-"Boolean"                { return BOOLEAN; }
-"Bytes"                  { return BYTES; }
-"()"                     { return EMPTYBRACES; }
+"Nat"                    { return KW_NAT; }
+"Int"                    { return KW_INT; }
+"Char"                   { return KW_CHAR; }
+"Text"                   { return KW_TEXT; }
+"Float"                  { return KW_FLOAT; }
+"Double"                 { return KW_DOUBLE; }
+"Boolean"                { return KW_BOOLEAN; }
+"Bytes"                  { return KW_BYTES; }
+"()"                     { return KW_UNIT; }
+"_"                      { return UNDERSCORE; }
 "∀"                      { return FORALLSYMBOL; }
 
 {BOOLEAN}                { return BOOLEAN_TOKEN; }
@@ -118,9 +115,9 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | Nat.== | "Nat.!=" | 
 {STRING}                 { return STRING_TOKEN; }
 {LINE_COMMENT}           { return LINE_COMMENT_TOKEN; }
 {MULTILINE_COMMENT}      { return MULTILINE_COMMENT_TOKEN; }
-{IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 {NUM_OPERATOR}           { return NUM_OPERATOR_TOKEN; }
 {BOOL_OPERATOR}          { return BOOL_OPERATOR_TOKEN; }
 {COMPARE_OPERATOR}       { return COMPARE_OPERATOR_TOKEN; }
+{IDENTIFIER}             { return IDENTIFIER_TOKEN; }
 
 .                        { return com.intellij.psi.TokenType.BAD_CHARACTER; }

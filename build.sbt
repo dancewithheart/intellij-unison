@@ -47,6 +47,19 @@ def lexer: Command = Command.command("lexer") { state: State =>
   state
 }
 
+Test / fork := true
+
+Test / javaOptions ++= Seq(
+  "--add-opens=java.base/java.lang=ALL-UNNAMED",
+  "--add-opens=java.base/java.util=ALL-UNNAMED",
+  "--add-opens=java.base/java.io=ALL-UNNAMED",
+  "--add-opens=java.base/java.nio=ALL-UNNAMED",
+  "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",
+  "--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED",
+  "--add-opens=java.desktop/javax.swing=ALL-UNNAMED",
+  "--add-opens=java.desktop/java.awt=ALL-UNNAMED"
+)
+
 addCommandAlias("c", "clean;compile;")
 addCommandAlias("t", "clean;compile;test")
 addCommandAlias("r", "runIDE")

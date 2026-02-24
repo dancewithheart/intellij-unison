@@ -1,5 +1,6 @@
 go1 : Boolean
 go1 = true
-
+{- TODO slow
 go2 : Boolean
 go2 = false
+-}

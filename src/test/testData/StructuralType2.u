@@ -1,5 +1,7 @@
 type uniqueTypes.Direction
   = docs.languageReference.uniqueTypes.Direction.North
   | docs.languageReference.uniqueTypes.Direction.South
+  {- TODO slow
   | docs.languageReference.uniqueTypes.Direction.East
   | docs.languageReference.uniqueTypes.Direction.West
+  -}

@@ -1,24 +1,79 @@
 {
   parserClass="intellij.unison.language.parser.UnisonParser"
   parserUtilClass="intellij.unison.language.parser.UnisonParserUtil"
-
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
-
   psiClassPrefix="Unison"
   psiImplClassSuffix="Impl"
   psiPackage="intellij.unison.language.psi"
   psiImplPackage="intellij.unison.language.psi.impl"
-
   elementTypeHolderClass="intellij.unison.language.psi.UnisonTypes"
   elementTypeClass="intellij.unison.language.psi.UnisonElementType"
   tokenTypeClass="intellij.unison.language.psi.UnisonTokenType"
+
+  tokens = [
+    NAMESPACE='namespace'
+    USE='use'
+    ALIAS='alias'
+    HANDLE='handle'
+    CATCH='catch'
+    ABILITY='ability'
+    WHERE='where'
+    TYPE='type'
+    STRUCTURAL='structural'
+    UNIQUE='unique'
+    FORALL='forall'
+    LET='let'
+    DO='do'
+    IF='if'
+    THEN='then'
+    ELSE='else'
+    MATCH='match'
+    WITH='with'
+    CASES='cases'
+    OTHERWISE='otherwise'
+
+    AT='@'
+    ARROW='->'
+    COLON=':'
+    EQ='='
+    NOT='not'
+    MODW='mod'
+    BAR='|'
+    COMMA=','
+    LPAREN='('
+    RPAREN=')'
+    LPARENSQ='['
+    RPARENSQ=']'
+    LBRACE='{'
+    RBRACE='}'
+    DOT='.'
+    BACKSLASH='\\'
+    UNDERSCORE='_'
+    FORALLSYMBOL='∀'
+
+    KW_NAT='Nat'
+    KW_INT='Int'
+    KW_CHAR='Char'
+    KW_TEXT='Text'
+    KW_FLOAT='Float'
+    KW_DOUBLE='Double'
+    KW_BOOLEAN='Boolean'
+    KW_BYTES='Bytes'
+    KW_UNIT='()'
+
+    BANG='!'
+    CIAPEK="'"
+    LBRACECIAPEK="'{"
+    TYPELINK='typeLink'
+    TERMLINK='termLink'
+  ]
 }
 
 unisonFile ::= statement*
 
 // https://www.unison-lang.org/docs/language-reference/top-level-declaration/
-statement ::= MULTILINE_COMMENT
-            | LINE_COMMENT
+statement ::= MULTILINE_COMMENT_TOKEN
+            | LINE_COMMENT_TOKEN
             | namespace_decl
             | ability_decl
             | dataType
@@ -157,15 +212,15 @@ qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
 
 // TODO Any Doc Either IPattern Ordering Optional Pattern Pretty Uuid Void
 // https://share.unison-lang.org/@unison/website/code/main/latest/namespaces/lib/base/;/types/Uuid
-builtin_type ::= 'Nat'
-  | 'Int'
-  | 'Char'
-  | 'Text'
-  | 'Float'
-  | 'Double'
-  | 'Boolean'
-  | 'Bytes'
-  | '()'
+builtin_type ::= KW_NAT
+  | KW_INT
+  | KW_CHAR
+  | KW_TEXT
+  | KW_FLOAT
+  | KW_DOUBLE
+  | KW_BOOLEAN
+  | KW_BYTES
+  | KW_UNIT
 
 type_expr ::=
   '[' type_expr IDENTIFIER? ']'
@@ -178,15 +233,13 @@ type_expr ::=
 
 type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
 
-MULTILINE_COMMENT ::= MULTILINE_COMMENT_TOKEN
-LINE_COMMENT ::= LINE_COMMENT_TOKEN
 IDENTIFIER ::= IDENTIFIER_TOKEN
 INT ::= INT_TOKEN
 DOUBLE ::= DOUBLE_TOKEN
 CHAR ::= CHAR_TOKEN
 STRING ::= STRING_TOKEN
 BYTES ::= BYTES_TOKEN
-BOOLEAN ::= 'true' | 'false'
+BOOLEAN ::= BOOLEAN_TOKEN
 NUM_OPERATOR ::= NUM_OPERATOR_TOKEN
 BOOL_OPERATOR ::= BOOL_OPERATOR_TOKEN
 COMPARE_OPERATOR ::= COMPARE_OPERATOR_TOKEN

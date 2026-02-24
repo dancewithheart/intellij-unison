@@ -21,7 +21,7 @@ case class UnisonSyntaxHighlighter()
   ): Array[TextAttributesKey] =
     tokenType match {
       case UnisonTypes.FORALL     => FORALL_KEYS
-      case UnisonTypes.IDENTIFIER => IDENTIFIER_KEYS
+      case UnisonTypes.IDENTIFIER_TOKEN => IDENTIFIER_KEYS
       case UnisonTypes.TYPE       => TYPE_KEYS
       case UnisonTypes.STRUCTURAL => STRUCTURAL_KEYS
       case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
@@ -30,19 +30,14 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.BYTES   => BYTES_KEYS
       case UnisonTypes.STRING  => STRING_KEYS
       case UnisonTypes.INT     => INT_KEYS
-      case UnisonTypes.NAT     => NAT_KEYS
       case UnisonTypes.DOUBLE  => DOUBLE_KEYS
-      case UnisonTypes.FLOAT   => FLOAT_KEYS
       case UnisonTypes.BOOLEAN => BOOLEAN_KEYS
-      case UnisonTypes.TEXT    => TEXT_KEYS
 
       case UnisonTypes.BOOLEAN_TOKEN => BOOLEAN_TOKEN_KEYS
       case UnisonTypes.BYTES_TOKEN => BYTES_TOKEN_KEYS
       case UnisonTypes.CHAR_TOKEN => CHAR_TOKEN_KEYS
       case UnisonTypes.DOUBLE_TOKEN => DOUBLE_TOKEN_KEYS
-      case UnisonTypes.FLOAT_TOKEN => FLOAT_TOKEN_KEYS
       case UnisonTypes.INT_TOKEN => INT_TOKEN_KEYS
-      case UnisonTypes.NAT_TOKEN => NAT_TOKEN_KEYS
       case UnisonTypes.STRING_TOKEN => STRING_TOKEN_KEYS
 
       case UnisonTypes.ARROW => ARROW_KEYS
@@ -76,8 +71,8 @@ case class UnisonSyntaxHighlighter()
       case UnisonTypes.WITH      => WITH_KEYS
       case UnisonTypes.USE       => USE_KEYS
 
-      case UnisonTypes.LINE_COMMENT => LINE_COMMENT_KEYS
-      case UnisonTypes.MULTILINE_COMMENT => MULTILINE_COMMENT_KEYS
+      case UnisonTypes.LINE_COMMENT_TOKEN => LINE_COMMENT_KEYS
+      case UnisonTypes.MULTILINE_COMMENT_TOKEN => MULTILINE_COMMENT_KEYS
       // else if (tokenType.equals(UnisonTypes.BAD_CHARACTER)) BAD_CHAR_KEYS
       case _ => EMPTY_KEYS
     }

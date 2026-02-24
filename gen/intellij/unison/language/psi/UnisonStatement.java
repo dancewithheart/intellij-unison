@@ -8,12 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface UnisonStatement extends PsiElement {
 
   @Nullable
-  UnisonLineComment getLineComment();
-
-  @Nullable
-  UnisonMultilineComment getMultilineComment();
-
-  @Nullable
   UnisonAbilityDecl getAbilityDecl();
 
   @Nullable
