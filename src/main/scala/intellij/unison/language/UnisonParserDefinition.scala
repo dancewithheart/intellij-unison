@@ -12,6 +12,8 @@ import intellij.unison.language.psi.UnisonTypes
 class UnisonParserDefinition
     extends ParserDefinition {
 
+  override def getWhitespaceTokens: TokenSet = UnisonTokenSets.WHITESPACE
+
   override def createLexer(project: Project): Lexer = new UnisonLexerAdapter()
 
   override def createParser(project: Project): PsiParser = new UnisonParser()
