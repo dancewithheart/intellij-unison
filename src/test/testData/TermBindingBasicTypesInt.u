@@ -1,7 +1,7 @@
 minInt : Int
 minInt = -9223372036854775808
 maxInt = +9223372036854775807
-{- TODO slow
+
 i1 : Int
 i1 = +0
 
@@ -22,4 +22,3 @@ octalInt = -0o5446
 
 binaryInt : Int
 binaryInt = +0b101010
--}

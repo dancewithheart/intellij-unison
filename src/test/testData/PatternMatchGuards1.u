@@ -1,5 +1,5 @@
 matchNum1 : Nat -> Text
 matchNum1 num = match num with
   one | one === 1 -> "one"
-  -- TODO SLOW  three | three === 3 -> "three"
+  three | three === 3 -> "three"
   _ -> "no match"

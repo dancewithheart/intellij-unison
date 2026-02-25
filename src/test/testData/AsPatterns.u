@@ -2,5 +2,5 @@
 matchExpression : Nat
 matchExpression = match 1 Nat.+ 1 with
   x@4 -> x Nat.* 2
-  -- TODO slow  y@2 -> y Nat.+ 1
+  y@2 -> y Nat.+ 1
   _   -> 22
