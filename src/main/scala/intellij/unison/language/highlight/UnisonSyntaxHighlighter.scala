@@ -8,192 +8,42 @@ import com.intellij.openapi.editor.{HighlighterColors => HC}
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import intellij.unison.UnisonLexerAdapter
-import intellij.unison.language.psi.UnisonTypes
 import UnisonSyntaxHighlighter._
+import intellij.unison.language.UnisonTokenSets._
 
 case class UnisonSyntaxHighlighter()
     extends SyntaxHighlighterBase {
 
   override def getHighlightingLexer: Lexer = new UnisonLexerAdapter()
 
-  override def getTokenHighlights(
-      tokenType: IElementType
-  ): Array[TextAttributesKey] =
-    tokenType match {
-      case UnisonTypes.FORALL     => FORALL_KEYS
-      case UnisonTypes.IDENTIFIER_TOKEN => IDENTIFIER_KEYS
-      case UnisonTypes.TYPE       => TYPE_KEYS
-      case UnisonTypes.STRUCTURAL => STRUCTURAL_KEYS
-      case UnisonTypes.NAMESPACE  => NAMESPACE_KEYS
-
-      case UnisonTypes.CHAR    => CHAR_KEYS
-      case UnisonTypes.BYTES   => BYTES_KEYS
-      case UnisonTypes.STRING  => STRING_KEYS
-      case UnisonTypes.INT     => INT_KEYS
-      case UnisonTypes.DOUBLE  => DOUBLE_KEYS
-      case UnisonTypes.BOOLEAN => BOOLEAN_KEYS
-
-      case UnisonTypes.BOOLEAN_TOKEN => BOOLEAN_TOKEN_KEYS
-      case UnisonTypes.BYTES_TOKEN => BYTES_TOKEN_KEYS
-      case UnisonTypes.CHAR_TOKEN => CHAR_TOKEN_KEYS
-      case UnisonTypes.DOUBLE_TOKEN => DOUBLE_TOKEN_KEYS
-      case UnisonTypes.INT_TOKEN => INT_TOKEN_KEYS
-      case UnisonTypes.STRING_TOKEN => STRING_TOKEN_KEYS
-
-      case UnisonTypes.ARROW => ARROW_KEYS
-      case UnisonTypes.COMMA => COMMA_KEYS
-
-      case UnisonTypes.LBRACE     => LBRACE_KEYS
-      case UnisonTypes.RBRACE     => RBRACE_KEYS
-      case UnisonTypes.LPAREN     => LPAREN_KEYS
-      case UnisonTypes.RPAREN     => RPAREN_KEYS
-      case UnisonTypes.MODW       => MODW_KEYS
-      case UnisonTypes.DOT        => DOT_KEYS
-      case UnisonTypes.NOT        => NOT_KEYS
-      case UnisonTypes.UNDERSCORE => UNDERSCORE_KEYS
-      case UnisonTypes.AT         => AT_KEYS
-      case UnisonTypes.BAR        => BAR_KEYS
-      case UnisonTypes.LAMBDA     => LAMBDA_KEYS
-
-      case UnisonTypes.ABILITY => ABILITY_KEYS
-      case UnisonTypes.LET     => LET_KEYS
-
-      case UnisonTypes.IF     => IF_KEYS
-      case UnisonTypes.THEN   => THEN_KEYS
-      case UnisonTypes.ELSE   => ELSE_KEYS
-      case UnisonTypes.DO     => DO_KEYS
-      case UnisonTypes.UNIQUE => UNIQUE_KEYS
-
-      case UnisonTypes.OTHERWISE => OTHERWISE_KEYS
-      case UnisonTypes.MATCH     => MATCH_KEYS
-      case UnisonTypes.CASES     => CASES_KEYS
-      case UnisonTypes.CATCH     => CATCH_KEYS
-      case UnisonTypes.WITH      => WITH_KEYS
-      case UnisonTypes.USE       => USE_KEYS
-
-      case UnisonTypes.LINE_COMMENT_TOKEN => LINE_COMMENT_KEYS
-      case UnisonTypes.MULTILINE_COMMENT_TOKEN => MULTILINE_COMMENT_KEYS
-      // else if (tokenType.equals(UnisonTypes.BAD_CHARACTER)) BAD_CHAR_KEYS
-      case _ => EMPTY_KEYS
-    }
+  override def getTokenHighlights(t: IElementType): Array[TextAttributesKey] =
+    if (COMMENTS.contains(t)) COMMENT_KEYS
+    else if (KEYWORDS.contains(t)) KEYWORD_KEYS
+    else if (BUILTIN_TYPES.contains(t)) BUILTIN_KEYS
+    else if (LITERALS.contains(t)) LITERAL_KEYS
+    else if (PUNCTUATION.contains(t)) PUNCT_KEYS
+    else if (IDENTIFIERS.contains(t)) IDENT_KEYS
+    else EMPTY_KEYS
 }
 
 object UnisonSyntaxHighlighter {
-  val SEPARATOR: TextAttributesKey = mkTextAttribKey("UNISON_SEPARATOR", DLHC.OPERATION_SIGN)
-  val IDENTIFIER: TextAttributesKey = mkTextAttribKey("UNISON_KEY", DLHC.IDENTIFIER)
-  val TYPE: TextAttributesKey = mkTextAttribKey("UNISON_TYPE", DLHC.KEYWORD)
-  val STRUCTURAL: TextAttributesKey = mkTextAttribKey("UNISON_STRUCTURAL", DLHC.KEYWORD)
-  val FORALL: TextAttributesKey = mkTextAttribKey("UNISON_FORALL", DLHC.KEYWORD)
-  val DO: TextAttributesKey = mkTextAttribKey("UNISON_DO", DLHC.KEYWORD)
-  val UNIQUE: TextAttributesKey = mkTextAttribKey("UNISON_UNIQUE", DLHC.KEYWORD)
+  private def keys(k: TextAttributesKey): Array[TextAttributesKey] = Array(k)
 
-  val BUILTIN_COLOR: TextAttributesKey = DLHC.KEYWORD
-  val TEXT: TextAttributesKey = mkTextAttribKey("UNISON_TEXT", BUILTIN_COLOR)
-  val CHAR: TextAttributesKey = mkTextAttribKey("UNISON_CHAR", BUILTIN_COLOR)
-  val BYTES: TextAttributesKey = mkTextAttribKey("UNISON_BYTES", BUILTIN_COLOR)
-  val INT: TextAttributesKey = mkTextAttribKey("UNISON_INT", BUILTIN_COLOR)
-  val NAT: TextAttributesKey = mkTextAttribKey("UNISON_NAT", BUILTIN_COLOR)
-  val DOUBLE: TextAttributesKey = mkTextAttribKey("UNISON_DOUBLE", BUILTIN_COLOR)
-  val FLOAT: TextAttributesKey = mkTextAttribKey("UNISON_FLOAT", BUILTIN_COLOR)
-  val BOOLEAN: TextAttributesKey = mkTextAttribKey("UNISON_BOOLEAN", BUILTIN_COLOR)
+  val IDENT = mkTextAttribKey("UNISON_IDENTIFIER", DLHC.IDENTIFIER)
+  val KEYWORD = mkTextAttribKey("UNISON_KEYWORD", DLHC.KEYWORD)
+  val BUILTIN = mkTextAttribKey("UNISON_BUILTIN", DLHC.PREDEFINED_SYMBOL)
+  val LITERAL = mkTextAttribKey("UNISON_LITERAL", DLHC.NUMBER)
+  val PUNCT = mkTextAttribKey("UNISON_PUNCT", DLHC.OPERATION_SIGN)
+  val COMMENT = mkTextAttribKey("UNISON_COMMENT", DLHC.LINE_COMMENT)
+  val BAD = mkTextAttribKey("UNISON_BAD_CHAR", HC.BAD_CHARACTER)
 
-  val BOOLEAN_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_BOOLEAN_TOKEN", DLHC.NUMBER)
-  val BYTES_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_BYTES_TOKEN", DLHC.NUMBER)
-  val CHAR_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_CHAR_TOKEN", DLHC.NUMBER)
-  val DOUBLE_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_DOUBLE_TOKEN", DLHC.NUMBER)
-  val FLOAT_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_FLOAT_TOKEN", DLHC.NUMBER)
-  val INT_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_INT_TOKEN", DLHC.NUMBER)
-  val NAT_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_NAT_TOKEN", DLHC.NUMBER)
-  val STRING_TOKEN: TextAttributesKey = mkTextAttribKey("UNISON_STRING_TOKEN", DLHC.STRING)
+  val IDENT_KEYS: Array[TextAttributesKey] = keys(IDENT)
+  val KEYWORD_KEYS: Array[TextAttributesKey] = keys(KEYWORD)
+  val BUILTIN_KEYS: Array[TextAttributesKey] = keys(BUILTIN)
+  val LITERAL_KEYS: Array[TextAttributesKey] = keys(LITERAL)
+  val PUNCT_KEYS: Array[TextAttributesKey] = keys(PUNCT)
+  val COMMENT_KEYS: Array[TextAttributesKey] = keys(COMMENT)
+  val BAD_CHAR_KEYS: Array[TextAttributesKey] = keys(BAD)
 
-  val ARROW: TextAttributesKey = mkTextAttribKey("UNISON_ARROW", DLHC.OPERATION_SIGN)
-  val AT: TextAttributesKey = mkTextAttribKey("UNISON_AT", DLHC.OPERATION_SIGN)
-  val BAR: TextAttributesKey = mkTextAttribKey("UNISON_BAR", DLHC.OPERATION_SIGN)
-  val COMMA: TextAttributesKey = mkTextAttribKey("UNISON_COMMA", DLHC.OPERATION_SIGN)
-  val UNDERSCORE: TextAttributesKey = mkTextAttribKey("UNISON_UNDERSCORE", DLHC.OPERATION_SIGN)
-  val LAMBDA: TextAttributesKey = mkTextAttribKey("UNISON_LAMBDA", DLHC.OPERATION_SIGN)
-  val DOT: TextAttributesKey = mkTextAttribKey("UNISON_DOT", DLHC.DOT)
-
-  val MODW: TextAttributesKey = mkTextAttribKey("UNISON_MODW", DLHC.OPERATION_SIGN)
-  val LBRACE: TextAttributesKey = mkTextAttribKey("UNISON_LBRACE", DLHC.BRACES)
-  val RBRACE: TextAttributesKey = mkTextAttribKey("UNISON_RBRACE", DLHC.BRACES)
-  val LPAREN: TextAttributesKey = mkTextAttribKey("UNISON_LPAREN", DLHC.PARENTHESES)
-  val RPAREN: TextAttributesKey = mkTextAttribKey("UNISON_RPAREN", DLHC.PARENTHESES)
-
-  val NAMESPACE: TextAttributesKey = mkTextAttribKey("UNISON_NAMESPACE", DLHC.KEYWORD)
-  val USE: TextAttributesKey = mkTextAttribKey("UNISON_USE", DLHC.KEYWORD)
-  val NOT: TextAttributesKey = mkTextAttribKey("UNISON_NOT", DLHC.KEYWORD)
-  val LET: TextAttributesKey = mkTextAttribKey("UNISON_LET", DLHC.KEYWORD)
-  val IF: TextAttributesKey = mkTextAttribKey("UNISON_IF", DLHC.KEYWORD)
-  val THEN: TextAttributesKey = mkTextAttribKey("UNISON_THEN", DLHC.KEYWORD)
-  val ELSE: TextAttributesKey = mkTextAttribKey("UNISON_ELSE", DLHC.KEYWORD)
-  val MATCH: TextAttributesKey = mkTextAttribKey("UNISON_MATCH", DLHC.KEYWORD)
-  val CASES: TextAttributesKey = mkTextAttribKey("UNISON_CASES", DLHC.KEYWORD)
-  val CATCH: TextAttributesKey = mkTextAttribKey("UNISON_CATCH", DLHC.KEYWORD)
-  val WITH: TextAttributesKey = mkTextAttribKey("UNISON_WITH", DLHC.KEYWORD)
-  val OTHERWISE: TextAttributesKey = mkTextAttribKey("UNISON_OTHERWISE", DLHC.KEYWORD)
-  val ABILITY: TextAttributesKey = mkTextAttribKey("UNISON_ABILITY", DLHC.KEYWORD)
-
-  val LINE_COMMENT: TextAttributesKey = mkTextAttribKey("UNISON_LINE_COMMENT", DLHC.LINE_COMMENT)
-  val MULTILINE_COMMENT: TextAttributesKey = mkTextAttribKey("UNISON_MULTILINE_COMMENT", DLHC.DOC_COMMENT)
-  val BAD_CHARACTER: TextAttributesKey = mkTextAttribKey("UNISON_BAD_CHARACTER", HC.BAD_CHARACTER)
-
-  val BAD_CHAR_KEYS: Array[TextAttributesKey] = Array(BAD_CHARACTER)
-  val IDENTIFIER_KEYS: Array[TextAttributesKey] = Array(IDENTIFIER)
-  val TYPE_KEYS: Array[TextAttributesKey] = Array(TYPE)
-  val STRUCTURAL_KEYS: Array[TextAttributesKey] = Array(STRUCTURAL)
-  val FORALL_KEYS: Array[TextAttributesKey] = Array(FORALL)
-  val NAMESPACE_KEYS: Array[TextAttributesKey] = Array(NAMESPACE)
-  val USE_KEYS: Array[TextAttributesKey] = Array(USE)
-  val COMMA_KEYS: Array[TextAttributesKey] = Array(COMMA)
-
-  val LBRACE_KEYS: Array[TextAttributesKey] = Array(LBRACE)
-  val RBRACE_KEYS: Array[TextAttributesKey] = Array(RBRACE)
-  val LPAREN_KEYS: Array[TextAttributesKey] = Array(LPAREN)
-  val RPAREN_KEYS: Array[TextAttributesKey] = Array(RPAREN)
-  val DOT_KEYS: Array[TextAttributesKey] = Array(DOT)
-  val NOT_KEYS: Array[TextAttributesKey] = Array(NOT)
-  val MODW_KEYS: Array[TextAttributesKey] = Array(MODW)
-  val UNDERSCORE_KEYS: Array[TextAttributesKey] = Array(UNDERSCORE)
-  val LAMBDA_KEYS: Array[TextAttributesKey] = Array(LAMBDA)
-  val AT_KEYS: Array[TextAttributesKey] = Array(AT)
-  val BAR_KEYS: Array[TextAttributesKey] = Array(BAR)
-
-  val STRING_KEYS: Array[TextAttributesKey] = Array(TEXT)
-  val BOOLEAN_KEYS: Array[TextAttributesKey] = Array(BOOLEAN)
-
-  val BOOLEAN_TOKEN_KEYS: Array[TextAttributesKey] = Array(BOOLEAN_TOKEN)
-  val BYTES_TOKEN_KEYS: Array[TextAttributesKey] = Array(BYTES_TOKEN)
-  val CHAR_TOKEN_KEYS: Array[TextAttributesKey] = Array(CHAR_TOKEN)
-  val DOUBLE_TOKEN_KEYS: Array[TextAttributesKey] = Array(DOUBLE_TOKEN)
-  val FLOAT_TOKEN_KEYS: Array[TextAttributesKey] = Array(FLOAT_TOKEN)
-  val INT_TOKEN_KEYS: Array[TextAttributesKey] = Array(INT_TOKEN)
-  val NAT_TOKEN_KEYS: Array[TextAttributesKey] = Array(NAT_TOKEN)
-  val STRING_TOKEN_KEYS: Array[TextAttributesKey] = Array(STRING_TOKEN)
-
-  val INT_KEYS: Array[TextAttributesKey] = Array(INT)
-  val NAT_KEYS: Array[TextAttributesKey] = Array(NAT)
-  val DOUBLE_KEYS: Array[TextAttributesKey] = Array(DOUBLE)
-  val FLOAT_KEYS: Array[TextAttributesKey] = Array(FLOAT)
-  val BYTES_KEYS: Array[TextAttributesKey] = Array(BYTES)
-  val CHAR_KEYS: Array[TextAttributesKey] = Array(CHAR)
-  val TEXT_KEYS: Array[TextAttributesKey] = Array(TEXT)
-
-  val ARROW_KEYS: Array[TextAttributesKey] = Array(ARROW)
-  val LET_KEYS: Array[TextAttributesKey] = Array(LET)
-  val ABILITY_KEYS: Array[TextAttributesKey] = Array(ABILITY)
-  val MATCH_KEYS: Array[TextAttributesKey] = Array(MATCH)
-  val OTHERWISE_KEYS: Array[TextAttributesKey] = Array(OTHERWISE)
-  val CASES_KEYS: Array[TextAttributesKey] = Array(CASES)
-  val CATCH_KEYS: Array[TextAttributesKey] = Array(CATCH)
-  val WITH_KEYS: Array[TextAttributesKey] = Array(WITH)
-  val IF_KEYS: Array[TextAttributesKey] = Array(IF)
-  val THEN_KEYS: Array[TextAttributesKey] = Array(THEN)
-  val ELSE_KEYS: Array[TextAttributesKey] = Array(ELSE)
-  val DO_KEYS: Array[TextAttributesKey] = Array(DO)
-  val UNIQUE_KEYS: Array[TextAttributesKey] = Array(UNIQUE)
-
-  val LINE_COMMENT_KEYS: Array[TextAttributesKey] = Array(LINE_COMMENT)
-  val MULTILINE_COMMENT_KEYS: Array[TextAttributesKey] = Array(MULTILINE_COMMENT)
-  val EMPTY_KEYS: Array[TextAttributesKey] = Array()
+  val EMPTY_KEYS: Array[TextAttributesKey] = Array.empty
 }

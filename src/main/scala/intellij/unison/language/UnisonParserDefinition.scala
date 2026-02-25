@@ -20,7 +20,7 @@ class UnisonParserDefinition
 
   override def getCommentTokens: TokenSet = UnisonTokenSets.COMMENTS
 
-  override def getStringLiteralElements: TokenSet = TokenSet.EMPTY
+  override def getStringLiteralElements: TokenSet = UnisonTokenSets.STRING_LITERALS
 
   override def createElement(node: ASTNode): PsiElement =
     UnisonTypes.Factory.createElement(node)
