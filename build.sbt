@@ -1,7 +1,7 @@
 import org.jetbrains.sbtidea.Keys.*
 import jflex.Main.{main => jflexRun}
 
-ThisBuild / scalaVersion := "2.13.16"
+ThisBuild / scalaVersion := "2.13.18"
 
 ThisBuild / intellijPluginName := "intellij-unison"
 ThisBuild / intellijBuild := "251.26927.53"
@@ -23,7 +23,9 @@ lazy val unison =
       libraryDependencies ++= Seq(
         "com.github.sbt" % "junit-interface" % junitInterfaceVersion % Test,
         "org.opentest4j" % "opentest4j" % opentest4jVersion % Test,
-        "junit" % "junit" % junitVersion % Test
+        "junit" % "junit" % junitVersion % Test,
+        "dev.zio" %% "zio-test"     % "2.0.21" % Test,
+        "dev.zio" %% "zio-test-sbt" % "2.0.21" % Test
       ),
       // manually breaking sources in gen does not break `sbt compile`
       // Compile / managedSourceDirectories += baseDirectory.value / "gen",
