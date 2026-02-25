@@ -50,6 +50,7 @@
     BACKSLASH='\\'
     UNDERSCORE='_'
     FORALLSYMBOL='∀'
+    MINUS='-'
 
     KW_NAT='Nat'
     KW_INT='Int'
@@ -71,7 +72,10 @@
 
 unisonFile ::= statement*
 
-private name ::= IDENTIFIER | OPERATOR_ID
+private name ::= IDENTIFIER
+              | OPERATOR_ID
+              | ADD_OP
+              | MUL_OP
 
 // https://www.unison-lang.org/docs/language-reference/top-level-declaration/
 statement ::= MULTILINE_COMMENT_TOKEN
@@ -87,11 +91,14 @@ namespace_decl ::= NAMESPACE qualified_name
 fun_body ::= (DO expression) | statement+
 
 // https://www.unison-lang.org/docs/language-reference/use-clauses/
-useClause ::= USE (qualified_import
- | qualified_name
- | NUM_OPERATOR
- | BOOL_OPERATOR
- | COMPARE_OPERATOR )+
+useClause ::= USE (
+    qualified_import
+  | qualified_name
+  | builtin_type
+  | OPERATOR_ID
+  | BOOL_OPERATOR
+  | COMPARE_OPERATOR
+)+
 
 private qualified_import ::= builtin_type (DOT IDENTIFIER)*
 
@@ -134,13 +141,14 @@ binding ::= qualified_name IDENTIFIER* EQ expression
   | LPAREN (IDENTIFIER | UNDERSCORE) (COMMA (IDENTIFIER | UNDERSCORE))* RPAREN EQ LPAREN expression (COMMA expression)* RPAREN
 
 // https://www.unison-lang.org/docs/language-reference/basic-lexical-forms/
-expression ::= useClause
+expression ::= DO expression
+             | useClause
              | typed_def
              | binding
              | lambda
              | function_call
-             | numExpr
              | boolExpr
+             | numExpr
              | ifThenElseExpr
              | matchExpr
              | cases_expr
@@ -174,10 +182,10 @@ pattern ::= name AT pattern
           | constructor_pattern
           | LPAREN literal (COMMA literal)* RPAREN
 
-numExpr ::= sumExpr
-
-private sumExpr ::= prodExpr (NUM_OPERATOR prodExpr)*
-private prodExpr ::= unaryExpr (NUM_OPERATOR unaryExpr)*
+numExpr ::= addExpr
+private addExpr ::= mulExpr (ADD_OP mulExpr)*
+private mulExpr ::= unaryExpr (MUL_OP unaryExpr)*
+private unaryExpr ::= MINUS unaryExpr | MODW unaryExpr unaryExpr | atomNum
 
 private unaryExpr ::=
     MINUS unaryExpr
@@ -190,7 +198,6 @@ private atomNum ::=
   | LPAREN numExpr RPAREN
 
 private numLiteral ::= INT | DOUBLE
-private MINUS ::= NUM_OPERATOR
 
 // https://www.unison-lang.org/docs/language-reference/boolean-expressions/
 boolExpr ::= orExpr
@@ -259,6 +266,7 @@ CHAR ::= CHAR_TOKEN
 STRING ::= STRING_TOKEN
 BYTES ::= BYTES_TOKEN
 BOOLEAN ::= BOOLEAN_TOKEN
-NUM_OPERATOR ::= NUM_OPERATOR_TOKEN
+ADD_OP ::= ADD_OP_TOKEN
+MUL_OP ::= MUL_OP_TOKEN
 BOOL_OPERATOR ::= BOOL_OPERATOR_TOKEN
 COMPARE_OPERATOR ::= COMPARE_OPERATOR_TOKEN

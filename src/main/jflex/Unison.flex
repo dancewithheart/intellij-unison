@@ -38,7 +38,8 @@ STRING_SINGLELINE = \" ([^\"\r\n] | \\\")* \"
 STRING_MULTILINE = \"\"\" [^\"]+ ~\"\"\"
 STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}
 BOOLEAN = "true" | "false"
-NUM_OPERATOR = "+" | "-" | "*" | "/" | "%" | "Nat.+" | "Nat.-" | "Nat.*" | "Nat./" | "Nat.%"
+ADD_OP = "+" | "-" | "Nat.+" | "Nat.-"
+MUL_OP = "*" | "/" | "%" | "Nat.*" | "Nat./" | "Nat.%"
 BOOL_OPERATOR = "&&" | "||"
 COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.==" | "Nat.!=" | "Nat.<" | "Nat.>" | "Nat.<=" | "Nat.>="
 
@@ -114,7 +115,10 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.==" | "Nat.!=" 
 {LINE_COMMENT}           { return LINE_COMMENT_TOKEN; }
 {MULTILINE_COMMENT}      { return MULTILINE_COMMENT_TOKEN; }
 
-{NUM_OPERATOR}           { return NUM_OPERATOR_TOKEN; }
+"-"                      { return MINUS; }
+
+{ADD_OP}                 { return ADD_OP_TOKEN; }
+{MUL_OP}                 { return MUL_OP_TOKEN; }
 {BOOL_OPERATOR}          { return BOOL_OPERATOR_TOKEN; }
 {COMPARE_OPERATOR}       { return COMPARE_OPERATOR_TOKEN; }
 
