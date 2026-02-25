@@ -15,7 +15,7 @@ lazy val unison =
   project.in(file("."))
     .enablePlugins(SbtIdeaPlugin)
     .settings(
-      version := "0.0.1",
+      version := "0.0.3",
       Compile / javacOptions ++= Seq("--release", "17"),
       Compile / scalacOptions ++= Seq("--release", "17"),
       compileOrder := CompileOrder.Mixed,
@@ -34,6 +34,18 @@ lazy val unison =
       Test / unmanagedResourceDirectories += baseDirectory.value / "testResources",
       commands ++= Seq(lexer)
     )
+
+Compile / resourceGenerators += Def.task {
+  val in  = baseDirectory.value / "resources" / "META-INF" / "plugin.xml"
+  val outDir = baseDirectory.value / "resources" / "META-INF"
+  val out = outDir / "plugin.xml"
+  IO.createDirectory(outDir)
+
+  val content = IO.read(in).replace("${pluginVersion}", version.value)
+  IO.write(out, content)
+
+  Seq(out)
+}.taskValue
 
 // https://github.com/dlwh/sbt-jflex uses old version of JFlex
 // manually one can download JFlex modified by IntelliJ and run
