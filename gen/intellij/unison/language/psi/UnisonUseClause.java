@@ -17,9 +17,6 @@ public interface UnisonUseClause extends PsiElement {
   List<UnisonNumOperator> getNumOperatorList();
 
   @NotNull
-  List<UnisonQualifiedImport> getQualifiedImportList();
-
-  @NotNull
   List<UnisonQualifiedName> getQualifiedNameList();
 
 }

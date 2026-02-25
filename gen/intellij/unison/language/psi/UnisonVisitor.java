@@ -43,23 +43,15 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitOperatorId(@NotNull UnisonOperatorId o) {
+    visitPsiElement(o);
+  }
+
   public void visitString(@NotNull UnisonString o) {
     visitPsiElement(o);
   }
 
-  public void visitAbilityRequirements(@NotNull UnisonAbilityRequirements o) {
-    visitPsiElement(o);
-  }
-
-  public void visitAbilityConstructor(@NotNull UnisonAbilityConstructor o) {
-    visitPsiElement(o);
-  }
-
   public void visitAbilityDecl(@NotNull UnisonAbilityDecl o) {
-    visitPsiElement(o);
-  }
-
-  public void visitArgumentList(@NotNull UnisonArgumentList o) {
     visitPsiElement(o);
   }
 
@@ -80,10 +72,6 @@ public class UnisonVisitor extends PsiElementVisitor {
   }
 
   public void visitCatchExpr(@NotNull UnisonCatchExpr o) {
-    visitPsiElement(o);
-  }
-
-  public void visitConstructorPattern(@NotNull UnisonConstructorPattern o) {
     visitPsiElement(o);
   }
 
@@ -147,19 +135,11 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitNumLiteral(@NotNull UnisonNumLiteral o) {
-    visitPsiElement(o);
-  }
-
   public void visitPattern(@NotNull UnisonPattern o) {
     visitPsiElement(o);
   }
 
   public void visitPolymorphicType(@NotNull UnisonPolymorphicType o) {
-    visitPsiElement(o);
-  }
-
-  public void visitQualifiedImport(@NotNull UnisonQualifiedImport o) {
     visitPsiElement(o);
   }
 
@@ -172,10 +152,6 @@ public class UnisonVisitor extends PsiElementVisitor {
   }
 
   public void visitTypeExpr(@NotNull UnisonTypeExpr o) {
-    visitPsiElement(o);
-  }
-
-  public void visitTypeParams(@NotNull UnisonTypeParams o) {
     visitPsiElement(o);
   }
 

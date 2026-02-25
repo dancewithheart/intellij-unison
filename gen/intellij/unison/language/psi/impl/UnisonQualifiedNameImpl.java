@@ -33,4 +33,10 @@ public class UnisonQualifiedNameImpl extends ASTWrapperPsiElement implements Uni
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
 }

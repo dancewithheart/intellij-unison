@@ -44,9 +44,6 @@ public interface UnisonExpression extends PsiElement {
   UnisonNumExpr getNumExpr();
 
   @Nullable
-  UnisonQualifiedImport getQualifiedImport();
-
-  @Nullable
   UnisonQualifiedName getQualifiedName();
 
   @Nullable

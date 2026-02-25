@@ -11,7 +11,7 @@ public interface UnisonPattern extends PsiElement {
   UnisonIdentifier getIdentifier();
 
   @Nullable
-  UnisonConstructorPattern getConstructorPattern();
+  UnisonOperatorId getOperatorId();
 
   @Nullable
   UnisonLiteral getLiteral();

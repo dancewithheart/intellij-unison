@@ -8,12 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface UnisonAbilityDecl extends PsiElement {
 
   @NotNull
-  UnisonIdentifier getIdentifier();
+  List<UnisonIdentifier> getIdentifierList();
 
   @NotNull
-  List<UnisonAbilityConstructor> getAbilityConstructorList();
-
-  @Nullable
-  UnisonTypeParams getTypeParams();
+  List<UnisonTypeExpr> getTypeExprList();
 
 }

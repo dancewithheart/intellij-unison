@@ -10,4 +10,7 @@ public interface UnisonQualifiedName extends PsiElement {
   @NotNull
   List<UnisonIdentifier> getIdentifierList();
 
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
+
 }

@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface UnisonTypedDef extends PsiElement {
 
   @NotNull
-  List<UnisonAbilityRequirements> getAbilityRequirementsList();
+  List<UnisonIdentifier> getIdentifierList();
 
   @Nullable
   UnisonDelayedType getDelayedType();

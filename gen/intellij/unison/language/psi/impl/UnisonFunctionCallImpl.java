@@ -28,9 +28,9 @@ public class UnisonFunctionCallImpl extends ASTWrapperPsiElement implements Unis
   }
 
   @Override
-  @Nullable
-  public UnisonArgumentList getArgumentList() {
-    return findChildByClass(UnisonArgumentList.class);
+  @NotNull
+  public List<UnisonExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
   }
 
   @Override

@@ -35,8 +35,8 @@ public class UnisonPatternImpl extends ASTWrapperPsiElement implements UnisonPat
 
   @Override
   @Nullable
-  public UnisonConstructorPattern getConstructorPattern() {
-    return findChildByClass(UnisonConstructorPattern.class);
+  public UnisonOperatorId getOperatorId() {
+    return findChildByClass(UnisonOperatorId.class);
   }
 
   @Override

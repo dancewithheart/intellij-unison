@@ -47,12 +47,6 @@ public class UnisonUseClauseImpl extends ASTWrapperPsiElement implements UnisonU
 
   @Override
   @NotNull
-  public List<UnisonQualifiedImport> getQualifiedImportList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedImport.class);
-  }
-
-  @Override
-  @NotNull
   public List<UnisonQualifiedName> getQualifiedNameList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedName.class);
   }

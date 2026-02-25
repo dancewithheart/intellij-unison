@@ -29,8 +29,8 @@ public class UnisonTypedDefImpl extends ASTWrapperPsiElement implements UnisonTy
 
   @Override
   @NotNull
-  public List<UnisonAbilityRequirements> getAbilityRequirementsList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAbilityRequirements.class);
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
   @Override

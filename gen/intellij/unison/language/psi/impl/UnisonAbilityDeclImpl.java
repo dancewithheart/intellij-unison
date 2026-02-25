@@ -29,20 +29,14 @@ public class UnisonAbilityDeclImpl extends ASTWrapperPsiElement implements Uniso
 
   @Override
   @NotNull
-  public UnisonIdentifier getIdentifier() {
-    return findNotNullChildByClass(UnisonIdentifier.class);
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
   @Override
   @NotNull
-  public List<UnisonAbilityConstructor> getAbilityConstructorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAbilityConstructor.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonTypeParams getTypeParams() {
-    return findChildByClass(UnisonTypeParams.class);
+  public List<UnisonTypeExpr> getTypeExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonTypeExpr.class);
   }
 
 }

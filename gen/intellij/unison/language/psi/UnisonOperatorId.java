@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonArgumentList extends PsiElement {
-
-  @NotNull
-  List<UnisonExpression> getExpressionList();
+public interface UnisonOperatorId extends PsiElement {
 
 }
