@@ -8,12 +8,18 @@ import com.intellij.psi.PsiElement;
 public interface UnisonBinding extends PsiElement {
 
   @NotNull
+  List<UnisonAddOp> getAddOpList();
+
+  @NotNull
   List<UnisonIdentifier> getIdentifierList();
 
   @NotNull
-  List<UnisonExpression> getExpressionList();
+  List<UnisonMulOp> getMulOpList();
 
-  @Nullable
-  UnisonQualifiedName getQualifiedName();
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
+
+  @NotNull
+  List<UnisonExpression> getExpressionList();
 
 }

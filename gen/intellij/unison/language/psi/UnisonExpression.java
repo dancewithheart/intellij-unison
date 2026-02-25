@@ -7,11 +7,26 @@ import com.intellij.psi.PsiElement;
 
 public interface UnisonExpression extends PsiElement {
 
+  @NotNull
+  List<UnisonAddOp> getAddOpList();
+
+  @NotNull
+  List<UnisonIdentifier> getIdentifierList();
+
+  @NotNull
+  List<UnisonMulOp> getMulOpList();
+
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
+
   @Nullable
   UnisonBinding getBinding();
 
   @Nullable
   UnisonBoolExpr getBoolExpr();
+
+  @Nullable
+  UnisonBuiltinType getBuiltinType();
 
   @Nullable
   UnisonCasesExpr getCasesExpr();
@@ -42,9 +57,6 @@ public interface UnisonExpression extends PsiElement {
 
   @Nullable
   UnisonNumExpr getNumExpr();
-
-  @Nullable
-  UnisonQualifiedName getQualifiedName();
 
   @Nullable
   UnisonTypedDef getTypedDef();

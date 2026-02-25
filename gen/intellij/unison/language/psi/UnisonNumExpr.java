@@ -8,18 +8,24 @@ import com.intellij.psi.PsiElement;
 public interface UnisonNumExpr extends PsiElement {
 
   @NotNull
+  List<UnisonAddOp> getAddOpList();
+
+  @NotNull
   List<UnisonDouble> getDoubleList();
+
+  @NotNull
+  List<UnisonIdentifier> getIdentifierList();
 
   @NotNull
   List<UnisonInt> getIntList();
 
   @NotNull
-  List<UnisonNumOperator> getNumOperatorList();
+  List<UnisonMulOp> getMulOpList();
+
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
 
   @NotNull
   List<UnisonNumExpr> getNumExprList();
-
-  @NotNull
-  List<UnisonQualifiedName> getQualifiedNameList();
 
 }

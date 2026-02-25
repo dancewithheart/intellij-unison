@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class UnisonVisitor extends PsiElementVisitor {
 
+  public void visitAddOp(@NotNull UnisonAddOp o) {
+    visitPsiElement(o);
+  }
+
   public void visitBoolean(@NotNull UnisonBoolean o) {
     visitPsiElement(o);
   }
@@ -39,7 +43,7 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitNumOperator(@NotNull UnisonNumOperator o) {
+  public void visitMulOp(@NotNull UnisonMulOp o) {
     visitPsiElement(o);
   }
 
@@ -140,10 +144,6 @@ public class UnisonVisitor extends PsiElementVisitor {
   }
 
   public void visitPolymorphicType(@NotNull UnisonPolymorphicType o) {
-    visitPsiElement(o);
-  }
-
-  public void visitQualifiedName(@NotNull UnisonQualifiedName o) {
     visitPsiElement(o);
   }
 

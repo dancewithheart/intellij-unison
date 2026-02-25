@@ -29,8 +29,26 @@ public class UnisonTypedDefImpl extends ASTWrapperPsiElement implements UnisonTy
 
   @Override
   @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
+  }
+
+  @Override
+  @NotNull
   public List<UnisonIdentifier> getIdentifierList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
   }
 
   @Override
@@ -49,12 +67,6 @@ public class UnisonTypedDefImpl extends ASTWrapperPsiElement implements UnisonTy
   @Nullable
   public UnisonPolymorphicType getPolymorphicType() {
     return findChildByClass(UnisonPolymorphicType.class);
-  }
-
-  @Override
-  @NotNull
-  public UnisonQualifiedName getQualifiedName() {
-    return findNotNullChildByClass(UnisonQualifiedName.class);
   }
 
   @Override

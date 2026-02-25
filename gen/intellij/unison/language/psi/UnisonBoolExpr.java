@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface UnisonBoolExpr extends PsiElement {
 
   @NotNull
+  List<UnisonAddOp> getAddOpList();
+
+  @NotNull
   List<UnisonBoolean> getBooleanList();
 
   @NotNull
@@ -17,12 +20,18 @@ public interface UnisonBoolExpr extends PsiElement {
   List<UnisonCompareOperator> getCompareOperatorList();
 
   @NotNull
+  List<UnisonIdentifier> getIdentifierList();
+
+  @NotNull
+  List<UnisonMulOp> getMulOpList();
+
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
+
+  @NotNull
   List<UnisonBoolExpr> getBoolExprList();
 
   @NotNull
   List<UnisonNumExpr> getNumExprList();
-
-  @NotNull
-  List<UnisonQualifiedName> getQualifiedNameList();
 
 }

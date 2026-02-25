@@ -29,8 +29,20 @@ public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNum
 
   @Override
   @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
+  }
+
+  @Override
+  @NotNull
   public List<UnisonDouble> getDoubleList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonDouble.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
   @Override
@@ -41,20 +53,20 @@ public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNum
 
   @Override
   @NotNull
-  public List<UnisonNumOperator> getNumOperatorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumOperator.class);
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
   }
 
   @Override
   @NotNull
   public List<UnisonNumExpr> getNumExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonQualifiedName> getQualifiedNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedName.class);
   }
 
 }

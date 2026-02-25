@@ -8,9 +8,18 @@ import com.intellij.psi.PsiElement;
 public interface UnisonFunctionCall extends PsiElement {
 
   @NotNull
-  List<UnisonExpression> getExpressionList();
+  List<UnisonAddOp> getAddOpList();
 
   @NotNull
-  UnisonQualifiedName getQualifiedName();
+  List<UnisonIdentifier> getIdentifierList();
+
+  @NotNull
+  List<UnisonMulOp> getMulOpList();
+
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
+
+  @NotNull
+  List<UnisonExpression> getExpressionList();
 
 }

@@ -9,6 +9,7 @@ import intellij.unison.language.psi.impl.*;
 public interface UnisonTypes {
 
   IElementType ABILITY_DECL = new UnisonElementType("ABILITY_DECL");
+  IElementType ADD_OP = new UnisonElementType("ADD_OP");
   IElementType BINDING = new UnisonElementType("BINDING");
   IElementType BOOLEAN = new UnisonElementType("BOOLEAN");
   IElementType BOOL_EXPR = new UnisonElementType("BOOL_EXPR");
@@ -35,13 +36,12 @@ public interface UnisonTypes {
   IElementType LITERAL = new UnisonElementType("LITERAL");
   IElementType MATCH_CASE = new UnisonElementType("MATCH_CASE");
   IElementType MATCH_EXPR = new UnisonElementType("MATCH_EXPR");
+  IElementType MUL_OP = new UnisonElementType("MUL_OP");
   IElementType NAMESPACE_DECL = new UnisonElementType("NAMESPACE_DECL");
   IElementType NUM_EXPR = new UnisonElementType("NUM_EXPR");
-  IElementType NUM_OPERATOR = new UnisonElementType("NUM_OPERATOR");
   IElementType OPERATOR_ID = new UnisonElementType("OPERATOR_ID");
   IElementType PATTERN = new UnisonElementType("PATTERN");
   IElementType POLYMORPHIC_TYPE = new UnisonElementType("POLYMORPHIC_TYPE");
-  IElementType QUALIFIED_NAME = new UnisonElementType("QUALIFIED_NAME");
   IElementType STATEMENT = new UnisonElementType("STATEMENT");
   IElementType STRING = new UnisonElementType("STRING");
   IElementType TYPED_DEF = new UnisonElementType("TYPED_DEF");
@@ -49,6 +49,7 @@ public interface UnisonTypes {
   IElementType USE_CLAUSE = new UnisonElementType("USE_CLAUSE");
 
   IElementType ABILITY = new UnisonTokenType("ability");
+  IElementType ADD_OP_TOKEN = new UnisonTokenType("ADD_OP_TOKEN");
   IElementType ALIAS = new UnisonTokenType("alias");
   IElementType ARROW = new UnisonTokenType("->");
   IElementType AT = new UnisonTokenType("@");
@@ -91,14 +92,14 @@ public interface UnisonTypes {
   IElementType LPAREN = new UnisonTokenType("(");
   IElementType LPARENSQ = new UnisonTokenType("[");
   IElementType MATCH = new UnisonTokenType("match");
+  IElementType MINUS = new UnisonTokenType("-");
   IElementType MODW = new UnisonTokenType("mod");
   IElementType MULTILINE_COMMENT_TOKEN = new UnisonTokenType("MULTILINE_COMMENT_TOKEN");
+  IElementType MUL_OP_TOKEN = new UnisonTokenType("MUL_OP_TOKEN");
   IElementType NAMESPACE = new UnisonTokenType("namespace");
   IElementType NOT = new UnisonTokenType("not");
-  IElementType NUM_OPERATOR_TOKEN = new UnisonTokenType("NUM_OPERATOR_TOKEN");
   IElementType OPERATOR_ID_TOKEN = new UnisonTokenType("OPERATOR_ID_TOKEN");
   IElementType OTHERWISE = new UnisonTokenType("otherwise");
-  IElementType QUALIFIED_IMPORT = new UnisonTokenType("qualified_import");
   IElementType RBRACE = new UnisonTokenType("}");
   IElementType RPAREN = new UnisonTokenType(")");
   IElementType RPARENSQ = new UnisonTokenType("]");
@@ -120,6 +121,9 @@ public interface UnisonTypes {
       IElementType type = node.getElementType();
       if (type == ABILITY_DECL) {
         return new UnisonAbilityDeclImpl(node);
+      }
+      else if (type == ADD_OP) {
+        return new UnisonAddOpImpl(node);
       }
       else if (type == BINDING) {
         return new UnisonBindingImpl(node);
@@ -199,14 +203,14 @@ public interface UnisonTypes {
       else if (type == MATCH_EXPR) {
         return new UnisonMatchExprImpl(node);
       }
+      else if (type == MUL_OP) {
+        return new UnisonMulOpImpl(node);
+      }
       else if (type == NAMESPACE_DECL) {
         return new UnisonNamespaceDeclImpl(node);
       }
       else if (type == NUM_EXPR) {
         return new UnisonNumExprImpl(node);
-      }
-      else if (type == NUM_OPERATOR) {
-        return new UnisonNumOperatorImpl(node);
       }
       else if (type == OPERATOR_ID) {
         return new UnisonOperatorIdImpl(node);
@@ -216,9 +220,6 @@ public interface UnisonTypes {
       }
       else if (type == POLYMORPHIC_TYPE) {
         return new UnisonPolymorphicTypeImpl(node);
-      }
-      else if (type == QUALIFIED_NAME) {
-        return new UnisonQualifiedNameImpl(node);
       }
       else if (type == STATEMENT) {
         return new UnisonStatementImpl(node);

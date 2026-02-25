@@ -29,6 +29,12 @@ public class UnisonUseClauseImpl extends ASTWrapperPsiElement implements UnisonU
 
   @Override
   @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
+  }
+
+  @Override
+  @NotNull
   public List<UnisonBoolOperator> getBoolOperatorList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolOperator.class);
   }
@@ -41,14 +47,26 @@ public class UnisonUseClauseImpl extends ASTWrapperPsiElement implements UnisonU
 
   @Override
   @NotNull
-  public List<UnisonNumOperator> getNumOperatorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumOperator.class);
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
   @Override
   @NotNull
-  public List<UnisonQualifiedName> getQualifiedNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedName.class);
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonBuiltinType> getBuiltinTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBuiltinType.class);
   }
 
 }

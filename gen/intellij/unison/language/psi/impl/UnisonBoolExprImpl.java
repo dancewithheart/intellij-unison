@@ -29,6 +29,12 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
 
   @Override
   @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
+  }
+
+  @Override
+  @NotNull
   public List<UnisonBoolean> getBooleanList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolean.class);
   }
@@ -47,6 +53,24 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
 
   @Override
   @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
+  @Override
+  @NotNull
   public List<UnisonBoolExpr> getBoolExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolExpr.class);
   }
@@ -55,12 +79,6 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
   @NotNull
   public List<UnisonNumExpr> getNumExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<UnisonQualifiedName> getQualifiedNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedName.class);
   }
 
 }

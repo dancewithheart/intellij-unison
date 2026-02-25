@@ -8,7 +8,16 @@ import com.intellij.psi.PsiElement;
 public interface UnisonTypedDef extends PsiElement {
 
   @NotNull
+  List<UnisonAddOp> getAddOpList();
+
+  @NotNull
   List<UnisonIdentifier> getIdentifierList();
+
+  @NotNull
+  List<UnisonMulOp> getMulOpList();
+
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
 
   @Nullable
   UnisonDelayedType getDelayedType();
@@ -18,9 +27,6 @@ public interface UnisonTypedDef extends PsiElement {
 
   @Nullable
   UnisonPolymorphicType getPolymorphicType();
-
-  @NotNull
-  UnisonQualifiedName getQualifiedName();
 
   @NotNull
   List<UnisonTypeExpr> getTypeExprList();

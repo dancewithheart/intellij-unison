@@ -29,8 +29,26 @@ public class UnisonNamespaceDeclImpl extends ASTWrapperPsiElement implements Uni
 
   @Override
   @NotNull
-  public UnisonQualifiedName getQualifiedName() {
-    return findNotNullChildByClass(UnisonQualifiedName.class);
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
   }
 
 }
