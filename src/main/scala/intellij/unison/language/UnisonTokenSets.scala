@@ -42,5 +42,5 @@ object UnisonTokenSets {
     )
 
   val STRING_LITERALS: TokenSet =
-    TokenSet.create(UnisonTypes.STRING_TOKEN)
+    TokenSet.create(UnisonTypes.STRING_TOKEN, UnisonTypes.CHAR_TOKEN, UnisonTypes.BYTES_TOKEN)
 }
