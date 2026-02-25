@@ -67,28 +67,36 @@
     LBRACETICK="'{"
     TYPELINK='typeLink'
     TERMLINK='termLink'
+
+    NEWLINE
+    INDENT
+    DEDENT
   ]
 }
 
-unisonFile ::= statement*
-
-private name ::= IDENTIFIER
-              | OPERATOR_ID
-              | ADD_OP
-              | MUL_OP
+unisonFile ::= (NEWLINE | statement)*
 
 // https://www.unison-lang.org/docs/language-reference/top-level-declaration/
-statement ::= MULTILINE_COMMENT_TOKEN
+statement ::= NEWLINE
+            | MULTILINE_COMMENT_TOKEN
             | LINE_COMMENT_TOKEN
             | namespace_decl
             | ability_decl
             | dataType
             | expression
 
+private name ::= IDENTIFIER
+              | OPERATOR_ID
+              | ADD_OP
+              | MUL_OP
+
+private nl ::= NEWLINE+
+
 // https://www.unison-lang.org/docs/language-reference/namespace-declaration/
 namespace_decl ::= NAMESPACE qualified_name
 
-fun_body ::= (DO expression) | statement+
+fun_body ::= DO expression
+           | nl INDENT statement+ DEDENT
 
 // https://www.unison-lang.org/docs/language-reference/use-clauses/
 useClause ::= USE (
@@ -163,11 +171,12 @@ expression ::= DO expression
 ifThenElseExpr ::= IF boolExpr THEN expression ELSE expression
 
 // https://www.unison-lang.org/docs/language-reference/match-expressions-and-pattern-matching/
-matchExpr ::= MATCH expression+ WITH match_case+
+matchExpr ::= MATCH expression+ WITH NEWLINE INDENT match_case+ DEDENT
 
 cases_expr ::= CASES expression+ (guardPattern ARROW expression)+
 
-match_case ::= (pattern (guardPattern ARROW expression)+ | pattern ARROW expression)+
+match_case ::= pattern (guardPattern ARROW expression)+ NEWLINE
+            | pattern ARROW expression NEWLINE
 
 catch_expr ::= CATCH DO expression
   | CATCH expression
