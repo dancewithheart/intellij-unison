@@ -32,33 +32,12 @@ class UnisonColorSettingsPage
 
 object UnisonColorSettingsPage {
   val DESCRIPTORS: Array[AttributesDescriptor] = Array(
-    new AttributesDescriptor("Identifier", UnisonSyntaxHighlighter.IDENTIFIER),
-    new AttributesDescriptor("Separator", UnisonSyntaxHighlighter.SEPARATOR),
-    new AttributesDescriptor("namespace", UnisonSyntaxHighlighter.NAMESPACE),
-    new AttributesDescriptor("let", UnisonSyntaxHighlighter.LET),
-    new AttributesDescriptor("match", UnisonSyntaxHighlighter.MATCH),
-    new AttributesDescriptor("otherwise", UnisonSyntaxHighlighter.OTHERWISE),
-    new AttributesDescriptor("use", UnisonSyntaxHighlighter.USE),
-    new AttributesDescriptor("type", UnisonSyntaxHighlighter.TYPE),
-    new AttributesDescriptor("ability", UnisonSyntaxHighlighter.ABILITY),
-    new AttributesDescriptor("cases", UnisonSyntaxHighlighter.CASES),
-    new AttributesDescriptor("structural", UnisonSyntaxHighlighter.STRUCTURAL),
-    new AttributesDescriptor("Bytes", UnisonSyntaxHighlighter.TEXT),
-    new AttributesDescriptor("String", UnisonSyntaxHighlighter.TEXT),
-    new AttributesDescriptor("Text", UnisonSyntaxHighlighter.TEXT),
-    new AttributesDescriptor("Int", UnisonSyntaxHighlighter.INT),
-    new AttributesDescriptor("Nat", UnisonSyntaxHighlighter.NAT),
-    new AttributesDescriptor("Double", UnisonSyntaxHighlighter.DOUBLE),
-    new AttributesDescriptor("Boolean", UnisonSyntaxHighlighter.BOOLEAN),
-
-    // TODO
-//    new AttributesDescriptor("Operators//Plus", UnisonSyntaxHighlighter.PLUS),
-//    new AttributesDescriptor("Operators//Minus", UnisonSyntaxHighlighter.MINUS),
-//    new AttributesDescriptor("Operators//Star", UnisonSyntaxHighlighter.STAR),
-    new AttributesDescriptor("Operators//Mod", UnisonSyntaxHighlighter.MODW),
-//    new AttributesDescriptor("Operators//Advanced//Sigma", UnisonSyntaxHighlighter.SIGMA),
-//    new AttributesDescriptor("Operators//Advanced//Pi", UnisonSyntaxHighlighter.PI),
-
-    new AttributesDescriptor("Bad value", UnisonSyntaxHighlighter.BAD_CHARACTER)
+    new AttributesDescriptor("Keyword", UnisonSyntaxHighlighter.KEYWORD),
+    new AttributesDescriptor("Identifier", UnisonSyntaxHighlighter.IDENT),
+    new AttributesDescriptor("Builtin type", UnisonSyntaxHighlighter.BUILTIN),
+    new AttributesDescriptor("Literal", UnisonSyntaxHighlighter.LITERAL),
+    new AttributesDescriptor("Punctuation / operators", UnisonSyntaxHighlighter.PUNCT),
+    new AttributesDescriptor("Comment", UnisonSyntaxHighlighter.COMMENT),
+    new AttributesDescriptor("Bad character", UnisonSyntaxHighlighter.BAD)
   )
 }
