@@ -72,7 +72,6 @@ COMPARE_OPERATOR = "<" | ">" | "<=" | ">=" | "!=" | "===" | "Nat.==" | "Nat.!=" 
 "match"                  { return MATCH; }
 "with"                   { return WITH; }
 "cases"                  { return CASES; }
-"where"                  { return WHERE; }
 "@"                      { return AT; }
 "->"                     { return ARROW; }
 ":"                      { return COLON; }
