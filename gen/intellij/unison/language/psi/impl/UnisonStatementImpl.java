@@ -51,4 +51,10 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
     return findChildByClass(UnisonNamespaceDecl.class);
   }
 
+  @Override
+  @Nullable
+  public PsiElement getNewline() {
+    return findChildByType(NEWLINE);
+  }
+
 }

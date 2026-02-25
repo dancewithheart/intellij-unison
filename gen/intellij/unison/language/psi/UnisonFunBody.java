@@ -13,4 +13,10 @@ public interface UnisonFunBody extends PsiElement {
   @NotNull
   List<UnisonStatement> getStatementList();
 
+  @Nullable
+  PsiElement getDedent();
+
+  @Nullable
+  PsiElement getIndent();
+
 }

@@ -13,4 +13,13 @@ public interface UnisonMatchExpr extends PsiElement {
   @NotNull
   List<UnisonMatchCase> getMatchCaseList();
 
+  @NotNull
+  PsiElement getDedent();
+
+  @NotNull
+  PsiElement getIndent();
+
+  @NotNull
+  PsiElement getNewline();
+
 }

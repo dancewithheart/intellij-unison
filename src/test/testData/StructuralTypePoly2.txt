@@ -1,6 +1,6 @@
 FILE(0,339)
   PsiComment(UnisonTokenType.MULTILINE_COMMENT_TOKEN)('{-\nTop level type declaration\nhttps://www.unison-lang.org/docs/language-reference/user-defined-data-types/\n\n<unique|structural<[<regular-identifier>]?>?> type TypeConstructor p1 p2 … pn\n  = DataConstructor_1\n  | DataConstructor_2\n  ..\n  | DataConstructor_n\n\n-}')(0,260)
-  PsiWhiteSpace('\n')(260,261)
+  PsiElement(UnisonTokenType.NEWLINE)('\n')(260,261)
   UnisonStatementImpl(STATEMENT)(261,339)
     UnisonDataTypeImpl(DATA_TYPE)(261,339)
       PsiElement(UnisonTokenType.structural)('structural')(261,271)

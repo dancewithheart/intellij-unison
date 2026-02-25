@@ -39,4 +39,22 @@ public class UnisonMatchExprImpl extends ASTWrapperPsiElement implements UnisonM
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMatchCase.class);
   }
 
+  @Override
+  @NotNull
+  public PsiElement getDedent() {
+    return findNotNullChildByType(DEDENT);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getIndent() {
+    return findNotNullChildByType(INDENT);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getNewline() {
+    return findNotNullChildByType(NEWLINE);
+  }
+
 }

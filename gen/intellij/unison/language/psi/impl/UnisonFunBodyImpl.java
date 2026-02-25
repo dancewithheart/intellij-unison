@@ -39,4 +39,16 @@ public class UnisonFunBodyImpl extends ASTWrapperPsiElement implements UnisonFun
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonStatement.class);
   }
 
+  @Override
+  @Nullable
+  public PsiElement getDedent() {
+    return findChildByType(DEDENT);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getIndent() {
+    return findChildByType(INDENT);
+  }
+
 }

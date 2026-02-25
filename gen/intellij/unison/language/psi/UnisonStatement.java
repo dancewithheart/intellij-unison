@@ -19,4 +19,7 @@ public interface UnisonStatement extends PsiElement {
   @Nullable
   UnisonNamespaceDecl getNamespaceDecl();
 
+  @Nullable
+  PsiElement getNewline();
+
 }
