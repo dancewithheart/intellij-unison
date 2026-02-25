@@ -2,25 +2,16 @@
 <idea-plugin>
     <id>org.jetbrains.plugins.unison</id>
     <name>Unison</name>
-
     <version>${pluginVersion}</version>
     <vendor url="https://github.com/dancewithheart">@dancewithheart</vendor>
-
-
     <idea-version since-build="${sinceBuild}"/>
-
     <depends>com.intellij.modules.platform</depends>
-
-    <description>
-        <![CDATA[
-        Provides support for <a href="https://www.unison-lang.org/">Unison language<a> with basic syntax highlighting.<br />
-        WIP<br /><br />
-
-        Modifying color scheme: `Settings | Editor | Color Scheme | Unison`<br /><br />
-
-        Repository for contributing and reporting issues: <a href="https://github.com/dancewithheart/intellij-unison">github.com/dancewithheart/intellij-unison</a>
-        ]]>
-    </description>
+    <description><![CDATA[
+    Provides support for <a href="https://www.unison-lang.org/">Unison</a> with basic syntax highlighting.<br/>
+    <b>WIP</b><br/><br/>
+    Color scheme: <code>Settings | Editor | Color Scheme | Unison</code><br/><br/>
+    Repo / issues: <a href="https://github.com/dancewithheart/intellij-unison">github.com/dancewithheart/intellij-unison</a>
+    ]]></description>
     <change-notes>
      <![CDATA[
        <ul>
@@ -30,25 +21,17 @@
        </ul>
       ]]>
     </change-notes>
-
     <extensions defaultExtensionNs="com.intellij">
         <iconProvider implementation="intellij.unison.UnisonIcon" />
-
-        <!-- file type -->
         <fileType language="Unison"
            name="Unison"
            implementationClass="intellij.unison.UnisonFileType"
            extensions="u" />
-
-        <!-- parser -->
         <lang.parserDefinition language="Unison"
            implementationClass="intellij.unison.language.UnisonParserDefinition" />
-
-        <!-- syntax highlighting -->
         <lang.syntaxHighlighterFactory language="Unison"
            implementationClass="intellij.unison.language.highlight.UnisonSyntaxHighlighterFactory" />
         <colorSettingsPage
            implementation="intellij.unison.language.highlight.UnisonColorSettingsPage" />
     </extensions>
-
 </idea-plugin>
