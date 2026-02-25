@@ -91,10 +91,12 @@ useClause ::= USE (qualified_import
  | qualified_name
  | NUM_OPERATOR
  | BOOL_OPERATOR
- | COMPARE_OPERATOR )+restore readme
+ | COMPARE_OPERATOR )+
+
+private qualified_import ::= builtin_type (DOT IDENTIFIER)*
 
 // https://www.unison-lang.org/docs/language-reference/identifiers/#namespace-qualified-identifiers
-qualified_name ::= name (DOT name)*
+private qualified_name ::= name (DOT name)*
 
 // https://www.unison-lang.org/docs/language-reference/abilities-and-ability-handlers/#user-defined-abilities
 ability_decl ::= (UNIQUE | STRUCTURAL)? ABILITY IDENTIFIER type_params?
@@ -218,8 +220,6 @@ private argument_list ::= expression (COMMA expression)*
 lambda ::= pattern+ ARROW expression
 
 private constructor_pattern ::= name pattern*
-
-private numLiteral ::= INT | DOUBLE
 
 // https://www.unison-lang.org/docs/language-reference/literals/
 literal ::= INT
