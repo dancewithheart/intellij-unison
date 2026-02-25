@@ -9,7 +9,7 @@
   elementTypeHolderClass="intellij.unison.language.psi.UnisonTypes"
   elementTypeClass="intellij.unison.language.psi.UnisonElementType"
   tokenTypeClass="intellij.unison.language.psi.UnisonTokenType"
-
+  root="unisonFile"
   tokens = [
     NAMESPACE='namespace'
     USE='use'
@@ -62,14 +62,16 @@
     KW_UNIT='()'
 
     BANG='!'
-    CIAPEK="'"
-    LBRACECIAPEK="'{"
+    TICK="'"
+    LBRACETICK="'{"
     TYPELINK='typeLink'
     TERMLINK='termLink'
   ]
 }
 
 unisonFile ::= statement*
+
+private name ::= IDENTIFIER | OPERATOR_ID
 
 // https://www.unison-lang.org/docs/language-reference/top-level-declaration/
 statement ::= MULTILINE_COMMENT_TOKEN
@@ -80,47 +82,54 @@ statement ::= MULTILINE_COMMENT_TOKEN
             | expression
 
 // https://www.unison-lang.org/docs/language-reference/namespace-declaration/
-namespace_decl ::= 'namespace' qualified_name
+namespace_decl ::= NAMESPACE qualified_name
 
-fun_body ::= ('do' expression) | statement+
+fun_body ::= (DO expression) | statement+
 
 // https://www.unison-lang.org/docs/language-reference/use-clauses/
-useClause ::= 'use' ( qualified_import | qualified_name | NUM_OPERATOR | BOOL_OPERATOR | COMPARE_OPERATOR )+
+useClause ::= USE (qualified_import
+ | qualified_name
+ | NUM_OPERATOR
+ | BOOL_OPERATOR
+ | COMPARE_OPERATOR )+restore readme
 
-qualified_import ::= builtin_type ('.' IDENTIFIER)*
+// https://www.unison-lang.org/docs/language-reference/identifiers/#namespace-qualified-identifiers
+qualified_name ::= name (DOT name)*
 
 // https://www.unison-lang.org/docs/language-reference/abilities-and-ability-handlers/#user-defined-abilities
-ability_decl ::= ( 'unique' | 'structural' )? 'ability' IDENTIFIER type_params? 'where' '{' ability_constructor* '}'
+ability_decl ::= (UNIQUE | STRUCTURAL)? ABILITY IDENTIFIER type_params?
+ WHERE LBRACE ability_constructor* RBRACE
 
-ability_constructor ::= IDENTIFIER ':' type_expr
+private ability_constructor ::= IDENTIFIER COLON type_expr
 
 // https://www.unison-lang.org/docs/language-reference/user-defined-data-types/
-dataType ::= ( 'unique' | 'structural' )? 'type' qualified_name qualified_name? '=' dataConstructor ( '|' dataConstructor )*
+dataType ::= (UNIQUE | STRUCTURAL)? TYPE qualified_name qualified_name? EQ
+  dataConstructor (BAR dataConstructor)*
 
 dataConstructor ::= qualified_name type_expr*
 
-let_expr ::= 'let' (binding)+
+let_expr ::= LET (binding)+
 
 // TODO typed_def requires work to use type annotation and (polymorphic)? term definition
 // TODO current fun body is very arbitrary
 // https://www.unison-lang.org/docs/language-reference/type-annotations/
 // https://www.unison-lang.org/docs/language-reference/term-definition/
 typed_def ::=
-  qualified_name ':' polymorphicType? delayedType?
-  type_expr ( '->' abilityRequirements type_expr )*
+  qualified_name COLON polymorphicType? delayedType?
+  type_expr (ARROW abilityRequirements type_expr)*
   fun_body
 
 // https://www.unison-lang.org/docs/language-reference/delayed-computations/
-delayedType ::= '''{' IDENTIFIER (',' IDENTIFIER )* '}'
+delayedType ::= LBRACETICK IDENTIFIER (COMMA IDENTIFIER)* RBRACE
 
 // https://www.unison-lang.org/docs/language-reference/polymorphic-types/
-polymorphicType ::= ('forall' | '∀') IDENTIFIER+ '.'
+polymorphicType ::= (FORALL | FORALLSYMBOL) IDENTIFIER+ DOT
 
-abilityRequirements ::= '{' IDENTIFIER (',' IDENTIFIER )* '}'
+private abilityRequirements ::= LBRACE IDENTIFIER (COMMA IDENTIFIER )* RBRACE
 
-binding ::= qualified_name IDENTIFIER* '=' expression
-  | ((IDENTIFIER | '_') '=' expression)+
-  | '(' (IDENTIFIER | '_') (',' (IDENTIFIER | '_'))* ')' '=' '(' expression (',' expression)* ')'
+binding ::= qualified_name IDENTIFIER* EQ expression
+  | ((IDENTIFIER | UNDERSCORE) EQ expression)+
+  | LPAREN (IDENTIFIER | UNDERSCORE) (COMMA (IDENTIFIER | UNDERSCORE))* RPAREN EQ LPAREN expression (COMMA expression)* RPAREN
 
 // https://www.unison-lang.org/docs/language-reference/basic-lexical-forms/
 expression ::= useClause
@@ -138,77 +147,86 @@ expression ::= useClause
              | qualified_import
              | let_expr
              | catch_expr
-             | '(' expression ')'
+             | LPAREN expression RPAREN
 
 // https://www.unison-lang.org/docs/fundamentals/control-flow/if-then-and-else/#if-then-else
-ifThenElseExpr ::= 'if' boolExpr 'then' expression 'else' expression
+ifThenElseExpr ::= IF boolExpr THEN expression ELSE expression
 
 // https://www.unison-lang.org/docs/language-reference/match-expressions-and-pattern-matching/
-matchExpr ::= 'match' expression+ 'with' match_case+
+matchExpr ::= MATCH expression+ WITH match_case+
 
-cases_expr ::= 'cases' expression+ (guardPattern '->' expression)+
+cases_expr ::= CASES expression+ (guardPattern ARROW expression)+
 
-match_case ::= (pattern (guardPattern '->' expression)+ | pattern '->' expression)+
+match_case ::= (pattern (guardPattern ARROW expression)+ | pattern ARROW expression)+
 
-catch_expr ::= 'catch' 'do' expression
-  | 'catch' expression
+catch_expr ::= CATCH DO expression
+  | CATCH expression
 
 // https://www.unison-lang.org/docs/language-reference/guard-patterns/
-guardPattern ::= '|' ('otherwise' | boolExpr)
+guardPattern ::= BAR (OTHERWISE | boolExpr)
 
-pattern ::= IDENTIFIER '@' pattern
-          | IDENTIFIER
-          | '_'
+pattern ::= name AT pattern
+          | name
+          | UNDERSCORE
           | literal
           | constructor_pattern
-          | '(' literal (',' literal)* ')'
+          | LPAREN literal (COMMA literal)* RPAREN
 
-numExpr ::=
-   numLiteral NUM_OPERATOR numLiteral
-   | numLiteral NUM_OPERATOR numExpr
-   | IDENTIFIER NUM_OPERATOR numExpr
-   | numLiteral NUM_OPERATOR IDENTIFIER
-   | '-' numExpr
-   | 'mod' numExpr numExpr
-   | 'mod' numExpr IDENTIFIER
-   | 'mod' IDENTIFIER numExpr
-   | numLiteral
-   | '(' numExpr ')'
+numExpr ::= sumExpr
+
+private sumExpr ::= prodExpr (NUM_OPERATOR prodExpr)*
+private prodExpr ::= unaryExpr (NUM_OPERATOR unaryExpr)*
+
+private unaryExpr ::=
+    MINUS unaryExpr
+  | MODW unaryExpr unaryExpr
+  | atomNum
+
+private atomNum ::=
+    numLiteral
+  | qualified_name
+  | LPAREN numExpr RPAREN
+
+private numLiteral ::= INT | DOUBLE
+private MINUS ::= NUM_OPERATOR
 
 // https://www.unison-lang.org/docs/language-reference/boolean-expressions/
-boolExpr ::=
-   IDENTIFIER '>' numLiteral
-   | IDENTIFIER '<' numLiteral
-   | numLiteral '===' IDENTIFIER
-   | IDENTIFIER '===' numExpr
-   | BOOLEAN BOOL_OPERATOR boolExpr
-   | IDENTIFIER COMPARE_OPERATOR numExpr
-   | numExpr COMPARE_OPERATOR numExpr
-   | 'not' boolExpr
-   | numExpr '===' numExpr
-   | boolExpr (BOOL_OPERATOR boolExpr)+
-   | '(' boolExpr ')' (BOOL_OPERATOR boolExpr)+
-   | BOOLEAN
-   | IDENTIFIER
+boolExpr ::= orExpr
 
-function_call ::= qualified_name '(' argument_list? ')'
+private orExpr  ::= andExpr (BOOL_OPERATOR andExpr)*
+private andExpr ::= notExpr (BOOL_OPERATOR notExpr)*
 
-argument_list ::= expression (',' expression)*
+private notExpr ::=
+    NOT notExpr
+  | boolAtom
 
-lambda ::= pattern+ '->' expression
+private boolAtom ::=
+    BOOLEAN
+  | comparison
+  | LPAREN boolExpr RPAREN
 
-constructor_pattern ::= IDENTIFIER pattern*
+private comparison ::=
+    numExpr COMPARE_OPERATOR numExpr
+  | qualified_name COMPARE_OPERATOR numExpr
+  | numExpr COMPARE_OPERATOR qualified_name
+  | qualified_name COMPARE_OPERATOR qualified_name
 
-numLiteral ::= INT | DOUBLE
+function_call ::= qualified_name LPAREN argument_list? RPAREN
+
+private argument_list ::= expression (COMMA expression)*
+
+lambda ::= pattern+ ARROW expression
+
+private constructor_pattern ::= name pattern*
+
+private numLiteral ::= INT | DOUBLE
 
 // https://www.unison-lang.org/docs/language-reference/literals/
 literal ::= INT
   | DOUBLE | CHAR | STRING | BOOLEAN | BYTES
-  | '[' ']' | '[' literal (',' literal)* ']'
-  | '(' literal (',' literal)* ')'
-
-// https://www.unison-lang.org/docs/language-reference/identifiers/#namespace-qualified-identifiers
-qualified_name ::= IDENTIFIER ('.' IDENTIFIER)*
+  | LPARENSQ RPARENSQ
+  | LPARENSQ literal (COMMA literal)* RPARENSQ
+  | LPAREN literal (COMMA literal)* RPAREN
 
 // TODO Any Doc Either IPattern Ordering Optional Pattern Pretty Uuid Void
 // https://share.unison-lang.org/@unison/website/code/main/latest/namespaces/lib/base/;/types/Uuid
@@ -223,17 +241,18 @@ builtin_type ::= KW_NAT
   | KW_UNIT
 
 type_expr ::=
-  '[' type_expr IDENTIFIER? ']'
-  | builtin_type '->' type_expr IDENTIFIER?
-  | IDENTIFIER '->' type_expr IDENTIFIER?
-  | '[' IDENTIFIER ']' '->' type_expr IDENTIFIER?
+  LPARENSQ type_expr IDENTIFIER? RPARENSQ
+  | builtin_type ARROW type_expr IDENTIFIER?
+  | IDENTIFIER ARROW type_expr IDENTIFIER?
+  | LPARENSQ IDENTIFIER RPARENSQ ARROW type_expr IDENTIFIER?
   | builtin_type
-  | '(' type_expr IDENTIFIER? (',' type_expr IDENTIFIER?)* ')'
+  | LPAREN type_expr IDENTIFIER? (COMMA type_expr IDENTIFIER?)* RPAREN
   | qualified_name
 
-type_params ::= '{' IDENTIFIER (',' IDENTIFIER)* '}'
+private type_params ::= LBRACE IDENTIFIER (COMMA IDENTIFIER)* RBRACE
 
 IDENTIFIER ::= IDENTIFIER_TOKEN
+OPERATOR_ID ::= OPERATOR_ID_TOKEN
 INT ::= INT_TOKEN
 DOUBLE ::= DOUBLE_TOKEN
 CHAR ::= CHAR_TOKEN
