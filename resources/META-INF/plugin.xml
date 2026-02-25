@@ -3,12 +3,11 @@
     <id>org.jetbrains.plugins.unison</id>
     <name>Unison</name>
 
-    <version>0.0.3</version>
+    <version>${pluginVersion}</version>
     <vendor url="https://github.com/dancewithheart">@dancewithheart</vendor>
 
 
-    <idea-version since-build="251.0"/>
-    <!-- idea-version since-build="231.0" until-build="260.0"/ -->
+    <idea-version since-build="${sinceBuild}"/>
 
     <depends>com.intellij.modules.platform</depends>
 

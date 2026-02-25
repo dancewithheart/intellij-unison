@@ -4,7 +4,7 @@ import jflex.Main.{main => jflexRun}
 ThisBuild / scalaVersion := "2.13.18"
 
 ThisBuild / intellijPluginName := "intellij-unison"
-ThisBuild / intellijBuild := "251.26927.53"
+ThisBuild / intellijBuild := "251.26927.53" // 253.31033.145
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
 
 val junitInterfaceVersion = "0.13.3"
@@ -41,7 +41,13 @@ Compile / resourceGenerators += Def.task {
   val out = outDir / "plugin.xml"
   IO.createDirectory(outDir)
 
-  val content = IO.read(in).replace("${pluginVersion}", version.value)
+  val ijBuild = intellijBuild.value              // e.g. "251.26927.53"
+  val baseline = ijBuild.takeWhile(_.isDigit)     // "251"
+  val since = s"$baseline.0"                      // "251.0"
+
+  val content = IO.read(in)
+    .replace("${pluginVersion}", version.value)
+    .replace("${sinceBuild}", since)
   IO.write(out, content)
 
   Seq(out)
