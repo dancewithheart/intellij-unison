@@ -2,9 +2,8 @@ package intellij.unison;
 
 import com.intellij.lexer.FlexAdapter;
 
-public class UnisonLexerAdapter extends FlexAdapter {
-
+public class UnisonLexerAdapter extends IndentingLexer {
     public UnisonLexerAdapter() {
-        super(new UnisonLexer(null));
+        super(new FlexAdapter(new UnisonLexer(null)));
     }
 }
