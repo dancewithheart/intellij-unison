@@ -1,6 +1,6 @@
 <!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "https://plugins.jetbrains.com/plugin.dtd">
 <idea-plugin>
-    <id>org.jetbrains.plugins.unison</id>
+    <id>com.github.dancewithheart.intellij-unison</id>
     <name>Unison</name>
     <version>${pluginVersion}</version>
     <vendor url="https://github.com/dancewithheart">@dancewithheart</vendor>
