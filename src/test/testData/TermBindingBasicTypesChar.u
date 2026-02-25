@@ -3,7 +3,6 @@ c1 = ?H
 
 c2 : Char
 c2 = ?,
-{- TODO slow
+
 c3 : Char
 c3 = ?\s
--}

@@ -28,6 +28,30 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
   }
 
   @Override
+  @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
+  @Override
   @Nullable
   public UnisonBinding getBinding() {
     return findChildByClass(UnisonBinding.class);
@@ -37,6 +61,12 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
   @Nullable
   public UnisonBoolExpr getBoolExpr() {
     return findChildByClass(UnisonBoolExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonBuiltinType getBuiltinType() {
+    return findChildByClass(UnisonBuiltinType.class);
   }
 
   @Override
@@ -97,18 +127,6 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
   @Nullable
   public UnisonNumExpr getNumExpr() {
     return findChildByClass(UnisonNumExpr.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonQualifiedImport getQualifiedImport() {
-    return findChildByClass(UnisonQualifiedImport.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonQualifiedName getQualifiedName() {
-    return findChildByClass(UnisonQualifiedName.class);
   }
 
   @Override

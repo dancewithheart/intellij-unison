@@ -1,9 +1,8 @@
 t1 : (Nat, Text)
 t1 = (1, "Two")
-{- TODO
+
 t2 : (Int, Text, Boolean)
 t2 = (-4, "Yes", false)
 
 dessertOrder : (Text, Text, Nat)
 dessertOrder = ("Alice", "Blueberry pie", 5)
--}

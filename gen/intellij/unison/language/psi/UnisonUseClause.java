@@ -8,18 +8,24 @@ import com.intellij.psi.PsiElement;
 public interface UnisonUseClause extends PsiElement {
 
   @NotNull
+  List<UnisonAddOp> getAddOpList();
+
+  @NotNull
   List<UnisonBoolOperator> getBoolOperatorList();
 
   @NotNull
   List<UnisonCompareOperator> getCompareOperatorList();
 
   @NotNull
-  List<UnisonNumOperator> getNumOperatorList();
+  List<UnisonIdentifier> getIdentifierList();
 
   @NotNull
-  List<UnisonQualifiedImport> getQualifiedImportList();
+  List<UnisonMulOp> getMulOpList();
 
   @NotNull
-  List<UnisonQualifiedName> getQualifiedNameList();
+  List<UnisonOperatorId> getOperatorIdList();
+
+  @NotNull
+  List<UnisonBuiltinType> getBuiltinTypeList();
 
 }

@@ -28,27 +28,45 @@ public class UnisonNumExprImpl extends ASTWrapperPsiElement implements UnisonNum
   }
 
   @Override
-  @Nullable
-  public UnisonIdentifier getIdentifier() {
-    return findChildByClass(UnisonIdentifier.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonNumOperator getNumOperator() {
-    return findChildByClass(UnisonNumOperator.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonNumExpr getNumExpr() {
-    return findChildByClass(UnisonNumExpr.class);
+  @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
   }
 
   @Override
   @NotNull
-  public List<UnisonNumLiteral> getNumLiteralList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumLiteral.class);
+  public List<UnisonDouble> getDoubleList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonDouble.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonInt> getIntList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonInt.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonNumExpr> getNumExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumExpr.class);
   }
 
 }

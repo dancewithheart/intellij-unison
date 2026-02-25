@@ -1,6 +1,6 @@
 mkErr : Exception
 mkErr = failure "Zero was found"
-{- TODO slow
+
 nonZero : Nat ->  { Exception } Nat
 nonZero = cases
   n
@@ -8,4 +8,3 @@ nonZero = cases
     | otherwise   -> n
 
 x = catch do nonZero 0
--}

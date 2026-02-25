@@ -29,20 +29,32 @@ public class UnisonBindingImpl extends ASTWrapperPsiElement implements UnisonBin
 
   @Override
   @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
+  }
+
+  @Override
+  @NotNull
   public List<UnisonIdentifier> getIdentifierList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
   @Override
   @NotNull
-  public List<UnisonExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
   }
 
   @Override
-  @Nullable
-  public UnisonQualifiedName getQualifiedName() {
-    return findChildByClass(UnisonQualifiedName.class);
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
   }
 
 }

@@ -8,10 +8,16 @@ import com.intellij.psi.PsiElement;
 public interface UnisonPattern extends PsiElement {
 
   @Nullable
+  UnisonAddOp getAddOp();
+
+  @Nullable
   UnisonIdentifier getIdentifier();
 
   @Nullable
-  UnisonConstructorPattern getConstructorPattern();
+  UnisonMulOp getMulOp();
+
+  @Nullable
+  UnisonOperatorId getOperatorId();
 
   @Nullable
   UnisonLiteral getLiteral();

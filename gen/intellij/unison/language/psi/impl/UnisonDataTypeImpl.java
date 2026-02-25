@@ -29,14 +29,32 @@ public class UnisonDataTypeImpl extends ASTWrapperPsiElement implements UnisonDa
 
   @Override
   @NotNull
-  public List<UnisonDataConstructor> getDataConstructorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonDataConstructor.class);
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
   }
 
   @Override
   @NotNull
-  public List<UnisonQualifiedName> getQualifiedNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonQualifiedName.class);
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonDataConstructor> getDataConstructorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonDataConstructor.class);
   }
 
 }

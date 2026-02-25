@@ -28,45 +28,57 @@ public class UnisonBoolExprImpl extends ASTWrapperPsiElement implements UnisonBo
   }
 
   @Override
-  @Nullable
-  public UnisonBoolean getBoolean() {
-    return findChildByClass(UnisonBoolean.class);
+  @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
   }
 
   @Override
-  @Nullable
-  public UnisonBoolOperator getBoolOperator() {
-    return findChildByClass(UnisonBoolOperator.class);
+  @NotNull
+  public List<UnisonBoolean> getBooleanList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolean.class);
   }
 
   @Override
-  @Nullable
-  public UnisonCompareOperator getCompareOperator() {
-    return findChildByClass(UnisonCompareOperator.class);
+  @NotNull
+  public List<UnisonBoolOperator> getBoolOperatorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolOperator.class);
   }
 
   @Override
-  @Nullable
-  public UnisonIdentifier getIdentifier() {
-    return findChildByClass(UnisonIdentifier.class);
+  @NotNull
+  public List<UnisonCompareOperator> getCompareOperatorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonCompareOperator.class);
   }
 
   @Override
-  @Nullable
-  public UnisonBoolExpr getBoolExpr() {
-    return findChildByClass(UnisonBoolExpr.class);
+  @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
   }
 
   @Override
-  @Nullable
-  public UnisonNumExpr getNumExpr() {
-    return findChildByClass(UnisonNumExpr.class);
+  @NotNull
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
   }
 
   @Override
-  @Nullable
-  public UnisonNumLiteral getNumLiteral() {
-    return findChildByClass(UnisonNumLiteral.class);
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonBoolExpr> getBoolExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonBoolExpr.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonNumExpr> getNumExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonNumExpr.class);
   }
 
 }

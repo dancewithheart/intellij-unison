@@ -1,6 +1,6 @@
 n1 : Nat
 n1 = 1
-{- TODO
+
 n2 : Nat
 n2 = 0
 
@@ -15,4 +15,3 @@ binaryNat = 0b101010
 
 hexadecimalNat : Nat
 hexadecimalNat = 0xdeadbeef
--}

@@ -8,7 +8,16 @@ import com.intellij.psi.PsiElement;
 public interface UnisonDataConstructor extends PsiElement {
 
   @NotNull
-  UnisonQualifiedName getQualifiedName();
+  List<UnisonAddOp> getAddOpList();
+
+  @NotNull
+  List<UnisonIdentifier> getIdentifierList();
+
+  @NotNull
+  List<UnisonMulOp> getMulOpList();
+
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
 
   @NotNull
   List<UnisonTypeExpr> getTypeExprList();

@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonAbilityConstructor extends PsiElement {
-
-  @NotNull
-  UnisonIdentifier getIdentifier();
-
-  @NotNull
-  UnisonTypeExpr getTypeExpr();
+public interface UnisonOperatorId extends PsiElement {
 
 }

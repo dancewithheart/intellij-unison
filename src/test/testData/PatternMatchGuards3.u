@@ -1,8 +1,6 @@
-{- TODO slow
 myMatch : Nat -> Text
 myMatch num = match num with
   n
     | n < 3 -> "small number"
     | n > 100 -> "big number"
     | otherwise -> "medium number"
--}
