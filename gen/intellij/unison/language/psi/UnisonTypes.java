@@ -25,7 +25,6 @@ public interface UnisonTypes {
   IElementType DELAYED_TYPE = new UnisonElementType("DELAYED_TYPE");
   IElementType DOUBLE = new UnisonElementType("DOUBLE");
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
-  IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType FUN_BODY = new UnisonElementType("FUN_BODY");
   IElementType GUARD_PATTERN = new UnisonElementType("GUARD_PATTERN");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
@@ -172,9 +171,6 @@ public interface UnisonTypes {
       }
       else if (type == EXPRESSION) {
         return new UnisonExpressionImpl(node);
-      }
-      else if (type == FUNCTION_CALL) {
-        return new UnisonFunctionCallImpl(node);
       }
       else if (type == FUN_BODY) {
         return new UnisonFunBodyImpl(node);

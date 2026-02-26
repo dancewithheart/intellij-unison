@@ -46,9 +46,15 @@ public class UnisonMatchCaseImpl extends ASTWrapperPsiElement implements UnisonM
   }
 
   @Override
-  @NotNull
-  public PsiElement getNewline() {
-    return findNotNullChildByType(NEWLINE);
+  @Nullable
+  public PsiElement getDedent() {
+    return findChildByType(DEDENT);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getIndent() {
+    return findChildByType(INDENT);
   }
 
 }

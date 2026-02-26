@@ -13,4 +13,10 @@ public interface UnisonCasesExpr extends PsiElement {
   @NotNull
   List<UnisonGuardPattern> getGuardPatternList();
 
+  @NotNull
+  PsiElement getDedent();
+
+  @NotNull
+  PsiElement getIndent();
+
 }

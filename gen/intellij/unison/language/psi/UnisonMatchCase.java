@@ -16,7 +16,10 @@ public interface UnisonMatchCase extends PsiElement {
   @NotNull
   UnisonPattern getPattern();
 
-  @NotNull
-  PsiElement getNewline();
+  @Nullable
+  PsiElement getDedent();
+
+  @Nullable
+  PsiElement getIndent();
 
 }

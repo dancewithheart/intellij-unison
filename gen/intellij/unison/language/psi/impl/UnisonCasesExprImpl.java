@@ -39,4 +39,16 @@ public class UnisonCasesExprImpl extends ASTWrapperPsiElement implements UnisonC
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonGuardPattern.class);
   }
 
+  @Override
+  @NotNull
+  public PsiElement getDedent() {
+    return findNotNullChildByType(DEDENT);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getIndent() {
+    return findNotNullChildByType(INDENT);
+  }
+
 }

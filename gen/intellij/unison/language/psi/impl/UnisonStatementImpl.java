@@ -28,6 +28,30 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
   }
 
   @Override
+  @NotNull
+  public List<UnisonAddOp> getAddOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonAddOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonMulOp> getMulOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonMulOp.class);
+  }
+
+  @Override
+  @NotNull
+  public List<UnisonOperatorId> getOperatorIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonOperatorId.class);
+  }
+
+  @Override
   @Nullable
   public UnisonAbilityDecl getAbilityDecl() {
     return findChildByClass(UnisonAbilityDecl.class);
@@ -49,6 +73,18 @@ public class UnisonStatementImpl extends ASTWrapperPsiElement implements UnisonS
   @Nullable
   public UnisonNamespaceDecl getNamespaceDecl() {
     return findChildByClass(UnisonNamespaceDecl.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonPolymorphicType getPolymorphicType() {
+    return findChildByClass(UnisonPolymorphicType.class);
+  }
+
+  @Override
+  @Nullable
+  public UnisonTypeExpr getTypeExpr() {
+    return findChildByClass(UnisonTypeExpr.class);
   }
 
   @Override

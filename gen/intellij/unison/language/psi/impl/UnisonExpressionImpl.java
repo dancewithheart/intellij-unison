@@ -82,15 +82,9 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
   }
 
   @Override
-  @Nullable
-  public UnisonExpression getExpression() {
-    return findChildByClass(UnisonExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonFunctionCall getFunctionCall() {
-    return findChildByClass(UnisonFunctionCall.class);
+  @NotNull
+  public List<UnisonExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
   }
 
   @Override
@@ -112,9 +106,9 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
   }
 
   @Override
-  @Nullable
-  public UnisonLiteral getLiteral() {
-    return findChildByClass(UnisonLiteral.class);
+  @NotNull
+  public List<UnisonLiteral> getLiteralList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonLiteral.class);
   }
 
   @Override
