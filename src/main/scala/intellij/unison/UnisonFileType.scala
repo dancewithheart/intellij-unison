@@ -11,7 +11,7 @@ case class UnisonFileType()
 
   override def getDescription: String = "Unison language file"
 
-  override def getDefaultExtension: String = "Unison"
+  override def getDefaultExtension: String = "u"
 
   override def getIcon: Icon = UnisonIcon.INSTANCE.FILE
 }

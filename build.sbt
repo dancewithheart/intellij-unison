@@ -1,10 +1,10 @@
 import org.jetbrains.sbtidea.Keys.*
 import jflex.Main.{main => jflexRun}
 
-ThisBuild / scalaVersion := "2.13.16"
+ThisBuild / scalaVersion := "2.13.18"
 
 ThisBuild / intellijPluginName := "intellij-unison"
-ThisBuild / intellijBuild := "251.26927.53"
+ThisBuild / intellijBuild := "251.26927.53" // 253.31033.145
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
 
 val junitInterfaceVersion = "0.13.3"
@@ -15,7 +15,7 @@ lazy val unison =
   project.in(file("."))
     .enablePlugins(SbtIdeaPlugin)
     .settings(
-      version := "0.0.1",
+      version := "0.0.3",
       Compile / javacOptions ++= Seq("--release", "17"),
       Compile / scalacOptions ++= Seq("--release", "17"),
       compileOrder := CompileOrder.Mixed,
@@ -23,7 +23,9 @@ lazy val unison =
       libraryDependencies ++= Seq(
         "com.github.sbt" % "junit-interface" % junitInterfaceVersion % Test,
         "org.opentest4j" % "opentest4j" % opentest4jVersion % Test,
-        "junit" % "junit" % junitVersion % Test
+        "junit" % "junit" % junitVersion % Test,
+        "dev.zio" %% "zio-test"     % "2.0.21" % Test,
+        "dev.zio" %% "zio-test-sbt" % "2.0.21" % Test
       ),
       // manually breaking sources in gen does not break `sbt compile`
       // Compile / managedSourceDirectories += baseDirectory.value / "gen",
@@ -32,6 +34,24 @@ lazy val unison =
       Test / unmanagedResourceDirectories += baseDirectory.value / "testResources",
       commands ++= Seq(lexer)
     )
+
+Compile / resourceGenerators += Def.task {
+  val in  = baseDirectory.value / "resources" / "META-INF" / "plugin.xml"
+  val outDir = baseDirectory.value / "resources" / "META-INF"
+  val out = outDir / "plugin.xml"
+  IO.createDirectory(outDir)
+
+  val ijBuild = intellijBuild.value              // e.g. "251.26927.53"
+  val baseline = ijBuild.takeWhile(_.isDigit)     // "251"
+  val since = s"$baseline.0"                      // "251.0"
+
+  val content = IO.read(in)
+    .replace("${pluginVersion}", version.value)
+    .replace("${sinceBuild}", since)
+  IO.write(out, content)
+
+  Seq(out)
+}.taskValue
 
 // https://github.com/dlwh/sbt-jflex uses old version of JFlex
 // manually one can download JFlex modified by IntelliJ and run
