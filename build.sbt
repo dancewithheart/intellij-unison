@@ -84,3 +84,5 @@ addCommandAlias("c", "clean;compile;")
 addCommandAlias("t", "clean;compile;test")
 addCommandAlias("r", "runIDE")
 addCommandAlias("f", "scalafmtAll")
+
+testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
