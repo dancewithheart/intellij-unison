@@ -83,7 +83,10 @@ statement ::= NEWLINE
             | namespace_decl
             | ability_decl
             | dataType
+            | type_annotation
             | expression
+
+private type_annotation ::= qualified_name COLON polymorphicType? type_expr
 
 private name ::= IDENTIFIER
               | OPERATOR_ID
@@ -128,13 +131,14 @@ dataConstructor ::= qualified_name type_expr*
 let_expr ::= LET (binding)+
 
 // TODO typed_def requires work to use type annotation and (polymorphic)? term definition
-// TODO current fun body is very arbitrary
 // https://www.unison-lang.org/docs/language-reference/type-annotations/
 // https://www.unison-lang.org/docs/language-reference/term-definition/
 typed_def ::=
   qualified_name COLON polymorphicType? delayedType?
   type_expr (ARROW abilityRequirements type_expr)*
-  fun_body
+  qualified_name EQ expr_or_do
+
+private expr_or_do ::= DO expression | expression
 
 // https://www.unison-lang.org/docs/language-reference/delayed-computations/
 delayedType ::= LBRACETICK IDENTIFIER (COMMA IDENTIFIER)* RBRACE
@@ -144,24 +148,28 @@ polymorphicType ::= (FORALL | FORALLSYMBOL) IDENTIFIER+ DOT
 
 private abilityRequirements ::= LBRACE IDENTIFIER (COMMA IDENTIFIER )* RBRACE
 
-binding ::= qualified_name IDENTIFIER* EQ expression
-  | ((IDENTIFIER | UNDERSCORE) EQ expression)+
+binding ::= qualified_name IDENTIFIER* EQ rhs
+  | ((IDENTIFIER | UNDERSCORE) EQ rhs)+
   | LPAREN (IDENTIFIER | UNDERSCORE) (COMMA (IDENTIFIER | UNDERSCORE))* RPAREN EQ LPAREN expression (COMMA expression)* RPAREN
 
+private rhs ::= expression
+             | nl INDENT statement+ DEDENT
+
+private atomExpr ::= literal | qualified_name | LPAREN expression RPAREN
+private appExpr ::= atomExpr atomExpr*
+
 // https://www.unison-lang.org/docs/language-reference/basic-lexical-forms/
-expression ::= DO expression
-             | useClause
+expression ::= useClause
              | typed_def
              | binding
              | lambda
-             | function_call
+             | appExpr
              | boolExpr
              | numExpr
              | ifThenElseExpr
              | matchExpr
              | cases_expr
              | literal
-             | qualified_name
              | qualified_import
              | let_expr
              | catch_expr
@@ -173,10 +181,11 @@ ifThenElseExpr ::= IF boolExpr THEN expression ELSE expression
 // https://www.unison-lang.org/docs/language-reference/match-expressions-and-pattern-matching/
 matchExpr ::= MATCH expression+ WITH NEWLINE INDENT match_case+ DEDENT
 
-cases_expr ::= CASES expression+ (guardPattern ARROW expression)+
+cases_expr ::= CASES expression+ NEWLINE INDENT cases_arm+ DEDENT
+private cases_arm ::= guardPattern ARROW expression NEWLINE?
 
-match_case ::= pattern (guardPattern ARROW expression)+ NEWLINE
-            | pattern ARROW expression NEWLINE
+match_case ::= pattern (guardPattern ARROW expression)+ NEWLINE?
+            | pattern ARROW expression NEWLINE?
 
 catch_expr ::= CATCH DO expression
   | CATCH expression
@@ -228,8 +237,6 @@ private comparison ::=
   | qualified_name COMPARE_OPERATOR numExpr
   | numExpr COMPARE_OPERATOR qualified_name
   | qualified_name COMPARE_OPERATOR qualified_name
-
-function_call ::= qualified_name LPAREN argument_list? RPAREN
 
 private argument_list ::= expression (COMMA expression)*
 
