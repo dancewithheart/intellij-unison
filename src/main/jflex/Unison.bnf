@@ -184,8 +184,12 @@ matchExpr ::= MATCH expression+ WITH NEWLINE INDENT match_case+ DEDENT
 cases_expr ::= CASES expression+ NEWLINE INDENT cases_arm+ DEDENT
 private cases_arm ::= guardPattern ARROW expression NEWLINE?
 
-match_case ::= pattern (guardPattern ARROW expression)+ NEWLINE?
-            | pattern ARROW expression NEWLINE?
+match_case ::= pattern ARROW expression NEWLINE?
+            | pattern guarded_arms
+
+private guarded_arms ::= NEWLINE INDENT guard_arm+ DEDENT
+
+private guard_arm ::= guardPattern ARROW expression NEWLINE?
 
 catch_expr ::= CATCH DO expression
   | CATCH expression
