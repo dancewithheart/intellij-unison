@@ -61,13 +61,16 @@ public class IndentingLexer extends LexerBase {
         pullNext();
     }
 
-    @Override public int getState() { return 0; }
+    @Override public int getState() { return base.getState(); }
     @Override public CharSequence getBufferSequence() { return buffer; }
     @Override public int getBufferEnd() { return endOffset; }
 
     @Override public IElementType getTokenType() { return tokenType; }
     @Override public int getTokenStart() { return tokenStart; }
     @Override public int getTokenEnd() { return tokenEnd; }
+
+    private Integer pendingIndentPos = null;      // first space/tab after newline
+    private Integer pendingDedentAnchor = null;   // newline position
 
     @Override
     public void advance() {
@@ -88,7 +91,8 @@ public class IndentingLexer extends LexerBase {
         if (t == null) {
             if (indentStack.size() > 1) {
                 indentStack.pop();
-                setToken(new Tok(UnisonTypes.DEDENT, endOffset, endOffset));
+                int p = Math.max(startOffset, endOffset - 1);
+                setToken(new Tok(UnisonTypes.DEDENT, p, endOffset));
             } else {
                 tokenType = null;
             }
@@ -105,7 +109,7 @@ public class IndentingLexer extends LexerBase {
 
         // Before emitting a real token: if we’re at line start and have computed indent, emit INDENT/DEDENT first.
         if (parenDepth == 0 && atLineStart && pendingIndent != null) {
-            emitIndentDedent(pendingIndent, base.getTokenStart());
+            emitIndentDedent(pendingIndent);
             pendingIndent = null;
             atLineStart = false;
 
@@ -136,33 +140,38 @@ public class IndentingLexer extends LexerBase {
             return;
         }
 
-        int i = wsStart;
+        int segStart = wsStart;
         int lastNl = -1;
 
-        while (i < wsEnd) {
+        for (int i = wsStart; i < wsEnd; i++) {
             char c = buffer.charAt(i);
             if (c == '\n') {
-                // Emit any whitespace before newline (spaces/tabs)
-                if (i > wsStart && wsStart > lastNl + 1) {
-                    queue.addLast(new Tok(TokenType.WHITE_SPACE, Math.max(wsStart, lastNl + 1), i));
+                // whitespace before newline
+                if (segStart < i) {
+                    queue.addLast(new Tok(TokenType.WHITE_SPACE, segStart, i));
                 }
-                // Emit NEWLINE token for the '\n' char itself
+
+                // NEWLINE has a real span (i, i+1)
                 queue.addLast(new Tok(UnisonTypes.NEWLINE, i, i + 1));
                 atLineStart = true;
                 lastNl = i;
+
+                segStart = i + 1; // start after '\n'
             }
-            i++;
         }
 
-        // Trailing indentation after the last newline (or all whitespace if no newline).
-        int tailStart = (lastNl >= 0) ? lastNl + 1 : wsStart;
-        if (tailStart < wsEnd) {
-            queue.addLast(new Tok(TokenType.WHITE_SPACE, tailStart, wsEnd));
+        // trailing whitespace after last newline (indentation) or whole segment if no newline
+        if (segStart < wsEnd) {
+            queue.addLast(new Tok(TokenType.WHITE_SPACE, segStart, wsEnd));
         }
 
-        // If there was at least one newline, compute indent from trailing spaces/tabs after the last '\n'.
         if (lastNl >= 0) {
+            int tailStart = lastNl + 1;
             pendingIndent = computeIndentWidth(tailStart, wsEnd);
+
+            // IMPORTANT: remember where indentation begins so INDENT can take a non-zero span
+            pendingIndentPos = firstIndentCharPos(tailStart, wsEnd);
+            pendingDedentAnchor = lastNl; // use newline char span as DEDENT anchor
         }
     }
 
@@ -177,17 +186,37 @@ public class IndentingLexer extends LexerBase {
         return w;
     }
 
-    private void emitIndentDedent(int newIndent, int anchor) {
+    private void emitIndentDedent(int newIndent) {
         int cur = indentStack.peek();
+
+        // Use real spans:
+        // - INDENT uses (pendingIndentPos, pendingIndentPos+1) if possible
+        // - DEDENT uses (pendingDedentAnchor, pendingDedentAnchor+1) (newline char)
+        int indentPos = (pendingIndentPos != null) ? pendingIndentPos : base.getTokenStart();
+        int dedentPos = (pendingDedentAnchor != null) ? pendingDedentAnchor : base.getTokenStart();
+
         if (newIndent > cur) {
             indentStack.push(newIndent);
-            queue.addLast(new Tok(UnisonTypes.INDENT, anchor, anchor));
+            queue.addLast(new Tok(UnisonTypes.INDENT, indentPos, Math.min(indentPos + 1, endOffset)));
         } else if (newIndent < cur) {
             while (indentStack.size() > 1 && indentStack.peek() > newIndent) {
                 indentStack.pop();
-                queue.addLast(new Tok(UnisonTypes.DEDENT, anchor, anchor));
+                queue.addLast(new Tok(UnisonTypes.DEDENT, dedentPos, Math.min(dedentPos + 1, endOffset)));
             }
         }
+
+        pendingIndentPos = null;
+        pendingDedentAnchor = null;
+    }
+
+    private int firstIndentCharPos(int from, int to) {
+        for (int i = from; i < to; i++) {
+            char c = buffer.charAt(i);
+            if (c == ' ' || c == '\t') return i;
+            if (c == '\n' || c == '\r') continue;
+            break; // hit real code
+        }
+        return from; // fallback
     }
 
     private void setToken(Tok t) {
