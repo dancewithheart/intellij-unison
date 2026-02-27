@@ -99,10 +99,6 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitFunctionCall(@NotNull UnisonFunctionCall o) {
-    visitPsiElement(o);
-  }
-
   public void visitGuardPattern(@NotNull UnisonGuardPattern o) {
     visitPsiElement(o);
   }

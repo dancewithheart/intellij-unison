@@ -34,11 +34,8 @@ public interface UnisonExpression extends PsiElement {
   @Nullable
   UnisonCatchExpr getCatchExpr();
 
-  @Nullable
-  UnisonExpression getExpression();
-
-  @Nullable
-  UnisonFunctionCall getFunctionCall();
+  @NotNull
+  List<UnisonExpression> getExpressionList();
 
   @Nullable
   UnisonIfThenElseExpr getIfThenElseExpr();
@@ -49,8 +46,8 @@ public interface UnisonExpression extends PsiElement {
   @Nullable
   UnisonLetExpr getLetExpr();
 
-  @Nullable
-  UnisonLiteral getLiteral();
+  @NotNull
+  List<UnisonLiteral> getLiteralList();
 
   @Nullable
   UnisonMatchExpr getMatchExpr();

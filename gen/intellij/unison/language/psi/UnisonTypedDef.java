@@ -23,7 +23,7 @@ public interface UnisonTypedDef extends PsiElement {
   UnisonDelayedType getDelayedType();
 
   @NotNull
-  UnisonFunBody getFunBody();
+  UnisonExpression getExpression();
 
   @Nullable
   UnisonPolymorphicType getPolymorphicType();

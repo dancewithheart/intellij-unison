@@ -22,4 +22,13 @@ public interface UnisonBinding extends PsiElement {
   @NotNull
   List<UnisonExpression> getExpressionList();
 
+  @NotNull
+  List<UnisonStatement> getStatementList();
+
+  @Nullable
+  PsiElement getDedent();
+
+  @Nullable
+  PsiElement getIndent();
+
 }

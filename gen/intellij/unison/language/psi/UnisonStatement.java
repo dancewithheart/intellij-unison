@@ -7,6 +7,18 @@ import com.intellij.psi.PsiElement;
 
 public interface UnisonStatement extends PsiElement {
 
+  @NotNull
+  List<UnisonAddOp> getAddOpList();
+
+  @NotNull
+  List<UnisonIdentifier> getIdentifierList();
+
+  @NotNull
+  List<UnisonMulOp> getMulOpList();
+
+  @NotNull
+  List<UnisonOperatorId> getOperatorIdList();
+
   @Nullable
   UnisonAbilityDecl getAbilityDecl();
 
@@ -18,5 +30,14 @@ public interface UnisonStatement extends PsiElement {
 
   @Nullable
   UnisonNamespaceDecl getNamespaceDecl();
+
+  @Nullable
+  UnisonPolymorphicType getPolymorphicType();
+
+  @Nullable
+  UnisonTypeExpr getTypeExpr();
+
+  @Nullable
+  PsiElement getNewline();
 
 }

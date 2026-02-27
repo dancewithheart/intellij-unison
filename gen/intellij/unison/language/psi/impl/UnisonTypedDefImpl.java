@@ -59,8 +59,8 @@ public class UnisonTypedDefImpl extends ASTWrapperPsiElement implements UnisonTy
 
   @Override
   @NotNull
-  public UnisonFunBody getFunBody() {
-    return findNotNullChildByClass(UnisonFunBody.class);
+  public UnisonExpression getExpression() {
+    return findNotNullChildByClass(UnisonExpression.class);
   }
 
   @Override

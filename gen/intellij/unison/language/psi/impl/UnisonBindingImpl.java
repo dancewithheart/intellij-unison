@@ -57,4 +57,22 @@ public class UnisonBindingImpl extends ASTWrapperPsiElement implements UnisonBin
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonExpression.class);
   }
 
+  @Override
+  @NotNull
+  public List<UnisonStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonStatement.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getDedent() {
+    return findChildByType(DEDENT);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getIndent() {
+    return findChildByType(INDENT);
+  }
+
 }

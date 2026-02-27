@@ -14,6 +14,12 @@ public interface UnisonMatchCase extends PsiElement {
   List<UnisonGuardPattern> getGuardPatternList();
 
   @NotNull
-  List<UnisonPattern> getPatternList();
+  UnisonPattern getPattern();
+
+  @Nullable
+  PsiElement getDedent();
+
+  @Nullable
+  PsiElement getIndent();
 
 }

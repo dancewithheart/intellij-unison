@@ -25,7 +25,6 @@ public interface UnisonTypes {
   IElementType DELAYED_TYPE = new UnisonElementType("DELAYED_TYPE");
   IElementType DOUBLE = new UnisonElementType("DOUBLE");
   IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
-  IElementType FUNCTION_CALL = new UnisonElementType("FUNCTION_CALL");
   IElementType FUN_BODY = new UnisonElementType("FUN_BODY");
   IElementType GUARD_PATTERN = new UnisonElementType("GUARD_PATTERN");
   IElementType IDENTIFIER = new UnisonElementType("IDENTIFIER");
@@ -65,6 +64,7 @@ public interface UnisonTypes {
   IElementType COLON = new UnisonTokenType(":");
   IElementType COMMA = new UnisonTokenType(",");
   IElementType COMPARE_OPERATOR_TOKEN = new UnisonTokenType("COMPARE_OPERATOR_TOKEN");
+  IElementType DEDENT = new UnisonTokenType("DEDENT");
   IElementType DO = new UnisonTokenType("do");
   IElementType DOT = new UnisonTokenType(".");
   IElementType DOUBLE_TOKEN = new UnisonTokenType("DOUBLE_TOKEN");
@@ -75,6 +75,7 @@ public interface UnisonTypes {
   IElementType HANDLE = new UnisonTokenType("handle");
   IElementType IDENTIFIER_TOKEN = new UnisonTokenType("IDENTIFIER_TOKEN");
   IElementType IF = new UnisonTokenType("if");
+  IElementType INDENT = new UnisonTokenType("INDENT");
   IElementType INT_TOKEN = new UnisonTokenType("INT_TOKEN");
   IElementType KW_BOOLEAN = new UnisonTokenType("Boolean");
   IElementType KW_BYTES = new UnisonTokenType("Bytes");
@@ -97,6 +98,7 @@ public interface UnisonTypes {
   IElementType MULTILINE_COMMENT_TOKEN = new UnisonTokenType("MULTILINE_COMMENT_TOKEN");
   IElementType MUL_OP_TOKEN = new UnisonTokenType("MUL_OP_TOKEN");
   IElementType NAMESPACE = new UnisonTokenType("namespace");
+  IElementType NEWLINE = new UnisonTokenType("NEWLINE");
   IElementType NOT = new UnisonTokenType("not");
   IElementType OPERATOR_ID_TOKEN = new UnisonTokenType("OPERATOR_ID_TOKEN");
   IElementType OTHERWISE = new UnisonTokenType("otherwise");
@@ -169,9 +171,6 @@ public interface UnisonTypes {
       }
       else if (type == EXPRESSION) {
         return new UnisonExpressionImpl(node);
-      }
-      else if (type == FUNCTION_CALL) {
-        return new UnisonFunctionCallImpl(node);
       }
       else if (type == FUN_BODY) {
         return new UnisonFunBodyImpl(node);

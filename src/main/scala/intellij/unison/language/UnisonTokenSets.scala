@@ -1,15 +1,19 @@
 package intellij.unison.language
 
+import com.intellij.psi.TokenType
 import com.intellij.psi.tree.TokenSet
 import intellij.unison.language.psi.UnisonTypes
 
 object UnisonTokenSets {
 
+  val WHITESPACE: TokenSet =
+    TokenSet.create(TokenType.WHITE_SPACE) // spaces/tabs only (from lexer)
+
   val COMMENTS: TokenSet =
     TokenSet.create(UnisonTypes.LINE_COMMENT_TOKEN, UnisonTypes.MULTILINE_COMMENT_TOKEN)
 
   val IDENTIFIERS: TokenSet =
-    TokenSet.create(UnisonTypes.IDENTIFIER_TOKEN, UnisonTypes.OPERATOR_ID_TOKEN) // if you have it
+    TokenSet.create(UnisonTypes.IDENTIFIER_TOKEN, UnisonTypes.OPERATOR_ID_TOKEN)
 
   val KEYWORDS: TokenSet =
     TokenSet.create(
@@ -42,5 +46,5 @@ object UnisonTokenSets {
     )
 
   val STRING_LITERALS: TokenSet =
-    TokenSet.create(UnisonTypes.STRING_TOKEN)
+    TokenSet.create(UnisonTypes.STRING_TOKEN, UnisonTypes.CHAR_TOKEN, UnisonTypes.BYTES_TOKEN)
 }
