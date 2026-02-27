@@ -24,11 +24,14 @@ jobs:
           cache: 'sbt'
       - name: Set up Scala and SBT
         uses: sbt/setup-sbt@v1
-      - name: Download IntelliJ SDK (runIDE once) used by grammar-kit
+      - name: Download IntelliJ SDK (runIDE)
         run: sbt -v runIDE
-        env:
-          CI: "true"
-      - name: Generate lexer and parser/PSI
+      - name: Generate lexer + parser + PSI
         run: sbt -v lexer parser
+      # sanity check: prove files exist
+      - name: Verify generated sources exist
+        run: |
+          ls -la gen/intellij/unison/language/parser || true
+          ls -la gen/intellij/unison/language/psi || true
       - name: Run tests
         run: sbt -v test
