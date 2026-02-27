@@ -59,8 +59,8 @@ Compile / resourceGenerators += Def.task {
 //n/intellij/unison ./src/main/scala/intellij/unison/language/Unison.flex
 def lexer: Command = Command.command("lexer") { state: State =>
   val baseDir = state.configuration.baseDirectory()
-  val srcDir = s"$baseDir/src/main/scala"
-  val flexFilePath = s"$srcDir/intellij/unison/language/Unison.flex"
+  val srcDir = s"$baseDir/src/main/jflex"
+  val flexFilePath = s"$srcDir/Unison.flex"
   val outDir = s"$baseDir/gen/intellij/unison"
   println(s"Generate lexer from $flexFilePath into $outDir")
   jflexRun(Array("-d", outDir, flexFilePath))
