@@ -1,8 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Scala CI
 
 on:
@@ -20,14 +15,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
-    - name: Set up JDK
-      uses: actions/setup-java@v5
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: 'sbt'
-    - name: Set up Scala and SBT
-      uses: sbt/setup-sbt@v1    
-    - name: Run tests
-      run: sbt test
+      - uses: actions/checkout@v6
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'sbt'
+      - name: Set up Scala and SBT
+        uses: sbt/setup-sbt@v1
+      - name: Download IntelliJ SDK (runIDE once) used by grammar-kit
+        run: sbt -v runIDE
+        env:
+          CI: "true"
+      - name: Generate lexer and parser/PSI
+        run: sbt -v lexer parser
+      - name: Run tests
+        run: sbt -v test
