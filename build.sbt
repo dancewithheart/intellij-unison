@@ -1,5 +1,4 @@
 import org.jetbrains.sbtidea.Keys.*
-import jflex.Main.{main => jflexRun}
 
 ThisBuild / scalaVersion := "2.13.18"
 
@@ -58,12 +57,28 @@ Compile / resourceGenerators += Def.task {
 // java -Xmx512m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -jar ./gen/jflex-1.9.2.jar -d ./ge
 //n/intellij/unison ./src/main/scala/intellij/unison/language/Unison.flex
 def lexer: Command = Command.command("lexer") { state: State =>
+  import sbt._
+  import jflex.Main.{main => jflexRun}
   val baseDir = state.configuration.baseDirectory()
-  val srcDir = s"$baseDir/src/main/jflex"
-  val flexFilePath = s"$srcDir/Unison.flex"
-  val outDir = s"$baseDir/gen/intellij/unison"
-  println(s"Generate lexer from $flexFilePath into $outDir")
-  jflexRun(Array("-d", outDir, flexFilePath))
+  val srcDir = baseDir / "src" / "main" / "jflex"
+  val flexFile = srcDir / "Unison.flex"
+  val outDir = baseDir / "gen" / "intellij" / "unison"
+
+  state.log.info(s"Generate lexer from $flexFile into $outDir")
+
+  // fail fast on missing input
+  if (!flexFile.exists()) {
+    sys.error(s"Lexer generation failed: input .flex file not found: $flexFile")
+  }
+  IO.createDirectory(outDir)
+
+  try {
+    jflexRun(Array("-d", outDir.getAbsolutePath, flexFile.getAbsolutePath))
+  } catch {
+    // fail on generator error
+    case t: Throwable =>
+      sys.error("Lexer generation failed (JFlex threw an exception): " + t.getMessage)
+  }
   state
 }
 
