@@ -24,8 +24,8 @@ jobs:
           cache: 'sbt'
       - name: Set up Scala and SBT
         uses: sbt/setup-sbt@v1
-      - name: Download IntelliJ SDK (runIDE)
-        run: sbt -v runIDE
+#      - name: Download IntelliJ SDK (runIDE)
+#        run: sbt -v runIDE
       - name: Generate lexer + parser + PSI
         run: sbt -v lexer parser
       # sanity check: prove files exist
