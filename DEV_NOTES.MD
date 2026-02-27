@@ -21,14 +21,18 @@ sbt r
 * [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) BNF Grammar
 
 Parser is generated from [Unison.bnf](src/main/jflex/Unison.bnf)
-manually (right mouse click on bnf file \ `Generate Parser Code`), using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin.
+```shell
+sbt parser
+```
+(or manually - right mouse click on bnf file \ `Generate Parser Code`), using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin)
 
 * Lexer
 
-Lexer is generated from [Unison.flex](./intellij/unison/language/Unison.flex) manually - right mouse click on flex file \ `Run JFlex Generator` or using modified [JFlex](https://www.jflex.de/) modified [by IntelliJ](https://github.com/JetBrains/intellij-deps-jflex):
+Lexer is generated from [Unison.flex](./intellij/unison/language/Unison.flex) using [JFlex](https://www.jflex.de/) modified [by IntelliJ](https://github.com/JetBrains/intellij-deps-jflex):
 ```shell
 sbt lexer
 ```
+(or manually - right mouse click on flex file \ `Run JFlex Generator`)
 
 * [Example lexer](https://jflex.de/manual.html) from jflex docs for part of Java
 * [Example grammars at JFlex](https://github.com/jflex-de/jflex/wiki/External-JFlex-Grammars)
