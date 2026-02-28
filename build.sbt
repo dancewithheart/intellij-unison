@@ -8,9 +8,7 @@ ThisBuild / intellijPluginName := "intellij-unison"
 ThisBuild / intellijBuild := "251.26927.53" // 253.31033.145
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
 
-val junitInterfaceVersion = "0.13.3"
-val opentest4jVersion = "1.3.0"
-val junitVersion = "4.13.2"
+val zioVersion = "2.0.21"
 
 lazy val unison =
   project.in(file("."))
@@ -22,12 +20,12 @@ lazy val unison =
       compileOrder := CompileOrder.Mixed,
       intellijPlugins += "com.intellij.properties".toPlugin,
       libraryDependencies ++= Seq(
-        "com.github.sbt" % "junit-interface" % junitInterfaceVersion % Test,
-        "org.opentest4j" % "opentest4j" % opentest4jVersion % Test,
+        "com.github.sbt" % "junit-interface" % "0.13.3" % Test,
+        "org.opentest4j" % "opentest4j" % "1.3.0" % Test,
         "org.jetbrains" % "grammar-kit" % "2023.3" % Provided,
-        "junit" % "junit" % junitVersion % Test,
-        "dev.zio" %% "zio-test"     % "2.0.21" % Test,
-        "dev.zio" %% "zio-test-sbt" % "2.0.21" % Test
+        "junit" % "junit" % "4.13.2" % Test,
+        "dev.zio" %% "zio-test"     % zioVersion % Test,
+        "dev.zio" %% "zio-test-sbt" % zioVersion % Test
       ),
       // manually breaking sources in gen does not break `sbt compile`
       // Compile / managedSourceDirectories += baseDirectory.value / "gen",
