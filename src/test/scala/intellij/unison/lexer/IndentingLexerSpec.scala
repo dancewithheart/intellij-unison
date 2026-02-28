@@ -5,7 +5,8 @@ import com.intellij.lexer.{FlexAdapter, Lexer}
 import IndentingLexerTestSupport._
 import intellij.unison.{IndentingLexer, UnisonLexer}
 
-object IndentingLexerSpec extends ZIOSpecDefault {
+object IndentingLexerSpec
+    extends ZIOSpecDefault {
 
   // private def mk: Lexer = UnisonIndentingLexerAdapter.create()
   private def mk: Lexer =
@@ -29,14 +30,13 @@ object IndentingLexerSpec extends ZIOSpecDefault {
           out.exists(_._1 == "INDENT"),
           out.exists(_._1 == "DEDENT")
         ) &&
-          // Ensure order around the indent point: NEWLINE then INDENT then next non-ws token
-          assertTrue {
-            val idxNl = out.indexWhere(_._1 == "NEWLINE")
-            val idxIn = out.indexWhere(_._1 == "INDENT")
-            idxNl >= 0 && idxIn > idxNl
-          }
+        // Ensure order around the indent point: NEWLINE then INDENT then next non-ws token
+        assertTrue {
+          val idxNl = out.indexWhere(_._1 == "NEWLINE")
+          val idxIn = out.indexWhere(_._1 == "INDENT")
+          idxNl >= 0 && idxIn > idxNl
+        }
       },
-
       test("emits multiple DEDENTs when indentation drops multiple levels") {
         val input =
           "a\n" +
@@ -49,7 +49,6 @@ object IndentingLexerSpec extends ZIOSpecDefault {
 
         assertTrue(dedents >= 2)
       },
-
       test("does not emit NEWLINE/INDENT/DEDENT inside parentheses/brackets/braces") {
         val input =
           "x = (1\n" +
@@ -63,20 +62,18 @@ object IndentingLexerSpec extends ZIOSpecDefault {
         val dedentCount = out.count(_._1 == "DEDENT")
 
         assertTrue(indentCount == 0 || indentCount == 1) && // allow outer block depending on your grammar style
-          assertTrue(dedentCount == 0 || dedentCount == 1)
+        assertTrue(dedentCount == 0 || dedentCount == 1)
       },
-
       test("computes indent width from spaces and tabs (tab=4 by convention)") {
         val input =
           "a\n" +
-            "\tb\n" +   // tab indent -> width 4
+            "\tb\n" + // tab indent -> width 4
             "a2\n"
 
         val out = toks(input)
         assertTrue(out.exists(_._1 == "INDENT")) &&
-          assertTrue(out.exists(_._1 == "DEDENT"))
+        assertTrue(out.exists(_._1 == "DEDENT"))
       },
-
       test("flushes remaining DEDENT tokens at EOF") {
         val input =
           "a\n" +
@@ -85,14 +82,13 @@ object IndentingLexerSpec extends ZIOSpecDefault {
         val out = toks(input)
         assertTrue(out.lastOption.exists(_._1 == "DEDENT"))
       },
-
       test("splits whitespace into WHITE_SPACE + NEWLINE + WHITE_SPACE segments (optional)") {
         val input = "a\n  b\n"
         val out = toks(input, includeWhitespace = true)
 
         // Expect at least one NEWLINE token and at least one WHITE_SPACE segment after it.
         assertTrue(out.exists(_._1 == "NEWLINE")) &&
-          assertTrue(out.exists { case (k, txt) => k == "WHITE_SPACE" && txt.contains("  ") })
+        assertTrue(out.exists { case (k, txt) => k == "WHITE_SPACE" && txt.contains("  ") })
       }
     )
 }
