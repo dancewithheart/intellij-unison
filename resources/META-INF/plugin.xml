@@ -22,11 +22,12 @@
       ]]>
     </change-notes>
     <extensions defaultExtensionNs="com.intellij">
-        <iconProvider implementation="intellij.unison.UnisonIcon" />
-        <fileType language="Unison"
-           name="Unison"
-           implementationClass="intellij.unison.UnisonFileType"
-           extensions="u" />
+        <fileType
+                language="Unison"
+                name="Unison"
+                implementationClass="intellij.unison.UnisonFileType"
+                extensions="u"
+                icon="/icons/unison.svg"/>
         <lang.parserDefinition language="Unison"
            implementationClass="intellij.unison.language.UnisonParserDefinition" />
         <lang.syntaxHighlighterFactory language="Unison"
