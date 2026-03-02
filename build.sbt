@@ -38,7 +38,8 @@ lazy val unison =
 lazy val benchmarks = project
   .in(file("benchmarks"))
   .dependsOn(unison)
-  .enablePlugins(SbtIdeaPlugin, JmhPlugin)
+//  .enablePlugins(SbtIdeaPlugin, JmhPlugin)
+  .enablePlugins(JmhPlugin)
   .settings(
     publish / skip := true,
     fork := true,
@@ -46,18 +47,24 @@ lazy val benchmarks = project
     scalacOptions -= "-Xfatal-warnings",
     scalaVersion := (ThisBuild / scalaVersion).value,
 
-    // add IntelliJ SDK + plugin jars to the JMH runtime classpath ----
-    // We reuse the classpath that sbt-idea-plugin already assembled for `unison` tests.
-    // That classpath includes the IntelliJ SDK jars under ~/.intellij-.../sdk/.../lib/*.jar
-    Compile / fullClasspath ++= (unison / Test / fullClasspath).value,
-    Compile / fullClasspath ++= (unison / Compile / fullClasspath).value,
+    // keep these aligned with the main plugin project
+//    intellijBuild     := (ThisBuild / intellijBuild).value,
+//    intellijPlatform  := (ThisBuild / intellijPlatform).value,
+//    intellijPluginName:= (ThisBuild / intellijPluginName).value,
+//    intellijPlugins   ++= (unison / intellijPlugins).value,
+
+    // Add IntelliJ SDK + plugin runtime deps from the main project onto JMH runtime.
+    Compile / dependencyClasspath ++= (unison / Compile / dependencyClasspath).value,
+//    Jmh / managedSourceDirectories ++= (unison / managedSourceDirectories).value,
+    Jmh / dependencyClasspath ++= (unison / Compile / dependencyClasspath).value,
+    Runtime / dependencyClasspath ++= (unison / Runtime / dependencyClasspath).value,
 
     Jmh / fullClasspath ++= (unison / Test / fullClasspath).value,
     Jmh / fullClasspath ++= (unison / Compile / fullClasspath).value,
 
+    // Ensure benchmarks compile before run on a clean build (nice QoL)
+    Jmh / run := (Jmh / run).dependsOn(Jmh / compile).evaluated,
 
-    // Do NOT inherit Test/javaOptions with desktop/com.apple opens.
-    // For lexer-only benchmarks, headless is enough.
     Jmh / javaOptions := Seq(
       "-Djava.awt.headless=true"
     )
