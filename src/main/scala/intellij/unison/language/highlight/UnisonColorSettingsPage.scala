@@ -3,26 +3,32 @@ package intellij.unison.language.highlight
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.options.colors.{AttributesDescriptor, ColorDescriptor, ColorSettingsPage}
-import intellij.unison.UnisonIcon
-import intellij.unison.language.highlight.UnisonColorSettingsPage.DESCRIPTORS
+import intellij.unison.UnisonIcons
 
 import java.util
 import javax.swing.Icon
 
-class UnisonColorSettingsPage
+final class UnisonColorSettingsPage
     extends ColorSettingsPage {
 
-  override def getIcon: Icon = UnisonIcon.INSTANCE.FILE
+  // Settings UI only: this icon is shown in the color scheme editor.
+  override def getIcon: Icon = UnisonIcons.File
 
-  override def getHighlighter: SyntaxHighlighter = UnisonSyntaxHighlighter()
+  // IntelliJ may call this often while rendering the preview; keep it allocation-free.
+  override def getHighlighter: SyntaxHighlighter = UnisonSyntaxHighlighter.Instance
 
-  override def getDemoText: String = "x = 42"
+  // Purely a preview snippet for color settings (not a parser/PSI test).
+  override def getDemoText: String =
+    """|-- Unison syntax highlighting preview
+       |x = 42
+       |""".stripMargin
 
+  // We don't use custom <tag>...</tag> highlighting in demo text.
   override def getAdditionalHighlightingTagToDescriptorMap: util.Map[String, TextAttributesKey] =
     util.Map.of()
 
   override def getAttributeDescriptors: Array[AttributesDescriptor] =
-    DESCRIPTORS
+    UnisonColorSettingsPage.Descriptors
 
   override def getColorDescriptors: Array[ColorDescriptor] =
     ColorDescriptor.EMPTY_ARRAY
@@ -31,7 +37,8 @@ class UnisonColorSettingsPage
 }
 
 object UnisonColorSettingsPage {
-  val DESCRIPTORS: Array[AttributesDescriptor] = Array(
+  // These are the only knobs users see in Settings | Editor | Color Scheme | Unison.
+  val Descriptors: Array[AttributesDescriptor] = Array(
     new AttributesDescriptor("Keyword", UnisonSyntaxHighlighter.KEYWORD),
     new AttributesDescriptor("Identifier", UnisonSyntaxHighlighter.IDENT),
     new AttributesDescriptor("Builtin type", UnisonSyntaxHighlighter.BUILTIN),

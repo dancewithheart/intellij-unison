@@ -6,18 +6,21 @@ import com.intellij.openapi.editor.colors.TextAttributesKey.{createTextAttribute
 import com.intellij.openapi.editor.{DefaultLanguageHighlighterColors => DLHC}
 import com.intellij.openapi.editor.{HighlighterColors => HC}
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
+import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import intellij.unison.UnisonLexerAdapter
-import UnisonSyntaxHighlighter._
 import intellij.unison.language.UnisonTokenSets._
+import UnisonSyntaxHighlighter._
 
-case class UnisonSyntaxHighlighter()
+final class UnisonSyntaxHighlighter
     extends SyntaxHighlighterBase {
 
+  // Lexer used ONLY for highlighting; must tokenize the same way as parser lexer.
   override def getHighlightingLexer: Lexer = new UnisonLexerAdapter()
 
   override def getTokenHighlights(t: IElementType): Array[TextAttributesKey] =
-    if (COMMENTS.contains(t)) COMMENT_KEYS
+    if (t == TokenType.BAD_CHARACTER) BAD_CHAR_KEYS
+    else if (COMMENTS.contains(t)) COMMENT_KEYS
     else if (KEYWORDS.contains(t)) KEYWORD_KEYS
     else if (BUILTIN_TYPES.contains(t)) BUILTIN_KEYS
     else if (LITERALS.contains(t)) LITERAL_KEYS
@@ -27,8 +30,11 @@ case class UnisonSyntaxHighlighter()
 }
 
 object UnisonSyntaxHighlighter {
+  val Instance: UnisonSyntaxHighlighter = new UnisonSyntaxHighlighter
+
   private def keys(k: TextAttributesKey): Array[TextAttributesKey] = Array(k)
 
+  // Attribute keys must be stable: changing the string breaks users' saved color schemes.
   val IDENT = mkTextAttribKey("UNISON_IDENTIFIER", DLHC.IDENTIFIER)
   val KEYWORD = mkTextAttribKey("UNISON_KEYWORD", DLHC.KEYWORD)
   val BUILTIN = mkTextAttribKey("UNISON_BUILTIN", DLHC.PREDEFINED_SYMBOL)

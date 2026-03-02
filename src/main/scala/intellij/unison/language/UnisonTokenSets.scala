@@ -6,8 +6,10 @@ import intellij.unison.language.psi.UnisonTypes
 
 object UnisonTokenSets {
 
+  // IntelliJ will automatically skip these tokens between grammar elements.
+  // IMPORTANT: for significant whitespace, do NOT include NEWLINE/INDENT/DEDENT here.
   val WHITESPACE: TokenSet =
-    TokenSet.create(TokenType.WHITE_SPACE) // spaces/tabs only (from lexer)
+    TokenSet.create(TokenType.WHITE_SPACE)
 
   val COMMENTS: TokenSet =
     TokenSet.create(UnisonTypes.LINE_COMMENT_TOKEN, UnisonTypes.MULTILINE_COMMENT_TOKEN)
@@ -80,6 +82,7 @@ object UnisonTokenSets {
       UnisonTypes.KW_UNIT
     )
 
+  // Used by IntelliJ for string-related features; keep this conservative and correct.
   val STRING_LITERALS: TokenSet =
-    TokenSet.create(UnisonTypes.STRING_TOKEN, UnisonTypes.CHAR_TOKEN, UnisonTypes.BYTES_TOKEN)
+    TokenSet.create(UnisonTypes.STRING_TOKEN)
 }
