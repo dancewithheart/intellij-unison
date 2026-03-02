@@ -1,6 +1,6 @@
 import org.jetbrains.sbtidea.Keys.*
-import sbt._
-import Keys._
+import sbt.{CompileOrder, *}
+import Keys.{compileOrder, *}
 
 ThisBuild / scalaVersion := "2.13.18"
 
@@ -34,6 +34,43 @@ lazy val unison =
       genRoot := (Compile / sourceManaged).value / "unison-gen",
       Compile / managedSourceDirectories += genRoot.value,
     )
+
+lazy val benchmarks = project
+  .in(file("benchmarks"))
+  .dependsOn(unison)
+//  .enablePlugins(SbtIdeaPlugin, JmhPlugin)
+  .enablePlugins(JmhPlugin)
+  .settings(
+    publish / skip := true,
+    fork := true,
+    scalacOptions -= "-Yno-imports",
+    scalacOptions -= "-Xfatal-warnings",
+    scalaVersion := (ThisBuild / scalaVersion).value,
+
+    // keep these aligned with the main plugin project
+//    intellijBuild     := (ThisBuild / intellijBuild).value,
+//    intellijPlatform  := (ThisBuild / intellijPlatform).value,
+//    intellijPluginName:= (ThisBuild / intellijPluginName).value,
+//    intellijPlugins   ++= (unison / intellijPlugins).value,
+
+    // Add IntelliJ SDK + plugin runtime deps from the main project onto JMH runtime.
+    Compile / dependencyClasspath ++= (unison / Compile / dependencyClasspath).value,
+//    Jmh / managedSourceDirectories ++= (unison / managedSourceDirectories).value,
+    Jmh / dependencyClasspath ++= (unison / Compile / dependencyClasspath).value,
+    Runtime / dependencyClasspath ++= (unison / Runtime / dependencyClasspath).value,
+
+    Jmh / fullClasspath ++= (unison / Test / fullClasspath).value,
+    Jmh / fullClasspath ++= (unison / Compile / fullClasspath).value,
+
+    // Ensure benchmarks compile before run on a clean build (nice QoL)
+    Jmh / run := (Jmh / run).dependsOn(Jmh / compile).evaluated,
+
+    Jmh / javaOptions := Seq(
+      "-Djava.awt.headless=true"
+    )
+  )
+
+addCommandAlias("b", "benchmarks/jmh:run .*lexWholeFile.*")
 
 autoRemoveOldCachedIntelliJSDK := true
 autoRemoveOldCachedDownloads := true
