@@ -1,6 +1,6 @@
 import org.jetbrains.sbtidea.Keys.*
-import sbt._
-import Keys._
+import sbt.{CompileOrder, *}
+import Keys.{compileOrder, *}
 
 ThisBuild / scalaVersion := "2.13.18"
 
@@ -34,6 +34,36 @@ lazy val unison =
       genRoot := (Compile / sourceManaged).value / "unison-gen",
       Compile / managedSourceDirectories += genRoot.value,
     )
+
+lazy val benchmarks = project
+  .in(file("benchmarks"))
+  .dependsOn(unison)
+  .enablePlugins(SbtIdeaPlugin, JmhPlugin)
+  .settings(
+    publish / skip := true,
+    fork := true,
+    scalacOptions -= "-Yno-imports",
+    scalacOptions -= "-Xfatal-warnings",
+    scalaVersion := (ThisBuild / scalaVersion).value,
+
+    // add IntelliJ SDK + plugin jars to the JMH runtime classpath ----
+    // We reuse the classpath that sbt-idea-plugin already assembled for `unison` tests.
+    // That classpath includes the IntelliJ SDK jars under ~/.intellij-.../sdk/.../lib/*.jar
+    Compile / fullClasspath ++= (unison / Test / fullClasspath).value,
+    Compile / fullClasspath ++= (unison / Compile / fullClasspath).value,
+
+    Jmh / fullClasspath ++= (unison / Test / fullClasspath).value,
+    Jmh / fullClasspath ++= (unison / Compile / fullClasspath).value,
+
+
+    // Do NOT inherit Test/javaOptions with desktop/com.apple opens.
+    // For lexer-only benchmarks, headless is enough.
+    Jmh / javaOptions := Seq(
+      "-Djava.awt.headless=true"
+    )
+  )
+
+addCommandAlias("b", "benchmarks/jmh:run .*lexWholeFile.*")
 
 autoRemoveOldCachedIntelliJSDK := true
 autoRemoveOldCachedDownloads := true
