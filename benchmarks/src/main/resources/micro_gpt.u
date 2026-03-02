@@ -1,0 +1,704 @@
+-- ported from https://karpathy.github.io/2026/02/12/microgpt/
+-- and made it Unison-idiomatic (to showcase Unison language features):
+-- - pure autograd graph + backward pass
+-- - state handler for graph + params
+-- - tiny GPT-ish forward, training loop, sampling
+
+use builtin
+use List
+use Map
+use Set
+use Text
+
+--------------------------------------------------------------------------------
+-- 1) Small “State” ability + handler (showcases abilities & handlers)
+--------------------------------------------------------------------------------
+
+ability State s where
+  get : s
+  put : s -> ()
+
+modify : (s -> s) -> '{State s} ()
+modify f =
+  s = State.get
+  State.put (f s)
+
+runState : s -> '{State s} a -> (a, s)
+runState s0 action =
+  handle action with
+    { State.get -> k } -> runState s0 (k s0)
+    { State.put s -> k } -> runState s (k ())
+    { a } -> (a, s0)
+
+--------------------------------------------------------------------------------
+-- 2) Core data types (showcases ADTs / records / pattern matching)
+--------------------------------------------------------------------------------
+
+type Id = Nat
+
+type Op
+  = Leaf
+  | Add
+  | Mul
+  | Pow Float
+  | Log
+  | Exp
+  | Relu
+  | Neg
+  | Div
+
+type Node =
+  { id : Id
+  , data : Float
+  , op : Op
+  , parents : [Id]
+  , localGrads : [Float]  -- d(node)/d(parent_i) evaluated at forward time
+  }
+
+type Graph =
+  { next : Id
+  , nodes : Map Id Node
+  }
+
+emptyGraph : Graph
+emptyGraph = { next = 0, nodes = Map.empty }
+
+-- Tensor shapes we need (enough for micro GPT)
+type Vec = [Id]
+type Mat = [Vec]
+
+type Tokenizer =
+  { uchars : [Char]
+  , bos : Id
+  , vocabSize : Id
+  }
+
+type Hyper =
+  { nLayer : Nat
+  , nEmb : Nat
+  , blockSize : Nat
+  , nHead : Nat
+  }
+
+headDim : Hyper -> Nat
+headDim h = Nat.div h.nEmb h.nHead
+
+type KV =
+  { keys : [[Vec]]    -- per layer, list of key vectors over time
+  , values : [[Vec]]  -- per layer, list of value vectors over time
+  }
+
+kvInit : Nat -> KV
+kvInit nLayer =
+  { keys = List.replicate (Nat.toInt nLayer) []
+  , values = List.replicate (Nat.toInt nLayer) []
+  }
+
+--------------------------------------------------------------------------------
+-- 3) Graph construction primitives (pure autograd)
+--------------------------------------------------------------------------------
+
+-- Helpers
+getNode : Id -> '{State Graph} Node
+getNode i =
+  g = State.get
+  Map.get i g.nodes |> Optional.get
+
+getData : Id -> '{State Graph} Float
+getData i = (getNode i).data
+
+putNode : Node -> '{State Graph} ()
+putNode n =
+  modify (g -> { g with nodes = Map.insert n.id n g.nodes })
+
+freshId : '{State Graph} Id
+freshId =
+  g = State.get
+  i = g.next
+  State.put { g with next = i + 1 }
+  i
+
+leaf : Float -> '{State Graph} Id
+leaf x =
+  i = freshId
+  putNode { id = i, data = x, op = Leaf, parents = [], localGrads = [] }
+  i
+
+mk : Float -> Op -> [Id] -> [Float] -> '{State Graph} Id
+mk out op ps lgs =
+  i = freshId
+  putNode { id = i, data = out, op = op, parents = ps, localGrads = lgs }
+  i
+
+add : Id -> Id -> '{State Graph} Id
+add a b =
+  da = getData a
+  db = getData b
+  mk (da + db) Add [a, b] [1.0, 1.0]
+
+mul : Id -> Id -> '{State Graph} Id
+mul a b =
+  da = getData a
+  db = getData b
+  mk (da * db) Mul [a, b] [db, da]
+
+neg : Id -> '{State Graph} Id
+neg a =
+  da = getData a
+  mk (-da) Neg [a] [-1.0]
+
+sub : Id -> Id -> '{State Graph} Id
+sub a b = add a (neg b)
+
+pow : Id -> Float -> '{State Graph} Id
+pow a p =
+  da = getData a
+  out = Float.pow da p
+  lg = p * Float.pow da (p - 1.0)
+  mk out (Pow p) [a] [lg]
+
+div : Id -> Id -> '{State Graph} Id
+div a b =
+  -- a / b = a * b^-1
+  mul a (pow b (-1.0))
+
+log : Id -> '{State Graph} Id
+log a =
+  da = getData a
+  mk (Float.log da) Log [a] [1.0 / da]
+
+exp : Id -> '{State Graph} Id
+exp a =
+  da = getData a
+  out = Float.exp da
+  mk out Exp [a] [out]
+
+relu : Id -> '{State Graph} Id
+relu a =
+  da = getData a
+  out = if da > 0.0 then da else 0.0
+  lg = if da > 0.0 then 1.0 else 0.0
+  mk out Relu [a] [lg]
+
+sumIds : [Id] -> '{State Graph} Id
+sumIds xs =
+  match xs with
+    [] -> leaf 0.0
+    x +: xt -> List.foldl (acc i -> add acc i) x xt
+
+--------------------------------------------------------------------------------
+-- 4) Backward pass: topo sort + gradient accumulation (pure Map)
+--------------------------------------------------------------------------------
+
+-- Topological order of reachable nodes from a root id
+topo : Id -> '{State Graph} [Id]
+topo root =
+  go : Id -> Set Id -> ([Id], Set Id)
+  go v visited =
+    if Set.contains v visited then ([], visited) else
+      visited2 = Set.insert v visited
+      n = getNode v
+      (sub, visited3) =
+        List.foldl
+          ( (accList, accVis) p ->
+              (tp, vis2) = go p accVis
+              (accList ++ tp, vis2)
+          )
+          ([], visited2)
+          n.parents
+      (sub ++ [v], visited3)
+
+  (order, _) = go root Set.empty
+  order
+
+addGrad : Id -> Float -> Map Id Float -> Map Id Float
+addGrad i dg grads =
+  prev = Map.get i grads |> Optional.orElse 0.0
+  Map.insert i (prev + dg) grads
+
+backward : Id -> '{State Graph} (Map Id Float)
+backward lossId =
+  order = topo lossId
+  rev = List.reverse order
+  grads0 = Map.singleton lossId 1.0
+
+  List.foldl (grads v ->
+    g = Map.get v grads |> Optional.orElse 0.0
+    n = getNode v
+    -- distribute to parents using saved localGrads
+    distribute ps lgs gradsAcc =
+      match (ps, lgs) with
+        ([], []) -> gradsAcc
+        (p +: pt, lg +: lgt) ->
+          distribute pt lgt (addGrad p (lg * g) gradsAcc)
+        _ -> gradsAcc
+    distribute n.parents n.localGrads grads
+  ) grads0 rev
+
+--------------------------------------------------------------------------------
+-- 5) Tokenizer + dataset (showcases Text/List/Set/Map usage)
+--------------------------------------------------------------------------------
+
+splitLines : Text -> [Text]
+splitLines t =
+  Text.split "\n" t
+  |> List.filter (line -> Text.size line > 0)
+
+joinLines : [Text] -> Text
+joinLines ls = Text.join "\n" ls
+
+uniqueChars : [Text] -> [Char]
+uniqueChars docs =
+  all = docs |> List.foldl (acc d -> acc ++ Text.toCharList d) []
+  Set.fromList all |> Set.toList |> List.sort
+
+mkTokenizer : [Text] -> Tokenizer
+mkTokenizer docs =
+  uch = uniqueChars docs
+  bos = Nat.fromInt (List.size uch)
+  { uchars = uch, bos = bos, vocabSize = bos + 1 }
+
+charToId : Tokenizer -> Char -> Id
+charToId tok ch =
+  go i cs =
+    match cs with
+      [] -> 0
+      c +: ct -> if c == ch then i else go (i + 1) ct
+  go 0 tok.uchars
+
+idToChar : Tokenizer -> Id -> Char
+idToChar tok i =
+  List.at (Nat.toInt i) tok.uchars |> Optional.get
+
+encode : Tokenizer -> Text -> [Id]
+encode tok doc =
+  ids = Text.toCharList doc |> List.map (c -> charToId tok c)
+  [tok.bos] ++ ids ++ [tok.bos]
+
+--------------------------------------------------------------------------------
+-- 6) “Tensor” ops on Ids (all compute into graph; no mutation)
+--------------------------------------------------------------------------------
+
+zipWith : (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith f as bs =
+  match (as, bs) with
+    ([], _) -> []
+    (_, []) -> []
+    (a +: at, b +: bt) -> f a b +: zipWith f at bt
+
+vAdd : Vec -> Vec -> '{State Graph} Vec
+vAdd a b = zipWith add a b
+
+vMulScalar : Vec -> Id -> '{State Graph} Vec
+vMulScalar xs s = xs |> List.map (x -> mul x s)
+
+linear : Vec -> Mat -> '{State Graph} Vec
+linear x w =
+  w |> List.map (row ->
+    prods = zipWith mul row x
+    sumIds prods
+  )
+
+rmsnorm : Vec -> '{State Graph} Vec
+rmsnorm x =
+  squares = x |> List.map (xi -> mul xi xi)
+  ms = div (sumIds squares) (leaf (Float.fromInt (List.size x)))
+  scale = pow (add ms (leaf 1e-5)) (-0.5)
+  vMulScalar x scale
+
+softmax : Vec -> '{State Graph} Vec
+softmax logits =
+  -- stable softmax using raw data
+  ds = logits |> List.map getData
+  maxv = List.maximum ds |> Optional.get
+  shifted = logits |> List.map (v -> sub v (leaf maxv))
+  exps = shifted |> List.map exp
+  total = sumIds exps
+  exps |> List.map (e -> div e total)
+
+slice : Nat -> Nat -> [a] -> [a]
+slice start len xs =
+  xs |> List.drop (Nat.toInt start) |> List.take (Nat.toInt len)
+
+--------------------------------------------------------------------------------
+-- 7) Model parameters in a “StateDict” (Map Text Mat)
+--    + initialization (random) and Adam update (rewriting nodes)
+--------------------------------------------------------------------------------
+
+type StateDict = Map Text Mat
+
+sdGet : Text -> StateDict -> Mat
+sdGet k sd = Map.get k sd |> Optional.get
+
+sdPut : Text -> Mat -> StateDict -> StateDict
+sdPut k v sd = Map.insert k v sd
+
+flattenParams : StateDict -> [Id]
+flattenParams sd =
+  Map.values sd |> List.concatMap List.concat
+
+-- Random helpers (Box-Muller)
+randUniform : '{Random} Float
+randUniform = Random.float
+
+randNormal : Float -> '{Random} Float
+randNormal std =
+  u1 = max 1e-12 !randUniform
+  u2 = !randUniform
+  r = Float.sqrt (-2.0 * Float.log u1)
+  theta = 2.0 * Float.pi * u2
+  (r * Float.cos theta) * std
+
+matrix : Nat -> Nat -> Float -> '{Random, State Graph} Mat
+matrix nout nin std =
+  List.range 0 (Nat.toInt nout - 1)
+  |> List.map (_ ->
+    List.range 0 (Nat.toInt nin - 1)
+    |> List.map (_ ->
+      x = !randNormal std
+      leaf x
+    )
+  )
+
+initModel : Hyper -> Tokenizer -> '{Random, State Graph} (StateDict, [Id])
+initModel h tok =
+  std = 0.08
+  wte = !matrix tok.vocabSize h.nEmb std
+  wpe = !matrix h.blockSize h.nEmb std
+  lm  = !matrix tok.vocabSize h.nEmb std
+
+  sd0 =
+    Map.empty
+    |> sdPut "wte" wte
+    |> sdPut "wpe" wpe
+    |> sdPut "lm_head" lm
+
+  sd1 =
+    List.range 0 (Nat.toInt h.nLayer - 1)
+    |> List.foldl (sd liInt ->
+      li = Nat.fromInt liInt
+      pfx = "layer" ++ Text.fromNat li ++ "."
+      sd
+      |> sdPut (pfx ++ "attn_wq") (!matrix h.nEmb h.nEmb std)
+      |> sdPut (pfx ++ "attn_wk") (!matrix h.nEmb h.nEmb std)
+      |> sdPut (pfx ++ "attn_wv") (!matrix h.nEmb h.nEmb std)
+      |> sdPut (pfx ++ "attn_wo") (!matrix h.nEmb h.nEmb std)
+      |> sdPut (pfx ++ "mlp_fc1") (!matrix (4 * h.nEmb) h.nEmb std)
+      |> sdPut (pfx ++ "mlp_fc2") (!matrix h.nEmb (4 * h.nEmb) std)
+    ) sd0
+
+  params = flattenParams sd1
+  (sd1, params)
+
+-- Adam buffers keyed by param Id (very Unison-friendly persistent maps)
+type Adam =
+  { lr : Float
+  , beta1 : Float
+  , beta2 : Float
+  , eps : Float
+  , step : Nat
+  , total : Nat
+  , m : Map Id Float
+  , v : Map Id Float
+  }
+
+adamInit : Float -> Float -> Float -> Float -> Nat -> Adam
+adamInit lr b1 b2 eps total =
+  { lr = lr, beta1 = b1, beta2 = b2, eps = eps
+  , step = 0, total = total
+  , m = Map.empty, v = Map.empty
+  }
+
+adamStep : Adam -> [Id] -> Map Id Float -> '{State Graph} Adam
+adamStep opt params grads =
+  t = opt.step + 1
+  lr_t = opt.lr * (1.0 - (Float.fromNat opt.step / Float.fromNat opt.total))
+
+  updOne : (Adam) -> Id -> Adam
+  updOne o pid =
+    g = Map.get pid grads |> Optional.orElse 0.0
+    mi = Map.get pid o.m |> Optional.orElse 0.0
+    vi = Map.get pid o.v |> Optional.orElse 0.0
+    mi2 = o.beta1 * mi + (1.0 - o.beta1) * g
+    vi2 = o.beta2 * vi + (1.0 - o.beta2) * (g * g)
+
+    mHat = mi2 / (1.0 - Float.pow o.beta1 (Float.fromNat t))
+    vHat = vi2 / (1.0 - Float.pow o.beta2 (Float.fromNat t))
+
+    delta = lr_t * mHat / (Float.sqrt vHat + o.eps)
+
+    -- rewrite parameter node in Graph (still pure via State handler)
+    n = getNode pid
+    putNode { n with data = n.data - delta }
+
+    { o with
+      m = Map.insert pid mi2 o.m
+    , v = Map.insert pid vi2 o.v
+    }
+
+  opt2 = List.foldl updOne opt params
+  { opt2 with step = t }
+
+--------------------------------------------------------------------------------
+-- 8) GPT-ish forward (with KV cache)
+--------------------------------------------------------------------------------
+
+-- i-th element utilities
+getAt : Nat -> [a] -> a
+getAt i xs = List.at (Nat.toInt i) xs |> Optional.get
+
+setAt : Nat -> a -> [a] -> [a]
+setAt i x xs =
+  go j ys =
+    match ys with
+      [] -> []
+      y +: yt -> if j == i then x +: yt else y +: go (j + 1) yt
+  go 0 xs
+
+gptStep :
+  Hyper -> StateDict -> Id -> Nat -> KV -> '{State Graph} (Vec, KV)
+gptStep h sd tokenId posId kv =
+  wte = sdGet "wte" sd
+  wpe = sdGet "wpe" sd
+  tokEmb = getAt tokenId wte
+  posEmb = getAt posId wpe
+  x0 = vAdd tokEmb posEmb
+  x = rmsnorm x0
+
+  goLayer : Nat -> (Vec, KV) -> (Vec, KV)
+  goLayer li (xIn, kvIn) =
+    pfx = "layer" ++ Text.fromNat li ++ "."
+    wq = sdGet (pfx ++ "attn_wq") sd
+    wk = sdGet (pfx ++ "attn_wk") sd
+    wv = sdGet (pfx ++ "attn_wv") sd
+    wo = sdGet (pfx ++ "attn_wo") sd
+    fc1 = sdGet (pfx ++ "mlp_fc1") sd
+    fc2 = sdGet (pfx ++ "mlp_fc2") sd
+
+    -- Attention block
+    xRes = xIn
+    xN = rmsnorm xIn
+    q = linear xN wq
+    k = linear xN wk
+    v = linear xN wv
+
+    keysL = getAt li kvIn.keys
+    valsL = getAt li kvIn.values
+    keysL2 = keysL ++ [k]
+    valsL2 = valsL ++ [v]
+    kv2 =
+      { keys = setAt li keysL2 kvIn.keys
+      , values = setAt li valsL2 kvIn.values
+      }
+
+    hd = headDim h
+
+    attnOut =
+      List.range 0 (Nat.toInt h.nHead - 1)
+      |> List.concatMap (hiInt ->
+        hi = Nat.fromInt hiInt
+        hs = hi * hd
+        qh = slice hs hd q
+        kh = keysL2 |> List.map (kvv -> slice hs hd kvv)
+        vh = valsL2 |> List.map (vvv -> slice hs hd vvv)
+
+        logitsT =
+          List.range 0 (List.size kh - 1)
+          |> List.map (t ->
+            kt = List.at t kh |> Optional.get
+            prods =
+              List.range 0 (Nat.toInt hd - 1)
+              |> List.map (j ->
+                qj = List.at j qh |> Optional.get
+                kj = List.at j kt |> Optional.get
+                mul qj kj
+              )
+            dot = sumIds prods
+            mul dot (leaf (1.0 / Float.sqrt (Float.fromNat hd)))
+          )
+
+        weights = softmax logitsT
+
+        List.range 0 (Nat.toInt hd - 1)
+        |> List.map (j ->
+          terms =
+            List.range 0 (List.size vh - 1)
+            |> List.map (t ->
+              wt = List.at t weights |> Optional.get
+              vt = List.at t vh |> Optional.get
+              vj = List.at (Nat.toInt j) vt |> Optional.get
+              mul wt vj
+            )
+          sumIds terms
+        )
+      )
+
+    xAttn = linear attnOut wo
+    x1 = vAdd xAttn xRes
+
+    -- MLP block
+    xRes2 = x1
+    xN2 = rmsnorm x1
+    h1 = linear xN2 fc1
+    h1a = h1 |> List.map relu
+    h2 = linear h1a fc2
+    x2 = vAdd h2 xRes2
+
+    (x2, kv2)
+
+  (xFinal, kvFinal) =
+    List.range 0 (Nat.toInt h.nLayer - 1)
+    |> List.foldl (acc liInt -> goLayer (Nat.fromInt liInt) acc) (x, kv)
+
+  logits = linear xFinal (sdGet "lm_head" sd)
+  (logits, kvFinal)
+
+--------------------------------------------------------------------------------
+-- 9) Loss, training step, sampling
+--------------------------------------------------------------------------------
+
+crossEntropyDoc : Hyper -> StateDict -> Tokenizer -> [Id] -> '{State Graph} Id
+crossEntropyDoc h sd tok tokens =
+  n = min h.blockSize (Nat.fromInt (List.size tokens - 1))
+  kv0 = kvInit h.nLayer
+
+  go pos kv losses =
+    if pos >= n then
+      div (sumIds losses) (leaf (Float.fromNat n))
+    else
+      tokenId = getAt pos tokens
+      targetId = getAt (pos + 1) tokens
+      (logits, kv2) = gptStep h sd tokenId pos kv
+      probs = softmax logits
+      pT = getAt targetId probs
+      lossT = neg (log pT)
+      go (pos + 1) kv2 (losses ++ [lossT])
+
+  go 0 kv0 []
+
+-- naive categorical sampling
+sampleCategorical : [Float] -> '{Random} Nat
+sampleCategorical ps =
+  u = Random.float
+  go i acc rest =
+    match rest with
+      [] -> 0
+      p +: pt ->
+        acc2 = acc + p
+        if u <= acc2 then Nat.fromInt i else go (i + 1) acc2 pt
+  go 0 0.0 ps
+
+sampleOne : Hyper -> StateDict -> Tokenizer -> Float -> '{Random, State Graph} Text
+sampleOne h sd tok temperature =
+  kv0 = kvInit h.nLayer
+  go pos kv tokenId acc =
+    if pos >= h.blockSize then Text.fromCharList (List.reverse acc) else
+      (logits, kv2) = gptStep h sd tokenId pos kv
+      scaled = logits |> List.map (l -> div l (leaf temperature))
+      probs = softmax scaled
+      ps = probs |> List.map getData
+      nextId = sampleCategorical ps
+
+      if nextId == tok.bos then Text.fromCharList (List.reverse acc)
+      else
+        ch = idToChar tok nextId
+        go (pos + 1) kv2 nextId (ch +: acc)
+
+  go 0 kv0 tok.bos []
+
+--------------------------------------------------------------------------------
+-- 10) IO: dataset load (kept simple; adjust functions if needed)
+--------------------------------------------------------------------------------
+
+defaultDocs : [Text]
+defaultDocs =
+  [ "anna", "bob", "carla", "david", "eva", "frank", "gabi", "hugo"
+  , "iza", "jan", "kamil", "lena", "mila", "nina", "ola", "piotr"
+  ]
+
+loadDocs : '{IO} [Text]
+loadDocs =
+  exists = IO.fileExists "input.txt"
+  if exists then
+    txt = IO.readFile "input.txt"
+    splitLines txt
+  else
+    IO.writeFile "input.txt" (joinLines defaultDocs)
+    defaultDocs
+
+--------------------------------------------------------------------------------
+-- 11) Main: train + infer (showcases composition of abilities)
+--------------------------------------------------------------------------------
+
+main : '{IO, Random} ()
+main =
+  Random.seed 42
+
+  docs0 = loadDocs
+  docs = docs0  -- keep deterministic; you can shuffle if you want
+  IO.printLine ("num docs: " ++ Text.fromNat (Nat.fromInt (List.size docs)))
+
+  tok = mkTokenizer docs
+  IO.printLine ("vocab size: " ++ Text.fromNat tok.vocabSize)
+
+  h =
+    { nLayer = 1
+    , nEmb = 16
+    , blockSize = 16
+    , nHead = 4
+    }
+
+  -- Run the whole training in a State(Graph) handler (graph stores params too).
+  ((), gFinal) =
+    runState emptyGraph '(
+      (sd, params) = initModel h tok
+      IO.printLine ("num params: " ++ Text.fromNat (Nat.fromInt (List.size params)))
+
+      numSteps = 200
+      opt0 = adamInit 0.01 0.85 0.99 1e-8 numSteps
+
+      train step opt =
+        if step >= numSteps then (sd, opt) else
+          doc = List.at (Nat.toInt (step % Nat.fromInt (List.size docs))) docs |> Optional.get
+          tokens = encode tok doc
+
+          lossId = crossEntropyDoc h sd tok tokens
+          grads = backward lossId
+          opt2 = adamStep opt params grads
+
+          lossVal = getData lossId
+          IO.printLine ("step " ++ Text.fromNat (step + 1) ++ " / " ++ Text.fromNat numSteps ++ " | loss " ++ Text.fromFloat lossVal)
+          train (step + 1) opt2
+
+      (sd2, _opt2) = train 0 opt0
+
+      IO.printLine "--- inference (hallucinated names) ---"
+      temperature = 0.5
+      List.range 1 20
+      |> List.forEach (i ->
+        s = sampleOne h sd2 tok temperature
+        IO.printLine ("sample " ++ Text.fromInt i ++ ": " ++ s)
+      )
+    )
+
+  -- gFinal exists if you want to inspect nodes; unused here.
+  ()
+
+--------------------------------------------------------------------------------
+-- 12) Tiny tests (optional but nice for showcasing Unison)
+--------------------------------------------------------------------------------
+
+test> grad_add_mul =
+  -- f(a,b) = a*b + a
+  -- df/da = b + 1
+  -- df/db = a
+  (grads, _) =
+    runState emptyGraph '(
+      a = leaf 2.0
+      b = leaf 3.0
+      f = add (mul a b) a
+      backward f
+    )
+  da = Map.get 0 grads |> Optional.get    -- first leaf got id 0
+  db = Map.get 1 grads |> Optional.get    -- second leaf got id 1
+  (Float.abs (da - 4.0) < 1e-6) && (Float.abs (db - 2.0) < 1e-6)
