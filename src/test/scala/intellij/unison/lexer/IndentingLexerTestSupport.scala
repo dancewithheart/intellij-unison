@@ -16,8 +16,8 @@ object IndentingLexerTestSupport {
     while (lexer.getTokenType != null) {
       val tpe = lexer.getTokenType
       val start = lexer.getTokenStart
-      val end   = lexer.getTokenEnd
-      val text  = input.substring(start, end)
+      val end = lexer.getTokenEnd
+      val text = input.substring(start, end)
 
       if (includeWhitespace || tpe != TokenType.WHITE_SPACE)
         b += Lexed(tokenName(tpe), text, start, end)
