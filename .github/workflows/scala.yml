@@ -26,12 +26,12 @@ jobs:
         uses: sbt/setup-sbt@v1
 #      - name: Download IntelliJ SDK (runIDE)
 #        run: sbt -v runIDE
-      - name: Generate lexer + parser + PSI
-        run: sbt -v lexer parser
-      # sanity check: prove files exist
-      - name: Verify generated sources exist
-        run: |
-          ls -la gen/intellij/unison/language/parser || true
-          ls -la gen/intellij/unison/language/psi || true
+#      - name: Generate lexer + parser + PSI
+#        sbt -v generateLexer generateParser
+#      # sanity check: prove files exist
+#      - name: Verify generated sources exist
+#        run: |
+#          ls -la gen/intellij/unison/language/parser || true
+#          ls -la gen/intellij/unison/language/psi || true
       - name: Run tests
         run: sbt -v test
