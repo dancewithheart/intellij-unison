@@ -3,6 +3,7 @@ package intellij.unison.lexer
 import zio.test._
 import com.intellij.lexer.Lexer
 import intellij.unison.IndentingLexer
+import intellij.unison.language.psi.UnisonTypes
 import intellij.unison.lexer.IndentingLexerTestSupport._
 
 object IndentingLexerPropertiesSpec
@@ -11,17 +12,16 @@ object IndentingLexerPropertiesSpec
   private def mk: Lexer =
     new IndentingLexer(new FakeWhitespaceLexer)
 
-  private def toks(input: String, includeWhitespace: Boolean = false) =
-    lexAll(input, mk, includeWhitespace).map(x => (x.tok, x.text, x.start, x.end)) // likely Vector
+  private def toks(input: String, includeWhitespace: Boolean = false): Vector[Lexed] =
+    lexAll(input, mk, includeWhitespace)
 
-  private def indentBalance(tokens: Seq[(String, String, Int, Int)]): Vector[Int] =
+  private def indentBalance(tokens: Seq[Lexed]): Vector[Int] =
     tokens.foldLeft(Vector(0)) { (acc, t) =>
       val bal = acc.last
-      val next = t._1 match {
-        case "INDENT" => bal + 1
-        case "DEDENT" => bal - 1
-        case _        => bal
-      }
+      val next =
+        if (t.tpe == UnisonTypes.INDENT) bal + 1
+        else if (t.tpe == UnisonTypes.DEDENT) bal - 1
+        else bal
       acc :+ next
     }
 
@@ -37,13 +37,16 @@ object IndentingLexerPropertiesSpec
         }
       },
       test("no newline => no NEWLINE/INDENT/DEDENT") {
-        val genNoNl = Gen.string(Gen.printableChar).map(_.filterNot(_ == '\n').take(300))
+        val genNoNl =
+          Gen.string(Gen.printableChar).map(_.filterNot(_ == '\n').take(300))
+
         check(genNoNl) { s =>
           val out = toks(s)
-          val kinds = out.map(_._1).toSet
-          assertTrue(!kinds.contains("NEWLINE")) &&
-          assertTrue(!kinds.contains("INDENT")) &&
-          assertTrue(!kinds.contains("DEDENT"))
+          val types = out.map(_.tpe).toSet
+
+          assertTrue(!types.contains(UnisonTypes.NEWLINE)) &&
+          assertTrue(!types.contains(UnisonTypes.INDENT)) &&
+          assertTrue(!types.contains(UnisonTypes.DEDENT))
         }
       },
       test("token offsets are monotonic and well-formed") {
@@ -51,10 +54,10 @@ object IndentingLexerPropertiesSpec
           val out = toks(s, includeWhitespace = true)
 
           val wellFormed =
-            out.forall { case (_, _, st, en) => st <= en && st >= 0 && en >= 0 }
+            out.forall(t => t.start <= t.end && t.start >= 0 && t.end >= 0)
 
           val monotonicStarts =
-            out.map(_._3).sliding(2).forall {
+            out.map(_.start).sliding(2).forall {
               case Seq(a, b) => a <= b
               case _         => true
             }
@@ -68,16 +71,18 @@ object IndentingLexerPropertiesSpec
           bodyLines <- Gen.listOfBounded(1, 10)(Gen.string(Gen.alphaChar).map(_.take(10)))
           suffix <- Gen.string(Gen.alphaChar).map(_.take(10))
         } yield {
-          val body = bodyLines.mkString("\n  ", "\n  ", "\n")
-          s"$prefix($body)$suffix\nx\n  y\n"
+          val body = bodyLines.mkString("\n  ", "\n  ", "\n") // includes newlines + indentation
+          s"$prefix($body)$suffix\nx\n  y\n" // outer block so INDENT/DEDENT can still appear
         }
 
         check(gen) { s =>
           val out = toks(s)
-          val indentCount = out.count(_._1 == "INDENT")
-          val dedentCount = out.count(_._1 == "DEDENT")
 
-          assertTrue(indentCount <= 1) && assertTrue(dedentCount <= 1)
+          val indentCount = out.count(_.tpe == UnisonTypes.INDENT)
+          val dedentCount = out.count(_.tpe == UnisonTypes.DEDENT)
+
+          assertTrue(indentCount <= 1) &&
+          assertTrue(dedentCount <= 1)
         }
       }
     )

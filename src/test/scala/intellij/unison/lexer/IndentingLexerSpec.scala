@@ -6,7 +6,8 @@ import com.intellij.psi.TokenType
 import intellij.unison.{IndentingLexer, UnisonLexer}
 import intellij.unison.language.psi.UnisonTypes
 
-object IndentingLexerSpec extends ZIOSpecDefault {
+object IndentingLexerSpec
+    extends ZIOSpecDefault {
 
   private def mk: Lexer =
     new IndentingLexer(new FlexAdapter(new UnisonLexer(null)))
@@ -29,8 +30,8 @@ object IndentingLexerSpec extends ZIOSpecDefault {
         val out = toks(input)
 
         val hasNewlineText = out.exists(t => t.tpe == UnisonTypes.NEWLINE && t.text == "\n")
-        val hasIndent      = out.exists(_.tpe == UnisonTypes.INDENT)
-        val hasDedent      = out.exists(_.tpe == UnisonTypes.DEDENT)
+        val hasIndent = out.exists(_.tpe == UnisonTypes.INDENT)
+        val hasDedent = out.exists(_.tpe == UnisonTypes.DEDENT)
 
         val idxNl = out.indexWhere(_.tpe == UnisonTypes.NEWLINE)
         val idxIn = out.indexWhere(_.tpe == UnisonTypes.INDENT)
@@ -39,7 +40,6 @@ object IndentingLexerSpec extends ZIOSpecDefault {
         assertTrue(hasNewlineText && hasIndent && hasDedent && orderOk)
           .label(dump(out))
       },
-
       test("emits multiple DEDENTs when indentation drops multiple levels") {
         val input =
           """|a
@@ -54,7 +54,6 @@ object IndentingLexerSpec extends ZIOSpecDefault {
         assertTrue(dedents >= 2)
           .label(s"dedents=$dedents" + dump(out))
       },
-
       test("does not emit INDENT/DEDENT due to newline inside parentheses") {
         val input =
           """|x = (1
@@ -74,7 +73,6 @@ object IndentingLexerSpec extends ZIOSpecDefault {
         assertTrue(ok)
           .label(s"indentCount=$indentCount dedentCount=$dedentCount" + dump(out))
       },
-
       test("computes indent width from spaces and tabs (tab=4 by convention)") {
         val input =
           "a\n" +
@@ -89,7 +87,6 @@ object IndentingLexerSpec extends ZIOSpecDefault {
         assertTrue(hasIndent && hasDedent)
           .label(dump(out))
       },
-
       test("flushes remaining DEDENT tokens at EOF") {
         val input =
           """|a
@@ -102,7 +99,6 @@ object IndentingLexerSpec extends ZIOSpecDefault {
         assertTrue(lastIsDedent)
           .label(dump(out))
       },
-
       test("splits whitespace into WHITE_SPACE + NEWLINE + WHITE_SPACE segments") {
         val input =
           """|a

@@ -1,54 +1,44 @@
 package intellij.unison.lexer
 
-import com.intellij.lexer.FlexAdapter
-import com.intellij.psi.tree.IElementType
+import zio.test._
+import com.intellij.lexer.{FlexAdapter, Lexer}
 import intellij.unison.{IndentingLexer, UnisonLexer}
 import intellij.unison.language.psi.UnisonTypes
-import zio.test._
+import intellij.unison.lexer.IndentingLexerTestSupport._
 
-object IndentingLexerDedentAnchorSpec extends ZIOSpecDefault {
+object IndentingLexerDedentAnchorSpec
+    extends ZIOSpecDefault {
 
-  private def lex(code: String): Vector[(IElementType, Int, Int, String)] = {
-    val base  = new FlexAdapter(new UnisonLexer(null))
-    val lexer = new IndentingLexer(base)
+  private def mk: Lexer =
+    new IndentingLexer(new FlexAdapter(new UnisonLexer(null)))
 
-    lexer.start(code, 0, code.length, 0)
+  private def dump(out: Vector[Lexed]): String =
+    "\nTOKENS:\n" + IndentingLexerTestSupport.render(out)
 
-    val b = Vector.newBuilder[(IElementType, Int, Int, String)]
-    while (lexer.getTokenType != null) {
-      val tpe = lexer.getTokenType
-      val s   = lexer.getTokenStart
-      val e   = lexer.getTokenEnd
-      val txt = code.substring(s, e)
-      b += ((tpe, s, e, txt))
-      lexer.advance()
-    }
-    b.result()
-  }
-
-  private def lastDedentText(toks: Vector[(IElementType, Int, Int, String)]): Option[String] =
-    toks.reverseIterator.collectFirst { case (tpe, _, _, txt) if tpe == UnisonTypes.DEDENT => txt }
+  private def lastDedentText(toks: Vector[Lexed]): Option[String] =
+    lastTextOf(toks, UnisonTypes.DEDENT)
 
   override def spec: Spec[TestEnvironment, Any] =
     suite("IndentingLexerDedentAnchor")(
       test("eofDedentMustNotConsumeRealChars") {
         // NOTE: no trailing newline; final char is a quote.
         val code =
-          "matchNum1 : Nat -> Text\n" +
-            "matchNum1 num = match num with\n" +
-            "  one -> \"one\""
+          """|matchNum1 : Nat -> Text
+             |matchNum1 num = match num with
+             |  one -> "one"|""".stripMargin
 
-        val toks = lex(code)
+        val toks = lexAll(code, mk, includeWhitespace = true)
         val dedentTextOpt = lastDedentText(toks)
 
-        assertTrue(dedentTextOpt.isDefined) &&
-          assertTrue {
+        val ok =
+          dedentTextOpt.isDefined && {
             val dedentText = dedentTextOpt.get
             // Before the change, DEDENT often becomes the last character like "\"" or "t"
             !(dedentText == "\"" || dedentText == "t" || dedentText.matches("[A-Za-z0-9_]+"))
           }
-      },
 
+        assertTrue(ok).label(s"dedentTextOpt=$dedentTextOpt" + dump(toks))
+      },
       test("crlfNewlineIsHandledAndAnchorsDedent") {
         // Windows-style newlines; no trailing newline at EOF.
         val code =
@@ -57,18 +47,17 @@ object IndentingLexerDedentAnchorSpec extends ZIOSpecDefault {
             "  n\r\n" +
             "    | otherwise -> \"t\""
 
-        val toks = lex(code)
+        val toks = lexAll(code, mk, includeWhitespace = true)
 
-        val hasNewline = toks.exists(_._1 == UnisonTypes.NEWLINE)
+        val hasNewline = toks.exists(_.tpe == UnisonTypes.NEWLINE)
         val dedentTextOpt = lastDedentText(toks)
 
-        assertTrue(hasNewline) &&
-          assertTrue(dedentTextOpt.isDefined) &&
-          assertTrue {
-            val dedentText = dedentTextOpt.get
-            // DEDENT must not consume the trailing quote
-            dedentText != "\""
-          }
+        val ok =
+          hasNewline &&
+            dedentTextOpt.isDefined &&
+            (dedentTextOpt.get != "\"") // DEDENT must not consume the trailing quote
+
+        assertTrue(ok).label(s"hasNewline=$hasNewline dedentTextOpt=$dedentTextOpt" + dump(toks))
       }
     )
 }

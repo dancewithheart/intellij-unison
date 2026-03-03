@@ -14,10 +14,10 @@ object IndentingLexerTestSupport {
 
     val b = Vector.newBuilder[Lexed]
     while (lexer.getTokenType != null) {
-      val tpe   = lexer.getTokenType
+      val tpe = lexer.getTokenType
       val start = lexer.getTokenStart
-      val end   = lexer.getTokenEnd
-      val text  = input.substring(start, end)
+      val end = lexer.getTokenEnd
+      val text = input.substring(start, end)
 
       if (includeWhitespace || tpe != TokenType.WHITE_SPACE) {
         b += Lexed(tpe, tokenName(tpe), text, start, end)
@@ -44,11 +44,14 @@ object IndentingLexerTestSupport {
 
   def renderAround(tokens: Seq[Lexed], index: Int, radius: Int = 8): String = {
     val from = Math.max(0, index - radius)
-    val to   = Math.min(tokens.size, index + radius + 1)
-    render(tokens.slice(from, to).zipWithIndex.map { case (t, i) =>
-      // reindex for local context display
-      t.copy(name = s"${from + i}:${t.name}")
-    }, max = Int.MaxValue)
+    val to = Math.min(tokens.size, index + radius + 1)
+    render(
+      tokens.slice(from, to).zipWithIndex.map { case (t, i) =>
+        // reindex for local context display
+        t.copy(name = s"${from + i}:${t.name}")
+      },
+      max = Int.MaxValue
+    )
   }
 
   private def escape(s: String): String =
@@ -65,10 +68,10 @@ object IndentingLexerTestSupport {
     tokens.indexWhere(p)
 
   def countDedentsImmediatelyBefore(
-                                     tokens: IndexedSeq[Lexed],
-                                     index: Int,
-                                     isSkippable: Lexed => Boolean
-                                   ): Int = {
+      tokens: IndexedSeq[Lexed],
+      index: Int,
+      isSkippable: Lexed => Boolean
+  ): Int = {
     var i = index - 1
     while (i >= 0 && isSkippable(tokens(i))) i -= 1
     var n = 0
@@ -80,9 +83,15 @@ object IndentingLexerTestSupport {
     tokens.indexWhere(t => t.tpe == tpe && t.text == name)
 
   def countDedentsBeforeTopLevel(
-                                  tokens: IndexedSeq[Lexed],
-                                  index: Int,
-                                  isSkippable: Lexed => Boolean
-                                ): Int =
+      tokens: IndexedSeq[Lexed],
+      index: Int,
+      isSkippable: Lexed => Boolean
+  ): Int =
     countDedentsImmediatelyBefore(tokens, index, isSkippable)
+
+  def lastTextOf(tokens: Seq[Lexed], tpe: IElementType): Option[String] =
+    tokens.reverseIterator.collectFirst { case t if t.tpe == tpe => t.text }
+
+  def lastOf(tokens: Seq[Lexed])(p: Lexed => Boolean): Option[Lexed] =
+    tokens.reverseIterator.find(p)
 }

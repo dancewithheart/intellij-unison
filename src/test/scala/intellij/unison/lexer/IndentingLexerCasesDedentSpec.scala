@@ -7,7 +7,8 @@ import intellij.unison.{IndentingLexer, UnisonLexer}
 import intellij.unison.language.psi.UnisonTypes
 import intellij.unison.lexer.IndentingLexerTestSupport._
 
-object IndentingLexerCasesDedentSpec extends ZIOSpecDefault {
+object IndentingLexerCasesDedentSpec
+    extends ZIOSpecDefault {
 
   private def mk: Lexer =
     new IndentingLexer(new FlexAdapter(new UnisonLexer(null)))
@@ -33,7 +34,7 @@ object IndentingLexerCasesDedentSpec extends ZIOSpecDefault {
 
         val toks = lexAll(code, mk, includeWhitespace = true)
 
-        val xIdx = toks.indexWhere(t => t.tpe == UnisonTypes.IDENTIFIER_TOKEN && t.text == "x")
+        val xIdx = indexOfIdentifier(toks, "x", UnisonTypes.IDENTIFIER_TOKEN)
 
         val dedentsBeforeX =
           if (xIdx < 0) -1
