@@ -123,8 +123,11 @@ ability_decl ::= (UNIQUE | STRUCTURAL)? ABILITY IDENTIFIER type_params?
 private ability_constructor ::= IDENTIFIER COLON type_expr
 
 // https://www.unison-lang.org/docs/language-reference/user-defined-data-types/
-dataType ::= (UNIQUE | STRUCTURAL)? TYPE qualified_name qualified_name? EQ
-  dataConstructor (BAR dataConstructor)*
+dataType ::=
+    (UNIQUE | STRUCTURAL)? TYPE qualified_name qualified_name? EQ
+      dataConstructor (BAR dataConstructor)*
+  | (UNIQUE | STRUCTURAL)? TYPE qualified_name qualified_name? NEWLINE INDENT
+      EQ dataConstructor (NEWLINE? INDENT? BAR dataConstructor)* DEDENT
 
 dataConstructor ::= qualified_name type_expr*
 
