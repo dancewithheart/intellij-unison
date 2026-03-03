@@ -182,6 +182,8 @@ ifThenElseExpr ::= IF boolExpr THEN expression ELSE expression
 matchExpr ::= MATCH expression+ WITH NEWLINE INDENT match_case+ DEDENT
 
 cases_expr ::= CASES expression+ NEWLINE INDENT cases_arm+ DEDENT
+  | CASES NEWLINE INDENT expression+ NEWLINE INDENT cases_arm+ DEDENT DEDENT
+
 private cases_arm ::= guardPattern ARROW expression NEWLINE?
 
 match_case ::= pattern guardPattern? ARROW expression NEWLINE?
