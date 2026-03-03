@@ -20,4 +20,6 @@ class ExpressionsTest
   def testNumericalExpression3(): Unit = runTests()
 
   def testAnonymousLambda(): Unit = runTests()
+
+  def testAnonymousLambda2Params(): Unit = runTests()
 }
