@@ -163,16 +163,16 @@ expression ::= useClause
              | typed_def
              | binding
              | lambda
-             | appExpr
-             | boolExpr
-             | numExpr
              | ifThenElseExpr
              | matchExpr
              | cases_expr
-             | literal
-             | qualified_import
              | let_expr
              | catch_expr
+             | boolExpr
+             | numExpr
+             | appExpr
+             | literal
+             | qualified_import
              | LPAREN expression RPAREN
 
 // https://www.unison-lang.org/docs/fundamentals/control-flow/if-then-and-else/#if-then-else
