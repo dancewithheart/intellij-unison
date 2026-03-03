@@ -7,14 +7,13 @@ import intellij.unison.language.psi.UnisonTypes
 
 /** Deterministic base lexer for IndentingLexer property tests:
   *   - groups whitespace into TokenType.WHITE_SPACE
-  *   - groups other chars into a single "CODE" token type (we reuse IDENTIFIER if you have one; otherwise create a
-  *     simple IElementType in tests)
-  *   - optionally emits LPAREN/RPAREN tokens for '(' and ')'
+  *   - groups non-whitespace into CodeTok
+  *   - emits '(' and ')' as LPAREN/RPAREN tokens (so IndentingLexer can track parenDepth)
   */
 final class FakeWhitespaceLexer
     extends LexerBase {
+
   private var buf: CharSequence = ""
-//  private var start: Int = 0
   private var end: Int = 0
   private var pos: Int = 0
 
@@ -22,15 +21,13 @@ final class FakeWhitespaceLexer
   private var tokenStart: Int = 0
   private var tokenEnd: Int = 0
 
-  // Use an existing token from your grammar so you don't need a new IElementType.
-  // If you don't have IDENTIFIER, pick any "regular" token type that is not whitespace/newline/indent.
+  // Pick any "regular" token from your grammar (must not be WHITE_SPACE/NEWLINE/INDENT/DEDENT).
   private val CodeTok: IElementType = UnisonTypes.IDENTIFIER
 
   override def start(buffer: CharSequence, startOffset: Int, endOffset: Int, initialState: Int): Unit = {
-    this.buf = buffer
-//    this.start = startOffset
-    this.end = endOffset
-    this.pos = startOffset
+    buf = buffer
+    pos = startOffset
+    end = endOffset
     advance() // prime first token
   }
 
@@ -45,53 +42,43 @@ final class FakeWhitespaceLexer
   override def advance(): Unit = {
     if (pos >= end) { tokenType = null; return }
 
-    val c = buf.charAt(pos)
-
-    // emit paren tokens as their own tokens so IndentingLexer can track depth
-    if (c == '(') { tokenType = UnisonTypes.LPAREN; tokenStart = pos; tokenEnd = pos + 1; pos += 1; return }
-    if (c == ')') { tokenType = UnisonTypes.RPAREN; tokenStart = pos; tokenEnd = pos + 1; pos += 1; return }
-
-    val isWs = c == ' ' || c == '\t' || c == '\n' || c == '\r'
-    val tpe: IElementType = if (isWs) TokenType.WHITE_SPACE else CodeTok
-
-    tokenType = tpe
-    tokenStart = pos
-
-    var i = pos
-    while (i < end) {
-      val ch = buf.charAt(i)
-      val ws = ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r'
-      if (tpe == TokenType.WHITE_SPACE) {
-        if (!ws || ch == '(' || ch == ')') { // stop before parens so they become their own tokens
-          i = end + 1 // break using guard below
-        } else i += 1
-      } else {
-        if (ws || ch == '(' || ch == ')') {
-          i = end + 1
-        } else i += 1
-      }
+    ch(pos) match {
+      case '(' => emit1(UnisonTypes.LPAREN)
+      case ')' => emit1(UnisonTypes.RPAREN)
+      case c   =>
+        val tpe = if (isWs(c)) TokenType.WHITE_SPACE else CodeTok
+        val next = scanUntilBoundary(tpe, from = pos)
+        emit(tpe, pos, next)
+        pos = next
     }
+  }
 
-    // the loop ends with i == end+1 when we "broke"
-    val nextPos = Math.min(
-      end,
-      if (i == end + 1) {
-        // find the actual stop point
-        var j = tokenStart
-        while (j < end) {
-          val ch = buf.charAt(j)
-          val ws = ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r'
-          val boundary =
-            if (tpe == TokenType.WHITE_SPACE) (!ws || ch == '(' || ch == ')')
-            else (ws || ch == '(' || ch == ')')
-          if (j != tokenStart && boundary) return { tokenEnd = j; pos = j } // early return
-          j += 1
-        }
-        end
-      } else i
-    )
+  // ---- small helpers ----
 
-    tokenEnd = nextPos
-    pos = nextPos
+  private def ch(i: Int): Char = buf.charAt(i)
+
+  private def isWs(c: Char): Boolean =
+    c == ' ' || c == '\t' || c == '\n' || c == '\r'
+
+  private def isParen(c: Char): Boolean =
+    c == '(' || c == ')'
+
+  /** Boundary means: stop *before* this char (so it begins the next token). */
+  private def isBoundary(current: IElementType, c: Char): Boolean =
+    isParen(c) || (current == TokenType.WHITE_SPACE && !isWs(c)) || (current != TokenType.WHITE_SPACE && isWs(c))
+
+  /** Find first index > from where a boundary starts; or end if none. */
+  private def scanUntilBoundary(current: IElementType, from: Int): Int =
+    (from until end).find(i => i != from && isBoundary(current, ch(i))).getOrElse(end)
+
+  private def emit1(tpe: IElementType): Unit = {
+    emit(tpe, pos, pos + 1)
+    pos += 1
+  }
+
+  private def emit(tpe: IElementType, s: Int, e: Int): Unit = {
+    tokenType = tpe
+    tokenStart = s
+    tokenEnd = e
   }
 }
