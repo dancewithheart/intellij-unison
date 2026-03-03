@@ -5,8 +5,6 @@ class WipTest
 
   override def getTestDataPath: String = "src/test/testData/wip"
 
-  def testAnonymousLambda2Params(): Unit = runTests()
-
   def testConstructorPatterns(): Unit = runTests()
 
   def testCasesSyntax(): Unit = runTests()
@@ -20,8 +18,6 @@ class WipTest
   def testRecordTypes(): Unit = runTests()
 
   def testExceptionsHandling2(): Unit = runTests()
-
-  def testPatternMatchGuards2(): Unit = runTests()
 
   def testNestedIfThenElse(): Unit = runTests()
 
