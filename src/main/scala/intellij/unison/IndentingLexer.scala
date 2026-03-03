@@ -106,8 +106,13 @@ class IndentingLexer(private val base: Lexer)
   private def flushDedentsAtEof(): Unit = {
     if (indentStack.size() > 1) {
       indentStack.pop()
-      val p = Math.max(st.startOffset, st.endOffset - 1)
-      setToken(Tok(UnisonTypes.DEDENT, p, st.endOffset))
+
+      // Prefer anchoring virtual DEDENT to the last NEWLINE we emitted.
+      val anchor = st.pendingDedentAnchor.getOrElse(st.endOffset)
+      val start = math.min(anchor, st.endOffset)
+      val end = math.min(start + 1, st.endOffset)
+
+      setToken(Tok(UnisonTypes.DEDENT, start, end))
     } else tokenType = null
   }
 
