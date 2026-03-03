@@ -211,11 +211,6 @@ private addExpr ::= mulExpr (ADD_OP mulExpr)*
 private mulExpr ::= unaryExpr (MUL_OP unaryExpr)*
 private unaryExpr ::= MINUS unaryExpr | MODW unaryExpr unaryExpr | atomNum
 
-private unaryExpr ::=
-    MINUS unaryExpr
-  | MODW unaryExpr unaryExpr
-  | atomNum
-
 private atomNum ::=
     numLiteral
   | qualified_name
@@ -269,14 +264,17 @@ builtin_type ::= KW_NAT
   | KW_BYTES
   | KW_UNIT
 
-type_expr ::=
-  LPARENSQ type_expr IDENTIFIER? RPARENSQ
-  | builtin_type ARROW type_expr IDENTIFIER?
-  | IDENTIFIER ARROW type_expr IDENTIFIER?
-  | LPARENSQ IDENTIFIER RPARENSQ ARROW type_expr IDENTIFIER?
+type_expr ::= type_arrow
+
+private type_arrow ::= type_atom (ARROW abilityRequirements? type_arrow IDENTIFIER?)?
+
+private type_atom ::=
+    LPARENSQ type_expr IDENTIFIER? RPARENSQ
   | builtin_type
-  | LPAREN type_expr IDENTIFIER? (COMMA type_expr IDENTIFIER?)* RPAREN
   | qualified_name
+  | IDENTIFIER
+  | LPAREN type_expr IDENTIFIER? (COMMA type_expr IDENTIFIER?)* RPAREN
+  | LPAREN IDENTIFIER RPAREN
 
 private type_params ::= LBRACE IDENTIFIER (COMMA IDENTIFIER)* RBRACE
 
