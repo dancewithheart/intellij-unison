@@ -124,31 +124,53 @@ class IndentingLexer(private val base: Lexer)
 
     val buf = st.buffer
     var segStart = wsStart
-    var lastNl = -1
+    var lastNlStart = -1
+    var lastNlEnd = -1
 
     var i = wsStart
     while (i < wsEnd) {
-      if (buf.charAt(i) == '\n') {
+      val c = buf.charAt(i)
+
+      // Treat \r\n as a single NEWLINE token
+      val isCrlf = c == '\r' && (i + 1) < wsEnd && buf.charAt(i + 1) == '\n'
+
+      if (c == '\n' || c == '\r') {
         if (segStart < i) q.addLast(Tok(TokenType.WHITE_SPACE, segStart, i))
-        q.addLast(Tok(UnisonTypes.NEWLINE, i, i + 1))
-        st = st.copy(atLineStart = true)
-        lastNl = i
-        segStart = i + 1
+
+        val nlStart = i
+        val nlEnd = if (isCrlf) i + 2 else i + 1
+
+        q.addLast(Tok(UnisonTypes.NEWLINE, nlStart, nlEnd))
+
+        // IMPORTANT: anchor dedent to *this* newline immediately
+        st = st.copy(
+          atLineStart = true,
+          pendingDedentAnchor = Some(nlStart)
+        )
+
+        lastNlStart = nlStart
+        lastNlEnd = nlEnd
+        segStart = nlEnd
+
+        i = nlEnd // skip the newline (or both chars for CRLF)
+      } else {
+        i += 1
       }
-      i += 1
     }
 
     if (segStart < wsEnd) q.addLast(Tok(TokenType.WHITE_SPACE, segStart, wsEnd))
 
-    if (lastNl >= 0) {
-      val tailStart = lastNl + 1
+    // If we saw at least one newline in this whitespace chunk,
+    // compute indent width based on the whitespace *after the last newline*
+    if (lastNlEnd >= 0) {
+      val tailStart = lastNlEnd
       val indentW = computeIndentWidth(buf, tailStart, wsEnd)
       val indentPos = firstIndentCharPos(buf, tailStart, wsEnd)
 
       st = st.copy(
         pendingIndent = Some(indentW),
-        pendingIndentPos = Some(indentPos),
-        pendingDedentAnchor = Some(lastNl)
+        pendingIndentPos = Some(indentPos)
+        // pendingDedentAnchor already set above
       )
     }
   }
