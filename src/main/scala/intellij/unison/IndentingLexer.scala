@@ -46,6 +46,8 @@ class IndentingLexer(private val base: Lexer)
   private var tokenType: IElementType = null
   private var tokenStart: Int = 0
   private var tokenEnd: Int = 0
+  private var virtPos: Int = 0
+  private var virtLimit: Int = 0
 
   override def start(buffer: CharSequence, startOffset: Int, endOffset: Int, initialState: Int): Unit = {
     st = emptyState.copy(
@@ -53,6 +55,8 @@ class IndentingLexer(private val base: Lexer)
       startOffset = startOffset,
       endOffset = endOffset
     )
+    virtPos = startOffset
+    virtLimit = endOffset
 
     q.clear()
     indentStack.clear()
@@ -210,16 +214,39 @@ class IndentingLexer(private val base: Lexer)
   private def emitIndentDedent(newIndent: Int): Unit = {
     val cur = indentStack.peek()
 
-    val indentPos = st.pendingIndentPos.getOrElse(base.getTokenStart)
-    val dedentPos = st.pendingDedentAnchor.getOrElse(base.getTokenStart)
+    // Anchor for virtual tokens (prefer last newline)
+    val indentAnchor = st.pendingIndentPos.getOrElse(base.getTokenStart)
+    val dedentAnchor = st.pendingDedentAnchor.getOrElse(base.getTokenStart)
+
+    // We must ensure token ranges progress. We'll allocate inside [anchor .. nextTokenStart]
+    virtPos = math.min(dedentAnchor, base.getTokenStart)
+    virtLimit = base.getTokenStart
+
+    def nextVirtualRange(anchor: Int): (Int, Int) = {
+      // try to give each virtual token a distinct 1-char range before the next real token
+      val s0 = math.max(anchor, virtPos)
+      val e0 = math.min(s0 + 1, virtLimit)
+
+      // If there's no room (e0 == s0), fall back to a 1-char range at the anchor if possible,
+      // otherwise to a 0-width range at virtLimit. This is still better than reusing the same range.
+      val (s, e) =
+        if (e0 > s0) (s0, e0)
+        else if (anchor + 1 <= getBufferEnd) (anchor, math.min(anchor + 1, getBufferEnd))
+        else (virtLimit, virtLimit)
+
+      virtPos = math.max(virtPos, e) // advance virtual cursor
+      (s, e)
+    }
 
     if (newIndent > cur) {
       indentStack.push(newIndent)
-      q.addLast(Tok(UnisonTypes.INDENT, indentPos, Math.min(indentPos + 1, st.endOffset)))
+      val (s, e) = nextVirtualRange(indentAnchor)
+      q.addLast(Tok(UnisonTypes.INDENT, s, e))
     } else if (newIndent < cur) {
       while (indentStack.size() > 1 && indentStack.peek() > newIndent) {
         indentStack.pop()
-        q.addLast(Tok(UnisonTypes.DEDENT, dedentPos, Math.min(dedentPos + 1, st.endOffset)))
+        val (s, e) = nextVirtualRange(dedentAnchor)
+        q.addLast(Tok(UnisonTypes.DEDENT, s, e))
       }
     }
 
