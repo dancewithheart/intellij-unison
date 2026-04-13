@@ -3,7 +3,11 @@ name: Update Dependency Graph
 on:
   push:
     branches:
-      - main # default branch of the project
+      - main
+
+permissions:
+  contents: write
+  
 jobs:
   dependency-graph:
     name: Update Dependency Graph
