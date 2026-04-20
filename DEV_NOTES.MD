@@ -14,6 +14,20 @@ Thanks to [sbt-idea-plugin](https://github.com/JetBrains/sbt-idea-plugin) you ca
 sbt r
 ```
 
+## Performance tests
+
+Uses [sbt-jmh](https://github.com/sbt/sbt-jmh) (see [benchmarks module](./benchmarks) in build.sbt)
+
+List benchmarks:
+```shell
+sbt "benchmarks/jmh:run -l"
+```
+Run Lexer benchmark:
+```shell
+sbt "benchmarks/jmh:run .*lexWholeFile.*"
+```
+
+
 ## Resources
 
 * [Tutorial](https://plugins.jetbrains.com/docs/intellij/custom-language-support-tutorial.html) how to build IntelliJ language plugin and write [tests](https://plugins.jetbrains.com/docs/intellij/writing-tests-for-plugins.html) for it.
