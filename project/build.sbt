@@ -3,7 +3,7 @@ resolvers ++= Seq(
   "IntelliJ Releases Repository" at "https://www.jetbrains.com/intellij-repository/releases/"
 )
 libraryDependencies ++= Seq(
-  "org.jetbrains.intellij.deps.jflex" % "jflex" % "1.10.18",
-  "org.jetbrains" % "grammar-kit" % "2023.3.4", // issues with deps // archived :( migrate?
-  "com.jetbrains.intellij.java" % "java-psi" % "262.10968.176"
+  "org.jetbrains.intellij.deps.jflex" % "jflex" % "1.9.2",
+  "org.jetbrains" % "grammar-kit" % "2023.3", // issues with deps
+  "com.jetbrains.intellij.java" % "java-psi" % "251.26927.90"
 )

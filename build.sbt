@@ -5,10 +5,10 @@ import Keys._
 ThisBuild / scalaVersion := "2.13.18"
 
 ThisBuild / intellijPluginName := "intellij-unison"
-ThisBuild / intellijBuild := "262.10968.176" // 253.31033.145
+ThisBuild / intellijBuild := "251.26927.53" // 253.31033.145
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
 
-val zioVersion = "2.1.27"
+val zioVersion = "2.0.21"
 
 lazy val genRoot = settingKey[File]("Root directory for generated sources")
 
@@ -24,7 +24,7 @@ lazy val unison =
       libraryDependencies ++= Seq(
         "com.github.sbt" % "junit-interface" % "0.13.3" % Test,
         "org.opentest4j" % "opentest4j" % "1.3.0" % Test,
-        "org.jetbrains" % "grammar-kit" % "2023.3.4" % Provided,
+        "org.jetbrains" % "grammar-kit" % "2023.3" % Provided,
         "junit" % "junit" % "4.13.2" % Test,
         "dev.zio" %% "zio-test"     % zioVersion % Test,
         "dev.zio" %% "zio-test-sbt" % zioVersion % Test
