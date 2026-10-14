@@ -10,5 +10,9 @@ abstract class BaseUnisonTest
 
   override def includeRanges(): Boolean = true
 
-  def runTests(): Unit = doTest(true)
+  // Verify golden PSI trees AND reject unexpected parser error nodes.
+  def runTests(): Unit = doTest(true, true)
+
+  // Known parser gaps still have golden snapshots, but may contain PSI errors.
+  def runKnownBrokenTests(): Unit = doTest(true)
 }
