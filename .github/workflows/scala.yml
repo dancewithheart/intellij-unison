@@ -19,7 +19,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v6
         with:
-          java-version: '25'
+          java-version: '21'
           distribution: 'temurin'
           cache: 'sbt'
       - name: Set up Scala and SBT
