@@ -13,6 +13,8 @@ ThisBuild / intellijPluginName := "intellij-unison"
 
 ThisBuild / intellijBuild := intellijVersion
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
+ThisBuild / resolvers += "IntelliJ Releases" at "https://www.jetbrains.com/intellij-repository/releases/"
+ThisBuild / resolvers += "IntelliJ Dependencies" at "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies/"
 
 val zioVersion = "2.1.27"
 
