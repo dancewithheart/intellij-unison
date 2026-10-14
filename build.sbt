@@ -2,13 +2,21 @@ import org.jetbrains.sbtidea.Keys.*
 import sbt._
 import Keys._
 
+// IntelliJ 2026.1 (261)	uses JDK 21
+// 261 for compatibility with older IDEs
+// "262.10968.176"
+val intellijVersion = "261.27258.82"
+
 ThisBuild / scalaVersion := "2.13.18"
 
 ThisBuild / intellijPluginName := "intellij-unison"
-ThisBuild / intellijBuild := "251.26927.53" // 253.31033.145
-ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
 
-val zioVersion = "2.0.21"
+ThisBuild / intellijBuild := intellijVersion
+ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
+ThisBuild / resolvers += "IntelliJ Releases" at "https://www.jetbrains.com/intellij-repository/releases/"
+ThisBuild / resolvers += "IntelliJ Dependencies" at "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies/"
+
+val zioVersion = "2.1.27"
 
 lazy val genRoot = settingKey[File]("Root directory for generated sources")
 
@@ -17,17 +25,18 @@ lazy val unison =
     .enablePlugins(SbtIdeaPlugin)
     .settings(
       version := "0.0.3",
-      Compile / javacOptions ++= Seq("--release", "17"),
-      Compile / scalacOptions ++= Seq("--release", "17"),
+      Compile / javacOptions ++= Seq("--release", "21"),
+      Compile / scalacOptions ++= Seq("--release", "21"),
       compileOrder := CompileOrder.Mixed,
       intellijPlugins += "com.intellij.properties".toPlugin,
       libraryDependencies ++= Seq(
         "com.github.sbt" % "junit-interface" % "0.13.3" % Test,
         "org.opentest4j" % "opentest4j" % "1.3.0" % Test,
-        "org.jetbrains" % "grammar-kit" % "2023.3" % Provided,
+        "org.jetbrains" % "grammar-kit" % "2023.3.4" % Provided,
         "junit" % "junit" % "4.13.2" % Test,
         "dev.zio" %% "zio-test"     % zioVersion % Test,
-        "dev.zio" %% "zio-test-sbt" % zioVersion % Test
+        "dev.zio" %% "zio-test-sbt" % zioVersion % Test,
+        "com.jetbrains.intellij.platform" % "test-framework" % intellijVersion % Test
       ),
       genRoot := (Compile / sourceManaged).value / "unison-gen",
       Compile / managedSourceDirectories += genRoot.value,
@@ -105,18 +114,10 @@ generateParser := {
   val sdkRoot = home / ".intellij-unisonPluginIC" / "sdk"
 
   // SDK dirs are typically like: ~/.intellij-unisonPluginIC/sdk/251.26927.53/
-  val sdkLibDir = {
-    val candidates = (sdkRoot * "*").get
-      .filter(_.isDirectory)
-      .map(_ / "lib")
-      .filter(_.isDirectory)
-    // prefer the one that contains idea.jar
-    val withIdeaJar = candidates.filter(d => (d / "idea.jar").exists())
-    val pickFrom = if (withIdeaJar.nonEmpty) withIdeaJar else candidates
-    pickFrom.sortBy(_.lastModified()).lastOption.getOrElse {
-      sys.error(s"Could not find IntelliJ SDK lib dir under $sdkRoot/*/lib (with idea.jar). Run `sbt runIDE` once.")
-    }
-  }
+  val sdkLibDir = sdkRoot / intellijBuild.value / "lib"
+
+  if (!sdkLibDir.isDirectory)
+    sys.error(s"IntelliJ SDK not found: $sdkLibDir")
 
   val sdkJars: Seq[File] = (sdkLibDir * "*.jar").get
 
