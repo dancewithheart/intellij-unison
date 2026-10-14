@@ -33,7 +33,8 @@ INT = ("+" | "-")?[0-9]+
 // FLOAT = [0-9]+(\.[0-9]+)?
 DOUBLE = ("+" | "-")?[0-9]+\.[0-9]+
 BYTES = "0xs" {HEXDIGIT}+
-CHAR = \?.
+// Ordinary character or escape sequence (?\s, ?\t, ?\\)
+CHAR = \?(\\.|[^\\\r\n])
 STRING_SINGLELINE = \" ([^\"\r\n] | \\\")* \"
 STRING_MULTILINE = \"\"\" [^\"]+ ~\"\"\"
 STRING = {STRING_SINGLELINE} | {STRING_MULTILINE}

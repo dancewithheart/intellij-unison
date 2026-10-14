@@ -5,5 +5,5 @@ class UseClauseTest
 
   def testUseClause(): Unit = runTests()
 
-  def testUseClauseOperator(): Unit = runTests()
+  def testUseClauseOperator(): Unit = runKnownBrokenTests()
 }

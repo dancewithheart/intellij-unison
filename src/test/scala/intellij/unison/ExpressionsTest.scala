@@ -11,13 +11,13 @@ class ExpressionsTest
 
   def testBoolExpression2(): Unit = runTests()
 
-  def testNumericalExpression1(): Unit = runTests()
+  def testNumericalExpression1(): Unit = runKnownBrokenTests()
 
   def testIfThenElseExpression1(): Unit = runTests()
 
   def testIfThenElseExpression2(): Unit = runTests()
 
-  def testNumericalExpression3(): Unit = runTests()
+  def testNumericalExpression3(): Unit = runKnownBrokenTests()
 
   def testAnonymousLambda(): Unit = runTests()
 

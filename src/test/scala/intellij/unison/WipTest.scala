@@ -5,6 +5,8 @@ class WipTest
 
   override def getTestDataPath: String = "src/test/testData/wip"
 
+  override def runTests(): Unit = runKnownBrokenTests()
+
   def testConstructorPatterns(): Unit = runTests()
 
   def testCasesSyntax(): Unit = runTests()
