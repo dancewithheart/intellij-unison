@@ -17,8 +17,8 @@ lazy val unison =
     .enablePlugins(SbtIdeaPlugin)
     .settings(
       version := "0.0.3",
-      Compile / javacOptions ++= Seq("--release", "17"),
-      Compile / scalacOptions ++= Seq("--release", "17"),
+      Compile / javacOptions ++= Seq("--release", "25"),
+      Compile / scalacOptions ++= Seq("--release", "25"),
       compileOrder := CompileOrder.Mixed,
       intellijPlugins += "com.intellij.properties".toPlugin,
       libraryDependencies ++= Seq(
@@ -105,18 +105,10 @@ generateParser := {
   val sdkRoot = home / ".intellij-unisonPluginIC" / "sdk"
 
   // SDK dirs are typically like: ~/.intellij-unisonPluginIC/sdk/251.26927.53/
-  val sdkLibDir = {
-    val candidates = (sdkRoot * "*").get
-      .filter(_.isDirectory)
-      .map(_ / "lib")
-      .filter(_.isDirectory)
-    // prefer the one that contains idea.jar
-    val withIdeaJar = candidates.filter(d => (d / "idea.jar").exists())
-    val pickFrom = if (withIdeaJar.nonEmpty) withIdeaJar else candidates
-    pickFrom.sortBy(_.lastModified()).lastOption.getOrElse {
-      sys.error(s"Could not find IntelliJ SDK lib dir under $sdkRoot/*/lib (with idea.jar). Run `sbt runIDE` once.")
-    }
-  }
+  val sdkLibDir = sdkRoot / intellijBuild.value / "lib"
+
+  if (!sdkLibDir.isDirectory)
+    sys.error(s"IntelliJ SDK not found: $sdkLibDir")
 
   val sdkJars: Seq[File] = (sdkLibDir * "*.jar").get
 
