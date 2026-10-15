@@ -8,7 +8,6 @@ class ParserRecoveryTest extends BaseUnisonTest {
 
   def testBrokenAssignmentEofRecovery(): Unit = {
     doTest(false)
-    printOutTree()
 
     // The invalid assignment must produce a parser error.
     assertTrue(
@@ -20,7 +19,6 @@ class ParserRecoveryTest extends BaseUnisonTest {
   def testBrokenAssignmentRecovery(): Unit = {
     // Parse the .u fixture, without comparing against a .txt snapshot.
     doTest(false)
-    printOutTree()
 
     // The invalid assignment must produce a parser error.
     assertTrue(
