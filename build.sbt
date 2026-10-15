@@ -76,24 +76,27 @@ lazy val generateLexer = taskKey[Seq[File]]("Generate Unison lexer (JFlex)")
 
 generateLexer := {
   import jflex.Main.{main => jflexRun}
-  val baseDir  = baseDirectory.value
-  val srcDir   = baseDir / "src" / "main" / "jflex"
-  val flexFile = srcDir / "Unison.flex"
-  val outDir   = genRoot.value  // output dir must be the *package root*
 
-  streams.value.log.info(s"Generate lexer from $flexFile into $outDir")
+  val flexFile = baseDirectory.value / "src/main/jflex/Unison.flex"
+  val outDir = genRoot.value
 
-  // fail fast on missing input
-  if (!flexFile.exists()) {
-    sys.error(s"Lexer generation failed: input .flex file not found: $flexFile")
+  val cached = FileFunction.cached(
+    streams.value.cacheDirectory / "unison-lexer",
+    FilesInfo.hash,
+    FilesInfo.exists
+  ) { (_: Set[File]) =>
+    IO.createDirectory(outDir)
+
+    jflexRun(Array(
+      "-d",
+      outDir.getAbsolutePath,
+      flexFile.getAbsolutePath
+    ))
+
+    Set(outDir / "UnisonLexer.java")
   }
-  IO.createDirectory(outDir)
 
-  streams.value.log.info(s"JFlex: $flexFile -> $outDir")
-  jflexRun(Array("-d", outDir.getAbsolutePath, flexFile.getAbsolutePath))
-
-  // return generated files so sbt tracks them
-  (outDir ** "*.java").get
+  cached(Set(flexFile)).toSeq
 }
 
 Compile / sourceGenerators += generateLexer.taskValue
@@ -143,16 +146,37 @@ generateParser := {
   log.info(s"Grammar-Kit: $bnfFile -> $outRoot")
   log.info(s"Using IntelliJ SDK lib: ${sdkLibDir.getAbsolutePath}")
 
-  val exit = Fork.java(forkOpts, javaArgs)
-  if (exit != 0) sys.error(s"Grammar-Kit failed with exit code $exit")
+  val cached = FileFunction.cached(
+    streams.value.cacheDirectory / s"unison-parser-${intellijBuild.value}",
+    FilesInfo.hash,
+    FilesInfo.exists
+  ) { (_: Set[File]) =>
 
-  (outRoot ** "*.java").get
+    val exit = Fork.java(forkOpts, javaArgs)
+
+    if (exit != 0)
+      sys.error(s"Grammar-Kit failed with exit code $exit")
+
+    val generated = (outRoot ** "*.java").get
+      .filterNot(_.getName == "UnisonLexer.java")
+      .toSet
+
+    if (generated.isEmpty)
+      sys.error(s"No parser files found under $outRoot")
+
+    generated
+  }
+
+  cached(Set(bnfFile) ++ grammarKitJars.toSet).toSeq
 }
 
 Compile / sourceGenerators += generateParser.taskValue
 
 testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
 Test / fork := true
+Test / javaOptions +=
+  s"-Didea.home.path=${(ThisBuild / intellijBaseDirectory).value.getAbsolutePath}"
+
 //Test / javaOptions ++= Seq(
 //  "--add-opens=java.base/java.lang=ALL-UNNAMED",
 //  "--add-opens=java.base/java.util=ALL-UNNAMED",
