@@ -35,7 +35,5 @@ class DelayedComputationTest extends BaseUnisonTest {
       ),
       getBindings
     )
-
-    printOutTree()
   }
 }
