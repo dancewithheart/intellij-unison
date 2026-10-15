@@ -189,6 +189,7 @@ Test / javaOptions +=
 //)
 
 addCommandAlias("c", "clean;compile;")
-addCommandAlias("t", "clean;compile;test")
+//addCommandAlias("t", "clean;compile;test")
+addCommandAlias("t", "test")
 addCommandAlias("r", "runIDE")
 addCommandAlias("f", "scalafmtAll")
