@@ -62,7 +62,13 @@ object IndentingLexerPropertiesSpec
               case _         => true
             }
 
-          assertTrue(wellFormed && monotonicStarts)
+          val nonOverlapping =
+            out.sliding(2).forall {
+              case Seq(a, b) => a.end <= b.start
+              case _         => true
+            }
+
+          assertTrue(wellFormed && monotonicStarts && nonOverlapping)
         }
       },
       test("no INDENT/DEDENT caused by newlines inside parentheses") {
