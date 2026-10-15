@@ -163,13 +163,17 @@ external missing_rhs ::= missingRhs
 private rhs ::= expression
              | nl INDENT statement+ DEDENT
 
-private atomExpr ::= literal | qualified_name | LPAREN expression RPAREN
-private appExpr ::= atomExpr atomExpr*
+private appExpr ::= qualified_name app_arg+
+
+private app_arg ::= literal
+                  | IDENTIFIER (DOT IDENTIFIER)*
+                  | LPAREN expression RPAREN
 
 // https://www.unison-lang.org/docs/language-reference/basic-lexical-forms/
 expression ::= useClause
              | typed_def
              | binding
+             | delayed_expr
              | lambda
              | ifThenElseExpr
              | matchExpr
@@ -178,10 +182,11 @@ expression ::= useClause
              | catch_expr
              | boolExpr
              | numExpr
-             | appExpr
              | literal
              | qualified_import
              | LPAREN expression RPAREN
+
+delayed_expr ::= DO expression
 
 // https://www.unison-lang.org/docs/fundamentals/control-flow/if-then-and-else/#if-then-else
 ifThenElseExpr ::= IF boolExpr THEN expression ELSE expression
@@ -217,10 +222,18 @@ pattern ::= name AT pattern
 numExpr ::= addExpr
 private addExpr ::= mulExpr (ADD_OP mulExpr)*
 private mulExpr ::= unaryExpr (MUL_OP unaryExpr)*
-private unaryExpr ::= MINUS unaryExpr | MODW unaryExpr unaryExpr | atomNum
+
+private unaryExpr ::= MINUS unaryExpr
+                    | MODW mod_arg mod_arg
+                    | atomNum
+
+private mod_arg ::= numLiteral
+                  | qualified_name
+                  | LPAREN numExpr RPAREN
 
 private atomNum ::=
     numLiteral
+  | appExpr
   | qualified_name
   | LPAREN numExpr RPAREN
 
@@ -277,7 +290,9 @@ type_expr ::= type_arrow
 private type_arrow ::= type_atom (ARROW abilityRequirements? type_arrow IDENTIFIER?)?
 
 private type_atom ::=
-    LPARENSQ type_expr IDENTIFIER? RPARENSQ
+    TICK type_atom
+  | delayedType type_atom
+  | LPARENSQ type_expr IDENTIFIER? RPARENSQ
   | builtin_type
   | qualified_name
   | IDENTIFIER

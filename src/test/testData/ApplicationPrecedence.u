@@ -1,0 +1,3 @@
+simple = printLine "Hello"
+numeric = 1 + 2
+mixed = f x + g y
