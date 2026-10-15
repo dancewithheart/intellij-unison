@@ -2,9 +2,11 @@ package intellij.unison.lexer
 
 import zio.test._
 import com.intellij.lexer.Lexer
-import intellij.unison.IndentingLexer
+import intellij.unison.{IndentingLexer, UnisonLexerAdapter}
 import intellij.unison.language.psi.UnisonTypes
 import intellij.unison.lexer.IndentingLexerTestSupport._
+
+import java.nio.file.{Files, Paths}
 
 object IndentingLexerPropertiesSpec
     extends ZIOSpecDefault {
@@ -62,13 +64,56 @@ object IndentingLexerPropertiesSpec
               case _         => true
             }
 
-          val nonOverlapping =
-            out.sliding(2).forall {
-              case Seq(a, b) => a.end <= b.start
-              case _         => true
-            }
+          assertTrue(wellFormed && monotonicStarts)
+        }
+      },
+      test("Concurrency.u never moves token offsets backwards") {
+        val input = Files.readString(
+          Paths.get("src/test/testData/wip/Concurrency.u")
+        ).trim
 
-          assertTrue(wellFormed && monotonicStarts && nonOverlapping)
+        val tokens = lexAll(
+          input,
+          new UnisonLexerAdapter,
+          includeWhitespace = true
+        )
+
+        val problems = orderingProblems(tokens)
+
+        assertTrue(problems.isEmpty)
+          .label(problems.mkString("\n"))
+      },
+      test("generated indentation preserves token ordering") {
+
+        val programs = for {
+          eol <- Gen.elements("\n", "\r\n")
+          depths <- Gen.listOfBounded(1, 12)(Gen.int(0, 5))
+          trailingNewline <- Gen.boolean
+        } yield {
+          val lines =
+            Vector("root = 0") ++
+              depths.zipWithIndex.map { case (depth, i) =>
+                ("  " * depth) + s"x$i = $i"
+              }
+
+          lines.mkString(eol) +
+            (if (trailingNewline) eol else "")
+        }
+
+        check(programs) { input =>
+          val tokens = lexAll(
+            input,
+            new UnisonLexerAdapter,
+            includeWhitespace = true
+          )
+
+          val problems = orderingProblems(tokens)
+
+          assertTrue(problems.isEmpty)
+            .label(
+              s"INPUT:\n$input\n\n" +
+                problems.mkString("\n")
+            )
         }
       },
       test("no INDENT/DEDENT caused by newlines inside parentheses") {
@@ -92,4 +137,12 @@ object IndentingLexerPropertiesSpec
         }
       }
     )
+
+  private def orderingProblems(tokens: Vector[Lexed]): Vector[String] =
+    tokens.sliding(2).collect {
+      case Seq(previous, current)
+        if current.start < previous.start =>
+        s"${previous.name} [${previous.start}, ${previous.end}) -> " +
+          s"${current.name} [${current.start}, ${current.end})"
+    }.toVector
 }

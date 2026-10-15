@@ -216,7 +216,7 @@ class IndentingLexer(private val base: Lexer)
 
     // Anchor for virtual tokens (prefer last newline)
     val indentAnchor = st.pendingIndentPos.getOrElse(base.getTokenStart)
-    val dedentAnchor = st.pendingDedentAnchor.getOrElse(base.getTokenStart)
+    val dedentAnchor = st.pendingIndentPos.getOrElse(base.getTokenStart)
 
     // We must ensure token ranges progress. We'll allocate inside [anchor .. nextTokenStart]
     virtPos = math.min(dedentAnchor, base.getTokenStart)
@@ -231,7 +231,6 @@ class IndentingLexer(private val base: Lexer)
       // otherwise to a 0-width range at virtLimit. This is still better than reusing the same range.
       val (s, e) =
         if (e0 > s0) (s0, e0)
-        else if (anchor + 1 <= getBufferEnd) (anchor, math.min(anchor + 1, getBufferEnd))
         else (virtLimit, virtLimit)
 
       virtPos = math.max(virtPos, e) // advance virtual cursor

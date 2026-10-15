@@ -204,3 +204,5 @@ Test / testOptions += Tests.Filter { testName =>
   if (reporting) isReport
   else !isReport
 }
+
+Test / scalacOptions -= "-Wnumeric-widen"
