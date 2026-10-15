@@ -1,0 +1,13 @@
+type STM.TQueue a = TQueue (TVar [a]) (TVar Nat)
+
+queueExample : '{IO, Exception} ()
+queueExample _ =
+  runQueue : '{STM} Nat
+  runQueue _ =
+    queue = TQueue.fromList [1, 2, 3, 4, 5]
+    enqueue 6 queue
+    dequeue queue
+    dequeue queue
+  result = STM.atomically runQueue
+  printLine (Nat.toText result)
+
