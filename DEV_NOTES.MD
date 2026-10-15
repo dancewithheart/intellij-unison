@@ -22,7 +22,7 @@ sbt r
 
 Parser is generated from [Unison.bnf](src/main/jflex/Unison.bnf)
 ```shell
-sbt parser
+sbt generateParser
 ```
 (or manually - right mouse click on bnf file \ `Generate Parser Code`), using [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit) IntelliJ Plugin)
 
@@ -30,7 +30,7 @@ sbt parser
 
 Lexer is generated from [Unison.flex](./intellij/unison/language/Unison.flex) using [JFlex](https://www.jflex.de/) modified [by IntelliJ](https://github.com/JetBrains/intellij-deps-jflex):
 ```shell
-sbt lexer
+sbt generateLexer
 ```
 (or manually - right mouse click on flex file \ `Run JFlex Generator`)
 

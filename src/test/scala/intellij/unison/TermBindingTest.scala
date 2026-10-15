@@ -1,9 +1,18 @@
 package intellij.unison
 
+import org.junit.Assert.assertEquals
+
 class TermBindingTest
     extends BaseUnisonTest {
 
-  def testTermBindingBasicTypesBoolean(): Unit = runTests()
+  def testTermBindingBasicTypesBoolean(): Unit = {
+    runTests() // Snapshot comparison + no PsiErrorElement
+
+    assertEquals(
+      Vector("go1 = true", "go2 = false"),
+      getBindings
+    )
+  }
 
   def testTermBindingBasicTypesBytes(): Unit = runTests()
 
