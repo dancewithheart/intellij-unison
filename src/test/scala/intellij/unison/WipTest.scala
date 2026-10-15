@@ -11,8 +11,6 @@ class WipTest
 
   def testCasesSyntax(): Unit = runTests()
 
-  def testHello(): Unit = runTests()
-
   def testDelayedComputation(): Unit = runTests()
 
   def testListPatterns(): Unit = runTests()
@@ -26,4 +24,8 @@ class WipTest
   def testListExpressions(): Unit = runTests()
 
   def testUseAbilities(): Unit = runTests()
+
+  def testBoolExpression1(): Unit = runTests()
+
+  def testIfThenElseExpression2(): Unit = runTests()
 }
