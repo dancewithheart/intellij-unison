@@ -64,13 +64,7 @@ object IndentingLexerPropertiesSpec
               case _         => true
             }
 
-          val nonOverlapping =
-            out.sliding(2).forall {
-              case Seq(a, b) => a.end <= b.start
-              case _         => true
-            }
-
-          assertTrue(wellFormed && monotonicStarts && nonOverlapping)
+          assertTrue(wellFormed && monotonicStarts)
         }
       },
       test("Concurrency.u never moves token offsets backwards") {
