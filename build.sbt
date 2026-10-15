@@ -193,3 +193,14 @@ addCommandAlias("c", "clean;compile;")
 addCommandAlias("t", "test")
 addCommandAlias("r", "runIDE")
 addCommandAlias("f", "scalafmtAll")
+
+Test / testOptions += Tests.Filter { testName =>
+  val reporting =
+    sys.props.get("unison.reports").contains("true")
+
+  val isReport =
+    testName == "intellij.unison.PsiReportTest"
+
+  if (reporting) isReport
+  else !isReport
+}
