@@ -231,7 +231,6 @@ class IndentingLexer(private val base: Lexer)
       // otherwise to a 0-width range at virtLimit. This is still better than reusing the same range.
       val (s, e) =
         if (e0 > s0) (s0, e0)
-        else if (anchor + 1 <= getBufferEnd) (anchor, math.min(anchor + 1, getBufferEnd))
         else (virtLimit, virtLimit)
 
       virtPos = math.max(virtPos, e) // advance virtual cursor
