@@ -113,6 +113,27 @@ object IndentingLexerSpec
 
         assertTrue(hasNewline && hasIndentWsSegment)
           .label(dump(out))
+      },
+      test("DEDENT must not move backwards after indentation whitespace") {
+        val input =
+          """|a
+             |  b
+             |    c
+             |  d""".stripMargin
+
+        val out = toks(input, includeWhitespace = true)
+
+        val backwards = out.sliding(2).exists {
+          case Seq(a, b) => b.start < a.start
+          case _         => false
+        }
+
+        val dedentsBeforeD =
+          out.takeWhile(_.text != "d")
+            .count(_.tpe == UnisonTypes.DEDENT)
+
+        assertTrue(!backwards && dedentsBeforeD == 1)
+          .label(dump(out))
       }
     )
 }

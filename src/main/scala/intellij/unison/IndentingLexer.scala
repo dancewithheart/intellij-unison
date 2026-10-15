@@ -216,7 +216,7 @@ class IndentingLexer(private val base: Lexer)
 
     // Anchor for virtual tokens (prefer last newline)
     val indentAnchor = st.pendingIndentPos.getOrElse(base.getTokenStart)
-    val dedentAnchor = st.pendingDedentAnchor.getOrElse(base.getTokenStart)
+    val dedentAnchor = st.pendingIndentPos.getOrElse(base.getTokenStart)
 
     // We must ensure token ranges progress. We'll allocate inside [anchor .. nextTokenStart]
     virtPos = math.min(dedentAnchor, base.getTokenStart)
