@@ -151,9 +151,14 @@ polymorphicType ::= (FORALL | FORALLSYMBOL) IDENTIFIER+ DOT
 
 private abilityRequirements ::= LBRACE IDENTIFIER (COMMA IDENTIFIER )* RBRACE
 
-binding ::= qualified_name IDENTIFIER* EQ rhs
+binding ::= simple_binding
   | ((IDENTIFIER | UNDERSCORE) EQ rhs)+
   | LPAREN (IDENTIFIER | UNDERSCORE) (COMMA (IDENTIFIER | UNDERSCORE))* RPAREN EQ LPAREN expression (COMMA expression)* RPAREN
+
+private simple_binding ::= qualified_name IDENTIFIER* EQ
+                           (rhs | missing_rhs) {pin=3}
+
+external missing_rhs ::= missingRhs
 
 private rhs ::= expression
              | nl INDENT statement+ DEDENT
