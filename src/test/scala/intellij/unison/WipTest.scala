@@ -24,8 +24,4 @@ class WipTest
   def testListExpressions(): Unit = runTests()
 
   def testUseAbilities(): Unit = runTests()
-
-  def testBoolExpression1(): Unit = runTests()
-
-  def testIfThenElseExpression2(): Unit = runTests()
 }
