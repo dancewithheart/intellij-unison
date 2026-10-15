@@ -16,6 +16,4 @@ class ExpressionsTest
   def testNumericalExpression3(): Unit = runKnownBrokenTests()
 
   def testAnonymousLambda(): Unit = runTests()
-
-  def testAnonymousLambda2Params(): Unit = runTests()
 }

@@ -1,5 +1,5 @@
-./drop.sh
-git checkout gen/intellij/unison/language/psi/UnisonTypes.java
-sbt t
-sbt t
+#!/usr/bin/env bash
+set -euo pipefail
+
+sbt -Dunison.reports=true test
 ./error_counts.sh

@@ -5,7 +5,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.testFramework.ParsingTestCase
 import com.intellij.testFramework.ParsingTestCase.toParseTreeText
 import intellij.unison.language.UnisonParserDefinition
-import intellij.unison.language.psi.UnisonBinding
+import intellij.unison.language.psi.{UnisonBinding, UnisonExpression, UnisonLambda, UnisonPattern}
 
 import scala.jdk.CollectionConverters._
 
@@ -42,5 +42,25 @@ abstract class BaseUnisonTest
       .asScala
       .map(_.getText)
       .toVector
+  }
+
+  def getLambdaBody(lambda: UnisonLambda) = {
+    PsiTreeUtil.getChildOfType(
+      lambda,
+      classOf[UnisonExpression]
+    )
+  }
+
+  def getLambdaParams(lambda: UnisonLambda) = {
+    lambda.getChildren.collect {
+      case p: UnisonPattern => p.getText
+    }.toVector
+  }
+
+  def getLambda = {
+    PsiTreeUtil.findChildOfType(
+      myFile,
+      classOf[UnisonLambda]
+    )
   }
 }
