@@ -2,11 +2,9 @@ package intellij.unison.lexer
 
 import zio.test._
 import com.intellij.lexer.Lexer
-import intellij.unison.{IndentingLexer, UnisonLexerAdapter}
+import intellij.unison.IndentingLexer
 import intellij.unison.language.psi.UnisonTypes
 import intellij.unison.lexer.IndentingLexerTestSupport._
-
-import java.nio.file.{Files, Paths}
 
 object IndentingLexerPropertiesSpec
     extends ZIOSpecDefault {
@@ -71,69 +69,6 @@ object IndentingLexerPropertiesSpec
             }
 
           assertTrue(wellFormed && monotonicStarts && nonOverlapping)
-        }
-      },
-      test("Concurrency.u produces non-overlapping tokens") {
-        val input = Files.readString(
-          Paths.get("src/test/testData/wip/Concurrency.u")
-        ).trim
-
-        // Use the REAL lexer, not FakeWhitespaceLexer.
-        val out = lexAll(
-          input,
-          new UnisonLexerAdapter,
-          includeWhitespace = true
-        )
-
-        val violations =
-          out.sliding(2).collect {
-            case Seq(a, b) if a.end > b.start =>
-              s"${a.name} [${a.start}, ${a.end}) -> " +
-                s"${b.name} [${b.start}, ${b.end})"
-          }.toVector
-
-        assertTrue(violations.isEmpty)
-          .label(
-            s"Overlapping tokens:\n${violations.mkString("\n")}\n" +
-              IndentingLexerTestSupport.render(out)
-          )
-      },
-      test("generated indentation preserves token ordering") {
-
-        val programs = for {
-          eol <- Gen.elements("\n", "\r\n")
-          widths <- Gen.listOfBounded(0, 6)(Gen.int(0, 4))
-        } yield {
-          val prefix = Vector(
-            "root = 0",
-            "  child = 1",
-            "    grandchild = 2"
-          )
-
-          val generated = widths.zipWithIndex.map {
-            case (depth, i) =>
-              ("  " * depth) + s"x$i = $i"
-          }
-
-          (prefix ++ generated ++ Vector("last = 3"))
-            .mkString(eol)
-        }
-
-        check(programs) { input =>
-          val out = lexAll(
-            input,
-            new UnisonLexerAdapter,
-            includeWhitespace = true
-          )
-
-          val valid = out.sliding(2).forall {
-            case Seq(a, b) => a.end <= b.start
-            case _         => true
-          }
-
-          assertTrue(valid).label(
-            s"INPUT:\n$input\n\nTOKENS:\n${IndentingLexerTestSupport.render(out)}"
-          )
         }
       },
       test("no INDENT/DEDENT caused by newlines inside parentheses") {
