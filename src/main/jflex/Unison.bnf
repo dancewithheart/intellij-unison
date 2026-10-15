@@ -222,7 +222,14 @@ pattern ::= name AT pattern
 numExpr ::= addExpr
 private addExpr ::= mulExpr (ADD_OP mulExpr)*
 private mulExpr ::= unaryExpr (MUL_OP unaryExpr)*
-private unaryExpr ::= MINUS unaryExpr | MODW unaryExpr unaryExpr | atomNum
+
+private unaryExpr ::= MINUS unaryExpr
+                    | MODW mod_arg mod_arg
+                    | atomNum
+
+private mod_arg ::= numLiteral
+                  | qualified_name
+                  | LPAREN numExpr RPAREN
 
 private atomNum ::=
     numLiteral
