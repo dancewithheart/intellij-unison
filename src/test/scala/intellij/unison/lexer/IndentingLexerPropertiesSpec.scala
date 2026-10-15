@@ -87,22 +87,17 @@ object IndentingLexerPropertiesSpec
 
         val programs = for {
           eol <- Gen.elements("\n", "\r\n")
-          widths <- Gen.listOfBounded(0, 6)(Gen.int(0, 4))
+          depths <- Gen.listOfBounded(1, 12)(Gen.int(0, 5))
+          trailingNewline <- Gen.boolean
         } yield {
-          val prefix = Vector(
-            "root = 0",
-            "  child = 1",
-            "    grandchild = 2",
-            "  sibling = 3"
-          )
+          val lines =
+            Vector("root = 0") ++
+              depths.zipWithIndex.map { case (depth, i) =>
+                ("  " * depth) + s"x$i = $i"
+              }
 
-          val generated = widths.zipWithIndex.map {
-            case (depth, i) =>
-              ("  " * depth) + s"x$i = $i"
-          }
-
-          (prefix ++ generated ++ Vector("last = 3"))
-            .mkString(eol)
+          lines.mkString(eol) +
+            (if (trailingNewline) eol else "")
         }
 
         check(programs) { input =>
