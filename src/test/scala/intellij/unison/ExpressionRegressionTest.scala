@@ -1,6 +1,6 @@
 package intellij.unison
 
-import org.junit.Assert.assertEquals
+import org.junit.Assert.{assertEquals, assertNotNull}
 
 class ExpressionRegressionTest extends BaseUnisonTest {
 
@@ -42,5 +42,21 @@ class ExpressionRegressionTest extends BaseUnisonTest {
       ),
       getBindings
     )
+  }
+
+  def testAnonymousLambda2Params(): Unit = {
+    runTests()
+
+    val lambda = getLambda
+
+    assertNotNull("Expected a lambda expression", lambda)
+    assertEquals(
+      Vector("acc", "a"),
+      getLambdaParams(lambda)
+    )
+
+    val body = getLambdaBody(lambda)
+    assertNotNull("Expected a lambda body", body)
+    assertEquals("a Nat.+ acc", body.getText)
   }
 }
