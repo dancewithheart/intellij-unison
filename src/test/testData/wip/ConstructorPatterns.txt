@@ -44,7 +44,7 @@ FILE(0,130)
           PsiElement(UnisonTokenType.IDENTIFIER_TOKEN)('xs2')(46,49)
         PsiWhiteSpace(' ')(49,50)
         PsiElement(UnisonTokenType.=)('=')(50,51)
-  PsiErrorElement:<binding>, <bool expr>, <builtin type>, <literal>, <num expr>, <pattern>, <typed def>, UnisonTokenType.(, UnisonTokenType.ADD_OP_TOKEN, UnisonTokenType.IDENTIFIER_TOKEN, UnisonTokenType.MUL_OP_TOKEN, UnisonTokenType.NEWLINE, UnisonTokenType.OPERATOR_ID_TOKEN, UnisonTokenType.cases, UnisonTokenType.catch, UnisonTokenType.if, UnisonTokenType.let, UnisonTokenType.match or UnisonTokenType.use expected, got 'match'(51,51)
+  PsiErrorElement:<binding>, <bool expr>, <builtin type>, <literal>, <num expr>, <pattern>, <typed def>, UnisonTokenType.(, UnisonTokenType.NEWLINE, UnisonTokenType.cases, UnisonTokenType.catch, UnisonTokenType.do, UnisonTokenType.if, UnisonTokenType.let, UnisonTokenType.match or UnisonTokenType.use expected, got 'match'(51,51)
     <empty list>
   PsiWhiteSpace(' ')(51,52)
   PsiElement(UnisonTokenType.match)('match')(52,57)

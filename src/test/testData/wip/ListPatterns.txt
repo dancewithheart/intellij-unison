@@ -29,7 +29,7 @@ FILE(0,92)
           PsiElement(UnisonTokenType.IDENTIFIER_TOKEN)('first')(43,48)
         PsiWhiteSpace(' ')(48,49)
         PsiElement(UnisonTokenType.=)('=')(49,50)
-  PsiErrorElement:<binding>, <bool expr>, <builtin type>, <literal>, <num expr>, <pattern>, <typed def>, UnisonTokenType.(, UnisonTokenType.ADD_OP_TOKEN, UnisonTokenType.IDENTIFIER_TOKEN, UnisonTokenType.MUL_OP_TOKEN, UnisonTokenType.NEWLINE, UnisonTokenType.OPERATOR_ID_TOKEN, UnisonTokenType.cases, UnisonTokenType.catch, UnisonTokenType.if, UnisonTokenType.let, UnisonTokenType.match or UnisonTokenType.use expected, got 'cases'(50,50)
+  PsiErrorElement:<binding>, <bool expr>, <builtin type>, <literal>, <num expr>, <pattern>, <typed def>, UnisonTokenType.(, UnisonTokenType.NEWLINE, UnisonTokenType.cases, UnisonTokenType.catch, UnisonTokenType.do, UnisonTokenType.if, UnisonTokenType.let, UnisonTokenType.match or UnisonTokenType.use expected, got 'cases'(50,50)
     <empty list>
   PsiWhiteSpace(' ')(50,51)
   PsiElement(UnisonTokenType.cases)('cases')(51,56)
