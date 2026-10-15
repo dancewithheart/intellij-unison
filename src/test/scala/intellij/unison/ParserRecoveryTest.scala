@@ -1,6 +1,6 @@
 package intellij.unison
 
-import org.junit.Assert.assertTrue
+import org.junit.Assert.{assertEquals, assertTrue}
 
 class ParserRecoveryTest extends BaseUnisonTest {
 
@@ -10,9 +10,9 @@ class ParserRecoveryTest extends BaseUnisonTest {
     doTest(false)
 
     // The invalid assignment must produce a parser error.
-    assertTrue(
-      "Expected a syntax error for 'broken ='",
-      getErrors.nonEmpty
+    assertEquals(
+      Vector("Expression expected after '='"),
+      getErrors.map(_.getErrorDescription)
     )
   }
 
@@ -21,9 +21,9 @@ class ParserRecoveryTest extends BaseUnisonTest {
     doTest(false)
 
     // The invalid assignment must produce a parser error.
-    assertTrue(
-      "Expected a syntax error for 'broken ='",
-      getErrors.nonEmpty
+    assertEquals(
+      Vector("Expression expected after '='"),
+      getErrors.map(_.getErrorDescription)
     )
 
     // The following valid declaration must still be parsed.
